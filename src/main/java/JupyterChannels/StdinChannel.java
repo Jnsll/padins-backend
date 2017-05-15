@@ -1,5 +1,6 @@
-package ZMQSockets;
+package JupyterChannels;
 
+import Core.Kernel;
 import org.zeromq.ZMQ;
 
 /**
@@ -16,8 +17,8 @@ public class StdinChannel extends JupyterChannel {
         boolean connected = false;
      */
 
-    public StdinChannel(String name, String transport, String ip, long port, String containerID) {
-        super(name, transport, ip, port, containerID, ZMQ.DEALER);
+    public StdinChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
+        super(name, transport, ip, port, containerID, ZMQ.DEALER, kernel);
     }
 
     /**

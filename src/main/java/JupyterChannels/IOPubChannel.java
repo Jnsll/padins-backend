@@ -1,5 +1,6 @@
-package ZMQSockets;
+package JupyterChannels;
 
+import Core.Kernel;
 import org.zeromq.ZMQ;
 
 /**
@@ -16,8 +17,8 @@ public class IOPubChannel extends JupyterChannel {
         boolean connected = false;
      */
 
-    public IOPubChannel(String name, String transport, String ip, long port, String containerID) {
-        super(name, transport, ip, port, containerID, ZMQ.SUB);
+    public IOPubChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
+        super(name, transport, ip, port, containerID, ZMQ.SUB, kernel);
     }
 
     /**

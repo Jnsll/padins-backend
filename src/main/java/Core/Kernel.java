@@ -1,5 +1,6 @@
-import ZMQSockets.*;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+package Core;
+
+import JupyterChannels.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -9,6 +10,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * The kernel is the element that runs the python code and informs every interface of the executed code, the result,
+ * that it is busy, idle, etc.
+ *
+ * 5 channels are used to communicate with the Core.Kernel (see Messaging in Jupyter doc to know more about it).
+ *
+ * The kernel is embedded into a Docker container, which creates a connexion_file that this class will read
+ * to know on which ports to connect the sockets.
+ *
  * Created by antoine on 28/04/17.
  */
 public class Kernel {
@@ -16,6 +25,8 @@ public class Kernel {
     private Process container;
     private String containerId = null;
     private JSONParser parser = null;
+
+    private boolean idle = false;
 
     private String transport = null;
     private String ip = null;
@@ -28,12 +39,6 @@ public class Kernel {
     public JupyterChannel stdin = null;
     public JupyterChannel hb = null;
     public JupyterChannel control = null;
-
-    private Thread shellThread = null;
-    private Thread iopubThread = null;
-    private Thread stdinThread = null;
-    private Thread hbThread = null;
-    private Thread controlThread = null;
 
     public Kernel () {
         // Instantiate objects that will be useful later
@@ -80,19 +85,16 @@ public class Kernel {
                 long control_port = (Long) connexionInfo.get("control_port");
 
                 // Initialize the channels
-                this.shell = new ShellChannel("shell", transport, ip, shell_port, containerId);
-                this.iopub = new IOPubChannel("iopub", transport, ip, iopub_port, containerId);
-                this.stdin = new StdinChannel("stdin", transport, ip, stdin_port, containerId);
-                this.hb = new HeartbeatChannel("hb", transport, ip, hb_port, containerId);
-                this.control = new ShellChannel("control", transport, ip, control_port, containerId);
+                this.shell = new ShellChannel("shell", transport, ip, shell_port, containerId, this);
+                this.iopub = new IOPubChannel("iopub", transport, ip, iopub_port, containerId, this);
+                this.stdin = new StdinChannel("stdin", transport, ip, stdin_port, containerId, this);
+                this.hb = new HeartbeatChannel("hb", transport, ip, hb_port, containerId, this);
+                this.control = new ShellChannel("control", transport, ip, control_port, containerId, this);
 
-                // Create & start the threads
-                shellThread = new Thread(shell);
-                iopubThread = new Thread(iopub);
-                stdinThread = new Thread(stdin);
-                hbThread = new Thread(hb);
-                controlThread = new Thread(control);
                 startChannels();
+
+                // Set kernel's property
+                this.idle = true;
             }
 
         } catch (FailedKernelStartException | FailedRetrievingContainerIPException | IOException | ParseException | InterruptedException e) {
@@ -148,15 +150,26 @@ public class Kernel {
     }
 
     public void startChannels () {
-        shellThread.start();
-        iopubThread.start();
-        stdinThread.start();
-        hbThread.start();
-        controlThread.start();
+        // TODO : test
+        shell.start();
+        iopub.start();
+        stdin.start();
+        hb.start();
+        control.start();
     }
 
     public void stopChannels() {
-        // TODO
+        // TODO : test
+        try {
+            shell.stop();
+            iopub.stop();
+            stdin.stop();
+            hb.stop();
+            control.stop();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private String retrieveContainerIp() throws FailedRetrievingContainerIPException {
@@ -194,6 +207,12 @@ public class Kernel {
     public String getContainerId () {
         return this.containerId;
     }
+
+    public boolean isIdle () { return idle; }
+
+    public boolean isBusy () { return !idle; }
+
+    public void setIdleState (boolean value) { idle = value ;}
 
     /* =================================================================================================================
        =================================================================================================================

@@ -1,5 +1,6 @@
-package ZMQSockets;
+package JupyterChannels;
 
+import Core.Kernel;
 import org.zeromq.ZMQ;
 
 /**
@@ -17,8 +18,8 @@ public class HeartbeatChannel extends JupyterChannel {
      */
      private ZMQ.Poller items;
 
-    public HeartbeatChannel(String name, String transport, String ip, long port, String containerID) {
-        super(name, transport, ip, port, containerID, ZMQ.REQ);
+    public HeartbeatChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
+        super(name, transport, ip, port, containerID, ZMQ.REQ, kernel);
     }
 
     /**
