@@ -27,8 +27,42 @@ public class ShellMessages {
         this.kernel = kernel;
     }
 
+    public void handleMessage (String type, JupyterMessage message) {
+        switch (type) {
+            case "execute_reply" :
+                handleExecuteReplyMessage(message);
+                break;
+            case "inspect_reply" :
+                handleIntrospectionReplyMessage(message);
+                break;
+            case "complete_reply" :
+                handleCompletionReplyMessage(message);
+                break;
+            case "history_reply" :
+                handleHistoryReplyMessage(message);
+                break;
+            case "is_complete_reply" :
+                handleCodeCompletenessReplyMessage(message);
+                break;
+            case "connect_reply" :
+                handleConnectionReplyMessage(message);
+                break;
+            case "comm_info_reply" :
+                handleCommInfoReplyMessage(message);
+                break;
+            case "kernel_info_reply" :
+                handleKernelInfoReplyMessage(message);
+                break;
+            case "shutdown_reply" :
+                handleShutdownReplyMessage(message);
+                break;
+            default :
+                System.err.println("Received unknown message on shell channel : " + message.getMessageToSend());
+        }
+    }
+
     /* =================================================================================================================
-                                               METHODS TO CREATE SHELL MESSAGES
+                                         METHODS TO CREATE SHELL REQUEST MESSAGES
      =================================================================================================================*/
 
     /**
@@ -161,5 +195,59 @@ public class ShellMessages {
         message.setContent(content);
 
         return message.getMessageToSend();
+    }
+
+    /* =================================================================================================================
+                                        METHODS TO HANDLE SHELL REPLY MESSAGES
+     =================================================================================================================*/
+
+    private void handleExecuteReplyMessage (JupyterMessage message) {
+        JSONObject content = message.getContent();
+
+        String status = content.get("status").toString();
+        int executionCount = new Integer(content.get("execution_count").toString());
+        kernel.setNbExecutions(executionCount);
+
+        if (status == "ok") {
+            // Good news everything went well
+        } else if (status == "error") {
+            System.err.println("Error executing code of cell nº" + executionCount);
+            // TODO : send message to web UI
+        } else if (status == "abort") {
+            System.err.println("Execution of the code of cell nº" + executionCount + " has been aborted");
+            // TODO : send message to web UI
+        }
+    }
+
+    private void handleIntrospectionReplyMessage (JupyterMessage message) {
+        // TODO
+    }
+
+    private void handleCompletionReplyMessage (JupyterMessage message) {
+        // TODO
+    }
+
+    private void handleHistoryReplyMessage (JupyterMessage message) {
+        // TODO
+    }
+
+    private void handleCodeCompletenessReplyMessage (JupyterMessage message) {
+        // TODO
+    }
+
+    private void handleConnectionReplyMessage (JupyterMessage message) {
+        // TODO
+    }
+
+    private void handleCommInfoReplyMessage (JupyterMessage message) {
+        // TODO
+    }
+
+    private void handleKernelInfoReplyMessage (JupyterMessage message) {
+        // TODO
+    }
+
+    private void handleShutdownReplyMessage (JupyterMessage message) {
+        // TODO
     }
 }

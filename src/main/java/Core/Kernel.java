@@ -1,6 +1,7 @@
 package Core;
 
 import JupyterChannels.*;
+import JupyterMessaging.Manager;
 import jdk.nashorn.tools.Shell;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,6 +30,7 @@ public class Kernel {
     private String identity = null;
     private JSONParser parser = null;
     private int nbExecutions = 0;
+    private Manager messagesManager = null;
 
     private boolean idle = false;
 
@@ -62,43 +64,12 @@ public class Kernel {
                 // Path to the connection_info file
                 String absolutePathToConnexionInfoFile = pathToConnexionFiles + "/" + containerId + ".json";
 
-                // We wait until the file has been created
-                File f = new File(absolutePathToConnexionInfoFile);
-                int timeout = 10000;
-                int elapse = 0;
-                while (!f.exists() || elapse >= timeout) {
-                    Thread.sleep(100);
-                    elapse += 100;
-                }
-
-                // Parse the file to retrieve the interesting informations
-                Object file = parser.parse(new FileReader(absolutePathToConnexionInfoFile));
-                JSONObject connexionInfo = (JSONObject) file;
-
-                // Read and save all the network and messaging information from the file
-                this.transport = (String) connexionInfo.get("transport");
-                this.ip = retrieveContainerIp();
-                this.signature_scheme = (String) connexionInfo.get("signature_scheme");
-                this.key = (String) connexionInfo.get("key");
-
-                // Retrieve sockets port from the file
-                long shell_port = (Long) connexionInfo.get("shell_port");
-                long iopub_port = (Long) connexionInfo.get("iopub_port");
-                long stdin_port = (Long) connexionInfo.get("stdin_port");
-                long hb_port = (Long) connexionInfo.get("hb_port");
-                long control_port = (Long) connexionInfo.get("control_port");
-
-                // Initialize the channels
-                this.shell = new ShellChannel("shell", transport, ip, shell_port, containerId, this);
-                this.iopub = new IOPubChannel("iopub", transport, ip, iopub_port, containerId, this);
-                this.stdin = new StdinChannel("stdin", transport, ip, stdin_port, containerId, this);
-                this.hb = new HeartbeatChannel("hb", transport, ip, hb_port, containerId, this);
-                this.control = new ShellChannel("control", transport, ip, control_port, containerId, this);
+                createChannelsFromConnexionFile(absolutePathToConnexionInfoFile);
 
                 startChannels();
 
-                // Set kernel's property
-                this.idle = true;
+                // Create a message manager that will handle reaction to incoming messages
+                messagesManager = new Manager(this);
             }
 
         } catch (FailedKernelStartException | FailedRetrievingContainerIPException | IOException | ParseException | InterruptedException e) {
@@ -107,7 +78,13 @@ public class Kernel {
 
     }
 
-    public void startContainer() throws FailedKernelStartException {
+    public void stop () {
+        stopChannels();
+        stopContainer();
+        deleteConnexionFile();
+    }
+
+    private void startContainer() throws FailedKernelStartException {
 
         File script = null;
 
@@ -147,11 +124,8 @@ public class Kernel {
 
     }
 
-    public void stopContainer () {
-        // Stop all the channels first
-        stopChannels();
-
-        // Then run a script to stop the running container
+    private void stopContainer () {
+        // Run a script to stop the running container
         File script;
 
         try {
@@ -177,9 +151,6 @@ public class Kernel {
             BufferedReader in = new BufferedReader(new InputStreamReader(this.container.getInputStream()));
             in.readLine();
             System.out.println("\033[32m" + "[INFO]" + "\033[0m" + " Container " + containerId + " successfully stopped");
-
-            // Finally delete the connexion_file
-            deleteConnexionFile();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -188,7 +159,7 @@ public class Kernel {
         }
     }
 
-    public void startChannels () {
+    private void startChannels () {
         shell.start();
         iopub.start();
         stdin.start();
@@ -196,7 +167,7 @@ public class Kernel {
         control.start();
     }
 
-    public void stopChannels() {
+    private void stopChannels() {
         try {
             shell.stop();
             iopub.stop();
@@ -207,6 +178,41 @@ public class Kernel {
             e.printStackTrace();
         }
 
+    }
+
+    private void createChannelsFromConnexionFile (String path) throws InterruptedException, FailedRetrievingContainerIPException, ParseException, IOException {
+        // We wait until the file has been created
+        File f = new File(path);
+        int timeout = 10000;
+        int elapse = 0;
+        while (!f.exists() || elapse >= timeout) {
+            Thread.sleep(100);
+            elapse += 100;
+        }
+
+        // Parse the file to retrieve the interesting informations
+        Object file = parser.parse(new FileReader(path));
+        JSONObject connexionInfo = (JSONObject) file;
+
+        // Read and save all the network and messaging information from the file
+        this.transport = (String) connexionInfo.get("transport");
+        this.ip = retrieveContainerIp();
+        this.signature_scheme = (String) connexionInfo.get("signature_scheme");
+        this.key = (String) connexionInfo.get("key");
+
+        // Retrieve sockets port from the file
+        long shell_port = (Long) connexionInfo.get("shell_port");
+        long iopub_port = (Long) connexionInfo.get("iopub_port");
+        long stdin_port = (Long) connexionInfo.get("stdin_port");
+        long hb_port = (Long) connexionInfo.get("hb_port");
+        long control_port = (Long) connexionInfo.get("control_port");
+
+        // Create the channels
+        this.shell = new ShellChannel("shell", transport, ip, shell_port, containerId, this);
+        this.iopub = new IOPubChannel("iopub", transport, ip, iopub_port, containerId, this);
+        this.stdin = new StdinChannel("stdin", transport, ip, stdin_port, containerId, this);
+        this.hb = new HeartbeatChannel("hb", transport, ip, hb_port, containerId, this);
+        this.control = new ShellChannel("control", transport, ip, control_port, containerId, this);
     }
 
     /* =================================================================================================================
@@ -227,11 +233,15 @@ public class Kernel {
 
     public String getKey () { return this.key != null ? this.key : ""; }
 
+    public void setNbExecutions (int nbExecutions) { this.nbExecutions = nbExecutions; }
+
     public boolean isIdle () { return idle; }
 
     public boolean isBusy () { return !idle; }
 
     public void setIdleState (boolean value) { idle = value ; }
+
+    public Manager getMessagesManager () { return messagesManager; }
 
     /* =================================================================================================================
        =================================================================================================================

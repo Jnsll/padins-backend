@@ -56,7 +56,7 @@ public class Client {
                 System.out.println("Shutting down all the kernels");
 
                 for(int i= 0; i< Client.kernels.size(); i++) {
-                    Client.kernels.get(i).stopContainer();
+                    Client.kernels.get(i).stop();
                 }
             }
         };

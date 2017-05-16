@@ -2,6 +2,8 @@ package JupyterMessaging;
 
 import Core.Kernel;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -28,6 +30,7 @@ public class JupyterMessage {
     // Main elements of the message
     private String identity;
     private String hmac;
+    private String delimiter;
     private JSONObject header;
     private JSONObject parent_header;
     private JSONObject metadata;
@@ -44,6 +47,7 @@ public class JupyterMessage {
         String session = kernel.getSession();
         String date = generateDate(); // ISO 8061 compliant timestamp
         identity = "server." + kernel.getIdentity() + "." + msg_type;
+        delimiter = "<IDS|MSG>";
 
         // Build the header
         header = new JSONObject();
@@ -60,6 +64,14 @@ public class JupyterMessage {
         content = new JSONObject();
     }
 
+    /**
+     * Complete constructor for message to send
+     * @param kernel : source kernel
+     * @param msg_type : the type of message to send
+     * @param parent_header :  dict
+     * @param metadata :  dict
+     * @param content : dict
+     */
     public JupyterMessage(Kernel kernel, String msg_type, JSONObject parent_header, JSONObject metadata, JSONObject content) {
         this(kernel, msg_type);
         if (parent_header != null) this.parent_header = parent_header;
@@ -67,21 +79,68 @@ public class JupyterMessage {
         if (content != null) this.content = content;
     }
 
+    /** Constructor for incoming messages
+     *
+     * @param incomingMessage : Array of String containing the parts of the message
+     */
+    public JupyterMessage(Kernel kernel, String[] incomingMessage) {
+        // Store the source kernel instance
+        this.kernel = kernel;
+
+        // Create the message from the received data
+        message = new JSONObject();
+
+        if(incomingMessage.length == 7) {
+            message.put("identity", incomingMessage[0]);
+            this.identity = incomingMessage[0];
+            message.put("delimiter", incomingMessage[1]);
+            this.delimiter = incomingMessage[1];
+            message.put("hmac", incomingMessage[2]);
+            this.hmac = incomingMessage[2];
+            message.put("header", incomingMessage[3]);
+            message.put("parent_header", incomingMessage[4]);
+            message.put("metadata", incomingMessage[5]);
+            message.put("content", incomingMessage[6]);
+
+            // Construct the header, parent_header, metadata and content to make them easily accessible
+            JSONParser jsonParser = new JSONParser();
+            try {
+                header = (JSONObject) jsonParser.parse(incomingMessage[3]);
+                parent_header = (JSONObject) jsonParser.parse(incomingMessage[4]);
+                metadata = (JSONObject) jsonParser.parse(incomingMessage[5]);
+                content = (JSONObject) jsonParser.parse(incomingMessage[6]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Incoming message error : missing informations");
+        }
+
+    }
+
     /* =================================================================================================================
                                                GETTER AND SETTERS
      =================================================================================================================*/
+
+    public JSONObject getHeader () { return this.header; };
 
     public void setParentHeader (JSONObject parent_header) {
         this.parent_header = parent_header;
     }
 
+    public JSONObject getParentHeader () { return this.parent_header; }
+
     public void setMetadata (JSONObject metadata) {
         this.metadata = metadata;
     }
 
+    public JSONObject getMetadata () { return this.metadata; }
+
     public void setContent (JSONObject content) {
         this.content = content;
     }
+
+    public JSONObject getContent () { return this.content; }
 
     public String[] getMessageToSend () {
         buildMessage();
@@ -149,7 +208,7 @@ public class JupyterMessage {
         // Build the message
         message = new JSONObject();
         message.put("uuid", identity);
-        message.put("delimiter", "<IDS|MSG>");
+        message.put("delimiter", delimiter);
         message.put("header", header);
 
         message.put("parent_header", parent_header.toString());
