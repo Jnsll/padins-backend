@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * The kernel is the element that runs the python code and informs every interface of the executed code, the result,
  * that it is busy, idle, etc.
  *
- * 5 channels are used to communicate with the Core.Kernel (see Messaging in Jupyter doc to know more about it).
+ * 5 channels are used to communicate with the Core.Kernel (see JupyterMessaging in Jupyter doc to know more about it).
  *
  * The kernel is embedded into a Docker container, which creates a connexion_file that this class will read
  * to know on which ports to connect the sockets.
@@ -24,6 +24,8 @@ public class Kernel {
 
     private Process container;
     private String containerId = null;
+    private String session = null;
+    private String identity = null;
     private JSONParser parser = null;
 
     private boolean idle = false;
@@ -45,7 +47,7 @@ public class Kernel {
         this.parser = new JSONParser();
 
         // Retrieve the absolute path to resources/connexion_files
-        String tempPath = Kernel.class.getResource("connexion_files/example.json").getPath();
+        String tempPath = Kernel.class.getResource("../connexion_files/example.json").getPath();
         pathToConnexionFiles = tempPath.replace("/example.json", "");
 
         try {
@@ -208,11 +210,19 @@ public class Kernel {
         return this.containerId;
     }
 
+    public String getSession () { return this.session != null ? this.session : ""; }
+
+    public String getIdentity () { return this.identity != null ? this.identity : ""; }
+
+    public void setIdentity (String identity) { this.identity = identity; }
+
+    public String getKey () { return this.key != null ? this.key : ""; }
+
     public boolean isIdle () { return idle; }
 
     public boolean isBusy () { return !idle; }
 
-    public void setIdleState (boolean value) { idle = value ;}
+    public void setIdleState (boolean value) { idle = value ; }
 
     /* =================================================================================================================
        =================================================================================================================

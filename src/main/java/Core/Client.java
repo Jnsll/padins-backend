@@ -1,5 +1,7 @@
 package Core;
 
+import JupyterMessaging.BaseMessage;
+
 import java.util.ArrayList;
 
 /**

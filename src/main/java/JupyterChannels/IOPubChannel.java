@@ -63,6 +63,8 @@ public class IOPubChannel extends JupyterChannel {
                                    String metadata, String content) {
             // TODO : implement this method properly
             // To do that look at : http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-iopub-pub-sub-channel
+
+            if (owningKernel.getIdentity() == "") setKernelsIdentity(uuid);
         }
 
         private void logMessage (String uuid, String delimiter, String hmac, String header, String parent_header,
@@ -76,6 +78,18 @@ public class IOPubChannel extends JupyterChannel {
             System.out.println("Metadata : " + metadata);
             System.out.println("Content : " + content);
             System.out.println("\n");
+        }
+
+        private void setKernelsIdentity (String uuid) {
+            // UUID is formatted like this : kernel.b1a0e4c3-bb70-49c3-b1f1-b6d79b5f0edf.status
+            // and we want only the part between the two dots
+            String identity = uuid;
+            int indexOfFirstDot = identity.indexOf('.') + 1;
+            int indexOfSecondDot = identity.indexOf('.', indexOfFirstDot );
+            identity = identity.substring(indexOfFirstDot, indexOfSecondDot);
+
+            System.out.println("Setting kernel's identity to : " + identity);
+            owningKernel.setIdentity(identity);
         }
 
 }
