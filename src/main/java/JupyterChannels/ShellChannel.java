@@ -21,7 +21,7 @@ public class ShellChannel extends JupyterChannel {
         boolean connected = false;
      */
     private ZMQ.Poller items;
-    private ArrayList<String> queue;
+    private ArrayList<String[]> queue;
 
     public ShellChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
         super(name, transport, ip, port, containerID, ZMQ.DEALER, kernel);
@@ -74,7 +74,7 @@ public class ShellChannel extends JupyterChannel {
 
     /* =================================================================================================================
        =================================================================================================================
-                                                    JupyterChannelInterface METHODS
+                                                    CUSTOM CHANNEL METHODS
        =================================================================================================================
        ===============================================================================================================*/
 
@@ -82,8 +82,8 @@ public class ShellChannel extends JupyterChannel {
      * Add a message in the queue of to be send messages
      * @param message : the message to send to the shell
      */
-    public void send (String message) {
-        //TODO
+    public void send (String[] message) {
+        queue.add(message);
     }
 
     /**
@@ -91,7 +91,10 @@ public class ShellChannel extends JupyterChannel {
      * Send a message through the socket
      * @param message
      */
-    private void sendQueuedMessage (String message) {
-        //TODO
+    private void sendQueuedMessage (String[] message) {
+        System.out.println("[INFO] Sending message !");
+        for(int i=0; i<message.length; i++){
+            socket.send(message[i]);
+        }
     }
 }

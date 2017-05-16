@@ -1,6 +1,7 @@
 package Core;
 
-import JupyterMessaging.BaseMessage;
+import JupyterMessaging.JupyterMessage;
+import JupyterMessaging.ShellMessages;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,13 @@ public class Client {
 
         // Configure hb and iopub channel to log what they receive
         kernel.iopub.doLog(true);
-        kernel.hb.doLog(true);
+        //kernel.hb.doLog(true);
+
+        Thread.sleep(3000);
+
+        ShellMessages shellMessages = new ShellMessages(kernel);
+        String[] executeCode = shellMessages.createExecuteRequestMessage("2+3");
+        // TODO : Send message to test kernel.shell.send(executeCode) -> something like that
 
         int counter = 0;
         // Send a message

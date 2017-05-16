@@ -59,6 +59,16 @@ public class IOPubChannel extends JupyterChannel {
        =================================================================================================================
        ===============================================================================================================*/
 
+    /** React depending on the received message
+     *
+     * @param uuid : see "Messaging in Jupyter" doc
+     * @param delimiter : see "Messaging in Jupyter" doc
+     * @param hmac : see "Messaging in Jupyter" doc
+     * @param header : see "Messaging in Jupyter" doc
+     * @param parent_header : see "Messaging in Jupyter" doc
+     * @param metadata : see "Messaging in Jupyter" doc
+     * @param content : see "Messaging in Jupyter" doc
+     */
         private void handleMessage(String uuid, String delimiter, String hmac, String header, String parent_header,
                                    String metadata, String content) {
             // TODO : implement this method properly
@@ -67,6 +77,16 @@ public class IOPubChannel extends JupyterChannel {
             if (owningKernel.getIdentity() == "") setKernelsIdentity(uuid);
         }
 
+    /** Log all the messages received with their category name
+     *
+     * @param uuid : see "Messaging in Jupyter" doc
+     * @param delimiter : see "Messaging in Jupyter" doc
+     * @param hmac : see "Messaging in Jupyter" doc
+     * @param header : see "Messaging in Jupyter" doc
+     * @param parent_header : see "Messaging in Jupyter" doc
+     * @param metadata : see "Messaging in Jupyter" doc
+     * @param content : see "Messaging in Jupyter" doc
+     */
         private void logMessage (String uuid, String delimiter, String hmac, String header, String parent_header,
                                  String metadata, String content) {
             System.out.println("\n------- MESSAGE RECEIVED ON IOPUB CHANNEL -------");
@@ -80,15 +100,20 @@ public class IOPubChannel extends JupyterChannel {
             System.out.println("\n");
         }
 
-        private void setKernelsIdentity (String uuid) {
+    /**
+     * Set the ZMQ identity, used in messages for the kernel on this server-side. The kernel identity (from docker)
+     * is formatted as : kernel.{u-u-i-d}.{message}
+     * We retrieve the u-u-i-d and store it as our kernel's identity
+     * @param kernelId : kernel's uuid retrieve from the first message coming from the jupyter kernel
+     */
+        private void setKernelsIdentity (String kernelId) {
             // UUID is formatted like this : kernel.b1a0e4c3-bb70-49c3-b1f1-b6d79b5f0edf.status
             // and we want only the part between the two dots
-            String identity = uuid;
+            String identity = kernelId;
             int indexOfFirstDot = identity.indexOf('.') + 1;
             int indexOfSecondDot = identity.indexOf('.', indexOfFirstDot );
             identity = identity.substring(indexOfFirstDot, indexOfSecondDot);
 
-            System.out.println("Setting kernel's identity to : " + identity);
             owningKernel.setIdentity(identity);
         }
 

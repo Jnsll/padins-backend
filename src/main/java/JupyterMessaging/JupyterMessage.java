@@ -19,7 +19,7 @@ import java.util.UUID;
  *
  * Created by antoine on 10/05/2017.
  */
-public class BaseMessage {
+public class JupyterMessage {
 
     // Attributes
     private Kernel kernel = null;
@@ -36,7 +36,7 @@ public class BaseMessage {
     /**
      * Constructor with minimal number of arguments
      */
-    public BaseMessage (Kernel kernel, String msg_type) {
+    public JupyterMessage(Kernel kernel, String msg_type) {
         this.kernel = kernel;
 
         String msg_id = UUID.randomUUID().toString();
@@ -60,7 +60,7 @@ public class BaseMessage {
         content = new JSONObject();
     }
 
-    public BaseMessage (Kernel kernel, String msg_type, JSONObject parent_header, JSONObject metadata, JSONObject content) {
+    public JupyterMessage(Kernel kernel, String msg_type, JSONObject parent_header, JSONObject metadata, JSONObject content) {
         this(kernel, msg_type);
         if (parent_header != null) this.parent_header = parent_header;
         if (metadata != null) this.metadata = metadata;
