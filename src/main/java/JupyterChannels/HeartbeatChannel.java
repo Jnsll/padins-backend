@@ -8,14 +8,18 @@ import org.zeromq.ZMQ;
  */
 public class HeartbeatChannel extends JupyterChannel {
 
-     /* Superclass attributes
-        String name;
-        ZContext context = null;
-        Socket socket = null;
-        String socketAddress;
-        String identity;
-        boolean connected = false;
-     */
+    /* Superclass attributes
+       String name;
+       ZContext context = null;
+       Socket socket = null;
+       String socketAddress;
+       String identity;
+       boolean connected = false;
+       boolean log = false;
+       Kernel owningKernel;
+       Manager messagesManager;
+       Thread thread;
+    */
      private ZMQ.Poller items;
 
     public HeartbeatChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {

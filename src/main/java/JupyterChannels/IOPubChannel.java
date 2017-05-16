@@ -15,6 +15,10 @@ public class IOPubChannel extends JupyterChannel {
         String socketAddress;
         String identity;
         boolean connected = false;
+        boolean log = false;
+        Kernel owningKernel;
+        Manager messagesManager;
+        Thread thread;
      */
 
     public IOPubChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
@@ -71,10 +75,9 @@ public class IOPubChannel extends JupyterChannel {
      */
         private void handleMessage(String uuid, String delimiter, String hmac, String header, String parent_header,
                                    String metadata, String content) {
-            // TODO : implement this method properly
-            // To do that look at : http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-iopub-pub-sub-channel
+            String[] incomingMessage = {uuid, delimiter, hmac, header, parent_header, metadata, content};
 
-            if (owningKernel.getIdentity() == "") setKernelsIdentity(uuid);
+            messagesManager.handleMessage("iopub", incomingMessage);
         }
 
     /** Log all the messages received with their category name
@@ -98,23 +101,6 @@ public class IOPubChannel extends JupyterChannel {
             System.out.println("Metadata : " + metadata);
             System.out.println("Content : " + content);
             System.out.println("\n");
-        }
-
-    /**
-     * Set the ZMQ identity, used in messages for the kernel on this server-side. The kernel identity (from docker)
-     * is formatted as : kernel.{u-u-i-d}.{message}
-     * We retrieve the u-u-i-d and store it as our kernel's identity
-     * @param kernelId : kernel's uuid retrieve from the first message coming from the jupyter kernel
-     */
-        private void setKernelsIdentity (String kernelId) {
-            // UUID is formatted like this : kernel.b1a0e4c3-bb70-49c3-b1f1-b6d79b5f0edf.status
-            // and we want only the part between the two dots
-            String identity = kernelId;
-            int indexOfFirstDot = identity.indexOf('.') + 1;
-            int indexOfSecondDot = identity.indexOf('.', indexOfFirstDot );
-            identity = identity.substring(indexOfFirstDot, indexOfSecondDot);
-
-            owningKernel.setIdentity(identity);
         }
 
 }

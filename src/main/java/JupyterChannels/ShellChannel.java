@@ -19,6 +19,10 @@ public class ShellChannel extends JupyterChannel {
         String socketAddress;
         String identity;
         boolean connected = false;
+        boolean log = false;
+        Kernel owningKernel;
+        Manager messagesManager;
+        Thread thread;
      */
     private ZMQ.Poller items;
     private ArrayList<String[]> queue;

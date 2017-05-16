@@ -15,6 +15,10 @@ public class StdinChannel extends JupyterChannel {
         String socketAddress;
         String identity;
         boolean connected = false;
+        boolean log = false;
+        Kernel owningKernel;
+        Manager messagesManager;
+        Thread thread;
      */
 
     public StdinChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {

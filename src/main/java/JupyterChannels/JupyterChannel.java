@@ -1,6 +1,7 @@
 package JupyterChannels;
 
 import Core.Kernel;
+import JupyterMessaging.Manager;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;
@@ -20,6 +21,7 @@ public abstract class JupyterChannel implements Runnable {
     protected boolean connected = false;
     protected boolean log = false;
     protected Kernel owningKernel;
+    protected Manager messagesManager;
     protected Thread thread;
 
     public JupyterChannel(String name, String transport, String ip, long port, String containerID, int socketType, Kernel kernel) {
@@ -28,6 +30,7 @@ public abstract class JupyterChannel implements Runnable {
         this.identity = containerID;
         this.socketType = socketType;
         this.owningKernel = kernel;
+        this.messagesManager = kernel.getMessagesManager();
 
         // Create the ZMQ context and the socket (without connecting it)
         this.context = ZMQ.context(1);
