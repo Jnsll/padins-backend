@@ -28,6 +28,7 @@ public class Kernel {
     private String session = null;
     private String identity = null;
     private JSONParser parser = null;
+    private int nbExecutions = 0;
 
     private boolean idle = false;
 

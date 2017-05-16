@@ -85,4 +85,81 @@ public class ShellMessages {
 
         return message.getMessageToSend();
     }
+
+    /**
+     * Implementation of introspection complete_request according to documentation
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#history
+     */
+    public String[] createHistoryRequestMessage (int nbOfCells) {
+        JupyterMessage message = new JupyterMessage(kernel, "history_request");
+
+        JSONObject content = new JSONObject();
+        content.put("output", "True");
+        content.put("raw", "False");
+        content.put("hist_access_type", "tail");
+        content.put("n", Integer.toString(nbOfCells));
+
+        message.setContent(content);
+
+        return message.getMessageToSend();
+    }
+
+    /**
+     * Implementation of introspection complete_request according to documentation
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-completeness
+     */
+    public String[] createCodeCompletenessRequestMessage (String code) {
+        JupyterMessage message = new JupyterMessage(kernel, "is_complete_request");
+
+        JSONObject content = new JSONObject();
+        content.put("code", code);
+
+        message.setContent(content);
+
+        return message.getMessageToSend();
+    }
+
+    /**
+     * Implementation of introspection complete_request according to documentation
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#connect
+     */
+    public String[] createConnectRequestMessage () {
+        JupyterMessage message = new JupyterMessage(kernel, "connect_request");
+
+        return message.getMessageToSend();
+    }
+
+    /**
+     * Implementation of introspection complete_request according to documentation
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#comm-info
+     */
+    public String[] createCommInfoRequestMessage () {
+        JupyterMessage message = new JupyterMessage(kernel, "comm_info_request");
+
+        return message.getMessageToSend();
+    }
+
+    /**
+     * Implementation of introspection complete_request according to documentation
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info
+     */
+    public String[] createKernelInfoRequestMessage () {
+        JupyterMessage message = new JupyterMessage(kernel, "kernel_info_request");
+
+        return message.getMessageToSend();
+    }
+
+    /**
+     * Implementation of introspection complete_request according to documentation
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-shutdown
+     */
+    public String[] createKernelShutdownRequestMessage (boolean restart) {
+        JupyterMessage message = new JupyterMessage(kernel, "shutdown_request");
+
+        JSONObject content = new JSONObject();
+        content.put("restart", Boolean.toString(restart));
+        message.setContent(content);
+
+        return message.getMessageToSend();
+    }
 }
