@@ -49,7 +49,6 @@ public abstract class JupyterChannel implements Runnable {
      * Start the thread that makes the channel working
      */
     public void start() {
-        // TODO : test
         if(thread == null) thread = new Thread(this);
 
         thread.start();
@@ -70,7 +69,7 @@ public abstract class JupyterChannel implements Runnable {
      * Resume the channel and reconnect it
      */
     public void resume() {
-        // TODO
+        if(thread != null) thread.run();
     }
 
     /*==================================================================================================================

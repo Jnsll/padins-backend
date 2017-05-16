@@ -25,6 +25,13 @@ public class StdinChannel extends JupyterChannel {
      * Run methods from Runnable interface
      */
     public void run() {
+        while(!Thread.currentThread().isInterrupted()){
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         //TODO : adapt
         // First : connect the server
 //        this.socket.connect(this.socketAddress);

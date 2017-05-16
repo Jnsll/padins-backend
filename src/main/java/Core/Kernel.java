@@ -1,6 +1,7 @@
 package Core;
 
 import JupyterChannels.*;
+import jdk.nashorn.tools.Shell;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -36,11 +37,11 @@ public class Kernel {
     private String key = null;
     private String pathToConnexionFiles = null;
 
-    public JupyterChannel shell = null;
-    public JupyterChannel iopub = null;
-    public JupyterChannel stdin = null;
-    public JupyterChannel hb = null;
-    public JupyterChannel control = null;
+    public ShellChannel shell = null;
+    public IOPubChannel iopub = null;
+    public StdinChannel stdin = null;
+    public HeartbeatChannel hb = null;
+    public ShellChannel control = null;
 
     public Kernel () {
         // Instantiate objects that will be useful later
@@ -146,13 +147,47 @@ public class Kernel {
     }
 
     public void stopContainer () {
-        // TODO make it working properly
+        // Stop all the channels first
         stopChannels();
-        container.destroy();
+
+        // Then run a script to stop the running container
+        File script;
+
+        try {
+            // Write the bash script that will stop the running container
+            script = File.createTempFile("script-stop", null);
+            Writer streamWriter = new OutputStreamWriter(new FileOutputStream(script));
+            PrintWriter printWriter = new PrintWriter(streamWriter);
+            printWriter.println("#!/bin/bash");
+            printWriter.println("docker stop " + containerId);
+            printWriter.println("exit");
+            printWriter.close();
+
+            // Create the object that let us run the command
+            ProcessBuilder pb = new ProcessBuilder("bash", script.toString());
+
+            System.out.println("Stopping container " + containerId + "...");
+            // Run the command that stop the container
+            this.container = pb.start();
+
+            // When stopping a container, docker output the container id after stopping it.
+            // To make sure that the container stop before the program exit, we read the output stream in order
+            // to make this program wait until the container stops.
+            BufferedReader in = new BufferedReader(new InputStreamReader(this.container.getInputStream()));
+            in.readLine();
+            System.out.println("\033[32m" + "[INFO]" + "\033[0m" + " Container " + containerId + " successfully stopped");
+
+            // Finally delete the connexion_file
+            deleteConnexionFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // Everything went well
+            container.destroy();
+        }
     }
 
     public void startChannels () {
-        // TODO : test
         shell.start();
         iopub.start();
         stdin.start();
@@ -161,7 +196,6 @@ public class Kernel {
     }
 
     public void stopChannels() {
-        // TODO : test
         try {
             shell.stop();
             iopub.stop();
@@ -172,32 +206,6 @@ public class Kernel {
             e.printStackTrace();
         }
 
-    }
-
-    private String retrieveContainerIp() throws FailedRetrievingContainerIPException {
-        // Path to the script used to get a running container's ip address
-        String pathToScript = "src/main/resources/retrieve-container-ip.sh";
-
-        try {
-            ProcessBuilder pb = new ProcessBuilder( pathToScript, containerId);
-
-            // Runs the command to get its result (the ip address)
-            Process proc = pb.start();
-
-            // Retrieve the outputstream to read the result
-            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            String line = null;
-
-            // Go through the inputstream (that correspond to the standard output from the executed script)
-            while((line = in.readLine()) != null) {
-                if (isIpAddress(line)) return line;
-            }
-
-        } catch (Exception e) {
-            throw new FailedRetrievingContainerIPException(this.containerId);
-        }
-
-        return null;
     }
 
     /* =================================================================================================================
@@ -245,6 +253,40 @@ public class Kernel {
 
         // Run and return the test
         return matcher.matches();
+    }
+
+    private String retrieveContainerIp() throws FailedRetrievingContainerIPException {
+        // Path to the script used to get a running container's ip address
+        String pathToScript = "src/main/resources/retrieve-container-ip.sh";
+
+        try {
+            ProcessBuilder pb = new ProcessBuilder( pathToScript, containerId);
+
+            // Runs the command to get its result (the ip address)
+            Process proc = pb.start();
+
+            // Retrieve the outputstream to read the result
+            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            String line;
+
+            // Go through the input stream (that correspond to the standard output from the executed script)
+            while((line = in.readLine()) != null) {
+                if (isIpAddress(line)) return line;
+            }
+
+        } catch (Exception e) {
+            throw new FailedRetrievingContainerIPException(this.containerId);
+        }
+
+        return null;
+    }
+
+    private void deleteConnexionFile () {
+        String absolutePathToConnexionInfoFile = pathToConnexionFiles + "/" + containerId + ".json";
+
+        // We wait until the file has been created
+        File f = new File(absolutePathToConnexionInfoFile);
+        if (f.exists()) f.delete();
     }
 
     /* =================================================================================================================
