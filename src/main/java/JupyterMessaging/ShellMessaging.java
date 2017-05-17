@@ -1,6 +1,7 @@
 package JupyterMessaging;
 
 import Core.Kernel;
+import JupyterChannels.ShellChannel;
 import org.json.simple.JSONObject;
 
 /** This class provide a function to create every request message for the shell socket of Jupyter, as documented here :
@@ -19,13 +20,22 @@ import org.json.simple.JSONObject;
  *
  * Created by antoine on 10/05/2017.
  */
-public class ShellMessages {
+public class ShellMessaging {
 
+    // Attributes
     private Kernel kernel = null;
+    private ShellChannel channel = null;
 
-    public ShellMessages (Kernel kernel) {
+    // Constructor
+    public ShellMessaging(Kernel kernel, ShellChannel channel) {
+
         this.kernel = kernel;
+        this.channel = channel;
     }
+
+    /* =================================================================================================================
+                                                HANDLE MESSAGE METHOD
+     =================================================================================================================*/
 
     public void handleMessage (String type, JupyterMessage message) {
         switch (type) {
@@ -62,16 +72,16 @@ public class ShellMessages {
     }
 
     /* =================================================================================================================
-                                         METHODS TO CREATE SHELL REQUEST MESSAGES
+                                         METHODS TO SEND SHELL REQUEST MESSAGES
      =================================================================================================================*/
 
     /**
      * Implementation of execute_request message according to documentation
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#execute
      * @param code : python code to execute
-     * @return : the message to send through the channel
+     * @return : the message sent through the channel
      */
-    public String[] createExecuteRequestMessage (String code) {
+    public String[] sendExecuteRequestMessage (String code) {
         JupyterMessage message = new JupyterMessage(kernel, "execute_request");
 
         JSONObject content = new JSONObject();
@@ -84,14 +94,17 @@ public class ShellMessages {
 
         message.setContent(content);
 
+        channel.send(message.getMessageToSend());
+
         return message.getMessageToSend();
     }
 
     /**
      * Implementation of introspection inspect_request according to documentation
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#introspection
+     * @return : the message sent through the channel
      */
-    public String[] createIntrospectionRequestMessage (String code, int cursorPos) {
+    public String[] sendIntrospectionRequestMessage (String code, int cursorPos) {
         JupyterMessage message = new JupyterMessage(kernel, "inspect_request");
 
         JSONObject content = new JSONObject();
@@ -101,14 +114,17 @@ public class ShellMessages {
 
         message.setContent(content);
 
+        channel.send(message.getMessageToSend());
+
         return message.getMessageToSend();
     }
 
     /**
      * Implementation of introspection complete_request according to documentation
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#completion
+     * @return : the message sent through the channel
      */
-    public String[] createCompletionRequestMessage (String code, int cursorPos) {
+    public String[] sendCompletionRequestMessage (String code, int cursorPos) {
         JupyterMessage message = new JupyterMessage(kernel, "complete_request");
 
         JSONObject content = new JSONObject();
@@ -117,14 +133,17 @@ public class ShellMessages {
 
         message.setContent(content);
 
+        channel.send(message.getMessageToSend());
+
         return message.getMessageToSend();
     }
 
     /**
      * Implementation of introspection complete_request according to documentation
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#history
+     * @return : the message sent through the channel
      */
-    public String[] createHistoryRequestMessage (int nbOfCells) {
+    public String[] sendHistoryRequestMessage (int nbOfCells) {
         JupyterMessage message = new JupyterMessage(kernel, "history_request");
 
         JSONObject content = new JSONObject();
@@ -135,14 +154,17 @@ public class ShellMessages {
 
         message.setContent(content);
 
+        channel.send(message.getMessageToSend());
+
         return message.getMessageToSend();
     }
 
     /**
      * Implementation of introspection complete_request according to documentation
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-completeness
+     * @return : the message sent through the channel
      */
-    public String[] createCodeCompletenessRequestMessage (String code) {
+    public String[] sendCodeCompletenessRequestMessage (String code) {
         JupyterMessage message = new JupyterMessage(kernel, "is_complete_request");
 
         JSONObject content = new JSONObject();
@@ -150,15 +172,20 @@ public class ShellMessages {
 
         message.setContent(content);
 
+        channel.send(message.getMessageToSend());
+
         return message.getMessageToSend();
     }
 
     /**
      * Implementation of introspection complete_request according to documentation
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#connect
+     * @return : the message sent through the channel
      */
-    public String[] createConnectRequestMessage () {
+    public String[] sendConnectRequestMessage () {
         JupyterMessage message = new JupyterMessage(kernel, "connect_request");
+
+        channel.send(message.getMessageToSend());
 
         return message.getMessageToSend();
     }
@@ -166,9 +193,12 @@ public class ShellMessages {
     /**
      * Implementation of introspection complete_request according to documentation
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#comm-info
+     * @return : the message sent through the channel
      */
-    public String[] createCommInfoRequestMessage () {
+    public String[] sendCommInfoRequestMessage () {
         JupyterMessage message = new JupyterMessage(kernel, "comm_info_request");
+
+        channel.send(message.getMessageToSend());
 
         return message.getMessageToSend();
     }
@@ -176,9 +206,12 @@ public class ShellMessages {
     /**
      * Implementation of introspection complete_request according to documentation
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info
+     * @return : the message sent through the channel
      */
-    public String[] createKernelInfoRequestMessage () {
+    public String[] sendKernelInfoRequestMessage () {
         JupyterMessage message = new JupyterMessage(kernel, "kernel_info_request");
+
+        channel.send(message.getMessageToSend());
 
         return message.getMessageToSend();
     }
@@ -186,13 +219,16 @@ public class ShellMessages {
     /**
      * Implementation of introspection complete_request according to documentation
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-shutdown
+     * @return : the message sent through the channel
      */
-    public String[] createKernelShutdownRequestMessage (boolean restart) {
+    public String[] sendKernelShutdownRequestMessage (boolean restart) {
         JupyterMessage message = new JupyterMessage(kernel, "shutdown_request");
 
         JSONObject content = new JSONObject();
         content.put("restart", Boolean.toString(restart));
         message.setContent(content);
+
+        channel.send(message.getMessageToSend());
 
         return message.getMessageToSend();
     }

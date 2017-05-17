@@ -1,16 +1,22 @@
 package JupyterMessaging;
 
 import Core.Kernel;
+import JupyterChannels.IOPubChannel;
 
 /**
  * Created by antoine on 10/05/2017.
  */
-public class IOPubMessages {
+public class IOPubMessaging {
 
+    // Attributes
     private Kernel kernel = null;
+    private IOPubChannel channel = null;
 
-    public IOPubMessages (Kernel kernel) {
+    // Constructor
+    public IOPubMessaging(Kernel kernel, IOPubChannel channel) {
+
         this.kernel = kernel;
+        this.channel = channel;
     }
 
     public void handleMessage (String type, JupyterMessage message) {

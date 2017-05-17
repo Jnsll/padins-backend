@@ -11,15 +11,17 @@ public class Manager {
 
     // Attributes
     private Kernel owningKernel = null;
-    private ShellMessages shellMessages = null;
-    private IOPubMessages ioPubMessages = null;
-    private StdinMessages stdinMessages = null;
+    private ShellMessaging shellMessaging = null;
+    private IOPubMessaging ioPubMessaging = null;
+    private StdinMessaging stdinMessaging = null;
+    private ShellMessaging controlMessaging = null;
 
     public Manager (Kernel kernel) {
         owningKernel = kernel;
-        shellMessages = new ShellMessages(owningKernel);
-        ioPubMessages = new IOPubMessages(owningKernel);
-        stdinMessages = new StdinMessages(owningKernel);
+        shellMessaging = new ShellMessaging(owningKernel, kernel.shell);
+        ioPubMessaging = new IOPubMessaging(owningKernel, kernel.iopub);
+        stdinMessaging = new StdinMessaging(owningKernel, kernel.stdin);
+        controlMessaging = new ShellMessaging(owningKernel, kernel.control);
     }
 
     public void handleMessage (String sourceChannel, String[] incomingMessage) {
@@ -32,16 +34,16 @@ public class Manager {
 
             switch (sourceChannel) {
                 case "shell" :
-                    shellMessages.handleMessage(type, message);
+                    shellMessaging.handleMessage(type, message);
                     break;
                 case "iopub" :
-                    ioPubMessages.handleMessage(type, message);
+                    ioPubMessaging.handleMessage(type, message);
                     break;
                 case "stdin" :
-                    stdinMessages.handleMessage(type, message);
+                    stdinMessaging.handleMessage(type, message);
                     break;
                 case "control" :
-                    shellMessages.handleMessage(type, message);
+                    shellMessaging.handleMessage(type, message);
                     break;
                 default :
                     System.err.println("Manager.java : error with the sourceChannel name");
@@ -50,6 +52,18 @@ public class Manager {
         } else {
             System.err.println("Incorrect hmac in message : " + message.getMessageToSend());
         }
+    }
+
+    public ShellMessaging sendMessageOnShell () {
+        return shellMessaging;
+    }
+
+    public StdinMessaging respondeOnStdin () {
+        return stdinMessaging;
+    }
+
+    public ShellMessaging sendMessageOnControl () {
+        return controlMessaging;
     }
 
     /* =================================================================================================================
