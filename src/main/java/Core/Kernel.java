@@ -24,28 +24,36 @@ import java.util.regex.Pattern;
  */
 public class Kernel {
 
+    // Process and Docker container id
     private Process container;
     private String containerId = null;
-    private String session = null;
-    private String identity = null;
-    private JSONParser parser = null;
-    private int nbExecutions = 0;
-    private Manager messagesManager = null;
 
-    private boolean idle = false;
-
-    private String transport = null;
-    private String ip = null;
-    private String signature_scheme = null;
-    private String key = null;
-    private String pathToConnexionFiles = null;
-
+    // Channels
     public ShellChannel shell = null;
     public IOPubChannel iopub = null;
     public StdinChannel stdin = null;
     public HeartbeatChannel hb = null;
     public ShellChannel control = null;
 
+    // Kernel state & execution info
+    private boolean idle = false;
+    private int nbExecutions = 0;
+
+    // Messages info
+    private String session = null;
+    private String identity = null;
+    private Manager messagesManager = null;
+
+    // Channels' connexion infos
+    private String transport = null;
+    private String ip = null;
+    private String signature_scheme = null;
+    private String key = null;
+    private String pathToConnexionFiles = null;
+    private JSONParser parser = null;
+
+
+    // Constructor
     public Kernel () {
         // Instantiate objects that will be useful later
         this.parser = new JSONParser();
@@ -83,6 +91,12 @@ public class Kernel {
         stopContainer();
         deleteConnexionFile();
     }
+
+    /* =================================================================================================================
+       =================================================================================================================
+                                                    PRIVATE FUNCTIONS
+       =================================================================================================================
+       ===============================================================================================================*/
 
     private void startContainer() throws FailedKernelStartException {
 

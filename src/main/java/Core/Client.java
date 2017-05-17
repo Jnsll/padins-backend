@@ -1,7 +1,7 @@
 package Core;
 
-import JupyterMessaging.JupyterMessage;
-import JupyterMessaging.ShellMessages;
+import JupyterMessaging.Manager;
+import JupyterMessaging.ShellMessaging;
 
 import java.util.ArrayList;
 
@@ -28,9 +28,8 @@ public class Client {
 
         Thread.sleep(3000);
 
-        ShellMessages shellMessages = new ShellMessages(kernel);
-        String[] executeCode = shellMessages.createExecuteRequestMessage("2+3");
-        kernel.shell.send(executeCode);
+        Manager messagesManager = kernel.getMessagesManager();
+        messagesManager.sendMessageOnShell().sendExecuteRequestMessage("2+3");
 
         int counter = 0;
         // Send a message
