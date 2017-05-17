@@ -249,6 +249,8 @@ public class Kernel {
 
     public void setNbExecutions (int nbExecutions) { this.nbExecutions = nbExecutions; }
 
+    public int getNbExecutions () { return nbExecutions; }
+
     public boolean isIdle () { return idle; }
 
     public boolean isBusy () { return !idle; }

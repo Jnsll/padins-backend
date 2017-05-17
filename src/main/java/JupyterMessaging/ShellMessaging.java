@@ -240,7 +240,7 @@ public class ShellMessaging {
     private void handleExecuteReplyMessage (JupyterMessage message) {
         JSONObject content = message.getContent();
 
-        String status = content.get("status").toString();
+        String status = (String) content.get("status");
         int executionCount = new Integer(content.get("execution_count").toString());
         kernel.setNbExecutions(executionCount);
 
@@ -256,14 +256,36 @@ public class ShellMessaging {
     }
 
     private void handleIntrospectionReplyMessage (JupyterMessage message) {
-        // TODO
+        JSONObject content = message.getContent();
+
+        String status = (String) content.get("status");
+
+        if(status == "error") return; // TODO send error to UI
+        else if (status == "ok") {
+            boolean found = (boolean) content.get("found");
+            if(found) {
+                String data = (String) content.get("data");
+                // TODO send data field to UI
+                return;
+            }
+        }
     }
 
     private void handleCompletionReplyMessage (JupyterMessage message) {
-        // TODO
+        JSONObject content = message.getContent();
+
+        String status = (String) content.get("status");
+
+        if(status == "error") return; // TODO send error to UI
+        else if (status == "ok") {
+            // TODO send info to corresponding UI, probably sending UI username via metadata and retrieving it here
+        }
+
+
     }
 
     private void handleHistoryReplyMessage (JupyterMessage message) {
+        JSONObject content = message.getContent();
         // TODO
     }
 
