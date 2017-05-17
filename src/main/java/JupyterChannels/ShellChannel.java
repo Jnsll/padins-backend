@@ -63,6 +63,7 @@ public class ShellChannel extends JupyterChannel {
             items.poll();
             if(items.pollin(0)) {
                 message = socket.recv(0);
+                // TODO : handle the message
                 if(this.log) {
                     System.out.println("Received : " + new String(message) + " on socket " + name);
                 }
