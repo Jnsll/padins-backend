@@ -184,7 +184,6 @@ public class JupyterMessage {
      * @return
      */
     private String generateHmac () {
-        // TODO : PRIORITY
         final String ALGORITHM = "HmacSHA256";
 
         String result = "";
