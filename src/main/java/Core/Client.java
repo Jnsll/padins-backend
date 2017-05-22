@@ -26,9 +26,9 @@ public class Client {
         //kernel.hb.doLog(true);
 
         // Wait for the kernel to start
-        while (kernel.isBusy()){
-            Thread.sleep(100);
-        }
+//        while (kernel.isBusy()){
+//            Thread.sleep(100);
+//        }
 
         Thread.sleep(3000);
         System.out.println("Send execution request for code : 2+3");

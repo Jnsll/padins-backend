@@ -130,7 +130,6 @@ public class Kernel {
             // The outputstream is only one line long and contains the newly created container's id
             this.containerId = in.readLine().substring(0,12);
 
-            System.out.println(containerId);
             String line = null;
             while((line=in.readLine()) != null) {
                 System.out.println(line);

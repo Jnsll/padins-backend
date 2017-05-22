@@ -184,6 +184,7 @@ public class JupyterMessage {
      * @return
      */
     private String generateHmac () {
+        // TODO : PRIORITY
         final String ALGORITHM = "HmacSHA256";
 
         String result = "";
@@ -192,11 +193,15 @@ public class JupyterMessage {
             Mac hmac = Mac.getInstance(ALGORITHM);
             SecretKeySpec sk = new SecretKeySpec(kernel.getKey().getBytes(), ALGORITHM);
             hmac.init(sk);
+            hmac.update(header.toString().getBytes());
             hmac.update(parent_header.toString().getBytes());
             hmac.update(metadata.toString().getBytes());
             hmac.update(content.toString().getBytes());
             byte[] mac_data = hmac.doFinal();
-            for (final byte element : mac_data) {
+
+            // Convert the hmac into a String to send it
+            for (final byte element : mac_data)
+            {
                 result += Integer.toString((element & 0xff) + 0x100, 16).substring(1);
             }
         } catch (NoSuchAlgorithmException e) {

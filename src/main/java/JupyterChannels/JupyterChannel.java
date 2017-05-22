@@ -25,9 +25,8 @@ public abstract class JupyterChannel implements Runnable {
     protected Thread thread;
 
     public JupyterChannel(String name, String transport, String ip, long port, String containerID, int socketType, Kernel kernel) {
-        // Store the name, identity & type
+        // Store the name & type
         this.name = name;
-        setIdentity(containerID);
         this.socketType = socketType;
         this.owningKernel = kernel;
 
@@ -37,7 +36,8 @@ public abstract class JupyterChannel implements Runnable {
         // Set Linger to 1s to prevent hangs at exit
         this.socket.setLinger(1000);
 
-        // Store the address of the socket
+        // Store the address of the socket and set its identity
+        setIdentity(containerID);
         this.socketAddress = transport + "://" + ip + ":" + port;
         socket.setIdentity(containerID.getBytes());
     }
