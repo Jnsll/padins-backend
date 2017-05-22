@@ -23,7 +23,7 @@ public class Client {
         // Configure hb and iopub channel to log what they receive
         kernel.iopub.doLog(true);
         kernel.shell.doLog(true);
-        //kernel.hb.doLog(true);
+        kernel.hb.doLog(true);
 
         // Wait for the kernel to start
 //        while (kernel.isBusy()){
@@ -31,10 +31,15 @@ public class Client {
 //        }
 
         Thread.sleep(3000);
-        System.out.println("Send execution request for code : 2+3");
         Manager messagesManager = kernel.getMessagesManager();
 
+        String m = messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
+        System.out.println(m);
+
+        Thread.sleep(2000);
+
         String message = messagesManager.sendMessageOnShell().sendExecuteRequestMessage("2+3");
+        System.out.println(message);
 
         int counter = 0;
         // Send a message

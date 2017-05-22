@@ -67,7 +67,12 @@ public class ShellMessaging {
                 handleShutdownReplyMessage(message);
                 break;
             default :
-                System.err.println("Received unknown message on shell channel : " + message.getMessageToSend());
+                String[] msg = message.getMessageToSend();
+                String res = "";
+                for(int i=0; i<msg.length; i++) {
+                    res += msg[i];
+                }
+                System.err.println("Received unknown message on shell channel : " + res);
         }
     }
 
@@ -87,10 +92,10 @@ public class ShellMessaging {
         JSONObject content = new JSONObject();
         content.put("code", code);
         content.put("silent", "False");
-        content.put("store_history", "True");
+        content.put("store_history", true);
         content.put("user_expressions", "");
-        content.put("allow_stdin", "True");
-        content.put("stop_on_error", "False");
+        content.put("allow_stdin", true);
+        content.put("stop_on_error", false);
 
         message.setContent(content);
 

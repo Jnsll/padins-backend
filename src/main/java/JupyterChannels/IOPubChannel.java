@@ -77,7 +77,7 @@ public class IOPubChannel extends JupyterChannel {
                                    String metadata, String content) {
             String[] incomingMessage = {uuid, delimiter, hmac, header, parent_header, metadata, content};
 
-            messagesManager.handleMessage("iopub", incomingMessage);
+            messagesManager.handleMessage(name, incomingMessage);
         }
 
     /** Log all the messages received with their category name
