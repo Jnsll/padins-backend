@@ -46,9 +46,9 @@ public class IOPubChannel extends JupyterChannel {
             String metadata = socket.recvStr();
             String content = socket.recvStr();
 
-            handleMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
-
             if(this.log) logMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
+
+            handleMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
         }
 
         // When stopping the thread : terminate the context & close socket

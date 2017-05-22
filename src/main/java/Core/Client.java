@@ -13,10 +13,8 @@ public class Client {
     public static ArrayList<Kernel> kernels;
 
     public static void main (String[] args) throws Exception {
-        // Configure behavior on SIGINT
-        Runtime.getRuntime().addShutdownHook(SIGINTHandler());
 
-        kernels = new ArrayList<>();
+        init();
 
         // Create kernel
         Kernel kernel = new Kernel();
@@ -24,12 +22,19 @@ public class Client {
 
         // Configure hb and iopub channel to log what they receive
         kernel.iopub.doLog(true);
-        kernel.hb.doLog(true);
+        kernel.shell.doLog(true);
+        //kernel.hb.doLog(true);
+
+        // Wait for the kernel to start
+        while (kernel.isBusy()){
+            Thread.sleep(100);
+        }
 
         Thread.sleep(3000);
-
+        System.out.println("Send execution request for code : 2+3");
         Manager messagesManager = kernel.getMessagesManager();
-        messagesManager.sendMessageOnShell().sendExecuteRequestMessage("2+3");
+
+        String message = messagesManager.sendMessageOnShell().sendExecuteRequestMessage("2+3");
 
         int counter = 0;
         // Send a message
@@ -40,8 +45,16 @@ public class Client {
               //  kernel.startChannels();
             }
             counter++;
+            kernel.verifyChannelsAreOk();
             Thread.sleep(2000);
         }
+    }
+
+    private static void init () {
+        // Configure behavior on SIGINT
+        Runtime.getRuntime().addShutdownHook(SIGINTHandler());
+
+        kernels = new ArrayList<>();
     }
 
     /**

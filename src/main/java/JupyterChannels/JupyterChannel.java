@@ -27,10 +27,9 @@ public abstract class JupyterChannel implements Runnable {
     public JupyterChannel(String name, String transport, String ip, long port, String containerID, int socketType, Kernel kernel) {
         // Store the name, identity & type
         this.name = name;
-        this.identity = containerID;
+        setIdentity(containerID);
         this.socketType = socketType;
         this.owningKernel = kernel;
-        this.messagesManager = kernel.getMessagesManager();
 
         // Create the ZMQ context and the socket (without connecting it)
         this.context = ZMQ.context(1);
@@ -53,7 +52,7 @@ public abstract class JupyterChannel implements Runnable {
      */
     public void start() {
         if(thread == null) thread = new Thread(this);
-
+        this.messagesManager = owningKernel.getMessagesManager();
         thread.start();
     }
 
@@ -90,6 +89,11 @@ public abstract class JupyterChannel implements Runnable {
 
     public boolean isRunning() {
         return thread.isAlive();
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+        this.socket.setIdentity(identity.getBytes());
     }
 
 }

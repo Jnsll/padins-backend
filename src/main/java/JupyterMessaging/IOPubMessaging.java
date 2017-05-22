@@ -24,6 +24,7 @@ public class IOPubMessaging {
         switch (type) {
             case "status" :
                 handleStatusMessage(message);
+                break;
             case "execute_result" :
                 handleExecuteResultMessage (message);
                 break;
@@ -51,16 +52,16 @@ public class IOPubMessaging {
      =================================================================================================================*/
 
     private void handleStatusMessage (JupyterMessage message) {
-        String status = (String) message.getContent().get("status");
+        String executionState = (String) message.getContent().get("execution_state");
 
-        if(status == "idle") kernel.setIdleState(true);
+        if(executionState.equals("idle")) kernel.setIdleState(true);
         else kernel.setIdleState(false);
     }
 
     private void handleErrorMessage(JupyterMessage message) {
         JSONObject content = message.getContent();
 
-        int executionCount = (int) content.get("execution_count");
+        Long executionCount = (Long) content.get("execution_count");
         if(executionCount > kernel.getNbExecutions()) kernel.setNbExecutions(executionCount);
 
         // TEMPORARY
@@ -72,7 +73,7 @@ public class IOPubMessaging {
     private void handleExecuteResultMessage(JupyterMessage message) {
         JSONObject content = message.getContent();
 
-        int executionCount = (int) content.get("execution_count");
+        Long executionCount = (Long) content.get("execution_count");
         if(executionCount > kernel.getNbExecutions()) kernel.setNbExecutions(executionCount);
 
         // TEMPORARY

@@ -23,13 +23,9 @@ public class StdinChannel extends JupyterChannel {
         Thread thread;
      */
     private ZMQ.Poller items;
-    private ArrayList<String[]> queue;
 
     public StdinChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
         super(name, transport, ip, port, containerID, ZMQ.DEALER, kernel);
-
-        // Instantiate the queue containing the message to send
-        queue = new ArrayList<>();
     }
 
     /**
@@ -47,14 +43,6 @@ public class StdinChannel extends JupyterChannel {
         // Loop that will run whenever the Thread runs
         // This is where we will handle the socket behavior
         while(!Thread.currentThread().isInterrupted()) {
-
-            // First : check whether there is a message to send
-            if(queue.size() > 0) {
-                // Send the first message and remove it from the queue
-                // TODO : test
-                sendQueuedMessage(queue.get(0));
-                queue.remove(0);
-            }
 
             // Then check whether a message has been received or not
             byte[] message;
@@ -81,22 +69,13 @@ public class StdinChannel extends JupyterChannel {
        ===============================================================================================================*/
 
     /**
-     * Add a message in the queue of to be send messages
-     * @param message : the message to send to the shell
-     */
-    public void send (String[] message) {
-        queue.add(message);
-    }
-
-    /**
-     * Method used only in this class !
      * Send a message through the socket
      * @param message
      */
-    private void sendQueuedMessage (String[] message) {
-        System.out.println("[INFO] Sending message !");
-        for(int i=0; i<message.length; i++){
-            socket.send(message[i]);
-        }
+    public void send (String message) {
+        // TODO : make sure it works, as in ShellChannel
+        System.out.println("[INFO] Sending message on STDIN !");
+
+        socket.send(message.getBytes(), 0);
     }
 }

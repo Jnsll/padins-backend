@@ -81,7 +81,7 @@ public class ShellMessaging {
      * @param code : python code to execute
      * @return : the message sent through the channel
      */
-    public String[] sendExecuteRequestMessage (String code) {
+    public String sendExecuteRequestMessage (String code) {
         JupyterMessage message = new JupyterMessage(kernel, "execute_request");
 
         JSONObject content = new JSONObject();
@@ -89,14 +89,14 @@ public class ShellMessaging {
         content.put("silent", "False");
         content.put("store_history", "True");
         content.put("user_expressions", "");
-        content.put("allow_stding", "True");
+        content.put("allow_stdin", "True");
         content.put("stop_on_error", "False");
 
         message.setContent(content);
 
         channel.send(message.getMessageToSend());
 
-        return message.getMessageToSend();
+        return message.toString();
     }
 
     /**
@@ -104,7 +104,7 @@ public class ShellMessaging {
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#introspection
      * @return : the message sent through the channel
      */
-    public String[] sendIntrospectionRequestMessage (String code, int cursorPos) {
+    public String sendIntrospectionRequestMessage (String code, int cursorPos) {
         JupyterMessage message = new JupyterMessage(kernel, "inspect_request");
 
         JSONObject content = new JSONObject();
@@ -116,7 +116,7 @@ public class ShellMessaging {
 
         channel.send(message.getMessageToSend());
 
-        return message.getMessageToSend();
+        return message.toString();
     }
 
     /**
@@ -124,7 +124,7 @@ public class ShellMessaging {
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#completion
      * @return : the message sent through the channel
      */
-    public String[] sendCompletionRequestMessage (String code, int cursorPos) {
+    public String sendCompletionRequestMessage (String code, int cursorPos) {
         JupyterMessage message = new JupyterMessage(kernel, "complete_request");
 
         JSONObject content = new JSONObject();
@@ -135,7 +135,7 @@ public class ShellMessaging {
 
         channel.send(message.getMessageToSend());
 
-        return message.getMessageToSend();
+        return message.toString();
     }
 
     /**
@@ -143,7 +143,7 @@ public class ShellMessaging {
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#history
      * @return : the message sent through the channel
      */
-    public String[] sendHistoryRequestMessage (int nbOfCells) {
+    public String sendHistoryRequestMessage (int nbOfCells) {
         JupyterMessage message = new JupyterMessage(kernel, "history_request");
 
         JSONObject content = new JSONObject();
@@ -156,7 +156,7 @@ public class ShellMessaging {
 
         channel.send(message.getMessageToSend());
 
-        return message.getMessageToSend();
+        return message.toString();
     }
 
     /**
@@ -164,7 +164,7 @@ public class ShellMessaging {
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-completeness
      * @return : the message sent through the channel
      */
-    public String[] sendCodeCompletenessRequestMessage (String code) {
+    public String sendCodeCompletenessRequestMessage (String code) {
         JupyterMessage message = new JupyterMessage(kernel, "is_complete_request");
 
         JSONObject content = new JSONObject();
@@ -174,7 +174,7 @@ public class ShellMessaging {
 
         channel.send(message.getMessageToSend());
 
-        return message.getMessageToSend();
+        return message.toString();
     }
 
     /**
@@ -182,12 +182,12 @@ public class ShellMessaging {
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#connect
      * @return : the message sent through the channel
      */
-    public String[] sendConnectRequestMessage () {
+    public String sendConnectRequestMessage () {
         JupyterMessage message = new JupyterMessage(kernel, "connect_request");
 
         channel.send(message.getMessageToSend());
 
-        return message.getMessageToSend();
+        return message.toString();
     }
 
     /**
@@ -195,12 +195,12 @@ public class ShellMessaging {
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#comm-info
      * @return : the message sent through the channel
      */
-    public String[] sendCommInfoRequestMessage () {
+    public String sendCommInfoRequestMessage () {
         JupyterMessage message = new JupyterMessage(kernel, "comm_info_request");
 
         channel.send(message.getMessageToSend());
 
-        return message.getMessageToSend();
+        return message.toString();
     }
 
     /**
@@ -208,12 +208,12 @@ public class ShellMessaging {
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info
      * @return : the message sent through the channel
      */
-    public String[] sendKernelInfoRequestMessage () {
+    public String sendKernelInfoRequestMessage () {
         JupyterMessage message = new JupyterMessage(kernel, "kernel_info_request");
 
         channel.send(message.getMessageToSend());
 
-        return message.getMessageToSend();
+        return message.toString();
     }
 
     /**
@@ -221,7 +221,7 @@ public class ShellMessaging {
      * http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-shutdown
      * @return : the message sent through the channel
      */
-    public String[] sendKernelShutdownRequestMessage (boolean restart) {
+    public String sendKernelShutdownRequestMessage (boolean restart) {
         JupyterMessage message = new JupyterMessage(kernel, "shutdown_request");
 
         JSONObject content = new JSONObject();
@@ -230,7 +230,7 @@ public class ShellMessaging {
 
         channel.send(message.getMessageToSend());
 
-        return message.getMessageToSend();
+        return message.toString();
     }
 
     /* =================================================================================================================
@@ -241,15 +241,15 @@ public class ShellMessaging {
         JSONObject content = message.getContent();
 
         String status = (String) content.get("status");
-        int executionCount = new Integer(content.get("execution_count").toString());
+        Long executionCount = (Long) content.get("execution_count");
         kernel.setNbExecutions(executionCount);
 
-        if (status == "ok") {
+        if (status.equals("ok")) {
             // Good news everything went well
-        } else if (status == "error") {
+        } else if (status.equals("error")) {
             System.err.println("Error executing code of cell nº" + executionCount);
             // TODO : send message to web UI
-        } else if (status == "abort") {
+        } else if (status.equals("abort")) {
             System.err.println("Execution of the code of cell nº" + executionCount + " has been aborted");
             // TODO : send message to web UI
         }
@@ -260,8 +260,8 @@ public class ShellMessaging {
 
         String status = (String) content.get("status");
 
-        if(status == "error") return; // TODO send error to UI
-        else if (status == "ok") {
+        if(status.equals("error")) return; // TODO send error to UI
+        else if (status.equals("ok")) {
             boolean found = (boolean) content.get("found");
             if(found) {
                 String data = (String) content.get("data");
@@ -276,8 +276,8 @@ public class ShellMessaging {
 
         String status = (String) content.get("status");
 
-        if(status == "error") return; // TODO send error to UI
-        else if (status == "ok") {
+        if(status.equals("error")) return; // TODO send error to UI
+        else if (status.equals("ok")) {
             // TODO send info to corresponding UI, probably sending UI username via metadata and retrieving it here
         }
 

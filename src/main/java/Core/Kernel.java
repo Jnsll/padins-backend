@@ -6,6 +6,7 @@ import jdk.nashorn.tools.Shell;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import sun.nio.cs.ext.MacArabic;
 
 import java.io.*;
 import java.util.regex.Matcher;
@@ -37,11 +38,11 @@ public class Kernel {
 
     // Kernel state & execution info
     private boolean idle = false;
-    private int nbExecutions = 0;
+    private Long nbExecutions = Long.valueOf(0);
 
     // Messages info
     private String session = null;
-    private String identity = null;
+    private String identity = null; // uuid of the messages exchanged on the channels
     private Manager messagesManager = null;
 
     // Channels' connexion infos
@@ -92,6 +93,10 @@ public class Kernel {
         deleteConnexionFile();
     }
 
+    public void verifyChannelsAreOk () {
+        // TODO
+    }
+
     /* =================================================================================================================
        =================================================================================================================
                                                     PRIVATE FUNCTIONS
@@ -124,6 +129,7 @@ public class Kernel {
 
             // The outputstream is only one line long and contains the newly created container's id
             this.containerId = in.readLine().substring(0,12);
+
             System.out.println(containerId);
             String line = null;
             while((line=in.readLine()) != null) {
@@ -182,6 +188,13 @@ public class Kernel {
     }
 
     private void stopChannels() {
+        // Fix a bug that prevent from stopping
+        shell.doLog(false);
+        iopub.doLog(false);
+        stdin.doLog(false);
+        hb.doLog(false);
+        control.doLog(false);
+
         try {
             shell.stop();
             iopub.stop();
@@ -241,23 +254,36 @@ public class Kernel {
 
     public String getSession () { return this.session != null ? this.session : ""; }
 
+    public void setSession(String session) { this.session = session; }
+
     public String getIdentity () { return this.identity != null ? this.identity : ""; }
 
-    public void setIdentity (String identity) { this.identity = identity; }
+    public void setIdentity (String identity) {
+        this.identity = identity;
+        shell.setIdentity(identity);
+        iopub.setIdentity(identity);
+        hb.setIdentity(identity);
+        control.setIdentity(identity);
+        stdin.setIdentity(identity);
+    }
+
+    public String getSignatureScheme () { return signature_scheme != null ? signature_scheme : ""; }
 
     public String getKey () { return this.key != null ? this.key : ""; }
 
-    public void setNbExecutions (int nbExecutions) { this.nbExecutions = nbExecutions; }
+    public void setNbExecutions (Long nbExecutions) { this.nbExecutions = nbExecutions; }
 
-    public int getNbExecutions () { return nbExecutions; }
+    public Long getNbExecutions () { return nbExecutions; }
 
     public boolean isIdle () { return idle; }
 
     public boolean isBusy () { return !idle; }
 
-    public void setIdleState (boolean value) { idle = value ; }
+    public void setIdleState (boolean value) {
+        idle = value ;
+    }
 
-    public Manager getMessagesManager () { return messagesManager; }
+    public Manager getMessagesManager () { return messagesManager != null ? messagesManager : new Manager(this); }
 
     /* =================================================================================================================
        =================================================================================================================
@@ -305,10 +331,11 @@ public class Kernel {
             throw new FailedRetrievingContainerIPException(this.containerId);
         }
 
-        return null;
+        return "127.0.0.1";
     }
 
     private void deleteConnexionFile () {
+        // TODO : not working
         String absolutePathToConnexionInfoFile = pathToConnexionFiles + "/" + containerId + ".json";
 
         // We wait until the file has been created

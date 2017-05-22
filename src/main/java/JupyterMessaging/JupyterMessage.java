@@ -28,7 +28,7 @@ public class JupyterMessage {
     private JSONObject message;
 
     // Main elements of the message
-    private String identity;
+    private String uuid;
     private String hmac;
     private String delimiter;
     private JSONObject header;
@@ -46,7 +46,7 @@ public class JupyterMessage {
         String username = kernel.getContainerId();
         String session = kernel.getSession();
         String date = generateDate(); // ISO 8061 compliant timestamp
-        identity = "server." + kernel.getIdentity() + "." + msg_type;
+        uuid = "";
         delimiter = "<IDS|MSG>";
 
         // Build the header
@@ -91,8 +91,8 @@ public class JupyterMessage {
         message = new JSONObject();
 
         if(incomingMessage.length == 7) {
-            message.put("identity", incomingMessage[0]);
-            this.identity = incomingMessage[0];
+            message.put("uuid", incomingMessage[0]);
+            this.uuid = incomingMessage[0];
             message.put("delimiter", incomingMessage[1]);
             this.delimiter = incomingMessage[1];
             message.put("hmac", incomingMessage[2]);
@@ -134,7 +134,14 @@ public class JupyterMessage {
         this.metadata = metadata;
     }
 
+    public String getHmac () {
+        if(this.hmac == null) this.hmac = generateHmac();
+        return this.hmac;
+    }
+
     public JSONObject getMetadata () { return this.metadata; }
+
+    public String getUuid () { return uuid; }
 
     public void setContent (JSONObject content) {
         this.content = content;
@@ -145,16 +152,16 @@ public class JupyterMessage {
     public String[] getMessageToSend () {
         buildMessage();
 
-        String[] message = new String[7];
-        message[0] = this.message.get("uuid").toString();
-        message[1] = this.message.get("delimiter").toString();
-        message[2] = this.message.get("hmac").toString();
-        message[3] = this.message.get("header").toString();
-        message[4] = this.message.get("parent_header").toString();
-        message[5] = this.message.get("metadata").toString();
-        message[6] = this.message.get("content").toString();
+        // Add each field in the right order and respect the way python list are built
+        String[] msg = new String[6];
+        msg[0] = this.message.get("delimiter").toString();
+        msg[1] = this.message.get("hmac").toString();
+        msg[2] = this.message.get("header").toString();
+        msg[3] = this.message.get("parent_header").toString();
+        msg[4] = this.message.get("metadata").toString();
+        msg[5] = this.message.get("content").toString();
 
-        return message;
+        return msg;
     }
 
     /* =================================================================================================================
@@ -207,7 +214,7 @@ public class JupyterMessage {
     private void buildMessage () {
         // Build the message
         message = new JSONObject();
-        message.put("uuid", identity);
+        message.put("uuid", uuid);
         message.put("delimiter", delimiter);
         message.put("header", header);
 

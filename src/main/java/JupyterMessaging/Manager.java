@@ -28,6 +28,7 @@ public class Manager {
         JupyterMessage message = new JupyterMessage(owningKernel, incomingMessage);
 
         if(hmacIsCorrect(message)) {
+            handleUUID(message.getUuid());
             handleHeader(message.getHeader());
 
             String type = (String) message.getHeader().get("msg_type");
@@ -76,8 +77,14 @@ public class Manager {
     }
 
     private void handleHeader(JSONObject header) {
-        if (owningKernel.getIdentity() == "") setKernelsIdentity((String) header.get("identity"));
-        // TODO
+
+        // Retrieve the session id and set it to the kernel
+        String session = (String) header.get("session");
+        owningKernel.setSession(session);
+    }
+
+    private void handleUUID (String uuid) {
+        if (owningKernel.getIdentity().equals("")) setKernelsIdentity(uuid);
     }
 
     /* =================================================================================================================

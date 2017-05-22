@@ -24,14 +24,9 @@ public class ShellChannel extends JupyterChannel {
         Manager messagesManager;
         Thread thread;
      */
-    private ZMQ.Poller items;
-    private ArrayList<String[]> queue;
 
     public ShellChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
         super(name, transport, ip, port, containerID, ZMQ.DEALER, kernel);
-
-        // Instantiate the queue containing the message to send
-        queue = new ArrayList<>();
     }
 
     /**
@@ -42,32 +37,24 @@ public class ShellChannel extends JupyterChannel {
         this.socket.connect(this.socketAddress);
         this.connected = true;
 
-        // Initialize poller to read message when they arrive
-        items = this.context.poller(1);
-        items.register(socket, ZMQ.Poller.POLLIN);
+        // Send kernel_info request
+        //if (name.equals("shell")) messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
 
         // Loop that will run whenever the Thread runs
         // This is where we will handle the socket behavior
         while(!Thread.currentThread().isInterrupted()) {
 
-            // First : check whether there is a message to send
-            if(queue.size() > 0 && owningKernel.isIdle()) {
-                // Send the first message and remove it from the queue
-                // TODO : test
-                sendQueuedMessage(queue.get(0));
-                queue.remove(0);
-            }
+            String uuid = socket.recvStr();
+            String delimiter = socket.recvStr();
+            String hmac = socket.recvStr();
+            String header = socket.recvStr();
+            String parent_header = socket.recvStr();
+            String metadata = socket.recvStr();
+            String content = socket.recvStr();
 
-            // Then check whether a message has been received or not
-            byte[] message;
-            items.poll();
-            if(items.pollin(0)) {
-                message = socket.recv(0);
-                // TODO : handle the message
-                if(this.log) {
-                    System.out.println("Received : " + new String(message) + " on socket " + name);
-                }
-            }
+            if(this.log) logMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
+
+            //handleMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
         } // End while
 
         // When stopping the thread : destroy the context & not connected anymore
@@ -84,22 +71,37 @@ public class ShellChannel extends JupyterChannel {
        ===============================================================================================================*/
 
     /**
-     * Add a message in the queue of to be send messages
+     * Send a message as bytes, needed by Jupyter
      * @param message : the message to send to the shell
      */
     public void send (String[] message) {
-        queue.add(message);
+        for(int i=0; i<message.length-1; i++) {
+            socket.sendMore(message[i].getBytes());
+        }
+        socket.send(message[message.length-1]);
     }
 
-    /**
-     * Method used only in this class !
-     * Send a message through the socket
-     * @param message
+    /** Log all the messages received with their category name
+     *
+     * @param uuid : see "Messaging in Jupyter" doc
+     * @param delimiter : see "Messaging in Jupyter" doc
+     * @param hmac : see "Messaging in Jupyter" doc
+     * @param header : see "Messaging in Jupyter" doc
+     * @param parent_header : see "Messaging in Jupyter" doc
+     * @param metadata : see "Messaging in Jupyter" doc
+     * @param content : see "Messaging in Jupyter" doc
      */
-    private void sendQueuedMessage (String[] message) {
-        System.out.println("[INFO] Sending message !");
-        for(int i=0; i<message.length; i++){
-            socket.send(message[i]);
-        }
+    private void logMessage (String uuid, String delimiter, String hmac, String header, String parent_header,
+                             String metadata, String content) {
+        System.out.println("\n------- MESSAGE RECEIVED ON SHELL CHANNEL -------");
+        System.out.println("UUID : " + uuid);
+        System.out.println("Delimiter : " + delimiter);
+        System.out.println("Hmac : " + hmac);
+        System.out.println("Header : " + header);
+        System.out.println("Parent_header : " + parent_header);
+        System.out.println("Metadata : " + metadata);
+        System.out.println("Content : " + content);
+        System.out.println("\n");
     }
+
 }
