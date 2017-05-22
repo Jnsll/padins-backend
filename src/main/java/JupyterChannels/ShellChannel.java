@@ -29,36 +29,18 @@ public class ShellChannel extends JupyterChannel {
         super(name, transport, ip, port, containerID, ZMQ.DEALER, kernel);
     }
 
-    /**
-     * Run methods from Runnable interface
-     */
-    public void run() {
-        // TODO : Create an init function and move the content to the JupyterChannel class
+    @Override
+    protected void initializeThread() {
         // First : connect the server
         this.socket.connect(this.socketAddress);
         this.connected = true;
 
         // Send kernel_info request
-        //if (name.equals("shell")) messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
+        if (name.equals("shell")) messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
+    }
 
-        // Loop that will run whenever the Thread runs
-        // This is where we will handle the socket behavior
-        while(!Thread.currentThread().isInterrupted()) {
-
-            String uuid = socket.recvStr();
-            String delimiter = socket.recvStr();
-            String hmac = socket.recvStr();
-            String header = socket.recvStr();
-            String parent_header = socket.recvStr();
-            String metadata = socket.recvStr();
-            String content = socket.recvStr();
-
-            if(this.log) logMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
-
-            handleMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
-        } // End while
-
-        // When stopping the thread : destroy the context & not connected anymore
+    @Override
+    protected void stopThread() {
         this.socket.disconnect(socketAddress);
         this.context.term();
         this.connected = false;
@@ -80,45 +62,6 @@ public class ShellChannel extends JupyterChannel {
             socket.sendMore(message[i].getBytes());
         }
         socket.send(message[message.length-1]);
-    }
-
-    /** React depending on the received message
-     *
-             * @param uuid : see "Messaging in Jupyter" doc
-     * @param delimiter : see "Messaging in Jupyter" doc
-     * @param hmac : see "Messaging in Jupyter" doc
-     * @param header : see "Messaging in Jupyter" doc
-     * @param parent_header : see "Messaging in Jupyter" doc
-     * @param metadata : see "Messaging in Jupyter" doc
-     * @param content : see "Messaging in Jupyter" doc
-     */
-    private void handleMessage(String uuid, String delimiter, String hmac, String header, String parent_header, String metadata, String content) {
-        String[] incomingMessage = {uuid, delimiter, hmac, header, parent_header, metadata, content};
-
-        messagesManager.handleMessage(name, incomingMessage);
-    }
-
-    /** Log all the messages received with their category name
-     *
-     * @param uuid : see "Messaging in Jupyter" doc
-     * @param delimiter : see "Messaging in Jupyter" doc
-     * @param hmac : see "Messaging in Jupyter" doc
-     * @param header : see "Messaging in Jupyter" doc
-     * @param parent_header : see "Messaging in Jupyter" doc
-     * @param metadata : see "Messaging in Jupyter" doc
-     * @param content : see "Messaging in Jupyter" doc
-     */
-    private void logMessage (String uuid, String delimiter, String hmac, String header, String parent_header,
-                             String metadata, String content) {
-        System.out.println("\n------- MESSAGE RECEIVED ON SHELL CHANNEL -------");
-        System.out.println("UUID : " + uuid);
-        System.out.println("Delimiter : " + delimiter);
-        System.out.println("Hmac : " + hmac);
-        System.out.println("Header : " + header);
-        System.out.println("Parent_header : " + parent_header);
-        System.out.println("Metadata : " + metadata);
-        System.out.println("Content : " + content);
-        System.out.println("\n");
     }
 
 }

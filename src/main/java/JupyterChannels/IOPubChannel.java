@@ -25,82 +25,27 @@ public class IOPubChannel extends JupyterChannel {
         super(name, transport, ip, port, containerID, ZMQ.SUB, kernel);
     }
 
-    /**
-     * Run methods from Runnable interface
-     */
-    public void run() {
-        // First : connect the server
-        this.socket.connect(this.socketAddress);
-        this.socket.subscribe("".getBytes());
-        this.connected = true;
-        System.out.println("Connected to IOPub publisher on : " + this.socketAddress);
-
-        // Loop that will run whenever the Thread runs
-        // This is where we will handle the socket behavior
-        while(!Thread.currentThread().isInterrupted()) {
-            String uuid = socket.recvStr();
-            String delimiter = socket.recvStr();
-            String hmac = socket.recvStr();
-            String header = socket.recvStr();
-            String parent_header = socket.recvStr();
-            String metadata = socket.recvStr();
-            String content = socket.recvStr();
-
-            if(this.log) logMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
-
-            handleMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
-        }
-
-        // When stopping the thread : terminate the context & close socket
-        this.socket.close();
-        this.context.term();
-        this.connected = false;
-    }
-
     /* =================================================================================================================
        =================================================================================================================
                                                     CUSTOM METHODS
        =================================================================================================================
        ===============================================================================================================*/
 
-    /** React depending on the received message
-     *
-     * @param uuid : see "Messaging in Jupyter" doc
-     * @param delimiter : see "Messaging in Jupyter" doc
-     * @param hmac : see "Messaging in Jupyter" doc
-     * @param header : see "Messaging in Jupyter" doc
-     * @param parent_header : see "Messaging in Jupyter" doc
-     * @param metadata : see "Messaging in Jupyter" doc
-     * @param content : see "Messaging in Jupyter" doc
-     */
-        private void handleMessage(String uuid, String delimiter, String hmac, String header, String parent_header,
-                                   String metadata, String content) {
-            String[] incomingMessage = {uuid, delimiter, hmac, header, parent_header, metadata, content};
+    @Override
+    protected void initializeThread() {
+        // First : connect the server
+        this.socket.connect(this.socketAddress);
+        this.socket.subscribe("".getBytes());
+        this.connected = true;
+        System.out.println("Connected to IOPub publisher on : " + this.socketAddress);
+    }
 
-            messagesManager.handleMessage(name, incomingMessage);
-        }
-
-    /** Log all the messages received with their category name
-     *
-     * @param uuid : see "Messaging in Jupyter" doc
-     * @param delimiter : see "Messaging in Jupyter" doc
-     * @param hmac : see "Messaging in Jupyter" doc
-     * @param header : see "Messaging in Jupyter" doc
-     * @param parent_header : see "Messaging in Jupyter" doc
-     * @param metadata : see "Messaging in Jupyter" doc
-     * @param content : see "Messaging in Jupyter" doc
-     */
-        private void logMessage (String uuid, String delimiter, String hmac, String header, String parent_header,
-                                 String metadata, String content) {
-            System.out.println("\n------- MESSAGE RECEIVED ON IOPUB CHANNEL -------");
-            System.out.println("UUID : " + uuid);
-            System.out.println("Delimiter : " + delimiter);
-            System.out.println("Hmac : " + hmac);
-            System.out.println("Header : " + header);
-            System.out.println("Parent_header : " + parent_header);
-            System.out.println("Metadata : " + metadata);
-            System.out.println("Content : " + content);
-            System.out.println("\n");
-        }
+    @Override
+    protected void stopThread() {
+        // When stopping the thread : terminate the context & close socket
+        this.socket.close();
+        this.context.term();
+        this.connected = false;
+    }
 
 }

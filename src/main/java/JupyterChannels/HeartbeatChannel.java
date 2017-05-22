@@ -20,7 +20,6 @@ public class HeartbeatChannel extends JupyterChannel {
        Manager messagesManager;
        Thread thread;
     */
-     private ZMQ.Poller items;
 
     public HeartbeatChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
         super(name, transport, ip, port, containerID, ZMQ.REQ, kernel);
@@ -29,16 +28,9 @@ public class HeartbeatChannel extends JupyterChannel {
     /**
      * Run methods from Runnable interface
      */
+    @Override
     public void run() {
-        // First : connect to the ZMQ server
-        this.socket.connect(this.socketAddress);
-        this.connected = true;
-
-        System.out.println("Connected to HB on " + socketAddress);
-
-        // Initialize poller to read message when they arrive
-        items = this.context.poller(1);
-        items.register(socket, ZMQ.Poller.POLLIN);
+        initializeThread();
 
         // Loop that will run whenever the Thread runs
         // This is where we will handle the socket behavior
@@ -51,20 +43,13 @@ public class HeartbeatChannel extends JupyterChannel {
             }
             socket.send("ping".getBytes(), 0);
 
-            byte[] message;
-            items.poll();
-            if(items.pollin(0)) {
-                message = socket.recv(0);
-                if(this.log) {
-                    System.out.println("Received : " + new String(message) + " on socket " + name);
-                }
-            }
+            String message = socket.recvStr();
+            if(this.log) System.out.println("Received : " + new String(message) + " on socket " + name);
 
         }
-        // When stopping the thread : destroy the context & not connected anymore
-        this.socket.close();
-        this.context.term();
-        this.connected = false;
+
+        stopThread();
+
     }
 
     /* =================================================================================================================
@@ -73,5 +58,21 @@ public class HeartbeatChannel extends JupyterChannel {
        =================================================================================================================
        ===============================================================================================================*/
 
+    @Override
+    protected void initializeThread() {
+        // First : connect to the ZMQ server
+        this.socket.connect(this.socketAddress);
+        this.connected = true;
+
+        System.out.println("Connected to HB on " + socketAddress);
+    }
+
+    @Override
+    protected void stopThread() {
+        // When stopping the thread : destroy the context & not connected anymore
+        this.socket.close();
+        this.context.term();
+        this.connected = false;
+    }
 
 }
