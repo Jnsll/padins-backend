@@ -91,7 +91,7 @@ public class ShellMessaging {
 
         JSONObject content = new JSONObject();
         content.put("code", code);
-        content.put("silent", "False");
+        content.put("silent", false);
         content.put("store_history", true);
         content.put("user_expressions", "");
         content.put("allow_stdin", true);
@@ -152,8 +152,8 @@ public class ShellMessaging {
         JupyterMessage message = new JupyterMessage(kernel, "history_request");
 
         JSONObject content = new JSONObject();
-        content.put("output", "True");
-        content.put("raw", "False");
+        content.put("output", true);
+        content.put("raw", false);
         content.put("hist_access_type", "tail");
         content.put("n", Integer.toString(nbOfCells));
 

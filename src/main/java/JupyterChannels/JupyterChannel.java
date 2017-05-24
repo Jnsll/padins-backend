@@ -218,27 +218,27 @@ public abstract class JupyterChannel implements Runnable {
      */
     private void logMessage (ArrayList<String> incomingMessage) {
 
-        System.out.println("\n------- MESSAGE RECEIVED ON " + name + " CHANNEL -------");
+        String msg = "\n------- MESSAGE RECEIVED ON " + name + " CHANNEL -------";
 
         // First, we verify that the message is as long as a common Jupyter message
         if (incomingMessage.size() == JUPYTER_MESSAGE_LENGTH) {
             // If so, we log it into the shell with prefix
-            System.out.println("UUID : " + incomingMessage.get(0));
-            System.out.println("Delimiter : " + incomingMessage.get(1));
-            System.out.println("Hmac : " + incomingMessage.get(2));
-            System.out.println("Header : " + incomingMessage.get(3));
-            System.out.println("Parent_header : " + incomingMessage.get(4));
-            System.out.println("Metadata : " + incomingMessage.get(5));
-            System.out.println("Content : " + incomingMessage.get(6));
+            msg += "\nUUID : " + incomingMessage.get(0);
+            msg += "\nDelimiter : " + incomingMessage.get(1);
+            msg += "\nHmac : " + incomingMessage.get(2);
+            msg += "\nHeader : " + incomingMessage.get(3);
+            msg += "\nParent_header : " + incomingMessage.get(4);
+            msg += "\nMetadata : " + incomingMessage.get(5);
+            msg += "\nContent : " + incomingMessage.get(6);
 
         } else {
             // If not, we log all the received data, without any prefix
             for(int i=0; i<incomingMessage.size(); i++){
-                System.out.println(incomingMessage.get(i));
+                msg += "\n" + incomingMessage.get(i);
             }
         }
 
-        System.out.println("\n");
+        System.out.println(msg + "\n");
     }
 
     /** React depending on the received message
