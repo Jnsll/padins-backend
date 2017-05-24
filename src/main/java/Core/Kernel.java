@@ -131,7 +131,7 @@ public class Kernel {
             this.containerId = in.readLine().substring(0,12);
 
             // TODO : TEMPORARY
-            this.containerId = "1a617d627b9c";
+            this.containerId = "d1c1128a2d95";
             // END TODO
 
             System.out.println(containerId);

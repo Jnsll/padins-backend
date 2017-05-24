@@ -22,32 +22,32 @@ public class Client {
 
         // Configure hb and iopub channel to log what they receive
         kernel.iopub.doLog(true);
+        kernel.iopub.doStoreHistory(true);
         kernel.shell.doLog(true);
-        kernel.hb.doLog(true);
-
-        // Wait for the kernel to start
-//        while (kernel.isBusy()){
-//            Thread.sleep(100);
-//        }
+        kernel.shell.doStoreHistory(false);
+//        kernel.hb.doLog(true);
 
         Thread.sleep(3000);
         Manager messagesManager = kernel.getMessagesManager();
 
-        String m = messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
-        System.out.println(m);
+        messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
+
+        // Wait for the kernel to start
+        while (kernel.isBusy()){
+            Thread.sleep(100);
+        }
 
         Thread.sleep(2000);
 
-        String message = messagesManager.sendMessageOnShell().sendExecuteRequestMessage("2+3");
-        System.out.println(message);
+        messagesManager.sendMessageOnShell().sendExecuteRequestMessage("2+3");
 
         int counter = 0;
         // Send a message
         while(true) {
             if(counter == 5) {
-              //  kernel.stopChannels();
+                messagesManager.sendMessageOnShell().sendExecuteRequestMessage("8+12");
             } else if (counter == 10) {
-              //  kernel.startChannels();
+                messagesManager.sendMessageOnShell().sendExecuteRequestMessage("2+3");
             }
             counter++;
             kernel.verifyChannelsAreOk();

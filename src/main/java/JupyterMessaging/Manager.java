@@ -3,6 +3,8 @@ package JupyterMessaging;
 import Core.Kernel;
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
+
 /** The manager is a component that handle everything related to reacting to incoming messages
  *
  * Created by antoine on 16/05/2017.
@@ -24,7 +26,7 @@ public class Manager {
         controlMessaging = new ShellMessaging(owningKernel, kernel.control);
     }
 
-    public void handleMessage (String sourceChannel, String[] incomingMessage) {
+    public void handleMessage (String sourceChannel, ArrayList<String> incomingMessage) {
         JupyterMessage message = new JupyterMessage(owningKernel, incomingMessage);
 
         if(hmacIsCorrect(message)) {
@@ -84,7 +86,7 @@ public class Manager {
     }
 
     private void handleUUID (String uuid) {
-        if (owningKernel.getIdentity().equals("")) setKernelsIdentity(uuid);
+        if (owningKernel.getIdentity().equals("") && uuid != null && !uuid.equals("")) setKernelsIdentity(uuid);
     }
 
     /* =================================================================================================================

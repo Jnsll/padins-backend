@@ -6,23 +6,37 @@ import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 
 /**
  * Created by antoine on 28/04/17.
  */
 public abstract class JupyterChannel implements Runnable {
 
+    // Attributes
     protected String name;
+    private final int JUPYTER_MESSAGE_LENGTH = 7;
+    private String lastCorrectUuidReceived = "";
+    private ArrayList<String> incomingMessage = null;
+
     protected Context context = null;
     protected Socket socket = null;
     protected String socketAddress;
     protected String identity;
     protected int socketType;
+
     protected boolean connected = false;
     protected boolean log = false;
+
     protected Kernel owningKernel;
     protected Manager messagesManager;
     protected Thread thread;
+
+    //Attributes related to history
+    protected boolean storeHistory = true;
+    protected ArrayList<ArrayList<String>> history = null;
 
     public JupyterChannel(String name, String transport, String ip, long port, String containerID, int socketType, Kernel kernel) {
         // Store the name & type
@@ -40,6 +54,20 @@ public abstract class JupyterChannel implements Runnable {
         setIdentity(containerID);
         this.socketAddress = transport + "://" + ip + ":" + port;
         socket.setIdentity(containerID.getBytes());
+
+        // Create the incoming message & history object
+        incomingMessage = new ArrayList<>();
+        history = new ArrayList<>();
+    }
+
+    // Constructor that also set log and storeHistory properties
+    public JupyterChannel(String name, String transport, String ip, long port, String containerID, int socketType, Kernel kernel, boolean shouldLog, boolean storeHistory) {
+        this(name, transport, ip, port, containerID, socketType, kernel);
+
+        this.log = shouldLog;
+        this.storeHistory = storeHistory;
+
+        if(storeHistory) history = new ArrayList<>();
     }
 
     /*==================================================================================================================
@@ -56,31 +84,60 @@ public abstract class JupyterChannel implements Runnable {
         // This is where we will handle the socket behavior
         while(!Thread.currentThread().isInterrupted()) {
 
+            // First : empty the incomingMessage because we are receiving a new one.
+            incomingMessage = new ArrayList<>();
+
             // We look for the delimiter to start handling the message
-            String recv1 = "";
-            String recv2 = socket.recvStr();
+            String lastMessageReceived = socket.recvStr();
 
-            while(!recv2.equals("<IDS|MSG>")) {
+            while(!lastMessageReceived.equals("<IDS|MSG>")) {
+                incomingMessage.add(lastMessageReceived);
 
-                // Log lost data
-                System.out.println("[WARNING] Loosing data on socket " + name + " : " + recv1);
-
-                // Move values to continue searching for the delimiter
-                recv1 = recv2;
-                recv2 = socket.recvStr();
+                lastMessageReceived = socket.recvStr();
             }
 
-            String uuid = recv1;
-            String delimiter = recv2;
-            String hmac = socket.recvStr();
-            String header = socket.recvStr();
-            String parent_header = socket.recvStr();
-            String metadata = socket.recvStr();
-            String content = socket.recvStr();
+            // Here we've received the delimiter.
+            // Now we check whether the previously received message was a uuid or not
+            if(incomingMessage.size() == 0) {
+                // It means that we did not received any uuid.
+                // So, we retrieve the previous one
+                incomingMessage.add(0, lastCorrectUuidReceived);
+            } else if (!isUuid(incomingMessage.get(incomingMessage.size()-1))) {
+                // Last received message is not a correct uuid, we remove everything from incoming message, log it and
+                for(int i=0; i<incomingMessage.size(); i++) {
+                    System.out.println("[WARNING] Loosing data on " + name + " socket : " + incomingMessage.get(0));
+                    incomingMessage.remove(0);
+                }
+                // add the correct uuid in the beginning
+                incomingMessage.add(0, lastCorrectUuidReceived);
 
-            if(this.log) logMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
+            } else {
+                // Uuid is correct and incomingMessage.size > 0
+                if(incomingMessage.size() > 1) {
+                    for(int i=0; i<incomingMessage.size() - 1; i++) {
+                        System.out.println("[WARNING] Loosing data on " + name + " socket : " + incomingMessage.get(0));
+                        incomingMessage.remove(0);
+                    }
+                }
 
-            handleMessage(uuid, delimiter, hmac, header, parent_header, metadata, content);
+                // Store the correct uuuid
+                lastCorrectUuidReceived = incomingMessage.get(incomingMessage.size()-1);
+            }
+
+            incomingMessage.add(lastMessageReceived); // delimiter <IDS|MSG>
+            incomingMessage.add(socket.recvStr()); // hmac
+            incomingMessage.add(socket.recvStr()); // header
+            incomingMessage.add(socket.recvStr()); // parent_header
+            incomingMessage.add(socket.recvStr()); // metadata
+            incomingMessage.add(socket.recvStr()); // content
+
+            // Log if configured
+            if(this.log) logMessage(incomingMessage);
+            // Save history if configured
+            if(this.storeHistory) history.add(incomingMessage);
+
+            // Finally handle the incoming message
+            handleMessage(incomingMessage);
         } // End while
 
         stopThread();
@@ -114,24 +171,8 @@ public abstract class JupyterChannel implements Runnable {
     }
 
     /*==================================================================================================================
-                                               CUSTOM METHODS
+                                             CUSTOM METHODS FOR USERS
      =================================================================================================================*/
-
-    /** React depending on the received message
-     *
-     * @param uuid : see "Messaging in Jupyter" doc
-     * @param delimiter : see "Messaging in Jupyter" doc
-     * @param hmac : see "Messaging in Jupyter" doc
-     * @param header : see "Messaging in Jupyter" doc
-     * @param parent_header : see "Messaging in Jupyter" doc
-     * @param metadata : see "Messaging in Jupyter" doc
-     * @param content : see "Messaging in Jupyter" doc
-     */
-    private void handleMessage(String uuid, String delimiter, String hmac, String header, String parent_header, String metadata, String content) {
-        String[] incomingMessage = {uuid, delimiter, hmac, header, parent_header, metadata, content};
-
-        messagesManager.handleMessage(name, incomingMessage);
-    }
 
     /**
      * If true, the channel will log every message it receives. Otherwise, doesn't log anything.
@@ -141,37 +182,77 @@ public abstract class JupyterChannel implements Runnable {
         this.log = log;
     }
 
-    /** Log all the messages received with their category name
-     *
-     * @param uuid : see "Messaging in Jupyter" doc
-     * @param delimiter : see "Messaging in Jupyter" doc
-     * @param hmac : see "Messaging in Jupyter" doc
-     * @param header : see "Messaging in Jupyter" doc
-     * @param parent_header : see "Messaging in Jupyter" doc
-     * @param metadata : see "Messaging in Jupyter" doc
-     * @param content : see "Messaging in Jupyter" doc
-     */
-    private void logMessage (String uuid, String delimiter, String hmac, String header, String parent_header,
-                             String metadata, String content) {
-        System.out.println("\n------- MESSAGE RECEIVED ON " + name + " CHANNEL -------");
-        System.out.println("UUID : " + uuid);
-        System.out.println("Delimiter : " + delimiter);
-        System.out.println("Hmac : " + hmac);
-        System.out.println("Header : " + header);
-        System.out.println("Parent_header : " + parent_header);
-        System.out.println("Metadata : " + metadata);
-        System.out.println("Content : " + content);
-        System.out.println("\n");
-    }
-
-
     public boolean isRunning() {
         return thread.isAlive();
     }
 
+    /**
+     * Set the identity of the ZMQ socket.
+     * The identity is sent as a message preceding the other messages sent with socket.sendMore and socket.send
+     * @param identity : a String representing the chosen identity
+     */
     public void setIdentity(String identity) {
         this.identity = identity;
         this.socket.setIdentity(identity.getBytes());
+    }
+
+    /**
+     * Set the behavior of the channel about storing messages history
+     * @param b : true to store, false not to
+     */
+    public void doStoreHistory (boolean b) {
+        // If user decide to start storing history and the history object hasn't been set yet, we set it
+        if (b && history == null) history = new ArrayList<>();
+
+        // Set the boolean that will be used to store history
+        this.storeHistory = b;
+    }
+
+    /*==================================================================================================================
+                                          CUSTOM METHODS FOR THIS CLASS ONLY
+     =================================================================================================================*/
+
+    /** Log all the messages received with their category name
+     *
+     * @param incomingMessage : complete Jupyter message. Look at the Jupyter doc to know more about it
+     */
+    private void logMessage (ArrayList<String> incomingMessage) {
+
+        System.out.println("\n------- MESSAGE RECEIVED ON " + name + " CHANNEL -------");
+
+        // First, we verify that the message is as long as a common Jupyter message
+        if (incomingMessage.size() == JUPYTER_MESSAGE_LENGTH) {
+            // If so, we log it into the shell with prefix
+            System.out.println("UUID : " + incomingMessage.get(0));
+            System.out.println("Delimiter : " + incomingMessage.get(1));
+            System.out.println("Hmac : " + incomingMessage.get(2));
+            System.out.println("Header : " + incomingMessage.get(3));
+            System.out.println("Parent_header : " + incomingMessage.get(4));
+            System.out.println("Metadata : " + incomingMessage.get(5));
+            System.out.println("Content : " + incomingMessage.get(6));
+
+        } else {
+            // If not, we log all the received data, without any prefix
+            for(int i=0; i<incomingMessage.size(); i++){
+                System.out.println(incomingMessage.get(i));
+            }
+        }
+
+        System.out.println("\n");
+    }
+
+    /** React depending on the received message
+     *
+     * @param incomingMessage : the received message, look at Jupyter doc to know its format
+     */
+    private void handleMessage(ArrayList<String> incomingMessage) {
+
+        messagesManager.handleMessage(name, incomingMessage);
+    }
+
+    private boolean isUuid (String message) {
+        // TODO
+        return true;
     }
 
     /*==================================================================================================================

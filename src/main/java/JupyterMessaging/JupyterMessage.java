@@ -11,6 +11,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -28,6 +29,7 @@ public class JupyterMessage {
     private JSONObject message;
 
     // Main elements of the message
+    private final int JUPYTER_MESSAGE_LENGTH = 7;
     private String uuid;
     private String hmac;
     private String delimiter;
@@ -83,32 +85,32 @@ public class JupyterMessage {
      *
      * @param incomingMessage : Array of String containing the parts of the message
      */
-    public JupyterMessage(Kernel kernel, String[] incomingMessage) {
+    public JupyterMessage(Kernel kernel, ArrayList<String> incomingMessage) {
         // Store the source kernel instance
         this.kernel = kernel;
 
         // Create the message from the received data
         message = new JSONObject();
 
-        if(incomingMessage.length == 7) {
-            message.put("uuid", incomingMessage[0]);
-            this.uuid = incomingMessage[0];
-            message.put("delimiter", incomingMessage[1]);
-            this.delimiter = incomingMessage[1];
-            message.put("hmac", incomingMessage[2]);
-            this.hmac = incomingMessage[2];
-            message.put("header", incomingMessage[3]);
-            message.put("parent_header", incomingMessage[4]);
-            message.put("metadata", incomingMessage[5]);
-            message.put("content", incomingMessage[6]);
+        if(incomingMessage.size() == JUPYTER_MESSAGE_LENGTH) {
+            message.put("uuid", incomingMessage.get(0));
+            this.uuid = incomingMessage.get(0);
+            message.put("delimiter", incomingMessage.get(1));
+            this.delimiter = incomingMessage.get(1);
+            message.put("hmac", incomingMessage.get(2));
+            this.hmac = incomingMessage.get(2);
+            message.put("header", incomingMessage.get(3));
+            message.put("parent_header", incomingMessage.get(4));
+            message.put("metadata", incomingMessage.get(5));
+            message.put("content", incomingMessage.get(6));
 
             // Construct the header, parent_header, metadata and content to make them easily accessible
             JSONParser jsonParser = new JSONParser();
             try {
-                header = (JSONObject) jsonParser.parse(incomingMessage[3]);
-                parent_header = (JSONObject) jsonParser.parse(incomingMessage[4]);
-                metadata = (JSONObject) jsonParser.parse(incomingMessage[5]);
-                content = (JSONObject) jsonParser.parse(incomingMessage[6]);
+                header = (JSONObject) jsonParser.parse(incomingMessage.get(3));
+                parent_header = (JSONObject) jsonParser.parse(incomingMessage.get(4));
+                metadata = (JSONObject) jsonParser.parse(incomingMessage.get(5));
+                content = (JSONObject) jsonParser.parse(incomingMessage.get(6));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -192,10 +194,10 @@ public class JupyterMessage {
             Mac hmac = Mac.getInstance(ALGORITHM);
             SecretKeySpec sk = new SecretKeySpec(kernel.getKey().getBytes(), ALGORITHM);
             hmac.init(sk);
-            hmac.update(header.toString().getBytes());
-            hmac.update(parent_header.toString().getBytes());
-            hmac.update(metadata.toString().getBytes());
-            hmac.update(content.toString().getBytes());
+            hmac.update(header.toJSONString().getBytes());
+            hmac.update(parent_header.toJSONString().getBytes());
+            hmac.update(metadata.toJSONString().getBytes());
+            hmac.update(content.toJSONString().getBytes());
             byte[] mac_data = hmac.doFinal();
 
             // Convert the hmac into a String to send it
@@ -222,13 +224,20 @@ public class JupyterMessage {
         message.put("delimiter", delimiter);
         message.put("header", header);
 
-        message.put("parent_header", parent_header.toString());
-        message.put("metadata", metadata.toString());
-        message.put("content", content.toString());
+        message.put("parent_header", parent_header);
+        message.put("metadata", metadata);
+        message.put("content", content);
 
         // Generate and add the hmac
         hmac = generateHmac();
         message.put("hmac", hmac);
+    }
+
+    @Override
+    public String toString() {
+        buildMessage();
+
+        return message.toJSONString();
     }
 
 }
