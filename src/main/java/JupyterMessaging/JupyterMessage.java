@@ -185,7 +185,7 @@ public class JupyterMessage {
      * Generate the Jupypter messaging protocol compliant hmac
      * @return
      */
-    private String generateHmac () {
+    public String generateHmac () {
         final String ALGORITHM = "HmacSHA256";
 
         String result = "";

@@ -51,6 +51,6 @@ public class StdinMessaging {
         JupyterMessage reply = new JupyterMessage(kernel, "input_reply", null, null, content);
 
         // Send it through the socket
-        channel.send(reply.toString());
+        channel.send(reply.getMessageToSend());
     }
 }

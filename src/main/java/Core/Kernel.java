@@ -94,7 +94,22 @@ public class Kernel {
     }
 
     public void verifyChannelsAreOk () {
-        // TODO
+        verifyChannelIsOk(shell);
+        verifyChannelIsOk(iopub);
+        verifyChannelIsOk(hb);
+        verifyChannelIsOk(stdin);
+        verifyChannelIsOk(control);
+    }
+
+    private void verifyChannelIsOk(JupyterChannel channel) {
+        if (!channel.isRunning()) {
+            try {
+                channel.stop();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            channel.start();
+        }
     }
 
     /* =================================================================================================================
@@ -335,7 +350,6 @@ public class Kernel {
     }
 
     private void deleteConnexionFile () {
-        // TODO : not working
         String absolutePathToConnexionInfoFile = pathToConnexionFiles + "/" + containerId + ".json";
 
         // We wait until the file has been created

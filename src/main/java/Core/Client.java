@@ -21,11 +21,8 @@ public class Client {
         kernels.add(kernel);
 
         // Configure hb and iopub channel to log what they receive
-        kernel.iopub.doLog(true);
-        kernel.iopub.doStoreHistory(true);
-        kernel.shell.doLog(true);
-        kernel.shell.doStoreHistory(false);
-//        kernel.hb.doLog(true);
+        //kernel.iopub.doLog(true);
+        //kernel.shell.doLog(true);
 
         Thread.sleep(3000);
         Manager messagesManager = kernel.getMessagesManager();

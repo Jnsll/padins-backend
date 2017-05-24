@@ -49,13 +49,13 @@ public class StdinChannel extends JupyterChannel {
     }
 
     /**
-     * Send a message through the socket
-     * @param message
+     * Send a message as bytes, needed by Jupyter
+     * @param message : the message to send to the shell
      */
-    public void send (String message) {
-        // TODO : make sure it works, as in ShellChannel
-        System.out.println("[INFO] Sending message on STDIN !");
-
-        socket.send(message.getBytes(), 0);
+    public void send (String[] message) {
+        for(int i=0; i<message.length-1; i++) {
+            socket.sendMore(message[i].getBytes());
+        }
+        socket.send(message[message.length-1]);
     }
 }

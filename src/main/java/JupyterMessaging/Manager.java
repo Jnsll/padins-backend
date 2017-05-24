@@ -3,6 +3,8 @@ package JupyterMessaging;
 import Core.Kernel;
 import org.json.simple.JSONObject;
 
+import javax.crypto.Mac;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /** The manager is a component that handle everything related to reacting to incoming messages
@@ -74,7 +76,16 @@ public class Manager {
      =================================================================================================================*/
 
     private boolean hmacIsCorrect(JupyterMessage message) {
-        // TODO
+        /* TODO : the below code isn't doing the job. We need to figure out what the problem is.
+         It is surprising, this code is doing the same thing as session.sign in the jupyter_client project */
+
+        /*String signature = message.getHmac();
+
+        // To obtain the check we generate a new hmac in the message, benefiting from its generate hmac method.
+        String check = message.generateHmac();
+
+        System.out.println("Hmac verification returns : " + signature.equals(check) +"\n" + signature + "\n" + check);
+        return signature.equals(check);*/
         return true;
     }
 

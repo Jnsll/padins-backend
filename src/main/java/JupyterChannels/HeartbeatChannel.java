@@ -34,19 +34,21 @@ public class HeartbeatChannel extends JupyterChannel {
 
         // Loop that will run whenever the Thread runs
         // This is where we will handle the socket behavior
-        while(!Thread.currentThread().isInterrupted()) {
-            // Send 'ping'
-            try {
+        try {
+            while(!Thread.currentThread().isInterrupted()) {
+                // Send 'ping'
                 Thread.sleep(1000);
-            } catch (Exception e) {
-                e.printStackTrace();
+
+                socket.send("ping".getBytes(), 0);
+
+                String message = socket.recvStr();
+                if(this.log) System.out.println("Received : " + new String(message) + " on socket " + name);
+
             }
-            socket.send("ping".getBytes(), 0);
-
-            String message = socket.recvStr();
-            if(this.log) System.out.println("Received : " + new String(message) + " on socket " + name);
-
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
+
 
         stopThread();
 
