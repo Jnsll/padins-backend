@@ -8,6 +8,8 @@ import org.zeromq.ZMQ.Socket;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -105,7 +107,7 @@ public abstract class JupyterChannel implements Runnable {
             } else if (!isUuid(incomingMessage.get(incomingMessage.size()-1))) {
                 // Last received message is not a correct uuid, we remove everything from incoming message, log it and
                 for(int i=0; i<incomingMessage.size(); i++) {
-                    System.out.println("[WARNING] Loosing data on " + name + " socket : " + incomingMessage.get(0));
+                    System.out.println("\033[33m" + "[WARNING]" + "\033[0m" + "Loosing data on " + name + " socket : " + incomingMessage.get(0));
                     incomingMessage.remove(0);
                 }
                 // add the correct uuid in the beginning
@@ -115,7 +117,7 @@ public abstract class JupyterChannel implements Runnable {
                 // Uuid is correct and incomingMessage.size > 0
                 if(incomingMessage.size() > 1) {
                     for(int i=0; i<incomingMessage.size() - 1; i++) {
-                        System.out.println("[WARNING] Loosing data on " + name + " socket : " + incomingMessage.get(0));
+                        System.out.println("\033[33m" + "[WARNING]" + "\033[0m" + "Loosing data on " + name + " socket : " + incomingMessage.get(0));
                         incomingMessage.remove(0);
                     }
                 }
@@ -251,8 +253,17 @@ public abstract class JupyterChannel implements Runnable {
     }
 
     private boolean isUuid (String message) {
-        // TODO
-        return true;
+        // Define the REGEX for an ip address
+        String UUID_PATTERN = "(kernel)\\.([a-z-0-9-\\-]){36}\\.(.*)";
+
+        // Create a pattern object used to run the regex
+        Pattern pattern = Pattern.compile(UUID_PATTERN);
+
+        // Create an object that verify whether the given "message" match the regex previously given
+        Matcher matcher = pattern.matcher(message);
+
+        // Run and return the test
+        return matcher.matches();
     }
 
     /*==================================================================================================================
