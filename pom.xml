@@ -10,15 +10,23 @@
 
     <dependencies>
         <dependency>
+            <!-- ZeroMQ is the communication library used to talk with the Dockerized Jupyter kernel -->
             <groupId>org.zeromq</groupId>
             <artifactId>jeromq</artifactId>
             <version>0.4.0</version>
         </dependency>
 
         <dependency>
+            <!-- A very basic json parser -->
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>1.1</version>
         </dependency>
 
     </dependencies>
@@ -28,6 +36,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

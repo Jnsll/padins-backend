@@ -1,8 +1,12 @@
 package Core;
 
 import Utils.Socket;
+import FBPNetworkProtocol.FBPNetworkProtocolManager;
 import org.json.simple.JSONObject;
+import sun.plugin2.message.Message;
 
+import javax.websocket.MessageHandler;
+import javax.websocket.Session;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.UUID;
@@ -19,17 +23,23 @@ public class Workspace {
 
     // Attributes
     public String uuid = null;
+    private int socketPort;
+    private String name = "";
     private Map<String, Kernel> kernels;
     private JSONObject flow = null;
-    private Map<String, Socket> connectedClients = null;
+    private Map<String, Session> connectedClients = null;
+    private FBPNetworkProtocolManager clientCommunicationManager = null;
 
     // Constructor
-    public Workspace () {
+    public Workspace (String name, int socketPort) {
         // Initialize attributes
         this.uuid = UUID.randomUUID().toString();
+        this.name = name;
         this.kernels = new Hashtable<>();
         this.flow = new JSONObject();
         this.connectedClients = new Hashtable<>();
+        this.socketPort = socketPort;
+        this.clientCommunicationManager = new FBPNetworkProtocolManager();
     }
 
     /*==================================================================================================================
@@ -40,7 +50,7 @@ public class Workspace {
      *
      * @param client : the socket of the client
      */
-    public void newClientConnection (Socket client) {
+    public void newClientConnection (Session client) {
         this.connectedClients.put(client.getId(), client);
     }
 
@@ -48,8 +58,24 @@ public class Workspace {
      *
      * @param client : the disconnected client
      */
-    public void clientDeconnection (Socket client) {
+    public void clientDeconnection (Session client) {
         this.connectedClients.remove(client.getId());
+    }
+
+    /*==================================================================================================================
+                                                GETTERS AND SETTERS
+     =================================================================================================================*/
+
+    public MessageHandler getMessageHandler () {
+        return clientCommunicationManager;
+    }
+
+    public String getName () {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /*==================================================================================================================
