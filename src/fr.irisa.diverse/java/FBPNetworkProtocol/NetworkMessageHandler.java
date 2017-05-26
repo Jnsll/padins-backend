@@ -8,28 +8,68 @@ import org.json.simple.JSONObject;
 public class NetworkMessageHandler implements FBPProtocolHandler {
 
     // Attributes
+    FBPNetworkProtocolManager owningManager;
+    String PROTOCOL = "network";
 
     // Constructor
-    public NetworkMessageHandler () {
-
+    public NetworkMessageHandler (FBPNetworkProtocolManager manager) {
+        this.owningManager = manager;
     }
 
     /* =================================================================================================================
                                     FBPProtocolHandler INTERFACE METHOD IMPLEMENTATION
        ===============================================================================================================*/
 
-    public void handleMessage (JSONObject message) {
-        String messageType = (String) message.get("message_type");
-        JSONObject content = FBPProtocolHandler.getContent(message);
+    public void handleMessage (FBPMessage message) {
+        String command = message.getCommand();
 
-        switch (messageType) {
-            // TODO
+        switch (command) {
+            case "persist" :
+                persist(message);
+                break;
+            case "getstatus" :
+                getstatus(message);
+                break;
+            case "edges" :
+                edges(message);
+                break;
+            case "start" :
+                start(message);
+                break;
+            case "stop" :
+                stop(message);
+                break;
+            default:
+                System.err.println("[ERROR] Unknown message on Network : " + message.toJSONString());
+                break;
         }
 
     }
 
     /* =================================================================================================================
-                                                      PRIVATE METHODS
+                                         HANDLERS FOR RECEIVED MESSAGE METHODS
        ===============================================================================================================*/
+
+    private void persist(FBPMessage message) {
+        // TODO : owningManager.respondToAllWith(createPersist());
+    }
+
+    private void getstatus(FBPMessage message) {
+    }
+
+    private void edges(FBPMessage message) {
+    }
+
+    private void start(FBPMessage message) {
+    }
+
+    private void stop(FBPMessage message) {
+    }
+
+    /* =================================================================================================================
+                                            METHODS TO CREATE RESPONSES
+       ===============================================================================================================*/
+
+    private FBPMessage createPersist (FBPMessage message) { return message; }
 
 }
