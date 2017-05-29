@@ -1,0 +1,64 @@
+{
+  "components" : [
+    {
+      "name" : "Raw data",
+      "description" : "Block to describe the raw-data that will be input from files or manually",
+      "outports" : [
+        {
+          "port" : "raw-data"
+        }
+      ]
+    },
+    {
+      "name" : "Model",
+      "description" : "Model that will be used by the simulation",
+      "inports": [
+        {
+          "port" : "Pre-processed data"
+        }
+      ],
+      "outports" : [
+        {
+          "port" : "model"
+        }
+      ]
+    },
+    {
+      "name" : "Processing",
+      "description" : "Block used to make light computing on data",
+      "inports" : [
+        {
+          "port": "data to process"
+        }
+      ],
+      "outports" : [
+        {
+          "port" : "processed data"
+        }
+      ]
+    },
+    {
+      "name" : "Simulation",
+      "description" : "Block used to make simulation",
+      "inports" : [
+        {
+          "port": "model to simulate"
+        }
+      ],
+      "outports" : [
+        {
+          "port" : "simulation results"
+        }
+      ]
+    },
+    {
+      "name" : "Visualisation",
+      "description" : "Block used to visualise results on charts",
+      "inports" : [
+        {
+          "port": "data to visualize"
+        }
+      ]
+    }
+  ]
+}

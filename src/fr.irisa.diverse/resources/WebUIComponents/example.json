@@ -1,0 +1,18 @@
+{
+  "components" : [
+    {
+      "name" : "Name 1",
+      "description" : "Description 1",
+      "inports" : [
+        {
+          "inports" : "inport 1"
+        }
+      ],
+      "outports" : [
+        {
+          "port" : "outport 1"
+        }
+      ]
+    }
+  ]
+}
