@@ -47,7 +47,7 @@ public class ComponentsUtils {
                                                     PRIVATE FUNCTIONS
        ===============================================================================================================*/
 
-    private static ArrayList<Component> getComponentsFromLib () {
+    public static ArrayList<Component> getComponentsFromLib () {
         try {
             // Read and parse the JSON file
             Object obj = parser.parse(new FileReader(pathToComponentLibrary + "/" + ONLY_EXISTING_LIBRARY)); // TODO modify to make it modular
@@ -76,79 +76,6 @@ public class ComponentsUtils {
         }
 
         return null; // if not found
-    }
-
-
-}
-
-
-class Component {
-
-    // Attributes
-    String name = "";
-    String description = "";
-    Ports inports = null;
-    Ports outports = null;
-
-    // Constructor
-    public Component (JSONObject json) {
-        this.name = (String) json.get("name");
-        this.description = (String) json.get("description");
-
-        if (json.get("inports") == null) inports = new Ports();
-        this.inports = buildPorts((String) json.get("inports"));
-
-        if (json.get("outports") == null) outports = new Ports();
-        else this.outports = buildPorts((String) json.get("outports"));
-    }
-
-    /* =================================================================================================================
-                                                    PUBLIC FUNCTIONS
-       ===============================================================================================================*/
-
-    public String getName () {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Ports getInports() {
-        return inports;
-    }
-
-    public Ports getOutports() {
-        return outports;
-    }
-
-    /* =================================================================================================================
-                                                    PRIVATE FUNCTIONS
-       ===============================================================================================================*/
-
-    private Ports buildPorts (String json) {
-        JSONParser parser = new JSONParser();
-        JSONObject ports;
-        Ports portsToReturn = new Ports();
-
-        try {
-            // Parse the json containing inputs to a JSONObject we can manipulate
-            ports = (JSONObject) parser.parse(json);
-
-            // Go trough the JSON to retrieve all the information we need
-            Set keys = ports.keySet();
-            Iterator iterator = keys.iterator();
-            while(iterator.hasNext()) {
-                // For each object, create an instance of Port and add it to the portsToReturn object
-                JSONObject tempJSONPort = (JSONObject) ports.get(iterator.next());
-                Port tempPort = new Port((String) tempJSONPort.get("port"));
-                portsToReturn.add(tempPort);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return portsToReturn;
     }
 
 
