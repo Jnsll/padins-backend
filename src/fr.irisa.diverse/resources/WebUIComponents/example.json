@@ -12,7 +12,10 @@
         {
           "port" : "outport 1"
         }
-      ]
+      ],
+      "language" : "programming language",
+      "code" : "code",
+      "tests" : "code for the tests"
     }
   ]
 }

@@ -2,7 +2,7 @@ package Flow;
 
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by antoine on 29/05/17.
@@ -11,12 +11,15 @@ public class Port {
 
     // Attributes
     JSONObject portJSON = null;
+    String id = "";
     String port = "";
     JSONObject metadata = null;
     String connectedTo = "";
+    String type = "object";
 
     // Constructors
     public Port (String port) {
+        id = UUID.randomUUID().toString();
         this.portJSON = new JSONObject();
         this.port = port;
         this.metadata = new JSONObject();
@@ -37,6 +40,10 @@ public class Port {
                                              GETTERS AND SETTERS FUNCTIONS
        ===============================================================================================================*/
 
+    public String getId() {
+        return id;
+    }
+
     public String getPort () {
         if (port == null) port = "";
 
@@ -55,6 +62,10 @@ public class Port {
         return connectedTo;
     }
 
+    public String getType() {
+        return type;
+    }
+
     /* =================================================================================================================
                                                     PUBLIC FUNCTIONS
        ===============================================================================================================*/
@@ -62,9 +73,11 @@ public class Port {
     @Override
     public String toString () {
         // Build the edge JSON
+        portJSON.put("id", getId());
         portJSON.put("port", getPort());
         portJSON.put("metadata", getMetadata().toJSONString());
         portJSON.put("connectedTo", getConnectedTo());
+        portJSON.put("type", getType());
 
         // Return it as a String
         return portJSON.toJSONString();

@@ -4,6 +4,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.util.ArrayList;
+
 /**
  * Created by antoine on 26/05/2017.
  */
@@ -24,6 +26,22 @@ public abstract class JSON {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        return res;
+    }
+
+    public static String jsonArrayListToString (ArrayList list) {
+        String res = "[";
+
+        // Add each node's id into the array
+        for(int i=0; i<list.size(); i++) {
+            res += list.get(i).toString() + ",";
+        }
+
+        // Remove last unwanted coma
+        res = res.substring(0, res.length()-1);
+
+        res += "]";
 
         return res;
     }

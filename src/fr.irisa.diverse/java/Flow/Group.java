@@ -94,18 +94,6 @@ public class Group {
     }
 
     private String nodesToString () {
-        String res = "[";
-
-        // Add each node's id into the array
-        for(int i=0; i<nodes.size(); i++) {
-            res += nodes.get(i) + ",";
-        }
-
-        // Remove last unwanted coma
-        res = res.substring(0, res.length()-1);
-
-        res += "]";
-
-        return res;
+        return Utils.JSON.jsonArrayListToString(nodes);
     }
 }
