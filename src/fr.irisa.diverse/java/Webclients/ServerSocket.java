@@ -40,7 +40,7 @@ public class ServerSocket {
         // TODO : workspace = webserver.getWorkspaceForPort(this.port);
 
         // Assign a message handler to be sure the treatment of every client of the workspace is synchronous.
-        session.addMessageHandler(owningWorkspace.getMessageHandler());
+        session.addMessageHandler(owningWorkspace.getMessageHandler(session));
 
         // Store the client on the workspace instance.
         owningWorkspace.newClientConnection(session);

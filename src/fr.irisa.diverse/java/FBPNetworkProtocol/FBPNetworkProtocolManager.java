@@ -1,6 +1,13 @@
 package FBPNetworkProtocol;
 
+import Core.Workspace;
+
 import javax.websocket.MessageHandler;
+import javax.websocket.Session;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by antoine on 26/05/2017.
@@ -15,9 +22,12 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
     private ComponentMessageHandler component = null;
     private RuntimeMessageHandler runtime = null;
     private TraceMessageHandler trace = null;
+    private Session owningSession = null;
+    private Workspace owningWorkspace = null;
 
     // Constructor
-    public FBPNetworkProtocolManager () {
+    public FBPNetworkProtocolManager (Workspace workspace) {
+        this.owningWorkspace = workspace;
 
         network = new NetworkMessageHandler(this);
         graph = new GraphMessageHandler(this);
@@ -25,6 +35,10 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
         runtime = new RuntimeMessageHandler(this);
         trace = new TraceMessageHandler(this);
 
+    }
+
+    public void setSession (Session session) {
+        owningSession = session;
     }
 
     /* =================================================================================================================
@@ -63,6 +77,33 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
     }
 
     /* =================================================================================================================
-                                                  PRIVATE METHODS
+                                                  PUBLIC METHODS
        ===============================================================================================================*/
+
+    public Session getOwningSession() {
+        return owningSession;
+    }
+
+    public void send (String msg) {
+        try {
+            owningSession.getBasicRemote().sendText(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendToAll (String msg) {
+        Map<String, Session> clients = owningWorkspace.getConnectedClients();
+
+        Set<String> keys = clients.keySet();
+        Iterator iterator = keys.iterator();
+        while(iterator.hasNext()) {
+            Session client = clients.get(iterator.next());
+            try {
+                client.getBasicRemote().sendText(msg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

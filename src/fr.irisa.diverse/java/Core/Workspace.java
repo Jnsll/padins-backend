@@ -1,7 +1,7 @@
 package Core;
 
 import FBPNetworkProtocol.FBPNetworkProtocolManager;
-import org.json.simple.JSONObject;
+import Flow.Flow;
 
 import javax.websocket.MessageHandler;
 import javax.websocket.Session;
@@ -24,9 +24,10 @@ public class Workspace {
     private int socketPort;
     private String name = "";
     private Map<String, Kernel> kernels;
-    private JSONObject flow = null;
+    private Flow flow = null;
     private Map<String, Session> connectedClients = null;
     private FBPNetworkProtocolManager clientCommunicationManager = null;
+    private String library = "hydro-geology";
 
     // Constructor
     public Workspace (String name, int socketPort) {
@@ -34,10 +35,10 @@ public class Workspace {
         this.uuid = UUID.randomUUID().toString();
         this.name = name;
         this.kernels = new Hashtable<>();
-        this.flow = new JSONObject();
+        this.flow = new Flow(this);
         this.connectedClients = new Hashtable<>();
         this.socketPort = socketPort;
-        this.clientCommunicationManager = new FBPNetworkProtocolManager();
+        this.clientCommunicationManager = new FBPNetworkProtocolManager(this);
     }
 
     /*==================================================================================================================
@@ -64,7 +65,8 @@ public class Workspace {
                                                 GETTERS AND SETTERS
      =================================================================================================================*/
 
-    public MessageHandler getMessageHandler () {
+    public MessageHandler getMessageHandler (Session session) {
+        clientCommunicationManager.setSession(session);
         return clientCommunicationManager;
     }
 
@@ -74,6 +76,14 @@ public class Workspace {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Map<String, Session> getConnectedClients() {
+        return connectedClients;
+    }
+
+    public String getLibrary() {
+        return library;
     }
 
     /*==================================================================================================================
