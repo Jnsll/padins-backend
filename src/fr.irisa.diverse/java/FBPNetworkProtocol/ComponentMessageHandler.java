@@ -38,14 +38,14 @@ public class ComponentMessageHandler implements FBPProtocolHandler {
                 break;
             default :
                 System.err.println("Received message for unknown protocol : " + message.toJSONString());
-                sendError("Error with message : " + message.toJSONString());
+                owningManager.sendError(PROTOCOL, "Error with message : " + message.toJSONString());
                 break;
         }
 
     }
 
     /* =================================================================================================================
-                                                      PRIVATE METHODS
+                                    PRIVATE METHODS TO HANDLE RECEIVED MESSAGES
        ===============================================================================================================*/
 
     /** Request a list of currently available components. Will be responded with a set of `component` messages.
@@ -95,16 +95,6 @@ public class ComponentMessageHandler implements FBPProtocolHandler {
 
     private void sendComponentReadyMessage () {
         FBPMessage msg = new FBPMessage(PROTOCOL, "componentsready", "");
-
-        owningManager.send(msg.toJSONString());
-    }
-
-    private void sendError(String error) {
-        JSONObject obj = new JSONObject();
-        obj.put("message", error);
-        String payload = obj.toJSONString();
-
-        FBPMessage msg = new FBPMessage(PROTOCOL, "error", payload);
 
         owningManager.send(msg.toJSONString());
     }

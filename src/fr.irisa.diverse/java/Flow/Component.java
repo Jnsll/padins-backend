@@ -60,7 +60,10 @@ public class Component {
         return outports;
     }
 
-    public String getLanguage() { return language; }
+    public String getLanguage() {
+        if(language == null) language = "";
+        return language;
+    }
 
     public String getCode() {
         return code;

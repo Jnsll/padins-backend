@@ -1,6 +1,7 @@
 package FBPNetworkProtocol;
 
 import Core.Workspace;
+import org.json.simple.JSONObject;
 
 import javax.websocket.MessageHandler;
 import javax.websocket.Session;
@@ -117,5 +118,15 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void sendError(String protocol, String error) {
+        JSONObject obj = new JSONObject();
+        obj.put("message", error);
+        String payload = obj.toJSONString();
+
+        FBPMessage msg = new FBPMessage(protocol, "error", payload);
+
+        send(msg.toJSONString());
     }
 }
