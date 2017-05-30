@@ -13,6 +13,7 @@ public class Node {
 
     // Attributes
     JSONObject node = null;
+    Flow owningFlow = null;
     String id = "";
     String component = "";
     JSONObject metadata = null;
@@ -21,14 +22,15 @@ public class Node {
     Ports outports = null;
 
     // Constructor
-    public Node (String component, JSONObject metadata, String graph) {
+    public Node (String component, JSONObject metadata, String graph, Flow owningFlow) {
         node = new JSONObject();
+        this.owningFlow = owningFlow;
         id = UUID.randomUUID().toString();
         this.component = component;
         this.metadata = metadata;
         this.graph = graph;
-        this.inports = ComponentsUtils.getInPortsForComponent(component);
-        this.outports = ComponentsUtils.getOutPortsForComponent(component);
+        this.inports = ComponentsUtils.getInPortsForComponent(owningFlow.getComponentsLibrary(), component);
+        this.outports = ComponentsUtils.getOutPortsForComponent(owningFlow.getComponentsLibrary(), component);
     }
 
     /* =================================================================================================================

@@ -13,6 +13,7 @@ public class Edge {
 
     // Attributes
     JSONObject edge = null;
+    Flow owningFlow = null;
     String id = "";
     JSONObject src = null;
     JSONObject tgt = null;
@@ -20,7 +21,8 @@ public class Edge {
     String graph = "";
 
     // Constructor
-    public Edge(JSONObject src, JSONObject tgt, JSONObject metadata, String graph) {
+    public Edge(JSONObject src, JSONObject tgt, JSONObject metadata, String graph, Flow owningFlow) {
+        this.owningFlow = owningFlow;
         this.edge = new JSONObject();
         this.id = UUID.randomUUID().toString();
         this.src = src;

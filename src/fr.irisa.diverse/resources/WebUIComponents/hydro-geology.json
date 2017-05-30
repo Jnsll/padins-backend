@@ -7,7 +7,10 @@
         {
           "port" : "raw-data"
         }
-      ]
+      ],
+      "language" : "JSON",
+      "code" : "",
+      "tests" : ""
     },
     {
       "name" : "Model",
@@ -21,7 +24,10 @@
         {
           "port" : "model"
         }
-      ]
+      ],
+      "language" : "EMF",
+      "code" : "no code",
+      "tests" : "node code"
     },
     {
       "name" : "Processing",
@@ -35,7 +41,10 @@
         {
           "port" : "processed data"
         }
-      ]
+      ],
+      "language" : "Python",
+      "code" : "",
+      "tests" : ""
     },
     {
       "name" : "Simulation",
@@ -49,7 +58,10 @@
         {
           "port" : "simulation results"
         }
-      ]
+      ],
+      "language" : "Python",
+      "code" : "",
+      "tests" : ""
     },
     {
       "name" : "Visualisation",
@@ -58,7 +70,10 @@
         {
           "port": "data to visualize"
         }
-      ]
+      ],
+      "language" : "Javascript",
+      "code" : "",
+      "tests" : ""
     }
   ]
 }

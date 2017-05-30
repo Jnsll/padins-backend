@@ -25,6 +25,8 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
     private Session owningSession = null;
     private Workspace owningWorkspace = null;
 
+    private String componentsLibrary = "";
+
     // Constructor
     public FBPNetworkProtocolManager (Workspace workspace) {
         this.owningWorkspace = workspace;
@@ -35,15 +37,25 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
         runtime = new RuntimeMessageHandler(this);
         trace = new TraceMessageHandler(this);
 
+        componentsLibrary = workspace.getLibrary();
+
     }
+
+    /* =================================================================================================================
+                                                  GETTERS AND SETTERS
+       ===============================================================================================================*/
 
     public void setSession (Session session) {
         owningSession = session;
     }
 
+    public String getComponentsLibrary() {
+        return componentsLibrary;
+    }
+
     /* =================================================================================================================
-                                   MessageHandler.Whole INTERFACE METHOD IMPLEMENTATION
-       ===============================================================================================================*/
+                                       MessageHandler.Whole INTERFACE METHOD IMPLEMENTATION
+           ===============================================================================================================*/
     @Override
     public void onMessage(String msg) {
         // Parse the received message add put it into a JSONObject.

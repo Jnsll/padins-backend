@@ -7,8 +7,6 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by antoine on 29/05/17.
@@ -17,9 +15,9 @@ public class ComponentsUtils {
 
     // Attributes
     private static String pathToComponentLibrary = ComponentsUtils.class.getResource("../WebUIComponents/example.json").getPath().replace("/example.json", "");
-    private static ArrayList<Component> components = getComponentsFromLib();
+    private static ArrayList<Component> components = null;
     private static JSONParser parser = new JSONParser();
-    private static String ONLY_EXISTING_LIBRARY = "hydro-geology.json";
+    private static String lastRequestedLibrary = "";
 
     /* =================================================================================================================
                                                     PUBLIC FUNCTIONS
@@ -30,8 +28,8 @@ public class ComponentsUtils {
      * @param component : the component for whom you want its inports
      * @return : An arraylist containing all inports
      */
-    public static Ports getInPortsForComponent(String component) {
-        return getComponent(component).getInports();
+    public static Ports getInPortsForComponent(String library, String component) {
+        return getComponent(library, component).getInports();
     }
 
     /**
@@ -39,18 +37,19 @@ public class ComponentsUtils {
      * @param component : the component for whom you want its inports
      * @return : An arraylist containing all inports
      */
-    public static Ports getOutPortsForComponent(String component) {
-        return getComponent(component).getOutports();
+    public static Ports getOutPortsForComponent(String library, String component) {
+        return getComponent(library, component).getOutports();
     }
 
     /* =================================================================================================================
                                                     PRIVATE FUNCTIONS
        ===============================================================================================================*/
 
-    public static ArrayList<Component> getComponentsFromLib () {
+    public static ArrayList<Component> getComponentsFromLib (String library) {
         try {
+            lastRequestedLibrary = library;
             // Read and parse the JSON file
-            Object obj = parser.parse(new FileReader(pathToComponentLibrary + "/" + ONLY_EXISTING_LIBRARY)); // TODO modify to make it modular
+            Object obj = parser.parse(new FileReader(pathToComponentLibrary + "/" + library));
             JSONObject jsonObject = (JSONObject) obj;
             jsonObject = (JSONObject) jsonObject.get("components");
 
@@ -58,7 +57,7 @@ public class ComponentsUtils {
             for(int i=0; i<jsonObject.size(); i++) {
                 JSONObject object = (JSONObject) jsonObject.get(i);
 
-                components.add(new Component(object));
+                components.add(new Component(object, library));
             }
 
         } catch (IOException e) {
@@ -70,7 +69,12 @@ public class ComponentsUtils {
         return new ArrayList<Component>();
     }
 
-    private static Component getComponent(String name) {
+    public static Component getComponent(String library, String name) {
+        // If the last request library is not the same as the one requested this time, we load the
+        // data from the corresponding JSON file which can be found in ressources/WebUIComponents
+        if (!library.equals(lastRequestedLibrary)) components = getComponentsFromLib(library);
+
+        // Go through the components to find and return the requested one
         for(int i=0; i<components.size(); i++) {
             if (components.get(i).getName().equals(name)) return components.get(i);
         }

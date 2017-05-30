@@ -15,6 +15,7 @@ public class Group {
 
     // Attributes
     JSONObject group = null;
+    Flow owningFlow = null;
     String id = "";
     String name = "";
     ArrayList<String> nodes = null;
@@ -22,8 +23,9 @@ public class Group {
     String graph = "";
 
     // Constructor
-    public Group (String name, JSONObject nodes, JSONObject metadata, String graph) {
+    public Group (String name, JSONObject nodes, JSONObject metadata, String graph, Flow owningFlow) {
         group = new JSONObject();
+        this.owningFlow = owningFlow;
         id = UUID.randomUUID().toString();
         this.name = name;
         this.nodes = extractNodesFromJSON(nodes);

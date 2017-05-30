@@ -14,16 +14,17 @@ import java.util.UUID;
 public class Flow {
 
     // Attributes
-    JSONObject flow = null;
-    Workspace owningWorkspace = null;
+    private JSONObject flow = null;
+    private Workspace owningWorkspace = null;
+    private String componentsLibrary = "";
     // The below attributes have to be contained into the flow object.
-    String id = "";
-    String name = "";
-    String description = "";
-    String library = "";
-    ArrayList<Edge> edges = null;
-    ArrayList<Node> nodes = null;
-    ArrayList<Group> groups = null;
+    private String id = "";
+    private String name = "";
+    private String description = "";
+    private String library = "";
+    private ArrayList<Edge> edges = null;
+    private ArrayList<Node> nodes = null;
+    private ArrayList<Group> groups = null;
 
     // Constructor
     public Flow (Workspace workspace) {
@@ -34,6 +35,8 @@ public class Flow {
         this.edges = new ArrayList<Edge>();
         this.nodes = new ArrayList<Node>();
         this.groups = new ArrayList<Group>();
+
+        componentsLibrary = owningWorkspace.getLibrary();
     }
 
     /** Constructor that creates a Flow from a JSONObject.
@@ -68,11 +71,19 @@ public class Flow {
         String tgtNodeId = (String) src.get("node");
 
         if(nodeExist(srcNodeId) && nodeExist(tgtNodeId) && graphExist(graph)) {
-            Edge newEdge = new Edge(src, tgt, metadata, graph);
+            Edge newEdge = new Edge(src, tgt, metadata, graph, this);
             edges.add(newEdge);
         } else {
             System.err.println("[ERROR] Cannot create graph for src : " + srcNodeId + ", target : " + tgtNodeId + ", graph : " + graph + " because one of them doesn't exist");
         }
+    }
+
+    /* =================================================================================================================
+                                                    GETTERS AND SETTERS
+       ===============================================================================================================*/
+
+    public String getComponentsLibrary() {
+        return componentsLibrary;
     }
 
     /* =================================================================================================================

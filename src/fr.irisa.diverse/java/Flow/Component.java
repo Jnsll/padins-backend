@@ -13,20 +13,28 @@ import java.util.Set;
 public class Component {
 
     // Attributes
-    JSONObject component = null;
-    String name = "";
-    String description = "";
-    Ports inports = null;
-    Ports outports = null;
+    private JSONObject component = null;
+    private String fromLibrary = "";
+    private String name = "";
+    private String description = "";
+    private Ports inports = null;
+    private Ports outports = null;
+    private String language = "";
+    private String code = "";
+    private String tests = "";
 
     // Constructor
-    public Component (JSONObject json) {
+    public Component (JSONObject json, String library) {
         component = new JSONObject();
-        this.name = (String) json.get("name"); // TODO : add project name as a prefix
+        this.fromLibrary = library;
+        this.name = library + "/" + json.get("name");
         this.description = (String) json.get("description");
 
+        if(json.get("langague") != null) this.language = (String) json.get("language");
+        if(json.get("code") != null) this.code = (String) json.get("code");
+        if(json.get("tests") != null) this.tests = (String) json.get("tests");
         if (json.get("inports") == null) inports = new Ports();
-        this.inports = buildPorts((String) json.get("inports"));
+        else this.inports = buildPorts((String) json.get("inports"));
 
         if (json.get("outports") == null) outports = new Ports();
         else this.outports = buildPorts((String) json.get("outports"));
@@ -50,6 +58,16 @@ public class Component {
 
     public Ports getOutports() {
         return outports;
+    }
+
+    public String getLanguage() { return language; }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getTests() {
+        return tests;
     }
 
     /* =================================================================================================================
