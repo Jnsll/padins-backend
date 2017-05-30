@@ -12,12 +12,14 @@ import java.util.ArrayList;
 public class ComponentMessageHandler implements FBPProtocolHandler {
 
     // Attributes
-    FBPNetworkProtocolManager owningManager;
-    String PROTOCOL = "component";
+    private FBPNetworkProtocolManager owningManager;
+    private String componentsLibrary = "";
+    final String PROTOCOL = "component";
 
     // Constructor
     public ComponentMessageHandler (FBPNetworkProtocolManager manager) {
         this.owningManager = manager;
+        this.componentsLibrary = owningManager.getComponentsLibrary();
     }
 
     /* =================================================================================================================
@@ -51,7 +53,7 @@ public class ComponentMessageHandler implements FBPProtocolHandler {
      * @param message : received message
      */
     private void list(FBPMessage message) {
-        ArrayList<Component> components = ComponentsUtils.getComponentsFromLib();
+        ArrayList<Component> components = ComponentsUtils.getComponentsFromLib(componentsLibrary);
 
         // Send a component message for each component
         for (int i=0; i<components.size(); i++) {
@@ -69,9 +71,10 @@ public class ComponentMessageHandler implements FBPProtocolHandler {
     private void getsource(FBPMessage message) {
         String name = (String) message.getPayloadAsJSON().get("name");
         int slashIndex = name.lastIndexOf('/');
-        String component = name.substring(slashIndex, name.length());
+        String library = name.substring(0, slashIndex);
+        String component = name.substring(slashIndex + 1, name.length());
 
-        // TODO : finish with link https://flowbased.github.io/fbp-protocol/#component-getsource
+        sendSourceMessage(library, component);
 
     }
 
@@ -102,6 +105,25 @@ public class ComponentMessageHandler implements FBPProtocolHandler {
         String payload = obj.toJSONString();
 
         FBPMessage msg = new FBPMessage(PROTOCOL, "error", payload);
+
+        owningManager.send(msg.toJSONString());
+    }
+
+    private void sendSourceMessage (String library, String component) {
+        Component component1 = ComponentsUtils.getComponent(library, component);
+
+        // Build the payload
+        JSONObject payload = new JSONObject();
+        payload.put("name", component);
+        payload.put("language", component1.getLanguage());
+        payload.put("library", library);
+        payload.put("code", component1.getCode());
+        payload.put("tests", component1.getTests());
+
+        // Build the message that will be sent
+        FBPMessage msg = new FBPMessage(PROTOCOL, "source", payload.toJSONString());
+
+        owningManager.send(msg.toJSONString());
     }
 
 }
