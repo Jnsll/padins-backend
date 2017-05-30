@@ -11,7 +11,7 @@ import java.util.UUID;
  *
  * Created by antoine on 26/05/2017.
  */
-public class Flow {
+public class Flow implements FlowInterface {
 
     // Attributes
     private JSONObject flow = null;
@@ -76,6 +76,78 @@ public class Flow {
         } else {
             System.err.println("[ERROR] Cannot create graph for src : " + srcNodeId + ", target : " + tgtNodeId + ", graph : " + graph + " because one of them doesn't exist");
         }
+    }
+
+    public void addNode(String id, String component, JSONObject metadata, String graph) {
+        // TODO
+    }
+
+    public void removeNode(String id, String graph) {
+        // TODO
+    }
+
+    public void renameNode(String from, String to, String graph) {
+        // TODO
+    }
+
+    public void changeNode(String id, JSONObject metadata, String graph) {
+        // TODO
+    }
+
+    public void removeEdge(String graph, JSONObject src, JSONObject tgt) {
+        // TODO
+    }
+
+    public void changeEdge(String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
+        // TODO
+    }
+
+    public void addInitial(String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
+        // TODO
+    }
+
+    public void removeInitial(String graph, JSONObject src, JSONObject tgt) {
+        // TODO
+    }
+
+    public void addInport(String name, String node, String port, JSONObject metadata, String graph) {
+        // TODO
+    }
+
+    public void removeInport(String name, String graph) {
+        // TODO
+    }
+
+    public void renameInport(String from, String to, String graph) {
+        // TODO
+    }
+
+    public void addOutport(String name, String node, String port, JSONObject metadata, String graph) {
+        // TODO
+    }
+
+    public void removeOutport(String name, String graph) {
+        // TODO
+    }
+
+    public void renameOutport(String from, String to, String graph) {
+        // TODO
+    }
+
+    public void addGroup(String name, Node[] nodes, JSONObject metadata, String graph) {
+        // TODO
+    }
+
+    public void removeGroup(String name, String graph) {
+        // TODO
+    }
+
+    public void renameGroup(String from, String to, String graph) {
+        // TODO
+    }
+
+    public void changeGroup(String name, JSONObject metadata, String graph) {
+        // TODO
     }
 
     /* =================================================================================================================
