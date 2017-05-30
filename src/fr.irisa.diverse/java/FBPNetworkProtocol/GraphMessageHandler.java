@@ -1,7 +1,6 @@
 package FBPNetworkProtocol;
 
 import Core.Workspace;
-import Utils.JSON;
 import org.json.simple.JSONObject;
 import Flow.*;
 
