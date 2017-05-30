@@ -2,6 +2,7 @@ package FBPNetworkProtocol;
 
 import Core.Workspace;
 import org.json.simple.JSONObject;
+import Flow.*;
 
 import javax.websocket.MessageHandler;
 import javax.websocket.Session;
@@ -24,7 +25,9 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
     private RuntimeMessageHandler runtime = null;
     private TraceMessageHandler trace = null;
     private Session owningSession = null;
-    private Workspace owningWorkspace = null;
+    Workspace owningWorkspace = null;
+    final String FBP_NETWORK_PROTOCOL_VERSION = "0.6";
+    private Flow flow = null;
 
     private String componentsLibrary = "";
 
@@ -39,6 +42,7 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
         trace = new TraceMessageHandler(this);
 
         componentsLibrary = workspace.getLibrary();
+        flow = workspace.getFlow();
 
     }
 

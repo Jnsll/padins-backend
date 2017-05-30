@@ -28,6 +28,7 @@ public class Workspace {
     private Map<String, Session> connectedClients = null;
     private FBPNetworkProtocolManager clientCommunicationManager = null;
     private String library = "hydro-geology";
+    public final String RUNTIME_TYPE = "Computational Science";
 
     // Constructor
     public Workspace (String name, int socketPort) {
@@ -84,6 +85,14 @@ public class Workspace {
 
     public String getLibrary() {
         return library;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public Flow getFlow() {
+        return flow;
     }
 
     /*==================================================================================================================

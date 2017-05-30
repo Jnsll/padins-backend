@@ -31,7 +31,7 @@ public class ComponentMessageHandler implements FBPProtocolHandler {
 
         switch (command) {
             case "list" :
-                list(message);
+                list();
                 break;
             case "getsource" :
                 getsource(message);
@@ -50,9 +50,8 @@ public class ComponentMessageHandler implements FBPProtocolHandler {
 
     /** Request a list of currently available components. Will be responded with a set of `component` messages.
      *
-     * @param message : received message
      */
-    private void list(FBPMessage message) {
+    private void list() {
         ArrayList<Component> components = ComponentsUtils.getComponentsFromLib(componentsLibrary);
 
         // Send a component message for each component
