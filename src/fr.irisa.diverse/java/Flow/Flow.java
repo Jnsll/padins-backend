@@ -66,6 +66,44 @@ public class Flow implements FlowInterface {
         return flow.toJSONString();
     }
 
+    public void addNode(String id, String component, JSONObject metadata, String graph) {
+        Node n = new Node(id, component, metadata, graph, this);
+
+        nodes.add(n);
+    }
+
+    public void removeNode(String id, String graph) {
+        // Verify that the requested graph is the workspace
+        if(graphExist(graph) && nodeExist(id)) {
+            // If so, retrieve the index of the node and remove it
+            nodes.remove(indexOfNode(id));
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to create node because graph " + graph + " doesn't exist");
+        }
+    }
+
+    public void renameNode(String from, String to, String graph) {
+        // Verify that the requested graph is the workspace
+        if(graphExist(graph) && nodeExist(from)) {
+            // If so, retrieve the node and modify its id
+            Node n = nodes.get(indexOfNode(from));
+            n.setId(to);
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename node " + from);
+        }
+    }
+
+    public void changeNode(String id, JSONObject metadata, String graph) {
+        // Verify that the requested graph is the workspace
+        if(graphExist(graph) && nodeExist(id)) {
+            // If so, retrieve the node and modify its id
+            Node n = nodes.get(indexOfNode(id));
+            n.setMetadata(metadata);
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change node " + id);
+        }
+    }
+
     public void addEdge (JSONObject src, JSONObject tgt, JSONObject metadata, String graph) {
         String srcNodeId = (String) src.get("node");
         String tgtNodeId = (String) src.get("node");
@@ -78,76 +116,97 @@ public class Flow implements FlowInterface {
         }
     }
 
-    public void addNode(String id, String component, JSONObject metadata, String graph) {
-        // TODO
-    }
-
-    public void removeNode(String id, String graph) {
-        // TODO
-    }
-
-    public void renameNode(String from, String to, String graph) {
-        // TODO
-    }
-
-    public void changeNode(String id, JSONObject metadata, String graph) {
-        // TODO
-    }
-
     public void removeEdge(String graph, JSONObject src, JSONObject tgt) {
-        // TODO
+        // Verify that the requested graph is the workspace
+        if(graphExist(graph) && edgeExist(src, tgt)) {
+            // If so, retrieve the index of the edge and remove it
+            edges.remove(indexOfEdge(src, tgt));
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove edge. Maybe the graph doesn't exist or the edge has already been removed.");
+        }
     }
 
     public void changeEdge(String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
-        // TODO
+        // Verify that the requested graph is the workspace
+        if(graphExist(graph) && edgeExist(src, tgt)) {
+            // If so, retrieve the edge and modify its metadata
+            Edge e = edges.get(indexOfEdge(src, tgt));
+            e.setMetadata(metadata);
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change request edge");
+        }
     }
 
     public void addInitial(String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
-        // TODO
+        // Not used for now
     }
 
     public void removeInitial(String graph, JSONObject src, JSONObject tgt) {
-        // TODO
+        // Not used for now
     }
 
     public void addInport(String name, String node, String port, JSONObject metadata, String graph) {
-        // TODO
+        // Not used for now
     }
 
     public void removeInport(String name, String graph) {
-        // TODO
+        // Not used for now
     }
 
     public void renameInport(String from, String to, String graph) {
-        // TODO
+        // Not used for now
     }
 
     public void addOutport(String name, String node, String port, JSONObject metadata, String graph) {
-        // TODO
+        // Not used for now
     }
 
     public void removeOutport(String name, String graph) {
-        // TODO
+        // Not used for now
     }
 
     public void renameOutport(String from, String to, String graph) {
-        // TODO
+        // Not used for now
     }
 
-    public void addGroup(String name, Node[] nodes, JSONObject metadata, String graph) {
-        // TODO
+    public void addGroup(String name, JSONObject nodes, JSONObject metadata, String graph) {
+        if(graphExist(graph)){
+            Group g = new Group(name, nodes, metadata, graph, this);
+
+            groups.add(g);
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to add group to graph " + graph + " because it doesn't exist");
+        }
     }
 
     public void removeGroup(String name, String graph) {
-        // TODO
+        if(graphExist(graph) && groupExist(name)) {
+            groups.remove(indexOfGroup(name));
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove group " + name + " because it doesn't exist or graph " + graph + " doesn't exist");
+        }
     }
 
     public void renameGroup(String from, String to, String graph) {
-        // TODO
+        // Verify that the requested graph is the workspace
+        if(graphExist(graph) && groupExist(from)) {
+            // If so, retrieve the group and modify its name
+            Group g = groups.get(indexOfGroup(from));
+            g.setName(to);
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename group " + from);
+        }
     }
 
     public void changeGroup(String name, JSONObject metadata, String graph) {
-        // TODO
+        // Verify that the requested graph is the workspace
+        if(graphExist(graph) && groupExist(name)) {
+            // If so, retrieve the group and modify its metadata
+            Group g = groups.get(indexOfGroup(name));
+            g.setMetadata(metadata);
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change group " + name + "'s metadata");
+        }
     }
 
     /* =================================================================================================================
@@ -175,13 +234,8 @@ public class Flow implements FlowInterface {
         return false;
     }
 
-    private boolean edgeExist (String id) {
-        // Go trough all the nodes and if it finds one with the given id return true, else return false
-        for(int i = 0; i<edges.size();i++){
-            if(id.equals(this.edges.get(i).getId())) return true;
-        }
-
-        return false;
+    private boolean edgeExist (JSONObject src, JSONObject tgt) {
+        return indexOfEdge(src, tgt) != -1;
     }
 
     private boolean graphExist (String id) {
@@ -192,6 +246,40 @@ public class Flow implements FlowInterface {
         }
 
         return false;
+    }
+
+    private boolean groupExist (String name) {
+        if (this.groups == null) return false;
+
+        for (int i=0; i<groups.size(); i++) {
+            if(groups.get(i).getName().equals(name)) return true;
+        }
+
+        return false;
+    }
+
+    private int indexOfEdge (JSONObject src, JSONObject tgt) {
+        for(int i=0; i<edges.size(); i++) {
+            if (edges.get(i).getSrc().equals(src) && edges.get(i).getTgt().equals(tgt)) return i;
+        }
+
+        return -1;
+    }
+
+    private int indexOfNode (String id) {
+        for(int i=0; i<nodes.size(); i++) {
+            if (nodes.get(i).getId().equals(id)) return i;
+        }
+
+        return -1;
+    }
+
+    private int indexOfGroup (String name) {
+        for(int i=0; i<groups.size(); i++) {
+            if (groups.get(i).getName().equals(name)) return i;
+        }
+
+        return -1;
     }
 
 }
