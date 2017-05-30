@@ -36,8 +36,8 @@ public abstract class JSON {
         String res = "[";
 
         // Add each node's id into the array
-        for(int i=0; i<list.size(); i++) {
-            res += list.get(i).toString() + ",";
+        for (Object aList : list) {
+            res += aList.toString() + ",";
         }
 
         // Remove last unwanted coma

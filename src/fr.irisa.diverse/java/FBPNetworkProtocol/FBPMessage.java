@@ -6,10 +6,10 @@ import org.json.simple.JSONObject;
 /**
  * Created by antoine on 26/05/2017.
  */
-public class FBPMessage {
+class FBPMessage {
 
     // Attributes
-    JSONObject message = null;
+    private JSONObject message = null;
 
     public FBPMessage () {
         message = new JSONObject();

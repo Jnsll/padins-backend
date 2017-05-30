@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public class ComponentsUtils {
 
     // Attributes
-    private static String pathToComponentLibrary = ComponentsUtils.class.getResource("../WebUIComponents/example.json").getPath().replace("/example.json", "");
+    private static final String pathToComponentLibrary = ComponentsUtils.class.getResource("../WebUIComponents/example.json").getPath().replace("/example.json", "");
     private static ArrayList<Component> components = null;
-    private static JSONParser parser = new JSONParser();
+    private static final JSONParser parser = new JSONParser();
     private static String lastRequestedLibrary = "";
 
     /* =================================================================================================================
@@ -60,9 +60,7 @@ public class ComponentsUtils {
                 components.add(new Component(object, library));
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
@@ -75,8 +73,8 @@ public class ComponentsUtils {
         if (!library.equals(lastRequestedLibrary)) components = getComponentsFromLib(library);
 
         // Go through the components to find and return the requested one
-        for(int i=0; i<components.size(); i++) {
-            if (components.get(i).getName().equals(name)) return components.get(i);
+        for (Component component : components) {
+            if (component.getName().equals(name)) return component;
         }
 
         return null; // if not found

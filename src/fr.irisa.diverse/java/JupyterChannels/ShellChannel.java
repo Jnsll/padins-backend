@@ -3,8 +3,6 @@ package JupyterChannels;
 import Core.Kernel;
 import org.zeromq.ZMQ;
 
-import java.util.ArrayList;
-
 /**
  * This class is used to create both the shell and control channels
  *

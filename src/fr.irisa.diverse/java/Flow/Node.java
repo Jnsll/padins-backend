@@ -12,14 +12,14 @@ import java.util.UUID;
 public class Node {
 
     // Attributes
-    JSONObject node = null;
-    Flow owningFlow = null;
-    String id = "";
-    String component = "";
-    JSONObject metadata = null;
-    String graph = null;
-    Ports inports = null;
-    Ports outports = null;
+    private JSONObject node = null;
+    private Flow owningFlow = null;
+    private String id = "";
+    private String component = "";
+    private JSONObject metadata = null;
+    private String graph = null;
+    private Ports inports = null;
+    private Ports outports = null;
 
     // Constructor
     public Node (String component, JSONObject metadata, String graph, Flow owningFlow) {

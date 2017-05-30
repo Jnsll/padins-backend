@@ -7,7 +7,6 @@ import Flow.*;
 import javax.websocket.MessageHandler;
 import javax.websocket.Session;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -114,9 +113,8 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
         Map<String, Session> clients = owningWorkspace.getConnectedClients();
 
         Set<String> keys = clients.keySet();
-        Iterator iterator = keys.iterator();
-        while(iterator.hasNext()) {
-            Session client = clients.get(iterator.next());
+        for (Object key : keys) {
+            Session client = clients.get(key);
             try {
                 // TODO : add secret handling for each client
                 client.getBasicRemote().sendText(msg.toJSONString());

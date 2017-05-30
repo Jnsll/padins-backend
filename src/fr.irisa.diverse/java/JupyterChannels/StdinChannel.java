@@ -3,8 +3,6 @@ package JupyterChannels;
 import Core.Kernel;
 import org.zeromq.ZMQ;
 
-import java.util.ArrayList;
-
 /**
  * Created by antoine on 03/05/17.
  */

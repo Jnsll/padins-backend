@@ -10,8 +10,8 @@ import Flow.*;
 public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler  {
 
     // Attributes
-    Workspace owningWorkspace;
-    Flow flow;
+    private Workspace owningWorkspace;
+    private Flow flow;
 
     // Constructor
     public GraphMessageHandler (FBPNetworkProtocolManager manager) {

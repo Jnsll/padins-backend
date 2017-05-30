@@ -3,8 +3,6 @@ package JupyterMessaging;
 import Core.Kernel;
 import org.json.simple.JSONObject;
 
-import javax.crypto.Mac;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /** The manager is a component that handle everything related to reacting to incoming messages

@@ -16,10 +16,10 @@ import javax.websocket.server.ServerEndpoint;
  */
 
 @ServerEndpoint(value="/ws")
-public class ServerSocket {
+class ServerSocket {
 
     // Attributes
-    Workspace owningWorkspace = null;
+    private Workspace owningWorkspace = null;
 
     // Constructor
     public ServerSocket () {

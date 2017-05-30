@@ -42,7 +42,7 @@ public class HeartbeatChannel extends JupyterChannel {
                 socket.send("ping".getBytes(), 0);
 
                 String message = socket.recvStr();
-                if(this.log) System.out.println("Received : " + new String(message) + " on socket " + name);
+                if(this.log) System.out.println("Received : " + message + " on socket " + name);
 
             }
         } catch (InterruptedException e) {

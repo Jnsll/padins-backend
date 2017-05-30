@@ -69,8 +69,8 @@ public class ShellMessaging {
             default :
                 String[] msg = message.getMessageToSend();
                 String res = "";
-                for(int i=0; i<msg.length; i++) {
-                    res += msg[i];
+                for (String aMsg : msg) {
+                    res += aMsg;
                 }
                 System.err.println("Received unknown message on shell channel : " + res);
         }
@@ -249,14 +249,18 @@ public class ShellMessaging {
         Long executionCount = (Long) content.get("execution_count");
         kernel.setNbExecutions(executionCount);
 
-        if (status.equals("ok")) {
-            // Good news everything went well
-        } else if (status.equals("error")) {
-            System.err.println("Error executing code of cell nº" + executionCount);
-            // TODO : send message to web UI
-        } else if (status.equals("abort")) {
-            System.err.println("Execution of the code of cell nº" + executionCount + " has been aborted");
-            // TODO : send message to web UI
+        switch (status) {
+            case "ok":
+                // Good news everything went well
+                break;
+            case "error":
+                System.err.println("Error executing code of cell nº" + executionCount);
+                // TODO : send message to web UI
+                break;
+            case "abort":
+                System.err.println("Execution of the code of cell nº" + executionCount + " has been aborted");
+                // TODO : send message to web UI
+                break;
         }
     }
 

@@ -6,7 +6,7 @@ package FBPNetworkProtocol;
  *
  * Created by antoine on 26/05/2017.
  */
-public interface FBPProtocolHandler {
+interface FBPProtocolHandler {
 
     /** Handle a received message
      *

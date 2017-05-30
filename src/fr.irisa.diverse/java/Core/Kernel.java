@@ -2,11 +2,9 @@ package Core;
 
 import JupyterChannels.*;
 import JupyterMessaging.Manager;
-import jdk.nashorn.tools.Shell;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import sun.nio.cs.ext.MacArabic;
 
 import java.io.*;
 import java.util.regex.Matcher;

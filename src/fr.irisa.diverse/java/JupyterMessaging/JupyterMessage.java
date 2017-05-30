@@ -22,7 +22,7 @@ import java.util.UUID;
  *
  * Created by antoine on 10/05/2017.
  */
-public class JupyterMessage {
+class JupyterMessage {
 
     // Attributes
     private Kernel kernel = null;
@@ -124,7 +124,7 @@ public class JupyterMessage {
                                                GETTER AND SETTERS
      =================================================================================================================*/
 
-    public JSONObject getHeader () { return this.header; };
+    public JSONObject getHeader () { return this.header; }
 
     public void setParentHeader (JSONObject parent_header) {
         this.parent_header = parent_header;
@@ -183,9 +183,9 @@ public class JupyterMessage {
 
     /**
      * Generate the Jupypter messaging protocol compliant hmac
-     * @return
+     * @return : a hmac for the message to send
      */
-    public String generateHmac () {
+    private String generateHmac() {
         final String ALGORITHM = "HmacSHA256";
 
         String result = "";
@@ -205,9 +205,7 @@ public class JupyterMessage {
             {
                 result += Integer.toString((element & 0xff) + 0x100, 16).substring(1);
             }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             e.printStackTrace();
         }
 

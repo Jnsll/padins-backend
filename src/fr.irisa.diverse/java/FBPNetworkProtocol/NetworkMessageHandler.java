@@ -1,14 +1,12 @@
 package FBPNetworkProtocol;
 
-import org.json.simple.JSONObject;
-
 /**
  * Created by antoine on 26/05/2017.
  */
 public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler {
 
     // Attributes
-    FBPNetworkProtocolManager owningManager;
+    private FBPNetworkProtocolManager owningManager;
 
     // Constructor
     public NetworkMessageHandler (FBPNetworkProtocolManager manager) {

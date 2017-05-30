@@ -6,7 +6,6 @@ import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,29 +17,29 @@ import java.util.regex.Pattern;
 public abstract class JupyterChannel implements Runnable {
 
     // Attributes
-    protected String name;
+    String name;
     private final int JUPYTER_MESSAGE_LENGTH = 7;
     private String lastCorrectUuidReceived = "";
     private ArrayList<String> incomingMessage = null;
 
-    protected Context context = null;
-    protected Socket socket = null;
-    protected String socketAddress;
-    protected String identity;
-    protected int socketType;
+    Context context = null;
+    Socket socket = null;
+    String socketAddress;
+    private String identity;
+    private int socketType;
 
-    protected boolean connected = false;
-    protected boolean log = false;
+    boolean connected = false;
+    boolean log = false;
 
-    protected Kernel owningKernel;
-    protected Manager messagesManager;
-    protected Thread thread;
+    private Kernel owningKernel;
+    Manager messagesManager;
+    private Thread thread;
 
     //Attributes related to history
-    protected boolean storeHistory = true;
-    protected ArrayList<ArrayList<String>> history = null;
+    private boolean storeHistory = true;
+    private ArrayList<ArrayList<String>> history = null;
 
-    public JupyterChannel(String name, String transport, String ip, long port, String containerID, int socketType, Kernel kernel) {
+    JupyterChannel(String name, String transport, String ip, long port, String containerID, int socketType, Kernel kernel) {
         // Store the name & type
         this.name = name;
         this.socketType = socketType;
@@ -158,10 +157,12 @@ public abstract class JupyterChannel implements Runnable {
      * Interrupt the channel by interrupting the thread
      */
     public void stop() throws InterruptedException {
-        if(thread != null && !thread.isInterrupted()) thread.interrupt();
+        if(thread != null && !thread.isInterrupted()) {
+            thread.interrupt();
 
-        while(!thread.isInterrupted()) {
-            Thread.sleep(100);
+            while(!thread.isInterrupted()) {
+                Thread.sleep(100);
+            }
         }
     }
 
@@ -235,8 +236,8 @@ public abstract class JupyterChannel implements Runnable {
 
         } else {
             // If not, we log all the received data, without any prefix
-            for(int i=0; i<incomingMessage.size(); i++){
-                msg += "\n" + incomingMessage.get(i);
+            for (String anIncomingMessage : incomingMessage) {
+                msg += "\n" + anIncomingMessage;
             }
         }
 

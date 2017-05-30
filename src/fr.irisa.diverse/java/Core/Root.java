@@ -28,8 +28,8 @@ public class Root {
                                               PUBLIC CLASS METHODS
      =================================================================================================================*/
 
-    public String createWorkspace () {
-        Workspace newWorkspace = new Workspace();
+    public String createWorkspace (String name, int port) {
+        Workspace newWorkspace = new Workspace(name, port);
 
         workspaces.put(newWorkspace.uuid, newWorkspace);
 

@@ -4,7 +4,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -88,10 +87,9 @@ public class Component {
 
             // Go trough the JSON to retrieve all the information we need
             Set keys = ports.keySet();
-            Iterator iterator = keys.iterator();
-            while(iterator.hasNext()) {
+            for (Object key : keys) {
                 // For each object, create an instance of Port and add it to the portsToReturn object
-                JSONObject tempJSONPort = (JSONObject) ports.get(iterator.next());
+                JSONObject tempJSONPort = (JSONObject) ports.get(key);
                 Port tempPort = new Port((String) tempJSONPort.get("port"));
                 portsToReturn.add(tempPort);
             }

@@ -6,7 +6,7 @@ package FBPNetworkProtocol;
 public class TraceMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler {
 
     // Attributes
-    FBPNetworkProtocolManager owningManager;
+    private FBPNetworkProtocolManager owningManager;
 
     // Constructor
     public TraceMessageHandler (FBPNetworkProtocolManager manager) {

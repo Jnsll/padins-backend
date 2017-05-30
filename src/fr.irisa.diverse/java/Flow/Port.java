@@ -7,15 +7,15 @@ import java.util.UUID;
 /**
  * Created by antoine on 29/05/17.
  */
-public class Port {
+class Port {
 
     // Attributes
-    JSONObject portJSON = null;
-    String id = "";
-    String port = "";
-    JSONObject metadata = null;
-    String connectedTo = "";
-    String type = "object";
+    private JSONObject portJSON = null;
+    private String id = "";
+    private String port = "";
+    private JSONObject metadata = null;
+    private String connectedTo = "";
+    private final String type = "object";
 
     // Constructors
     public Port (String port) {

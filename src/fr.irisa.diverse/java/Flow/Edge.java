@@ -12,13 +12,13 @@ import java.util.UUID;
 public class Edge {
 
     // Attributes
-    JSONObject edge = null;
-    Flow owningFlow = null;
-    String id = "";
-    JSONObject src = null;
-    JSONObject tgt = null;
-    JSONObject metadata = null;
-    String graph = "";
+    private JSONObject edge = null;
+    private Flow owningFlow = null;
+    private String id = "";
+    private JSONObject src = null;
+    private JSONObject tgt = null;
+    private JSONObject metadata = null;
+    private String graph = "";
 
     // Constructor
     public Edge(JSONObject src, JSONObject tgt, JSONObject metadata, String graph, Flow owningFlow) {

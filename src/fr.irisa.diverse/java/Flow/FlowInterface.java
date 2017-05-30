@@ -2,12 +2,10 @@ package Flow;
 
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-
 /**
  * Created by antoine on 30/05/17.
  */
-public interface FlowInterface {
+interface FlowInterface {
 
     // Methods used to modify the graph
 

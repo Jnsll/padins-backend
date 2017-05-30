@@ -3,7 +3,6 @@ package Flow;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,13 +13,13 @@ import java.util.UUID;
 public class Group {
 
     // Attributes
-    JSONObject group = null;
-    Flow owningFlow = null;
-    String id = "";
-    String name = "";
-    ArrayList<String> nodes = null;
-    JSONObject metadata = null;
-    String graph = "";
+    private JSONObject group = null;
+    private Flow owningFlow = null;
+    private String id = "";
+    private String name = "";
+    private ArrayList<String> nodes = null;
+    private JSONObject metadata = null;
+    private String graph = "";
 
     // Constructor
     public Group (String name, JSONObject nodes, JSONObject metadata, String graph, Flow owningFlow) {
@@ -95,9 +94,8 @@ public class Group {
 
         // Go through the JSON object named nodes to retrieve each node's unique id
         Set keys = nodes.keySet();
-        Iterator iterator = keys.iterator();
-        while(iterator.hasNext()) {
-            res.add((String) nodes.get(iterator.next()));
+        for (Object key : keys) {
+            res.add((String) nodes.get(key));
         }
 
         return res;

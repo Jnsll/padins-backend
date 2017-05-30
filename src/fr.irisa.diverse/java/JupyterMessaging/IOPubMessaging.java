@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 /**
  * Created by antoine on 10/05/2017.
  */
-public class IOPubMessaging {
+class IOPubMessaging {
 
     // Attributes
     private Kernel kernel = null;

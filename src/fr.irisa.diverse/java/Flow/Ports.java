@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Ports extends ArrayList<Port> {
 
     // Attributes
-    ArrayList<Port> ports = null;
+    private ArrayList<Port> ports = null;
 
     public Ports () {
         ports = new ArrayList<Port>();

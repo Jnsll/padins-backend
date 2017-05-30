@@ -42,7 +42,7 @@ public class Flow implements FlowInterface {
     /** Constructor that creates a Flow from a JSONObject.
      * Use case : after server restart, re-create workspaces from the saved JSON files.
      *
-     * @param source
+     * @param source : the parsed file
      */
     public Flow (JSONObject source) {
         // TODO
@@ -69,8 +69,7 @@ public class Flow implements FlowInterface {
     public boolean addNode(String id, String component, JSONObject metadata, String graph) {
         Node n = new Node(id, component, metadata, graph, this);
 
-        if(nodes.add(n)) return true;
-        else return false;
+        return nodes.add(n);
     }
 
     public boolean removeNode(String id, String graph) {
@@ -264,14 +263,22 @@ public class Flow implements FlowInterface {
         }
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /* =================================================================================================================
                                                     PRIVATE FUNCTIONS
        ===============================================================================================================*/
 
     private boolean nodeExist (String id) {
         // Go trough all the nodes and if it finds one with the given id return true, else return false
-        for(int i = 0; i<nodes.size();i++){
-            if(id.equals(this.nodes.get(i).getId())) return true;
+        for (Node node : nodes) {
+            if (id.equals(node.getId())) return true;
         }
 
         return false;
@@ -284,8 +291,8 @@ public class Flow implements FlowInterface {
     private boolean graphExist (String id) {
         if (this.id.equals(id)) return true;
 
-        for (int i=0; i<groups.size(); i++) {
-            if(id.equals(groups.get(i).getId())) return true;
+        for (Group group : groups) {
+            if (id.equals(group.getId())) return true;
         }
 
         return false;
@@ -294,8 +301,8 @@ public class Flow implements FlowInterface {
     private boolean groupExist (String name) {
         if (this.groups == null) return false;
 
-        for (int i=0; i<groups.size(); i++) {
-            if(groups.get(i).getName().equals(name)) return true;
+        for (Group group : groups) {
+            if (group.getName().equals(name)) return true;
         }
 
         return false;

@@ -54,8 +54,8 @@ public class ComponentMessageHandler extends SendMessageOverFBP implements FBPPr
         ArrayList<Component> components = ComponentsUtils.getComponentsFromLib(componentsLibrary);
 
         // Send a component message for each component
-        for (int i=0; i<components.size(); i++) {
-            sendComponentMessage(components.get(i));
+        for (Component component : components) {
+            sendComponentMessage(component);
         }
 
         // Finally : send a components ready message
@@ -95,7 +95,7 @@ public class ComponentMessageHandler extends SendMessageOverFBP implements FBPPr
         // Build the payload
         JSONObject payload = new JSONObject();
         payload.put("name", component);
-        payload.put("language", component1.getLanguage());
+        payload.put("language", component1 != null ? component1.getLanguage() : "");
         payload.put("library", library);
         payload.put("code", component1.getCode());
         payload.put("tests", component1.getTests());
