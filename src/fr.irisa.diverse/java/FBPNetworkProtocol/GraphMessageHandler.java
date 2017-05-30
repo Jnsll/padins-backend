@@ -1,10 +1,8 @@
 package FBPNetworkProtocol;
 
-import Utils.JSON;
+import Core.Workspace;
 import org.json.simple.JSONObject;
 import Flow.Flow;
-
-import java.util.ArrayList;
 
 /**
  * Created by antoine on 26/05/2017.
@@ -13,6 +11,7 @@ public class GraphMessageHandler implements FBPProtocolHandler {
 
     // Attributes
     FBPNetworkProtocolManager owningManager;
+    Workspace owningWorkspace;
     Flow flow;
     final String PROTOCOL = "graph";
 
@@ -20,6 +19,7 @@ public class GraphMessageHandler implements FBPProtocolHandler {
     public GraphMessageHandler (FBPNetworkProtocolManager manager) {
         this.owningManager = manager;
         this.flow = owningManager.owningWorkspace.getFlow();
+        this.owningWorkspace = manager.owningWorkspace;
     }
 
     /* =================================================================================================================
@@ -111,9 +111,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         JSONObject metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
-        flow.addNode(id, component, metadata, graph);
+        if(flow.addNode(id, component, metadata, graph)) {
+            // answer
+        } else {
 
-        // Then it is the addNode() method that will send a message to all UIs, after the modification has been done.
+        }
     }
 
     private void removenode (JSONObject payload) {
@@ -121,9 +123,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String id = (String) payload.get("id");
         String graph = (String) payload.get("graph");
 
-        flow.removeNode(id, graph);
-
-        // Then it is the removeNode() method that will send a message to all UIs, after the modification has been done.
+        if (flow.removeNode(id, graph)) {
+            // Answer
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to create node because graph " + graph + " doesn't exist");
+        }
     }
 
     private void renamenode (JSONObject payload) {
@@ -132,9 +136,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String to = (String) payload.get("to");
         String graph = (String) payload.get("graph");
 
-        flow.renameNode(from, to, graph);
-
-        // Then it is the renameNode() method that will send a message to all UIs, after the modification has been done.
+        if (flow.renameNode(from, to, graph)) {
+            // Answer
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename node " + from);
+        }
 
     }
 
@@ -144,9 +150,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         JSONObject metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
-        flow.changeNode(id, metadata, graph);
-
-        // Then it is the changeNode() method that will send a message to all UIs, after the modification has been done.
+        if (flow.changeNode(id, metadata, graph)) {
+            // Answer
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change node " + id);
+        }
     }
 
     private void addedge (JSONObject payload) {
@@ -156,9 +164,13 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         JSONObject metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
-        flow.addEdge(src, tgt, metadata, graph);
-
-        // Then it is the addEdge() method that will send a message to all UIs, after the modification has been done.
+        if (flow.addEdge(src, tgt, metadata, graph)) {
+            // answer
+        } else {
+            String srcNodeId = (String) src.get("node");
+            String tgtNodeId = (String) src.get("node");
+            System.err.println("[ERROR] Cannot create graph for src : " + srcNodeId + ", target : " + tgtNodeId + ", graph : " + graph + " because one of them doesn't exist");
+        }
 
     }
 
@@ -168,9 +180,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         JSONObject src = (JSONObject) payload.get("src");
         JSONObject tgt = (JSONObject) payload.get("tgt");
 
-        flow.removeEdge(graph, src, tgt);
-
-        // Then it is the removeEdge() method that will send a message to all UIs, after the modification has been done.
+        if (flow.removeEdge(graph, src, tgt)) {
+            // Answer
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove edge. Maybe the graph doesn't exist or the edge has already been removed.");
+        }
 
     }
 
@@ -181,9 +195,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         JSONObject src = (JSONObject) payload.get("src");
         JSONObject tgt = (JSONObject) payload.get("tgt");
 
-        flow.changeEdge(graph, metadata, src, tgt);
-
-        // Then it is the changeEdge() method that will send a message to all UIs, after the modification has been done.
+        if (flow.changeEdge(graph, metadata, src, tgt)) {
+            // answer
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change request edge");
+        }
 
     }
 
@@ -196,8 +212,6 @@ public class GraphMessageHandler implements FBPProtocolHandler {
 
         flow.addInitial(graph, metadata, src, tgt);
 
-        // Then it is the addInitial() method that will send a message to all UIs, after the modification has been done.
-
     }
 
     private void removeinitial (JSONObject payload) {
@@ -207,8 +221,6 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.removeInitial(graph, src, tgt);
-
-        // Then it is the removeInitial() method that will send a message to all UIs, after the modification has been done.
     }
 
     private void addinport (JSONObject payload) {
@@ -220,8 +232,6 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.addInport(name, node, port, metadata, graph);
-
-        // Then it is the addInport() method that will send a message to all UIs, after the modification has been done.
     }
 
     private void removeinport (JSONObject payload) {
@@ -230,8 +240,6 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.removeInport(name, graph);
-
-        // Then it is the removeInport() method that will send a message to all UIs, after the modification has been done.
     }
 
     private void renameinport (JSONObject payload) {
@@ -241,8 +249,6 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.renameInport(from, to, graph);
-
-        // Then it is the renameInport() method that will send a message to all UIs, after the modification has been done.
     }
 
     private void addoutport (JSONObject payload) {
@@ -255,8 +261,6 @@ public class GraphMessageHandler implements FBPProtocolHandler {
 
         flow.addOutport(name, node, port, metadata, graph);
 
-        // Then it is the addOutport() method that will send a message to all UIs, after the modification has been done.
-
     }
 
     private void removeoutport (JSONObject payload) {
@@ -265,8 +269,6 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.removeOutport(name, graph);
-
-        // Then it is the removeOutport() method that will send a message to all UIs, after the modification has been done.
     }
 
     private void renameoutport (JSONObject payload) {
@@ -276,8 +278,6 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.renameOutport(from, to, graph);
-
-        // Then it is the renameOutport() method that will send a message to all UIs, after the modification has been done.
     }
 
     private void addgroup (JSONObject payload) {
@@ -287,9 +287,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         JSONObject metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
-        flow.addGroup(name, nodes, metadata, graph);
-
-        // Then it is the addGroup() method that will send a message to all UIs, after the modification has been done.
+        if (flow.addGroup(name, nodes, metadata, graph)) {
+            // answer
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to add group to graph " + graph + " because it doesn't exist");
+        }
     }
 
     private void removegroup (JSONObject payload) {
@@ -297,9 +299,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String name = (String) payload.get("name");
         String graph = (String) payload.get("graph");
 
-        flow.removeGroup(name, graph);
-
-        // Then it is the removeGroup() method that will send a message to all UIs, after the modification has been done.
+        if (flow.removeGroup(name, graph)) {
+            // answer
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove group " + name + " because it doesn't exist or graph " + graph + " doesn't exist");
+        }
     }
 
     private void renamegroup (JSONObject payload) {
@@ -308,9 +312,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String to = (String) payload.get("to");
         String graph = (String) payload.get("graph");
 
-        flow.renameGroup(from, to, graph);
-
-        // Then it is the renameGroup() method that will send a message to all UIs, after the modification has been done.
+        if (flow.renameGroup(from, to, graph)) {
+            // answer
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename group " + from);
+        }
     }
 
     private void changegroup (JSONObject payload) {
@@ -319,9 +325,11 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         JSONObject metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
-        flow.changeGroup(name, metadata, graph);
-
-        // Then it is the changeGroup() method that will send a message to all UIs, after the modification has been done.
+        if (flow.changeGroup(name, metadata, graph)) {
+            // answer
+        } else {
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change group " + name + "'s metadata");
+        }
     }
 
     /* =================================================================================================================

@@ -66,146 +66,165 @@ public class Flow implements FlowInterface {
         return flow.toJSONString();
     }
 
-    public void addNode(String id, String component, JSONObject metadata, String graph) {
+    public boolean addNode(String id, String component, JSONObject metadata, String graph) {
         Node n = new Node(id, component, metadata, graph, this);
 
-        nodes.add(n);
+        if(nodes.add(n)) return true;
+        else return false;
     }
 
-    public void removeNode(String id, String graph) {
+    public boolean removeNode(String id, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && nodeExist(id)) {
             // If so, retrieve the index of the node and remove it
             nodes.remove(indexOfNode(id));
+            return true;
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to create node because graph " + graph + " doesn't exist");
+             return false;
         }
     }
 
-    public void renameNode(String from, String to, String graph) {
+    public boolean renameNode(String from, String to, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && nodeExist(from)) {
             // If so, retrieve the node and modify its id
             Node n = nodes.get(indexOfNode(from));
             n.setId(to);
+            return true;
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename node " + from);
+            return false;
         }
     }
 
-    public void changeNode(String id, JSONObject metadata, String graph) {
+    public boolean changeNode(String id, JSONObject metadata, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && nodeExist(id)) {
             // If so, retrieve the node and modify its id
             Node n = nodes.get(indexOfNode(id));
             n.setMetadata(metadata);
+            return true;
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change node " + id);
+            return false;
         }
     }
 
-    public void addEdge (JSONObject src, JSONObject tgt, JSONObject metadata, String graph) {
+    public boolean addEdge (JSONObject src, JSONObject tgt, JSONObject metadata, String graph) {
         String srcNodeId = (String) src.get("node");
         String tgtNodeId = (String) src.get("node");
 
         if(nodeExist(srcNodeId) && nodeExist(tgtNodeId) && graphExist(graph)) {
             Edge newEdge = new Edge(src, tgt, metadata, graph, this);
             edges.add(newEdge);
+            return true;
         } else {
-            System.err.println("[ERROR] Cannot create graph for src : " + srcNodeId + ", target : " + tgtNodeId + ", graph : " + graph + " because one of them doesn't exist");
+            return false;
         }
     }
 
-    public void removeEdge(String graph, JSONObject src, JSONObject tgt) {
+    public boolean removeEdge(String graph, JSONObject src, JSONObject tgt) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && edgeExist(src, tgt)) {
             // If so, retrieve the index of the edge and remove it
             edges.remove(indexOfEdge(src, tgt));
+            return true;
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove edge. Maybe the graph doesn't exist or the edge has already been removed.");
+            return false;
         }
     }
 
-    public void changeEdge(String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
+    public boolean changeEdge(String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && edgeExist(src, tgt)) {
             // If so, retrieve the edge and modify its metadata
             Edge e = edges.get(indexOfEdge(src, tgt));
             e.setMetadata(metadata);
+            return true;
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change request edge");
+            return false;
         }
     }
 
-    public void addInitial(String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
+    public boolean addInitial(String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
         // Not used for now
+        return true;
     }
 
-    public void removeInitial(String graph, JSONObject src, JSONObject tgt) {
+    public boolean removeInitial(String graph, JSONObject src, JSONObject tgt) {
         // Not used for now
+        return true;
     }
 
-    public void addInport(String name, String node, String port, JSONObject metadata, String graph) {
+    public boolean addInport(String name, String node, String port, JSONObject metadata, String graph) {
         // Not used for now
+        return true;
     }
 
-    public void removeInport(String name, String graph) {
+    public boolean removeInport(String name, String graph) {
         // Not used for now
+        return true;
     }
 
-    public void renameInport(String from, String to, String graph) {
+    public boolean renameInport(String from, String to, String graph) {
         // Not used for now
+        return true;
     }
 
-    public void addOutport(String name, String node, String port, JSONObject metadata, String graph) {
+    public boolean addOutport(String name, String node, String port, JSONObject metadata, String graph) {
         // Not used for now
+        return true;
     }
 
-    public void removeOutport(String name, String graph) {
+    public boolean removeOutport(String name, String graph) {
         // Not used for now
+        return true;
     }
 
-    public void renameOutport(String from, String to, String graph) {
+    public boolean renameOutport(String from, String to, String graph) {
         // Not used for now
+        return true;
     }
 
-    public void addGroup(String name, JSONObject nodes, JSONObject metadata, String graph) {
+    public boolean addGroup(String name, JSONObject nodes, JSONObject metadata, String graph) {
         if(graphExist(graph)){
             Group g = new Group(name, nodes, metadata, graph, this);
 
             groups.add(g);
+            return true;
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to add group to graph " + graph + " because it doesn't exist");
+            return false;
         }
     }
 
-    public void removeGroup(String name, String graph) {
+    public boolean removeGroup(String name, String graph) {
         if(graphExist(graph) && groupExist(name)) {
             groups.remove(indexOfGroup(name));
+            return true;
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove group " + name + " because it doesn't exist or graph " + graph + " doesn't exist");
+            return false;
         }
     }
 
-    public void renameGroup(String from, String to, String graph) {
+    public boolean renameGroup(String from, String to, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && groupExist(from)) {
             // If so, retrieve the group and modify its name
             Group g = groups.get(indexOfGroup(from));
             g.setName(to);
+            return true;
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename group " + from);
+            return false;
         }
     }
 
-    public void changeGroup(String name, JSONObject metadata, String graph) {
+    public boolean changeGroup(String name, JSONObject metadata, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && groupExist(name)) {
             // If so, retrieve the group and modify its metadata
             Group g = groups.get(indexOfGroup(name));
             g.setMetadata(metadata);
+            return true;
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change group " + name + "'s metadata");
+            return false;
         }
     }
 

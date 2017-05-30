@@ -11,43 +11,43 @@ public interface FlowInterface {
 
     // Methods used to modify the graph
 
-    void addNode (String id, String component, JSONObject metadata, String graph);
+    boolean addNode (String id, String component, JSONObject metadata, String graph);
 
-    void removeNode (String id, String graph);
+    boolean removeNode (String id, String graph);
 
-    void renameNode (String from, String to, String graph);
+    boolean renameNode (String from, String to, String graph);
 
-    void changeNode (String id, JSONObject metadata, String graph);
+    boolean changeNode (String id, JSONObject metadata, String graph);
 
-    void addEdge (JSONObject src, JSONObject tgt, JSONObject metadata, String graph);
+    boolean addEdge (JSONObject src, JSONObject tgt, JSONObject metadata, String graph);
 
-    void removeEdge (String graph, JSONObject src, JSONObject tgt);
+    boolean removeEdge (String graph, JSONObject src, JSONObject tgt);
 
-    void changeEdge (String graph, JSONObject metadata, JSONObject src, JSONObject tgt);
+    boolean changeEdge (String graph, JSONObject metadata, JSONObject src, JSONObject tgt);
 
-    void addInitial (String graph, JSONObject metadata, JSONObject src, JSONObject tgt);
+    boolean addInitial (String graph, JSONObject metadata, JSONObject src, JSONObject tgt);
 
-    void removeInitial (String graph, JSONObject src, JSONObject tgt);
+    boolean removeInitial (String graph, JSONObject src, JSONObject tgt);
 
-    void addInport (String name, String node, String port, JSONObject metadata, String graph);
+    boolean addInport (String name, String node, String port, JSONObject metadata, String graph);
 
-    void removeInport (String name, String graph);
+    boolean removeInport (String name, String graph);
 
-    void renameInport (String from, String to, String graph);
+    boolean renameInport (String from, String to, String graph);
 
-    void addOutport (String name, String node, String port, JSONObject metadata, String graph);
+    boolean addOutport (String name, String node, String port, JSONObject metadata, String graph);
 
-    void removeOutport (String name, String graph);
+    boolean removeOutport (String name, String graph);
 
-    void renameOutport (String from, String to, String graph);
+    boolean renameOutport (String from, String to, String graph);
 
-    void addGroup (String name, JSONObject nodes, JSONObject metadata, String graph);
+    boolean addGroup (String name, JSONObject nodes, JSONObject metadata, String graph);
 
-    void removeGroup (String name, String graph);
+    boolean removeGroup (String name, String graph);
 
-    void renameGroup (String from, String to, String graph);
+    boolean renameGroup (String from, String to, String graph);
 
-    void changeGroup (String name, JSONObject metadata, String graph);
+    boolean changeGroup (String name, JSONObject metadata, String graph);
 
     // Methods used to read information
 
