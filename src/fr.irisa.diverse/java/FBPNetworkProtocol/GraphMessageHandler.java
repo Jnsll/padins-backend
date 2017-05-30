@@ -1,25 +1,25 @@
 package FBPNetworkProtocol;
 
 import Core.Workspace;
+import Utils.JSON;
 import org.json.simple.JSONObject;
-import Flow.Flow;
+import Flow.*;
 
 /**
  * Created by antoine on 26/05/2017.
  */
-public class GraphMessageHandler implements FBPProtocolHandler {
+public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler  {
 
     // Attributes
-    FBPNetworkProtocolManager owningManager;
     Workspace owningWorkspace;
     Flow flow;
-    final String PROTOCOL = "graph";
 
     // Constructor
     public GraphMessageHandler (FBPNetworkProtocolManager manager) {
         this.owningManager = manager;
         this.flow = owningManager.owningWorkspace.getFlow();
         this.owningWorkspace = manager.owningWorkspace;
+        this.PROTOCOL = "graph";
     }
 
     /* =================================================================================================================
@@ -112,7 +112,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         if(flow.addNode(id, component, metadata, graph)) {
-            // answer
+            // Answer
+            sendAddNodeMessage(id, graph);
         } else {
 
         }
@@ -125,6 +126,7 @@ public class GraphMessageHandler implements FBPProtocolHandler {
 
         if (flow.removeNode(id, graph)) {
             // Answer
+            sendRemoveNodeMessage(id, graph);
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to create node because graph " + graph + " doesn't exist");
         }
@@ -138,6 +140,7 @@ public class GraphMessageHandler implements FBPProtocolHandler {
 
         if (flow.renameNode(from, to, graph)) {
             // Answer
+            sendRenameNodeMessage(from, to, graph);
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename node " + from);
         }
@@ -152,6 +155,7 @@ public class GraphMessageHandler implements FBPProtocolHandler {
 
         if (flow.changeNode(id, metadata, graph)) {
             // Answer
+            sendChangeNodeMessage(id, graph);
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change node " + id);
         }
@@ -165,7 +169,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         if (flow.addEdge(src, tgt, metadata, graph)) {
-            // answer
+            // Answer
+            sendAddEdgeMessage(src, tgt, graph);
         } else {
             String srcNodeId = (String) src.get("node");
             String tgtNodeId = (String) src.get("node");
@@ -182,6 +187,7 @@ public class GraphMessageHandler implements FBPProtocolHandler {
 
         if (flow.removeEdge(graph, src, tgt)) {
             // Answer
+            sendRemoveEdgeMessage(graph, src, tgt);
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove edge. Maybe the graph doesn't exist or the edge has already been removed.");
         }
@@ -196,7 +202,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         JSONObject tgt = (JSONObject) payload.get("tgt");
 
         if (flow.changeEdge(graph, metadata, src, tgt)) {
-            // answer
+            // Answer
+            sendChangeEdgeMessage(graph, src, tgt);
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change request edge");
         }
@@ -212,6 +219,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
 
         flow.addInitial(graph, metadata, src, tgt);
 
+        // answer later
+
     }
 
     private void removeinitial (JSONObject payload) {
@@ -221,6 +230,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.removeInitial(graph, src, tgt);
+
+        // answer later
     }
 
     private void addinport (JSONObject payload) {
@@ -232,6 +243,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.addInport(name, node, port, metadata, graph);
+
+        // answer later
     }
 
     private void removeinport (JSONObject payload) {
@@ -240,6 +253,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.removeInport(name, graph);
+
+        // answer later
     }
 
     private void renameinport (JSONObject payload) {
@@ -249,6 +264,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.renameInport(from, to, graph);
+
+        // answer later
     }
 
     private void addoutport (JSONObject payload) {
@@ -261,6 +278,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
 
         flow.addOutport(name, node, port, metadata, graph);
 
+        // answer later
+
     }
 
     private void removeoutport (JSONObject payload) {
@@ -269,6 +288,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.removeOutport(name, graph);
+
+        // answer later
     }
 
     private void renameoutport (JSONObject payload) {
@@ -278,6 +299,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         flow.renameOutport(from, to, graph);
+
+        // answer later
     }
 
     private void addgroup (JSONObject payload) {
@@ -288,7 +311,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         if (flow.addGroup(name, nodes, metadata, graph)) {
-            // answer
+            // Answer
+            sendAddGroupMessage(name, graph);
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to add group to graph " + graph + " because it doesn't exist");
         }
@@ -300,7 +324,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         if (flow.removeGroup(name, graph)) {
-            // answer
+            // Answer
+            sendRemoveGroupMessage(name, graph);
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove group " + name + " because it doesn't exist or graph " + graph + " doesn't exist");
         }
@@ -313,7 +338,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         if (flow.renameGroup(from, to, graph)) {
-            // answer
+            // Answer
+            sendRenameGroupMessage(from, to, graph);
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename group " + from);
         }
@@ -326,7 +352,8 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         String graph = (String) payload.get("graph");
 
         if (flow.changeGroup(name, metadata, graph)) {
-            // answer
+            // Answer
+            sendChangeGroupMessage(name, graph);
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change group " + name + "'s metadata");
         }
@@ -340,80 +367,170 @@ public class GraphMessageHandler implements FBPProtocolHandler {
         System.out.println("You are trying to empty the graph. It is too dangerous to be implemented");
     }
 
-    private void sendAddNodeMessage (JSONObject payload) {
+    private void sendAddNodeMessage (String id, String graph) {
+        // Retrieve newly create node
+        Node node = flow.getNode(id, graph);
+
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("id", node.getId());
+        payload.put("component", node.getComponent());
+        payload.put("metadata", node.getMetadata());
+        payload.put("graph", graph);
+
+        // Send it
+        sendMessageToAll("addnode", payload);
+    }
+
+    private void sendRemoveNodeMessage (String id, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("id", id);
+        payload.put("graph", graph);
+
+        // Send the message
+        sendMessageToAll("removenode", payload);
 
     }
 
-    private void sendRemoveNodeMessage (JSONObject payload) {
+    private void sendRenameNodeMessage (String from, String to, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("from", from);
+        payload.put("to", to);
+        payload.put("graph", graph);
+
+        // Send the message
+        sendMessageToAll("renamenode", payload);
 
     }
 
-    private void sendRenameNodeMessage (JSONObject payload) {
+    private void sendChangeNodeMessage (String id, String graph) {
+        Node node = flow.getNode(id, graph);
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("id", node.getId());
+        payload.put("metadata", node.getMetadata());
+        payload.put("graph", graph);
+
+        // Send the message
+        sendMessageToAll("changenode", payload);
 
     }
 
-    private void sendChangeNodeMessage (JSONObject payload) {
+    private void sendAddEdgeMessage (JSONObject src, JSONObject tgt, String graph) {
+        Edge edge = flow.getEdge(src, tgt, graph);
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("src", edge.getSrc());
+        payload.put("tgt", edge.getTgt());
+        payload.put("metadata", edge.getMetadata());
+        payload.put("graph", graph);
 
+        // Send the message
+        sendMessageToAll("addedge", payload);
     }
 
-    private void sendAddEdgeMessage (JSONObject payload) {
+    private void sendRemoveEdgeMessage (String graph, JSONObject src, JSONObject tgt) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("graph", graph);
+        payload.put("src", src);
+        payload.put("tgt", tgt);
 
+        // Send the message
+        sendMessageToAll("removeedge", payload);
     }
 
-    private void sendRemoveEdgeMessage (JSONObject payload) {
+    private void sendChangeEdgeMessage (String graph, JSONObject src, JSONObject tgt) {
+        Edge edge = flow.getEdge(src, tgt, graph);
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("src", edge.getSrc());
+        payload.put("tgt", edge.getTgt());
+        payload.put("metadata", edge.getMetadata());
+        payload.put("graph", graph);
 
+        // Send the message
+        sendMessageToAll("changeedge", payload);
     }
 
-    private void sendChangeEdgeMessage (JSONObject payload) {
-
+    private void sendAddInitialMessage (JSONObject msg) {
+        // Not used for now
     }
 
-    private void sendAddInitialMessage (JSONObject payload) {
-
+    private void sendRemoveInitialMessage (JSONObject msg) {
+        // Not used for now
     }
 
-    private void sendRemoveInitialMessage (JSONObject payload) {
-
+    private void sendAddInportMessage (JSONObject msg) {
+        // Not used for now
     }
 
-    private void sendAddInportMessage (JSONObject payload) {
-
+    private void sendRemoveInportMessage (JSONObject msg) {
+        // Not used for now
     }
 
-    private void sendRemoveInportMessage (JSONObject payload) {
-
+    private void sendRenameInportMessage (JSONObject msg) {
+        // Not used for now
     }
 
-    private void sendRenameInportMessage (JSONObject payload) {
-
+    private void sendAddOutportMessage (JSONObject msg) {
+        // Not used for now
     }
 
-    private void sendAddOutportMessage (JSONObject payload) {
-
+    private void sendRemoveOutportMessage (JSONObject msg) {
+        // Not used for now
     }
 
-    private void sendRemoveOutportMessage (JSONObject payload) {
-
+    private void sendRenameOutportMessage (JSONObject msg) {
+        // Not used for now
     }
 
-    private void sendRenameOutportMessage (JSONObject payload) {
+    private void sendAddGroupMessage (String name, String graph) {
+        Group group = flow.getGroup(name, graph);
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("name", name);
+        payload.put("nodes", Utils.JSON.jsonArrayListToString(group.getNodes()));
+        payload.put("metadata", group.getMetadata());
+        payload.put("graph", graph);
 
+        // Send the message
+        sendMessageToAll("addgroup", payload);
     }
 
-    private void sendAddGroupMessage (JSONObject payload) {
+    private void sendRemoveGroupMessage (String name, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("name", name);
+        payload.put("graph", graph);
 
+        // Send the message
+        sendMessageToAll("removegroup", payload);
     }
 
-    private void sendRemoveGroupMessage (JSONObject payload) {
+    private void sendRenameGroupMessage (String from, String to, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("from", from);
+        payload.put("to", to);
+        payload.put("graph", graph);
 
+        // Send the message
+        sendMessageToAll("renamegroup", payload);
     }
 
-    private void sendRenameGroupMessage (JSONObject payload) {
+    private void sendChangeGroupMessage (String name, String graph) {
+        Group group = flow.getGroup(name, graph);
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("name", name);
+        payload.put("metadata", group.getMetadata());
+        payload.put("graph", graph);
 
-    }
-
-    private void sendChangeGroupMessage (JSONObject payload) {
-
+        // Send the message
+        sendMessageToAll("changegroup", payload);
     }
 
 }
