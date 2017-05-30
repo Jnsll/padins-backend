@@ -60,6 +60,14 @@ public class Group {
         return nodes;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMetadata(JSONObject metadata) {
+        this.metadata = metadata;
+    }
+
     /* =================================================================================================================
                                                     PUBLIC FUNCTIONS
        ===============================================================================================================*/

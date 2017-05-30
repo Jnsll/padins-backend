@@ -59,6 +59,10 @@ public class Edge {
         return metadata;
     }
 
+    public void setMetadata(JSONObject metadata) {
+        this.metadata = metadata;
+    }
+
     public String getGraph () {
         if (graph == null) graph = "";
 

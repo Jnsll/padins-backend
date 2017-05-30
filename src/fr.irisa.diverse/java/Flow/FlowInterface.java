@@ -2,6 +2,8 @@ package Flow;
 
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by antoine on 30/05/17.
  */
@@ -39,7 +41,7 @@ public interface FlowInterface {
 
     void renameOutport (String from, String to, String graph);
 
-    void addGroup (String name, Node[] nodes, JSONObject metadata, String graph);
+    void addGroup (String name, JSONObject nodes, JSONObject metadata, String graph);
 
     void removeGroup (String name, String graph);
 

@@ -33,6 +33,11 @@ public class Node {
         this.outports = ComponentsUtils.getOutPortsForComponent(owningFlow.getComponentsLibrary(), component);
     }
 
+    public Node (String id, String component, JSONObject metadata, String graph, Flow owningFlow) {
+        this(component, metadata, graph, owningFlow);
+        this.id = id;
+    }
+
     /* =================================================================================================================
                                              GETTERS AND SETTERS FUNCTIONS
        ===============================================================================================================*/
@@ -42,6 +47,8 @@ public class Node {
 
         return id;
     }
+
+    public void setId (String newId) { id = newId; }
 
     public Ports getInports() {
         return inports;
@@ -54,6 +61,8 @@ public class Node {
     public JSONObject getMetadata() {
         return metadata;
     }
+
+    public void setMetadata(JSONObject metadata) { this.metadata = metadata; }
 
     public String getGraph() {
         return graph;

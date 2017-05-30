@@ -95,6 +95,10 @@ public class Workspace {
         return flow;
     }
 
+    public FBPNetworkProtocolManager getClientCommunicationManager() {
+        return clientCommunicationManager;
+    }
+
     /*==================================================================================================================
                                               PRIVATE CLASS METHODS
      =================================================================================================================*/
