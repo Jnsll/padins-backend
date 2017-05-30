@@ -3,13 +3,14 @@ package FBPNetworkProtocol;
 /**
  * Created by antoine on 26/05/2017.
  */
-public class TraceMessageHandler implements FBPProtocolHandler {
+public class TraceMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler {
 
     // Attributes
     FBPNetworkProtocolManager owningManager;
 
     // Constructor
     public TraceMessageHandler (FBPNetworkProtocolManager manager) {
+        this.PROTOCOL = "trace";
         this.owningManager = manager;
     }
 

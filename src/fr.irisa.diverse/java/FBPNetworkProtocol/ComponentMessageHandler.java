@@ -9,17 +9,16 @@ import java.util.ArrayList;
 /**
  * Created by antoine on 26/05/2017.
  */
-public class ComponentMessageHandler implements FBPProtocolHandler {
+public class ComponentMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler {
 
     // Attributes
-    private FBPNetworkProtocolManager owningManager;
     private String componentsLibrary = "";
-    final String PROTOCOL = "component";
 
     // Constructor
     public ComponentMessageHandler (FBPNetworkProtocolManager manager) {
         this.owningManager = manager;
         this.componentsLibrary = owningManager.getComponentsLibrary();
+        this.PROTOCOL = "component";
     }
 
     /* =================================================================================================================
@@ -82,20 +81,12 @@ public class ComponentMessageHandler implements FBPProtocolHandler {
        ===============================================================================================================*/
 
     private void sendComponentMessage (Component component) {
-        // Retrieve the component as a serialized JSON
-        String payload = component.toString();
-
-        // Create the FBP Message
-        FBPMessage msg = new FBPMessage(PROTOCOL, "component", payload);
-
-        // Send it
-        owningManager.send(msg.toJSONString());
+        // Send it directly as json
+        sendMessage("component", component.toJson());
     }
 
     private void sendComponentReadyMessage () {
-        FBPMessage msg = new FBPMessage(PROTOCOL, "componentsready", "");
-
-        owningManager.send(msg.toJSONString());
+        sendMessage("componentsready", new JSONObject());
     }
 
     private void sendSourceMessage (String library, String component) {
@@ -109,10 +100,8 @@ public class ComponentMessageHandler implements FBPProtocolHandler {
         payload.put("code", component1.getCode());
         payload.put("tests", component1.getTests());
 
-        // Build the message that will be sent
-        FBPMessage msg = new FBPMessage(PROTOCOL, "source", payload.toJSONString());
-
-        owningManager.send(msg.toJSONString());
+        // Send it
+        sendMessage("source", payload);
     }
 
 }

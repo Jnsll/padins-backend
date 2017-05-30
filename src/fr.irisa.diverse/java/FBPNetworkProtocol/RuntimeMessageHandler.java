@@ -5,14 +5,14 @@ import org.json.simple.JSONObject;
 /**
  * Created by antoine on 26/05/2017.
  */
-public class RuntimeMessageHandler implements FBPProtocolHandler {
+public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler {
 
     // Attributes
     private FBPNetworkProtocolManager owningManager;
-    final String PROTOCOL = "runtime";
 
     // Constructor
     public RuntimeMessageHandler (FBPNetworkProtocolManager manager) {
+        this.PROTOCOL = "runtime";
         this.owningManager = manager;
     }
 
@@ -63,10 +63,8 @@ public class RuntimeMessageHandler implements FBPProtocolHandler {
         if (payloadToSend == null ) payload.put("payload", "") ;
         else payload.put("payload", payloadToSend.toJSONString());
 
-        // Build the message that will be sent
-        FBPMessage msg = new FBPMessage(PROTOCOL, "packet", payload.toJSONString());
-
-        owningManager.send(msg.toJSONString());
+        // Send it
+        sendMessage("packet", payload);
     }
 
     /**
@@ -80,10 +78,8 @@ public class RuntimeMessageHandler implements FBPProtocolHandler {
         payload.put("inPorts", "[]"); // TODO : try to understand and implement it (same with below)
         payload.put("outPorts", "[]");
 
-        // Build the message that will be sent
-        FBPMessage msg = new FBPMessage(PROTOCOL, "ports", payload.toJSONString());
-
-        owningManager.send(msg.toJSONString());
+        // Send it
+        sendMessage("ports", payload);
     }
 
     /**
@@ -103,10 +99,8 @@ public class RuntimeMessageHandler implements FBPProtocolHandler {
         payload.put("repository", ""); // TODO : implement repository feature and below one
         payload.put("repositoryVersion", "0.0.0");
 
-        // Build the message that will be sent
-        FBPMessage msg = new FBPMessage(PROTOCOL, "runtime", payload.toJSONString());
-
-        owningManager.send(msg.toJSONString());
+        // Send it
+        sendMessage("runtime", payload);
     }
 
 

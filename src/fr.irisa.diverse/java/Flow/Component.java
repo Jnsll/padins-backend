@@ -102,21 +102,28 @@ public class Component {
         return portsToReturn;
     }
 
-    /* =================================================================================================================
-                                                    PUBLIC FUNCTIONS
-       ===============================================================================================================*/
-
-    @Override
-    public String toString () {
-        // Build the edge JSON
+    private void buildJson () {
+        // Build the component JSON
         component.put("name", getName());
         component.put("description", getDescription());
         component.put("icon", "");
         component.put("subgraph", false); // TODO
         component.put("inPorts", getInports().toString());
         component.put("outPorts", getOutports().toString());
+    }
 
+    /* =================================================================================================================
+                                                    PUBLIC FUNCTIONS
+       ===============================================================================================================*/
+
+    @Override
+    public String toString () {
+        buildJson();
         // Return it as a String
         return component.toJSONString();
+    }
+
+    public JSONObject toJson() {
+        return component;
     }
 }

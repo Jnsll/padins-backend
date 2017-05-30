@@ -240,6 +240,30 @@ public class Flow implements FlowInterface {
         return id;
     }
 
+    public Edge getEdge (JSONObject src, JSONObject tgt, String graph) {
+        if (graphExist(graph) && edgeExist(src, tgt)) {
+            return edges.get(indexOfEdge(src, tgt));
+        } else {
+            return null;
+        }
+    }
+
+    public Node getNode (String id, String graph) {
+        if (graphExist(graph) && nodeExist(id)) {
+            return nodes.get(indexOfNode(id));
+        } else {
+            return null;
+        }
+    }
+
+    public Group getGroup (String name, String graph) {
+        if (graphExist(graph) && groupExist(name)) {
+            return groups.get(indexOfGroup(name));
+        } else {
+            return null;
+        }
+    }
+
     /* =================================================================================================================
                                                     PRIVATE FUNCTIONS
        ===============================================================================================================*/

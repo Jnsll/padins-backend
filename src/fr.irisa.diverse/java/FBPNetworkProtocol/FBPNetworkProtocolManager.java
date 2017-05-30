@@ -101,15 +101,16 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
         return owningSession;
     }
 
-    public void send (String msg) {
+    public void send (FBPMessage msg) {
+        // TODO : add secret handling
         try {
-            owningSession.getBasicRemote().sendText(msg);
+            owningSession.getBasicRemote().sendText(msg.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void sendToAll (String msg) {
+    public void sendToAll (FBPMessage msg) {
         Map<String, Session> clients = owningWorkspace.getConnectedClients();
 
         Set<String> keys = clients.keySet();
@@ -117,7 +118,8 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
         while(iterator.hasNext()) {
             Session client = clients.get(iterator.next());
             try {
-                client.getBasicRemote().sendText(msg);
+                // TODO : add secret handling for each client
+                client.getBasicRemote().sendText(msg.toJSONString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -131,6 +133,6 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
 
         FBPMessage msg = new FBPMessage(protocol, "error", payload);
 
-        send(msg.toJSONString());
+        send(msg);
     }
 }
