@@ -71,9 +71,13 @@ public class Flow implements FlowInterface {
     }
 
     public boolean addNode(String id, String component, JSONObject metadata, String graph) {
-        Node n = new Node(id, component, metadata, graph, this);
+        if (graphExist(graph) && !nodeExist(id)){
+            Node n = new Node(id, component, metadata, graph, this);
 
-        return nodes.add(n);
+            return nodes.add(n);
+        }
+
+        return false;
     }
 
     public boolean removeNode(String id, String graph) {
@@ -115,9 +119,16 @@ public class Flow implements FlowInterface {
         String srcNodeId = (String) src.get("node");
         String tgtNodeId = (String) src.get("node");
 
-        if(nodeExist(srcNodeId) && nodeExist(tgtNodeId) && graphExist(graph)) {
+        if(nodeExist(srcNodeId) && nodeExist(tgtNodeId) && graphExist(graph) && !edgeExist(src, tgt)) {
             Edge newEdge = new Edge(src, tgt, metadata, graph, this);
             edges.add(newEdge);
+
+            Node srcNode = nodes.get(indexOfNode(srcNodeId));
+            srcNode.assignPortToEdge((String) src.get("port"), newEdge.getId());
+
+            Node tgtNode = nodes.get(indexOfNode(tgtNodeId));
+            tgtNode.assignPortToEdge((String) tgt.get("port"), newEdge.getId());
+
             return true;
         } else {
             return false;
@@ -188,7 +199,7 @@ public class Flow implements FlowInterface {
     }
 
     public boolean addGroup(String name, JSONArray nodes, JSONObject metadata, String graph) {
-        if(graphExist(graph)){
+        if(graphExist(graph) && !groupExist(name)){
             Group g = new Group(name, nodes, metadata, graph, this);
 
             groups.add(g);

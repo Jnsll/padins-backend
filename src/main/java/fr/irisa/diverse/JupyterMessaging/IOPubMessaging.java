@@ -63,11 +63,6 @@ class IOPubMessaging {
 
         Long executionCount = (Long) content.get("execution_count");
         if(executionCount > kernel.getNbExecutions()) kernel.setNbExecutions(executionCount);
-
-        // TEMPORARY
-        String data = content.get("data").toString();
-        String metadata = content.get("metadata").toString();
-        System.err.println("Received Execute_result message with data : \n" + data + "\nAnd metadata : \n" + metadata);
     }
 
     private void handleExecuteResultMessage(JupyterMessage message) {
@@ -75,11 +70,6 @@ class IOPubMessaging {
 
         Long executionCount = (Long) content.get("execution_count");
         if(executionCount > kernel.getNbExecutions()) kernel.setNbExecutions(executionCount);
-
-        // TEMPORARY
-        String data = content.get("data").toString();
-        String metadata = content.get("metadata").toString();
-        System.out.println("Received Execute_result message with data : \n" + data + "\nAnd metadata : \n" + metadata);
     }
 
     private void handleCodeInputMessage(JupyterMessage message) {

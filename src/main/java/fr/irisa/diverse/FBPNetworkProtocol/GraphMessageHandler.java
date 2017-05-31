@@ -1,6 +1,7 @@
 package fr.irisa.diverse.FBPNetworkProtocol;
 
 import fr.irisa.diverse.Core.Workspace;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import fr.irisa.diverse.Flow.*;
 
@@ -114,8 +115,9 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         if(flow.addNode(id, component, metadata, graph)) {
             // Answer
             sendAddNodeMessage(id, graph);
+            sendAddInportAndOutportForNode(flow.getNode(id, graph), graph);
         } else {
-
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to create node because graph " + graph + " doesn't exist");
         }
     }
 
@@ -128,7 +130,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendRemoveNodeMessage(id, graph);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to create node because graph " + graph + " doesn't exist");
+            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove node because graph " + graph + " doesn't exist");
         }
     }
 
@@ -306,7 +308,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
     private void addgroup (JSONObject payload) {
         // Retrieve needed data for addGroup() method
         String name = (String) payload.get("name");
-        JSONObject nodes = (JSONObject) payload.get("nodes");
+        JSONArray nodes = (JSONArray) payload.get("nodes");
         JSONObject metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
@@ -390,7 +392,6 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
         // Send the message
         sendMessageToAll("removenode", payload);
-
     }
 
     private void sendRenameNodeMessage (String from, String to, String graph) {
@@ -402,7 +403,6 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
         // Send the message
         sendMessageToAll("renamenode", payload);
-
     }
 
     private void sendChangeNodeMessage (String id, String graph) {
@@ -415,7 +415,6 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
         // Send the message
         sendMessageToAll("changenode", payload);
-
     }
 
     private void sendAddEdgeMessage (JSONObject src, JSONObject tgt, String graph) {
@@ -463,28 +462,72 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         // Not used for now
     }
 
-    private void sendAddInportMessage (JSONObject msg) {
-        // Not used for now
+    private void sendAddInportMessage (Port port, String node, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("public", port.getName());
+        payload.put("node", node);
+        payload.put("port",port.getPort());
+        payload.put("metadata", port.getMetadata());
+        payload.put("graph", graph);
+
+        // Send the message to all connected clients
+        sendMessageToAll("addinport", payload);
     }
 
-    private void sendRemoveInportMessage (JSONObject msg) {
-        // Not used for now
+    private void sendRemoveInportMessage (String name, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("public", name);
+        payload.put("graph", graph);
+
+        // Send the message to all connected clients
+        sendMessageToAll("removeinport", payload);
     }
 
-    private void sendRenameInportMessage (JSONObject msg) {
-        // Not used for now
+    private void sendRenameInportMessage (String from, String to, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("from", from);
+        payload.put("to", to);
+        payload.put("graph", graph);
+
+        // Send the message to all connected clients
+        sendMessageToAll("renameinport", payload);
     }
 
-    private void sendAddOutportMessage (JSONObject msg) {
-        // Not used for now
+    private void sendAddOutportMessage (Port port, String node, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("public", port.getName());
+        payload.put("node", node);
+        payload.put("port",port.getPort());
+        payload.put("metadata", port.getMetadata());
+        payload.put("graph", graph);
+
+        // Send the message to all connected clients
+        sendMessageToAll("addoutport", payload);
     }
 
-    private void sendRemoveOutportMessage (JSONObject msg) {
-        // Not used for now
+    private void sendRemoveOutportMessage (String name, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("public", name);
+        payload.put("graph", graph);
+
+        // Send the message to all connected clients
+        sendMessageToAll("removeoutport", payload);
     }
 
-    private void sendRenameOutportMessage (JSONObject msg) {
-        // Not used for now
+    private void sendRenameOutportMessage (String from, String to, String graph) {
+        // Build payload
+        JSONObject payload = new JSONObject();
+        payload.put("from", from);
+        payload.put("to", to);
+        payload.put("graph", graph);
+
+        // Send the message to all connected clients
+        sendMessageToAll("renameoutport", payload);
     }
 
     private void sendAddGroupMessage (String name, String graph) {
@@ -531,6 +574,31 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
         // Send the message
         sendMessageToAll("changegroup", payload);
+    }
+
+    /* =================================================================================================================
+                      PRIVATE METHODS TO SEND MESSAGES. METHODS THAT ARE SPECIFICALLY FOR THIS PROGRAM
+       ===============================================================================================================*/
+
+    private void sendAddInportAndOutportForNode (Node node, String graph) {
+        Ports inports = node.getInports();
+        Ports outports = node.getOutports();
+
+        // Send one message per port in inports
+        for (Object o : inports) {
+            if (o instanceof Port) {
+                Port port = (Port) o;
+                sendAddInportMessage(port, node.getId(), graph);
+            }
+        }
+
+        // Send one message per port in outports
+        for (Object o : outports) {
+            if (o instanceof Port) {
+                Port port = (Port) o;
+                sendAddOutportMessage(port, node.getId(), graph);
+            }
+        }
     }
 
 }

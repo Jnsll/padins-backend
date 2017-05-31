@@ -29,8 +29,10 @@ public class ComponentsUtils {
      * @param component : the component for whom you want its inports
      * @return : An arraylist containing all inports
      */
-    public static Ports getInPortsForComponent(String library, String component) {
-        return getComponent(library, component).getInports();
+    public static Ports getInPortsForComponent(String library, String component, String node) {
+        Ports inports = getComponent(library, component).getInports();
+        inports.setNode(node);
+        return inports;
     }
 
     /**
@@ -38,8 +40,10 @@ public class ComponentsUtils {
      * @param component : the component for whom you want its inports
      * @return : An arraylist containing all inports
      */
-    public static Ports getOutPortsForComponent(String library, String component) {
-        return getComponent(library, component).getOutports();
+    public static Ports getOutPortsForComponent(String library, String component, String node) {
+        Ports outports = getComponent(library, component).getOutports();
+        outports.setNode(node);
+        return outports;
     }
 
     /* =================================================================================================================

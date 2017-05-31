@@ -17,7 +17,7 @@ public class Port {
     private String node = "";
     private JSONObject metadata = null;
     private String connectedEdge = "";
-    private final String type = "object";
+    private final String type = "Object";
 
     // Constructors
     Port (String port, String name) {
@@ -75,6 +75,14 @@ public class Port {
 
     public String getNode() {
         return node;
+    }
+
+    public void setNode(String node) {
+        this.node = node;
+    }
+
+    public void setConnectedEdge(String connectedEdge) {
+        this.connectedEdge = connectedEdge;
     }
 
     /* =================================================================================================================

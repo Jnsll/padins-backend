@@ -14,6 +14,7 @@ public class Ports extends ArrayList<Port> {
     private ArrayList<Port> ports = null;
     private JSONArray portsJson = null;
 
+    // Constructors
     public Ports () {
         ports = new ArrayList<Port>();
         portsJson = new JSONArray();
@@ -40,6 +41,10 @@ public class Ports extends ArrayList<Port> {
         build();
     }
 
+    /* =================================================================================================================
+                                                    PUBLIC FUNCTIONS
+       ===============================================================================================================*/
+
     @Override
     public String toString () {
         build();
@@ -55,6 +60,25 @@ public class Ports extends ArrayList<Port> {
         build();
         return portsJson;
     }
+
+    public void setNode (String node) {
+        for (Object o: ports) {
+            Port port = (Port) o;
+            port.setNode(node);
+        }
+    }
+
+    public int indexOfPort (String name) {
+        for(int i=0; i<ports.size(); i++) {
+            if (ports.get(i).getName().equals(name)) return i;
+        }
+
+        return -1;
+    }
+
+    /* =================================================================================================================
+                                                    PRIVATE FUNCTIONS
+       ===============================================================================================================*/
 
     private void build () {
         portsJson = new JSONArray();
