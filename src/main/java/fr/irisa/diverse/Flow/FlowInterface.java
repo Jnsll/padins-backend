@@ -1,5 +1,6 @@
 package fr.irisa.diverse.Flow;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -39,7 +40,7 @@ interface FlowInterface {
 
     boolean renameOutport (String from, String to, String graph);
 
-    boolean addGroup (String name, JSONObject nodes, JSONObject metadata, String graph);
+    boolean addGroup (String name, JSONArray nodes, JSONObject metadata, String graph);
 
     boolean removeGroup (String name, String graph);
 

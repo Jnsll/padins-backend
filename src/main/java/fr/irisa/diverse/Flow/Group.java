@@ -1,5 +1,6 @@
 package fr.irisa.diverse.Flow;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -17,17 +18,17 @@ public class Group {
     private Flow owningFlow = null;
     private String id = "";
     private String name = "";
-    private ArrayList<String> nodes = null;
+    private JSONArray nodes = null;
     private JSONObject metadata = null;
     private String graph = "";
 
     // Constructor
-    public Group (String name, JSONObject nodes, JSONObject metadata, String graph, Flow owningFlow) {
+    public Group (String name, JSONArray nodes, JSONObject metadata, String graph, Flow owningFlow) {
         group = new JSONObject();
         this.owningFlow = owningFlow;
         id = UUID.randomUUID().toString();
         this.name = name;
-        this.nodes = extractNodesFromJSON(nodes);
+        this.nodes = nodes;
         this.metadata = metadata;
         this.graph = graph;
 
@@ -55,7 +56,7 @@ public class Group {
         return graph;
     }
 
-    public ArrayList<String> getNodes() {
+    public JSONArray getNodes() {
         return nodes;
     }
 
@@ -92,25 +93,8 @@ public class Group {
         // Build the group JSON
         group.put("id", getId());
         group.put("name", getName());
-        group.put("metadata", getMetadata().toJSONString());
+        group.put("metadata", getMetadata());
         group.put("graph", getGraph());
-        group.put("nodes", nodesToString());
-    }
-
-
-    private ArrayList<String> extractNodesFromJSON (JSONObject nodes) {
-        ArrayList<String> res = new ArrayList<>();
-
-        // Go through the JSON object named nodes to retrieve each node's unique id
-        Set keys = nodes.keySet();
-        for (Object key : keys) {
-            res.add((String) nodes.get(key));
-        }
-
-        return res;
-    }
-
-    private String nodesToString () {
-        return fr.irisa.diverse.Utils.JSON.jsonArrayListToString(nodes);
+        group.put("nodes", getNodes());
     }
 }

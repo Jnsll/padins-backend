@@ -7,7 +7,7 @@ import java.util.UUID;
 /**
  * Created by antoine on 29/05/17.
  */
-class Port {
+public class Port {
 
     // Attributes
     private JSONObject portJSON = null;
@@ -20,7 +20,7 @@ class Port {
     private final String type = "object";
 
     // Constructors
-    public Port (String port, String name) {
+    Port (String port, String name) {
         id = UUID.randomUUID().toString();
         this.portJSON = new JSONObject();
         this.port = port;
@@ -28,12 +28,12 @@ class Port {
         this.metadata = new JSONObject();
     }
 
-    public Port (String port, String name, JSONObject metadata) {
+    Port (String port, String name, JSONObject metadata) {
         this(port, name);
         this.metadata = metadata;
     }
 
-    public Port (String port, String name, JSONObject metadata, String connectedEdge) {
+    Port (String port, String name, JSONObject metadata, String connectedEdge) {
         this(port, name, metadata);
 
         this.connectedEdge = connectedEdge;

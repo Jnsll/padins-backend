@@ -187,7 +187,7 @@ public class Flow implements FlowInterface {
         return true;
     }
 
-    public boolean addGroup(String name, JSONObject nodes, JSONObject metadata, String graph) {
+    public boolean addGroup(String name, JSONArray nodes, JSONObject metadata, String graph) {
         if(graphExist(graph)){
             Group g = new Group(name, nodes, metadata, graph, this);
 
