@@ -1,7 +1,9 @@
 package fr.irisa.diverse.FBPNetworkProtocol;
 
 import fr.irisa.diverse.Utils.JSON;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 /**
  * Created by antoine on 26/05/2017.
@@ -20,7 +22,7 @@ class FBPMessage {
 
         setProtocol(protocol);
         setCommand(command);
-        message.put("payload", payload);
+        setPayload(payload);
     }
 
     public FBPMessage (String message) {
@@ -40,7 +42,7 @@ class FBPMessage {
     }
 
     public JSONObject getPayloadAsJSON () {
-        return JSON.stringToJsonObject((String) message.get("payload"));
+        return (JSONObject) message.get("payload");
     }
 
     public String getPayloadAsJString () {
@@ -56,7 +58,16 @@ class FBPMessage {
     }
 
     public void setPayload (String payload) {
-        message.put("payload", payload);
+        // Parse payload to avoid backslash in the serialized message
+        JSONParser parser = new JSONParser();
+        JSONObject p = new JSONObject();
+        try {
+            p = (JSONObject) parser.parse(payload);
+        } catch (ParseException e) {
+            //e.printStackTrace();
+        }
+
+        message.put("payload", p);
     }
 
     public void setPayloadFromJson (JSONObject payload) {

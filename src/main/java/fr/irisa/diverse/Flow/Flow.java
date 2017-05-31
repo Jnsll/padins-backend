@@ -1,10 +1,11 @@
 package fr.irisa.diverse.Flow;
 
 import fr.irisa.diverse.Core.Workspace;
+import fr.irisa.diverse.Utils.*;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 /** A flow is the JSON file containing all the data structure of a workspace.
  * The web interface uses it, and only it, to create the view.
@@ -16,19 +17,18 @@ public class Flow implements FlowInterface {
     // Attributes
     private JSONObject flow = null;
     private Workspace owningWorkspace = null;
-    private String componentsLibrary = "";
     // The below attributes have to be contained into the flow object.
     private String id = "";
     private String name = "";
     private String description = "";
-    private String library = "";
+    private String componentsLibrary = "";
     private ArrayList<Edge> edges = null;
     private ArrayList<Node> nodes = null;
     private ArrayList<Group> groups = null;
 
     // Constructor
     public Flow (Workspace workspace) {
-        this.id = UUID.randomUUID().toString();
+        this.id = workspace.getUuid();
         this.owningWorkspace = workspace;
         this.flow = new JSONObject();
 
@@ -53,14 +53,18 @@ public class Flow implements FlowInterface {
        ===============================================================================================================*/
 
     public String serialize () {
+        // Preliminary step : build JSONArray for edges, nodes and groups
+        JSONArray edges = JSON.jsonArrayFromArrayList(this.edges);
+        JSONArray nodes = JSON.jsonArrayFromArrayList(this.nodes);
+        JSONArray groups = JSON.jsonArrayFromArrayList(this.groups);
         // Build the JSON file of the flow
         flow.put("id", id);
         flow.put("name", name);
-        flow.put("library", library);
+        flow.put("library", componentsLibrary);
         flow.put("description", description);
-        flow.put("edges", fr.irisa.diverse.Utils.JSON.jsonArrayListToString(edges));
-        flow.put("nodes", fr.irisa.diverse.Utils.JSON.jsonArrayListToString(nodes));
-        flow.put("groups", fr.irisa.diverse.Utils.JSON.jsonArrayListToString(groups));
+        flow.put("edges", edges);
+        flow.put("nodes", nodes);
+        flow.put("groups", groups);
 
         // Return it as a JSON String to send it to frontend
         return flow.toJSONString();

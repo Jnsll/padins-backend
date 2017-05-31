@@ -107,7 +107,8 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         // Retrieve needed data for addNode() method
         String id = (String) payload.get("id");
         String component = (String) payload.get("component");
-        JSONObject metadata = (JSONObject) payload.get("metadata");
+        JSONObject metadata = new JSONObject();
+        if (!(payload.get("metadata") instanceof String)) metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
         if(flow.addNode(id, component, metadata, graph)) {

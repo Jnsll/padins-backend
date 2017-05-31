@@ -5,7 +5,8 @@
       "description" : "Block to describe the raw-data that will be input from files or manually",
       "outports" : [
         {
-          "port" : "raw-data"
+          "port" : "raw-data",
+          "name" : "raw-data",
         }
       ],
       "language" : "JSON",
@@ -17,12 +18,14 @@
       "description" : "Model that will be used by the simulation",
       "inports": [
         {
-          "port" : "Pre-processed data"
+          "port" : "Pre-processed data",
+          "name" : "Pre-processed data"
         }
       ],
       "outports" : [
         {
-          "port" : "model"
+          "port" : "model",
+          "name" : "model"
         }
       ],
       "language" : "EMF",
@@ -34,12 +37,14 @@
       "description" : "Block used to make light computing on data",
       "inports" : [
         {
-          "port": "data to process"
+          "port": "data to process",
+          "name": "data to process"
         }
       ],
       "outports" : [
         {
-          "port" : "processed data"
+          "port" : "processed data",
+          "name" : "processed data"
         }
       ],
       "language" : "Python",
@@ -51,12 +56,14 @@
       "description" : "Block used to make simulation",
       "inports" : [
         {
-          "port": "model to simulate"
+          "port": "model to simulate",
+          "name": "model to simulate"
         }
       ],
       "outports" : [
         {
-          "port" : "simulation results"
+          "port" : "simulation results",
+          "name" : "simulation results"
         }
       ],
       "language" : "Python",
@@ -68,7 +75,8 @@
       "description" : "Block used to visualise results on charts",
       "inports" : [
         {
-          "port": "data to visualize"
+          "port": "data to visualize",
+          "name": "data to visualize"
         }
       ],
       "language" : "Javascript",

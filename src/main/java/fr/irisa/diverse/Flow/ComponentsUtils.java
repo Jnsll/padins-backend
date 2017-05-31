@@ -47,6 +47,9 @@ public class ComponentsUtils {
        ===============================================================================================================*/
 
     public static ArrayList<Component> getComponentsFromLib (String library) {
+        // Initialize components
+        components = new ArrayList<>();
+
         try {
             lastRequestedLibrary = library;
             // Read and parse the JSON file
@@ -60,6 +63,8 @@ public class ComponentsUtils {
 
                 components.add(new Component(object, library));
             }
+
+            return components;
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -75,7 +80,7 @@ public class ComponentsUtils {
 
         // Go through the components to find and return the requested one
         for (Component component : components) {
-            if (component.getName().equals(name)) return component;
+            if (component.getName().equals(library + "/" + name) || component.getName().equals(library + "\\/" + name)) return component;
         }
 
         return null; // if not found

@@ -33,11 +33,15 @@ public class Component {
         if(json.get("langague") != null) this.language = (String) json.get("language");
         if(json.get("code") != null) this.code = (String) json.get("code");
         if(json.get("tests") != null) this.tests = (String) json.get("tests");
-        if (json.get("inports") == null) inports = new Ports();
-        else this.inports = buildPorts(json.get("inports").toString());
+        if (json.get("inports") == null || !(json.get("inports") instanceof JSONArray)) inports = new Ports();
+        else {
+            this.inports = new Ports((JSONArray) json.get("inports"));
+        }
 
-        if (json.get("outports") == null) outports = new Ports();
-        else this.outports = buildPorts(json.get("outports").toString());
+        if (json.get("outports") == null || !(json.get("outports") instanceof JSONArray)) outports = new Ports();
+        else {
+            this.outports = new Ports((JSONArray) json.get("outports"));
+        }
     }
 
     /* =================================================================================================================
@@ -53,10 +57,12 @@ public class Component {
     }
 
     public Ports getInports() {
+        if (inports == null) inports = new Ports();
         return inports;
     }
 
     public Ports getOutports() {
+        if (outports == null) outports = new Ports();
         return outports;
     }
 
@@ -76,29 +82,6 @@ public class Component {
     /* =================================================================================================================
                                                     PRIVATE FUNCTIONS
        ===============================================================================================================*/
-
-    private Ports buildPorts (String json) {
-        JSONParser parser = new JSONParser();
-        JSONArray ports;
-        Ports portsToReturn = new Ports();
-
-        try {
-            // Parse the json containing inputs to a JSONObject we can manipulate
-            ports = (JSONArray) parser.parse(json);
-
-            // Go trough the JSON to retrieve all the information we need
-            for (Object port : ports) {
-                // For each object, create an instance of Port and add it to the portsToReturn object
-                JSONObject tempJSONPort = (JSONObject) port;
-                Port tempPort = new Port((String) tempJSONPort.get("port"));
-                portsToReturn.add(tempPort);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return portsToReturn;
-    }
 
     private void buildJson () {
         // Build the component JSON
@@ -122,6 +105,7 @@ public class Component {
     }
 
     public JSONObject toJson() {
+        buildJson();
         return component;
     }
 }

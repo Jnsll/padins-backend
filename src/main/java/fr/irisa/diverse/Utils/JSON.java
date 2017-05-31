@@ -1,5 +1,9 @@
 package fr.irisa.diverse.Utils;
 
+import fr.irisa.diverse.Flow.Edge;
+import fr.irisa.diverse.Flow.Group;
+import fr.irisa.diverse.Flow.Node;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -80,6 +84,28 @@ public abstract class JSON {
         }
 
         // Finished
+        return res;
+    }
+
+    public static JSONArray jsonArrayFromArrayList (ArrayList list) {
+        JSONArray res = new JSONArray();
+
+        for (Object obj : list ) {
+            if (obj instanceof Node) {
+                Node n = (Node) obj;
+                res.add(n.getJson());
+            } else if (obj instanceof Edge) {
+                Edge e = (Edge) obj;
+                res.add(e.getJson());
+            } else if (obj instanceof Group) {
+                Group g = (Group) obj;
+                res.add(g.getJson());
+            } else {
+                res.add(obj);
+            }
+
+        }
+
         return res;
     }
 }

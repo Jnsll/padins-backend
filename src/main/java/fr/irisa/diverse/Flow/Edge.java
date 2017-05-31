@@ -69,20 +69,32 @@ public class Edge {
         return graph;
     }
 
+    public JSONObject getJson() {
+        build();
+        return edge;
+    }
+
     /* =================================================================================================================
                                                     PUBLIC FUNCTIONS
        ===============================================================================================================*/
 
     @Override
     public String toString () {
+        build();
+        // Return it as a String
+        return edge.toJSONString();
+    }
+
+    /* =================================================================================================================
+                                                    PRIVATE FUNCTIONS
+       ===============================================================================================================*/
+
+    private void build () {
         // Build the edge JSON
         edge.put("id", getId());
         edge.put("src", getSrc().toJSONString());
         edge.put("tgt", getTgt().toJSONString());
         edge.put("metadata", getMetadata().toJSONString());
         edge.put("graph", getGraph());
-
-        // Return it as a String
-        return edge.toJSONString();
     }
 }

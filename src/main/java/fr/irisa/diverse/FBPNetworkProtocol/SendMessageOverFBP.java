@@ -14,7 +14,8 @@ abstract class SendMessageOverFBP {
         // Build FBPMessage to send
         FBPMessage message = new FBPMessage(PROTOCOL, command, payload.toJSONString());
 
-        owningManager.send(message);
+        System.out.println(message.toJSONString());
+        //owningManager.send(message); TEMPORARY
 
     }
 
@@ -22,6 +23,7 @@ abstract class SendMessageOverFBP {
         // Build FBPMessage to send
         FBPMessage message = new FBPMessage(PROTOCOL, command, payload.toJSONString());
 
-        owningManager.sendToAll(message);
+        System.out.println(message.toJSONString());
+        //owningManager.sendToAll(message); TEMPORARY
     }
 }

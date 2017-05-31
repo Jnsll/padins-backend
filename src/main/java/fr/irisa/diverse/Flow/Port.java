@@ -12,28 +12,31 @@ class Port {
     // Attributes
     private JSONObject portJSON = null;
     private String id = "";
+    private String name = "";
     private String port = "";
+    private String node = "";
     private JSONObject metadata = null;
-    private String connectedTo = "";
+    private String connectedEdge = "";
     private final String type = "object";
 
     // Constructors
-    public Port (String port) {
+    public Port (String port, String name) {
         id = UUID.randomUUID().toString();
         this.portJSON = new JSONObject();
         this.port = port;
+        this.name = name;
         this.metadata = new JSONObject();
     }
 
-    public Port (String port, JSONObject metadata) {
-        this(port);
+    public Port (String port, String name, JSONObject metadata) {
+        this(port, name);
         this.metadata = metadata;
     }
 
-    public Port (String port, JSONObject metadata, String connectedTo) {
-        this(port, metadata);
+    public Port (String port, String name, JSONObject metadata, String connectedEdge) {
+        this(port, name, metadata);
 
-        this.connectedTo = connectedTo;
+        this.connectedEdge = connectedEdge;
     }
 
     /* =================================================================================================================
@@ -56,14 +59,22 @@ class Port {
         return metadata;
     }
 
-    public String getConnectedTo () {
-        if (connectedTo == null) connectedTo = "";
+    public String getConnectedEdgeId () {
+        if (connectedEdge == null) connectedEdge = "";
 
-        return connectedTo;
+        return connectedEdge;
     }
 
     public String getType() {
         return type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNode() {
+        return node;
     }
 
     /* =================================================================================================================
@@ -72,14 +83,28 @@ class Port {
 
     @Override
     public String toString () {
-        // Build the edge JSON
-        portJSON.put("id", getId());
-        portJSON.put("port", getPort());
-        portJSON.put("metadata", getMetadata().toJSONString());
-        portJSON.put("connectedTo", getConnectedTo());
-        portJSON.put("type", getType());
-
+        build();
         // Return it as a String
         return portJSON.toJSONString();
+    }
+
+    public JSONObject toJson() {
+        build();
+        return portJSON;
+    }
+
+    /* =================================================================================================================
+                                                    PRIVATE FUNCTIONS
+       ===============================================================================================================*/
+
+    private void build () {
+        // Build the port JSON
+        portJSON.put("id", getId());
+        portJSON.put("public", getName());
+        portJSON.put("node", getNode());
+        portJSON.put("port", getPort());
+        portJSON.put("metadata", getMetadata().toJSONString());
+        portJSON.put("connectedEdge", getConnectedEdgeId());
+        portJSON.put("type", getType());
     }
 }

@@ -67,18 +67,18 @@ public class Group {
         this.metadata = metadata;
     }
 
+    public JSONObject getJson() {
+        build();
+        return group;
+    }
+
     /* =================================================================================================================
                                                     PUBLIC FUNCTIONS
        ===============================================================================================================*/
 
     @Override
     public String toString () {
-        // Build the edge JSON
-        group.put("id", getId());
-        group.put("name", getName());
-        group.put("metadata", getMetadata().toJSONString());
-        group.put("graph", getGraph());
-        group.put("nodes", nodesToString());
+        build();
 
         // Return it as a String
         return group.toJSONString();
@@ -87,6 +87,15 @@ public class Group {
     /* =================================================================================================================
                                                     PRIVATE FUNCTIONS
        ===============================================================================================================*/
+
+    private void build () {
+        // Build the group JSON
+        group.put("id", getId());
+        group.put("name", getName());
+        group.put("metadata", getMetadata().toJSONString());
+        group.put("graph", getGraph());
+        group.put("nodes", nodesToString());
+    }
 
 
     private ArrayList<String> extractNodesFromJSON (JSONObject nodes) {

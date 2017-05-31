@@ -1,5 +1,6 @@
 package fr.irisa.diverse.Flow;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.UUID;
 
@@ -72,21 +73,33 @@ public class Node {
         return component;
     }
 
+    public JSONObject getJson() {
+        build();
+        return node;
+    }
+
     /* =================================================================================================================
                                                     PUBLIC FUNCTIONS
        ===============================================================================================================*/
 
     @Override
     public String toString () {
-        // Build the edge JSON
-        node.put("id", getId());
-        node.put("component", getComponent());
-        node.put("metadata", getMetadata().toJSONString());
-        node.put("graph", getGraph());
-        node.put("inports", getInports().toString());
-        node.put("outports", getOutports().toString());
-
+        build();
         // Return it as a String
         return node.toJSONString();
+    }
+
+    /* =================================================================================================================
+                                                    PRIVATE FUNCTIONS
+       ===============================================================================================================*/
+
+    private void build () {
+        // Build the node JSON
+        node.put("id", getId());
+        node.put("component", getComponent());
+        node.put("metadata", getMetadata());
+        node.put("graph", getGraph());
+        node.put("inports", getInports().toJson());
+        node.put("outports", getOutports().toJson());
     }
 }
