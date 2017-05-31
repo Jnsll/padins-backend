@@ -112,10 +112,17 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         if (!(payload.get("metadata") instanceof String)) metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
+        // Add the node into the flow and if it succeed send a message back to the connected clients
+        // & start a kernel if the node is a Processing or Simulation
         if(flow.addNode(id, component, metadata, graph)) {
+            // Start a kernel if needed
+            if (component.equals("Processing") || component.equals("Simulation")) {
+                String kernelId = owningWorkspace.startNewKernel(id);
+            }
             // Answer
             sendAddNodeMessage(id, graph);
             sendAddInportAndOutportForNode(flow.getNode(id, graph), graph);
+
         } else {
             owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to create node because graph " + graph + " doesn't exist");
         }
@@ -126,6 +133,11 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         String id = (String) payload.get("id");
         String graph = (String) payload.get("graph");
 
+        // If the node is a Processing or Simulation node, stop the associated Jupyter kernel
+        Node n = flow.getNode(id, graph);
+        if(n.getComponent().equals("Processing") || n.getComponent().equals("Simulation")) owningWorkspace.stopKernel(id);
+
+        // Remove the node from the flow (data structure)
         if (flow.removeNode(id, graph)) {
             // Answer
             sendRemoveNodeMessage(id, graph);

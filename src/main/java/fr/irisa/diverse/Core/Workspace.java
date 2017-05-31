@@ -62,6 +62,27 @@ public class Workspace {
         this.connectedClients.remove(client.getId());
     }
 
+    /** Start a new kernel. Should be used each time a new Simulation or Processing block is created
+     *
+     * @return : the uuid of the kernel
+     */
+    public String startNewKernel (String nodeId) {
+        Kernel k = new Kernel();
+
+        kernels.put(nodeId, k);
+
+        return k.getContainerId();
+    }
+
+    /** Stop a running kernel. Commonly used when a node is removed
+     *
+     * @param nodeId : the nodeId linked to the kernel
+     */
+    public void stopKernel (String nodeId) {
+        Kernel kernel = kernels.get(nodeId);
+        if(kernel != null) kernel.stop();
+    }
+
     /*==================================================================================================================
                                                 GETTERS AND SETTERS
      =================================================================================================================*/
@@ -99,20 +120,12 @@ public class Workspace {
         return clientCommunicationManager;
     }
 
+    public Kernel getKernel (String nodeId) {
+        return kernels.get(nodeId);
+    }
+
     /*==================================================================================================================
                                               PRIVATE CLASS METHODS
      =================================================================================================================*/
-
-    /** Start a new kernel. Should be used each time a new Simulation or Processing block is created
-     *
-     * @return : the uuid of the kernel
-     */
-    private String startNewKernel (String nodeId) {
-        Kernel k = new Kernel();
-
-        kernels.put(nodeId, k);
-
-        return k.getContainerId();
-    }
 
 }
