@@ -112,9 +112,12 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         if (!(payload.get("metadata") instanceof String)) metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
+        Component c = ComponentsUtils.getComponent(owningWorkspace.getLibrary(), component);
+        boolean executable = c.isExecutable();
+
         // Add the node into the flow and if it succeed send a message back to the connected clients
         // & start a kernel if the node is a Processing or Simulation
-        if(flow.addNode(id, component, metadata, graph)) {
+        if(flow.addNode(id, component, metadata, graph, executable)) {
             // Start a kernel if needed
             if (component.equals("Processing") || component.equals("Simulation")) {
                 String kernelId = owningWorkspace.startNewKernel(id);

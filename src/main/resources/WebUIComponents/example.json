@@ -3,6 +3,7 @@
     {
       "name" : "Name 1",
       "description" : "Description 1",
+      "executable" : false,
       "inports" : [
         {
           "inports" : "inport 1"

@@ -8,7 +8,7 @@ import org.json.simple.parser.ParseException;
 /**
  * Created by antoine on 26/05/2017.
  */
-class FBPMessage {
+public class FBPMessage {
 
     // Attributes
     private JSONObject message = null;

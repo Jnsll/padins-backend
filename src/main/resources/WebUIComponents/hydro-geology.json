@@ -3,10 +3,11 @@
     {
       "name" : "Raw data",
       "description" : "Block to describe the raw-data that will be input from files or manually",
+      "executable" : false,
       "outports" : [
         {
           "port" : "raw-data",
-          "name" : "raw-data",
+          "name" : "raw-data"
         }
       ],
       "language" : "JSON",
@@ -16,6 +17,7 @@
     {
       "name" : "Model",
       "description" : "Model that will be used by the simulation",
+      "executable" : false,
       "inports": [
         {
           "port" : "Pre-processed data",
@@ -35,6 +37,7 @@
     {
       "name" : "Processing",
       "description" : "Block used to make light computing on data",
+      "executable" : true,
       "inports" : [
         {
           "port": "data to process",
@@ -54,6 +57,7 @@
     {
       "name" : "Simulation",
       "description" : "Block used to make simulation",
+      "executable" : true,
       "inports" : [
         {
           "port": "model to simulate",
@@ -73,6 +77,7 @@
     {
       "name" : "Visualisation",
       "description" : "Block used to visualise results on charts",
+      "executable" : false,
       "inports" : [
         {
           "port": "data to visualize",

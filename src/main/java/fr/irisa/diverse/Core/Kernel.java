@@ -112,6 +112,16 @@ public class Kernel {
 
     /* =================================================================================================================
        =================================================================================================================
+                                           PUBLIC FUNCTIONS TO INTERACT WITH KERNEL
+       =================================================================================================================
+       ===============================================================================================================*/
+
+    public void executeCode (String code) {
+        messagesManager.sendMessageOnShell().sendExecuteRequestMessage(code);
+    }
+
+    /* =================================================================================================================
+       =================================================================================================================
                                                     PRIVATE FUNCTIONS
        =================================================================================================================
        ===============================================================================================================*/
@@ -143,6 +153,8 @@ public class Kernel {
             // The outputstream is only one line long and contains the newly created container's id
             this.containerId = in.readLine().substring(0,12);
 
+            // Log the containerId of the newly started docker Jupyter
+            System.out.println("New Jupyter kernel started. Its id is :");
             System.out.println(containerId);
             String line = null;
             while((line=in.readLine()) != null) {

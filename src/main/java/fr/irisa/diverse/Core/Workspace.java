@@ -2,12 +2,12 @@ package fr.irisa.diverse.Core;
 
 import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
 import fr.irisa.diverse.Flow.Flow;
+import fr.irisa.diverse.Flow.Group;
+import fr.irisa.diverse.Flow.Node;
 
 import javax.websocket.MessageHandler;
 import javax.websocket.Session;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /** The workspace is the central element of this project.
  *
@@ -83,6 +83,37 @@ public class Workspace {
         if(kernel != null) kernel.stop();
     }
 
+    /**
+     * Stop all the kernels.
+     * Use only when all users have stopped the connexion or when you stop the server.
+     */
+    public void stopKernels () {
+        Set keys = kernels.keySet();
+        Iterator iterator = keys.iterator();
+
+        while(iterator.hasNext()){
+            Kernel k = kernels.get(iterator.next());
+            k.stop();
+        }
+    }
+
+    public void startGraph (String graph) throws NotExistingGraphException {
+        // First retrieve the graph.
+        Object g = flow.getGraph(graph);
+
+        // Now there are two cases : the graph is the Flow or it is a Group.
+        if (g instanceof Flow) {
+            run();
+        } else if (g instanceof Group) {
+            runGroup((Group) g);
+        }
+    }
+
+    public boolean graphRunning (String graph) {
+        // TODO
+        return false;
+    }
+
     /*==================================================================================================================
                                                 GETTERS AND SETTERS
      =================================================================================================================*/
@@ -127,5 +158,49 @@ public class Workspace {
     /*==================================================================================================================
                                               PRIVATE CLASS METHODS
      =================================================================================================================*/
+
+    private boolean isNodeRunning (String nodeId) {
+        // First retrieve the node
+        Node n = flow.getNode(nodeId, uuid);
+
+        // If the node is not executable, obviously it is not running
+        if (!n.isExecutable()) return false;
+        // Elsewhere we check if running. Checking whether the node is running is finally checking if its associated
+        // kernel is busy.
+        else {
+            Kernel k = kernels.get(nodeId);
+            return k.isBusy();
+        }
+    }
+
+    private void run () {
+        // TODO
+        // Must store when it started running
+        // First : retrieve the nodes to execute in the right order
+        // Then : run each block one by one. Giving to the method : the block to execute, its src and tgt
+        // Must store that this graph is running
+    }
+
+    private void runGroup (Group group) {
+        // TODO
+        // Must store when it started running
+        // Must do the same as run but for a group
+        // Must store that the graph is running
+    }
+
+    private ArrayList<Node> getExecutableNodesOrdered () {
+        // TODO
+        return null;
+    }
+
+    /* =================================================================================================================
+                                                    EXCEPTION CLASSES
+       ===============================================================================================================*/
+
+    public class NotExistingGraphException extends Exception {
+        public NotExistingGraphException(String graph) {
+            super("[ERROR] Impossible to run the graph " + graph + ", because it doesn't exist");
+        }
+    }
 
 }
