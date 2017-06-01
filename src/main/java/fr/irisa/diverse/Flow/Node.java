@@ -21,9 +21,10 @@ public class Node {
     private String graph = null;
     private Ports inports = null;
     private Ports outports = null;
+    private boolean executable;
 
     // Constructor
-    public Node (String id, String component, JSONObject metadata, String graph, Flow owningFlow) {
+    public Node (String id, String component, JSONObject metadata, String graph, boolean executable, Flow owningFlow) {
         node = new JSONObject();
         this.owningFlow = owningFlow;
         this.component = component;
@@ -32,6 +33,7 @@ public class Node {
         this.inports = ComponentsUtils.getInPortsForComponent(owningFlow.getComponentsLibrary(), component, id);
         this.outports = ComponentsUtils.getOutPortsForComponent(owningFlow.getComponentsLibrary(), component, id);
         this.id = id;
+        this.executable = executable;
     }
 
     /* =================================================================================================================
@@ -89,6 +91,10 @@ public class Node {
         if (p != null) {
             p.setConnectedEdge(edge);
         }
+    }
+
+    public boolean isExecutable () {
+        return executable;
     }
 
     /* =================================================================================================================

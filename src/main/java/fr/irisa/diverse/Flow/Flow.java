@@ -70,9 +70,9 @@ public class Flow implements FlowInterface {
         return flow.toJSONString();
     }
 
-    public boolean addNode(String id, String component, JSONObject metadata, String graph) {
+    public boolean addNode(String id, String component, JSONObject metadata, String graph, boolean executable) {
         if (graphExist(graph) && !nodeExist(id)){
-            Node n = new Node(id, component, metadata, graph, this);
+            Node n = new Node(id, component, metadata, graph, executable, this);
 
             return nodes.add(n);
         }
@@ -275,6 +275,14 @@ public class Flow implements FlowInterface {
             return groups.get(indexOfGroup(name));
         } else {
             return null;
+        }
+    }
+
+    public Object getGraph (String graph) {
+        if (graph.equals(id)) return this;
+        else {
+            // It means that graph is a group
+            return getGroup(graph, id);
         }
     }
 

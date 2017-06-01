@@ -10,7 +10,7 @@ interface FlowInterface {
 
     // Methods used to modify the graph
 
-    boolean addNode (String id, String component, JSONObject metadata, String graph);
+    boolean addNode (String id, String component, JSONObject metadata, String graph, boolean executable);
 
     boolean removeNode (String id, String graph);
 

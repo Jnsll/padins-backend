@@ -17,11 +17,12 @@ public class Component {
     private String fromLibrary = "";
     private String name = "";
     private String description = "";
-    private Ports inports = null;
-    private Ports outports = null;
+    private Ports inports;
+    private Ports outports;
     private String language = "";
     private String code = "";
     private String tests = "";
+    private boolean executable;
 
     // Constructor
     public Component (JSONObject json, String library) {
@@ -33,7 +34,8 @@ public class Component {
         if(json.get("langague") != null) this.language = (String) json.get("language");
         if(json.get("code") != null) this.code = (String) json.get("code");
         if(json.get("tests") != null) this.tests = (String) json.get("tests");
-        if (json.get("inports") == null || !(json.get("inports") instanceof JSONArray)) inports = new Ports();
+        this.executable = json.get("executable") != null && (boolean) json.get("executable");
+        if(json.get("inports") == null || !(json.get("inports") instanceof JSONArray)) inports = new Ports();
         else {
             this.inports = new Ports((JSONArray) json.get("inports"));
         }
@@ -77,6 +79,10 @@ public class Component {
 
     public String getTests() {
         return tests;
+    }
+
+    public boolean isExecutable() {
+        return executable;
     }
 
     /* =================================================================================================================
