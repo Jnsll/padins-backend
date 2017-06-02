@@ -1,10 +1,9 @@
 package fr.irisa.diverse.Flow;
 
+import fr.irisa.diverse.FBPNetworkProtocolUtils.Status;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Set;
 import java.util.UUID;
 
 /** A group is a part of the flow, that has quite the same structure.
@@ -21,6 +20,7 @@ public class Group {
     private JSONArray nodes = null;
     private JSONObject metadata = null;
     private String graph = "";
+    private Status status = null;
 
     // Constructor
     public Group (String name, JSONArray nodes, JSONObject metadata, String graph, Flow owningFlow) {
@@ -71,6 +71,10 @@ public class Group {
     public JSONObject getJson() {
         build();
         return group;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     /* =================================================================================================================

@@ -1,6 +1,7 @@
 package fr.irisa.diverse.Flow;
 
 import fr.irisa.diverse.Core.Workspace;
+import fr.irisa.diverse.FBPNetworkProtocolUtils.Status;
 import fr.irisa.diverse.Utils.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,6 +26,7 @@ public class Flow implements FlowInterface {
     private ArrayList<Edge> edges = null;
     private ArrayList<Node> nodes = null;
     private ArrayList<Group> groups = null;
+    private Status status = null;
 
     // Constructor
     public Flow (Workspace workspace) {
@@ -37,6 +39,8 @@ public class Flow implements FlowInterface {
         this.groups = new ArrayList<Group>();
 
         componentsLibrary = owningWorkspace.getLibrary();
+
+        this.status = new Status();
     }
 
     /** Constructor that creates a fr.irisa.diverse.Flow from a JSONObject.
@@ -292,6 +296,10 @@ public class Flow implements FlowInterface {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     /* =================================================================================================================

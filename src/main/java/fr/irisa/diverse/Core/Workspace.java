@@ -4,6 +4,7 @@ import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
 import fr.irisa.diverse.Flow.Flow;
 import fr.irisa.diverse.Flow.Group;
 import fr.irisa.diverse.Flow.Node;
+import fr.irisa.diverse.Utils.Utils;
 
 import javax.websocket.MessageHandler;
 import javax.websocket.Session;
@@ -109,9 +110,22 @@ public class Workspace {
         }
     }
 
+    public void stopGraph (String graph) {
+        // First retrieve the graph.
+        Object g = flow.getGraph(graph);
+
+        // Now there are two cases : the graph is the Flow or it is a Group.
+        if (g instanceof Flow) {
+            stop();
+        } else if (g instanceof Group) {
+            stopGroup((Group) g);
+        }
+    }
+
     public boolean graphRunning (String graph) {
-        // TODO
-        return false;
+        Object o = flow.getGraph(graph);
+
+        return Utils.getGraphStatus(o).isRunning();
     }
 
     /*==================================================================================================================
@@ -181,11 +195,19 @@ public class Workspace {
         // Must store that this graph is running
     }
 
+    private void stop () {
+        // TODO
+    }
+
     private void runGroup (Group group) {
         // TODO
         // Must store when it started running
         // Must do the same as run but for a group
         // Must store that the graph is running
+    }
+
+    private void stopGroup (Group group) {
+        // TODO
     }
 
     private ArrayList<Node> getExecutableNodesOrdered () {
