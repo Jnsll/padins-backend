@@ -24,4 +24,8 @@ abstract class SendMessageOverFBP {
 
         //owningManager.sendToAll(message);
     }
+
+    void sendError (String message) {
+        owningManager.sendError(PROTOCOL, message);
+    }
 }

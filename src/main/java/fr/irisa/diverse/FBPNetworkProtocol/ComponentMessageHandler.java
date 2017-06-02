@@ -37,7 +37,7 @@ public class ComponentMessageHandler extends SendMessageOverFBP implements FBPPr
                 break;
             default :
                 System.err.println("Received message for unknown protocol : " + message.toJSONString());
-                owningManager.sendError(PROTOCOL, "Error with message : " + message.toJSONString());
+                sendError("Error with message : " + message.toJSONString());
                 break;
         }
 

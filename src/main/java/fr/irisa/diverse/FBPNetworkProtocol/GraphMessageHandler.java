@@ -91,7 +91,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
                 changegroup(message.getPayloadAsJSON());
                 break;
             default :
-                owningManager.sendError(PROTOCOL, "Error with message : " + message.toJSONString());
+                sendError("Error with message : " + message.toJSONString());
                 break;
         }
     }
