@@ -55,6 +55,10 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
 
     }
 
+    public void sendOutput (String message, String type, String url) {
+        sendOutputMessage (message, type, url);
+    }
+
     /* =================================================================================================================
                                          HANDLERS FOR RECEIVED MESSAGE METHODS
        ===============================================================================================================*/
@@ -72,6 +76,8 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
     }
 
     private void edges(FBPMessage message) {
+        // Not implemented for now. Maybe not useful in our case
+        // TODO
     }
 
     private void start(FBPMessage message) {
@@ -190,6 +196,27 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
         // Send it
         sendMessage("status", payload);
     }
+
+    private void sendOutputMessage (String message, String type, String url) {
+        // Build the payload
+        JSONObject payload = new JSONObject();
+        payload.put("message", message);
+        payload.put("type",type);
+        payload.put("url", url);
+
+        // Send it
+        sendMessageToAll("output", payload);
+    }
+
+    /* TODO : features to implement later :
+        - processerror : https://flowbased.github.io/fbp-protocol/#network-processerror
+        - icon : https://flowbased.github.io/fbp-protocol/#network-icon
+        - connect : https://flowbased.github.io/fbp-protocol/#network-connect
+        - begingroup : https://flowbased.github.io/fbp-protocol/#network-begingroup
+        - data : https://flowbased.github.io/fbp-protocol/#network-data
+        - endgroup : https://flowbased.github.io/fbp-protocol/#network-endgroup
+        - disconnect : https://flowbased.github.io/fbp-protocol/#network-disconnect
+    */
 
     /* =================================================================================================================
                                             CLASS CUSTOM METHODS
