@@ -2,9 +2,7 @@ package fr.irisa.diverse.Core;
 
 import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
 import fr.irisa.diverse.Flow.Flow;
-import fr.irisa.diverse.Flow.Group;
 import fr.irisa.diverse.Flow.Node;
-import fr.irisa.diverse.Utils.Utils;
 
 import javax.websocket.MessageHandler;
 import javax.websocket.Session;
@@ -28,6 +26,7 @@ public class Workspace {
     private Flow flow = null;
     private Map<String, Session> connectedClients = null;
     private FBPNetworkProtocolManager clientCommunicationManager = null;
+    private Map<String, FlowExecutionHandler> executionHandlers = null;
     private String library = "hydro-geology";
     public final String RUNTIME_TYPE = "Computational Science";
 
@@ -41,6 +40,7 @@ public class Workspace {
         this.connectedClients = new Hashtable<>();
         this.socketPort = socketPort;
         this.clientCommunicationManager = new FBPNetworkProtocolManager(this);
+        this.executionHandlers = new Hashtable<>();
     }
 
     /*==================================================================================================================
@@ -99,33 +99,61 @@ public class Workspace {
     }
 
     public void startGraph (String graph) throws NotExistingGraphException {
-        // First retrieve the graph.
-        Object g = flow.getGraph(graph);
+        // Check if an execution handler is associated to this graph
+        executionHandlers.computeIfAbsent(graph, k -> new FlowExecutionHandler(graph, this, this.flow));
+        FlowExecutionHandler executionHandler = executionHandlers.get(graph);
 
-        // Now there are two cases : the graph is the Flow or it is a Group.
-        if (g instanceof Flow) {
-            run();
-        } else if (g instanceof Group) {
-            runGroup((Group) g);
-        }
+        executionHandler.run();
     }
 
     public void stopGraph (String graph) {
-        // First retrieve the graph.
-        Object g = flow.getGraph(graph);
+        // Check if an execution handler is associated to this graph
+        FlowExecutionHandler executionHandler = executionHandlers.get(graph);
 
-        // Now there are two cases : the graph is the Flow or it is a Group.
-        if (g instanceof Flow) {
-            stop();
-        } else if (g instanceof Group) {
-            stopGroup((Group) g);
-        }
+        executionHandler.stop();
     }
 
     public boolean graphRunning (String graph) {
-        Object o = flow.getGraph(graph);
+        // Check if an execution handler is associated to this graph
+        FlowExecutionHandler executionHandler = executionHandlers.get(graph);
 
-        return Utils.getGraphStatus(o).isRunning();
+        if (executionHandler == null) return false;
+        else return executionHandler.isRunning();
+    }
+
+    public void executeNode (Node node) {
+        // If the node is running, we wait for it to stop
+        while(isNodeRunning(node.getId())){
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Then we launch the execution
+        // TODO
+    }
+
+    public void stopNode (Node node) {
+        // We do it only if the node is running. Otherwise, it is not necessary.
+        if (isNodeRunning(node.getId())) {
+            // TODO
+        }
+    }
+
+    public boolean isNodeRunning (String nodeId) {
+        // First retrieve the node
+        Node n = flow.getNode(nodeId, uuid);
+
+        // If the node is not executable, obviously it is not running
+        if (!n.isExecutable()) return false;
+            // Elsewhere we check if running. Checking whether the node is running is finally checking if its associated
+            // kernel is busy.
+        else {
+            Kernel k = kernels.get(nodeId);
+            return k.isBusy();
+        }
     }
 
     /*==================================================================================================================
@@ -173,47 +201,7 @@ public class Workspace {
                                               PRIVATE CLASS METHODS
      =================================================================================================================*/
 
-    private boolean isNodeRunning (String nodeId) {
-        // First retrieve the node
-        Node n = flow.getNode(nodeId, uuid);
 
-        // If the node is not executable, obviously it is not running
-        if (!n.isExecutable()) return false;
-        // Elsewhere we check if running. Checking whether the node is running is finally checking if its associated
-        // kernel is busy.
-        else {
-            Kernel k = kernels.get(nodeId);
-            return k.isBusy();
-        }
-    }
-
-    private void run () {
-        // TODO
-        // Must store when it started running
-        // First : retrieve the nodes to execute in the right order
-        // Then : run each block one by one. Giving to the method : the block to execute, its src and tgt
-        // Must store that this graph is running
-    }
-
-    private void stop () {
-        // TODO
-    }
-
-    private void runGroup (Group group) {
-        // TODO
-        // Must store when it started running
-        // Must do the same as run but for a group
-        // Must store that the graph is running
-    }
-
-    private void stopGroup (Group group) {
-        // TODO
-    }
-
-    private ArrayList<Node> getExecutableNodesOrdered () {
-        // TODO
-        return null;
-    }
 
     /* =================================================================================================================
                                                     EXCEPTION CLASSES

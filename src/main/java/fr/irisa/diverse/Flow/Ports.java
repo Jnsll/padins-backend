@@ -61,6 +61,11 @@ public class Ports extends ArrayList<Port> {
         return portsJson;
     }
 
+    @Override
+    public Port get (int index) {
+        return ports.get(index);
+    }
+
     public void setNode (String node) {
         for (Object o: ports) {
             Port port = (Port) o;

@@ -17,7 +17,7 @@ public class Flow implements FlowInterface {
 
     // Attributes
     private JSONObject flow = null;
-    private Workspace owningWorkspace = null;
+    public Workspace owningWorkspace = null;
     // The below attributes have to be contained into the flow object.
     private String id = "";
     private String name = "";
@@ -121,7 +121,7 @@ public class Flow implements FlowInterface {
 
     public boolean addEdge (JSONObject src, JSONObject tgt, JSONObject metadata, String graph) {
         String srcNodeId = (String) src.get("node");
-        String tgtNodeId = (String) src.get("node");
+        String tgtNodeId = (String) tgt.get("node");
 
         if(nodeExist(srcNodeId) && nodeExist(tgtNodeId) && graphExist(graph) && !edgeExist(src, tgt)) {
             Edge newEdge = new Edge(src, tgt, metadata, graph, this);
@@ -246,6 +246,19 @@ public class Flow implements FlowInterface {
         }
     }
 
+    public ArrayList<Node> findFirstNodesOfFlow (ArrayList<Node> nodes) {
+        ArrayList<Node> res = new ArrayList<>();
+        // First, in case nodes is composed of only one node, we return the node
+        if (nodes.size() == 1 ) return nodes;
+        // Elsewhere, we search for the node in the list that doesn't have a previous node and that have a next one.
+        for (Node n : nodes) {
+            if(n.previousInFlow() == null && n.nextInFlow() != null) res.add(n);
+        }
+
+        // Finally return the list
+        return res;
+    }
+
     /* =================================================================================================================
                                                     GETTERS AND SETTERS
        ===============================================================================================================*/
@@ -264,6 +277,31 @@ public class Flow implements FlowInterface {
         } else {
             return null;
         }
+    }
+
+    public Edge getEdge (String id) {
+        // Look at each edge and if its id is the same as the given one, returns it.
+        for (int i=0; i<edges.size(); i++) {
+            if (edges.get(i).getId().equals(id)) return edges.get(i);
+        }
+
+        return null;
+    }
+
+    public ArrayList<Node> getNodes() {
+        return nodes;
+    }
+
+    public ArrayList<Node> getNodes (Group g) {
+        JSONArray nodesId = g.getNodes();
+        ArrayList<Node> res = new ArrayList<>();
+
+        for (Object o : nodesId) {
+            String id = (String) o;
+            res.add(getNode(id, this.id));
+        }
+
+        return res;
     }
 
     public Node getNode (String id, String graph) {

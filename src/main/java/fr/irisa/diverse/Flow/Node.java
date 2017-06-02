@@ -3,7 +3,9 @@ package fr.irisa.diverse.Flow;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -25,9 +27,14 @@ public class Node {
     private Ports outports = null;
     private boolean executable;
 
+    private long lastRun;
+    private long lastModification;
+
+    private Date date;
+
     // Constructor
     public Node (String id, String component, JSONObject metadata, String graph, boolean executable, Flow owningFlow) {
-        node = new JSONObject();
+        this.node = new JSONObject();
         this.owningFlow = owningFlow;
         this.component = component;
         this.metadata = metadata;
@@ -36,6 +43,10 @@ public class Node {
         this.outports = ComponentsUtils.getOutPortsForComponent(owningFlow.getComponentsLibrary(), component, id);
         this.id = id;
         this.executable = executable;
+        this.date = new Date();
+        this.lastModification = date.getTime();
+        this.lastRun = 0;
+
     }
 
     /* =================================================================================================================
@@ -62,7 +73,10 @@ public class Node {
         return metadata;
     }
 
-    public void setMetadata(JSONObject metadata) { this.metadata = metadata; }
+    public void setMetadata(JSONObject metadata) {
+        lastModification = date.getTime();
+        this.metadata = metadata;
+    }
 
     public String getGraph() {
         return graph;
@@ -93,6 +107,8 @@ public class Node {
     }
 
     public void assignPortToEdge (String port, String edge) {
+        lastModification = date.getTime();
+
         Port p = findPort(port);
         if (p != null) {
             p.setConnectedEdge(edge);
@@ -105,6 +121,41 @@ public class Node {
 
     public ArrayList<Node> nextInFlow () {
         return nextOrPreviousNodeInFlow(getOutports());
+    }
+
+    public String getResult () {
+        return (String) this.metadata.get("result");
+    }
+
+    public void setResult (String result) {
+        this.metadata.put("result", result);
+        lastRun = date.getTime();
+    }
+
+    public boolean isRunning () {
+        return owningFlow.owningWorkspace.isNodeRunning(getId());
+    }
+
+    public boolean hasFinished () {
+        return !isRunning();
+    }
+
+    public boolean shouldBeReRun () {
+        boolean res = lastRun > lastModification;
+
+        ArrayList<Node> previousNodes = previousInFlow();
+
+        if(previousNodes != null) {
+            for (Node previous : previousNodes) {
+                res = res || previous.shouldBeReRun();
+            }
+        }
+
+        return  res;
+    }
+
+    public void prepareForExecution () {
+        // TODO
     }
 
     /* =================================================================================================================

@@ -25,4 +25,12 @@ public class Utils {
         // Return it
         return status;
     }
+
+    public static void wait (int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
