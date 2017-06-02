@@ -2,6 +2,8 @@ package fr.irisa.diverse.Flow;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -75,6 +77,10 @@ public class Node {
         return node;
     }
 
+    public boolean isExecutable () {
+        return executable;
+    }
+
     /* =================================================================================================================
                                                     PUBLIC FUNCTIONS
        ===============================================================================================================*/
@@ -93,8 +99,12 @@ public class Node {
         }
     }
 
-    public boolean isExecutable () {
-        return executable;
+    public ArrayList<Node> previousInFlow () {
+        return nextOrPreviousNodeInFlow(getInports());
+    }
+
+    public ArrayList<Node> nextInFlow () {
+        return nextOrPreviousNodeInFlow(getOutports());
     }
 
     /* =================================================================================================================
@@ -122,12 +132,39 @@ public class Node {
     }
 
     private Port findPortInGivenObject (Ports ports, String name) {
-        for(Object o : ports) {
-            if (o instanceof  Port && ((Port) o).getName().equals(name)) {
-                return (Port) o;
+        for(int i=0; i<ports.size(); i++) {
+            Port p = ports.get(i);
+            if (p.getName().equals(name)) {
+                return p;
             }
         }
 
         return null;
+    }
+
+    private ArrayList<Node> nextOrPreviousNodeInFlow (Ports ports) {
+        // Create the object that will be returned
+        ArrayList<Node> res = new ArrayList<>();
+        boolean previous = ports == getInports();
+
+        // Search the previous or next node for each ports in ports an add it into res
+        for (int i=0; i<ports.size(); i++) {
+            Node n = oppositeNodeForPort(ports.get(i), previous);
+            if (n != null) res.add(n);
+        }
+
+        // End
+        return res;
+    }
+
+    private Node oppositeNodeForPort (Port p, boolean previousNode) {
+        // First : retrieve the edge
+        String edgeId = p.getConnectedEdgeId();
+        Edge e = owningFlow.getEdge(edgeId);
+
+        // Second : determine whether we have to return the src or tgt node of this edge
+        String resNodeId = (String) (previousNode ? e.getSrc().get("node") : e.getTgt().get("node"));
+
+        return owningFlow.getNode(resNodeId, owningFlow.getId());
     }
 }
