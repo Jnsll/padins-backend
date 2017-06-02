@@ -125,12 +125,24 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
     }
 
     public void sendError(String protocol, String error) {
+        FBPMessage msg = createErrorMessage(protocol, error);
+
+        send(msg);
+    }
+
+    public void sendErrorToAll(String protocol, String error) {
+        FBPMessage msg = createErrorMessage(protocol, error);
+
+        sendToAll(msg);
+    }
+
+    private FBPMessage createErrorMessage (String protocol, String error) {
         JSONObject obj = new JSONObject();
         obj.put("message", error);
         String payload = obj.toJSONString();
 
         FBPMessage msg = new FBPMessage(protocol, "error", payload);
 
-        send(msg);
+        return msg;
     }
 }

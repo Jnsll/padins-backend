@@ -6,9 +6,8 @@ import fr.irisa.diverse.Flow.Group;
 import fr.irisa.diverse.Flow.Node;
 import fr.irisa.diverse.Utils.Utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * Handle the execution of one group or flow.
@@ -22,13 +21,18 @@ public class FlowExecutionHandler {
     private Workspace owningWorkspace;
     private Flow flow;
     private Status status;
-    private Map<Node, Boolean> alreadyRunned;
+
+    private Set<Node> toLaunch;
+    private Set<NodeExecutionThread> running;
+    private boolean stop;
 
     // Constructor
     public FlowExecutionHandler (String graph, Workspace owningWorkspace, Flow flow) {
         this.owningWorkspace = owningWorkspace;
         this.flow = flow;
-        this.alreadyRunned = new HashMap<>();
+        this.toLaunch = new ConcurrentSkipListSet<>();
+        this.running = new ConcurrentSkipListSet<>();
+        this.stop = false;
 
         Object o = flow.getGraph(graph);
 
@@ -52,7 +56,15 @@ public class FlowExecutionHandler {
     }
 
     public void stop () {
-        // TODO
+        stopNodes(nodes);
+    }
+
+    public void addToLaunch (Node n) {
+        this.toLaunch.add(n);
+    }
+
+    public void runningThreadFinished (Thread t) {
+        running.remove(t);
     }
 
     /*==================================================================================================================
@@ -68,59 +80,69 @@ public class FlowExecutionHandler {
      =================================================================================================================*/
 
     private void runNodes () {
-        // TODO
-        // Must store when it started running
-        // First : retrieve the nodes to execute in the right order
-        // Then : run each block one by one. Giving to the method : the block to execute, its src and tgt
-        // Must store that this graph is running
-
         // Retrieve the first nodes to execute
         ArrayList<Node> firstNodes = flow.findFirstNodesOfFlow(nodes);
 
-        // Ajouter ce premier noeud a la pile
-        // While qui regarde le set A_LANCER et le set EN_COURS, elle lance les noeuds des que c'est possible.
-        // Des que c'est possible retire le noeud du set A_LANCER, le place dans EN_COURS et le lance dans un thread.
-        // Ce thread (celui de node) termine par ajouter les noeuds suivants dans la liste A_LANCER. Cette methode add verifie qu'ils ne sont pas dedans.
+        // Add each first node to the toLaunch list
+        for( Node n : firstNodes) {
+            toLaunch.add(n);
+        }
 
+        // Tell the status that we started
+        status.start();
+
+        // Start a while that look at the toLaunch list and start running a Node as soon as possible.
+        while ((!toLaunch.isEmpty() || !running.isEmpty()) && !stop) {
+            for (Node n : toLaunch) {
+                // Verify that all the previous nodes in the flow have finished their execution
+                if (havePreviousNodesFinish(n)) {
+                    // If so, start running it
+                    runNode(n);
+                    toLaunch.remove(n);
+                }
+            }
+        }
+
+        // Here it is finished, we change the status
+        status.stop();
     }
 
     private void stopNodes (ArrayList<Node> nodes) {
-        // TODO
+        // First : set stop to true to stop the while in runNodes
+        this.stop = true;
+        // Second : interrupt the Thread and remove them from the set.
+        for (Thread t : running) {
+            t.interrupt();
+            running.remove(t);
+        }
+
+        // Third : make sure the nodes have been stopped
+        for (Node n : nodes) {
+            owningWorkspace.stopNode(n);
+        }
+
+        // Finally empty the toLaunch set
+        toLaunch = new ConcurrentSkipListSet<>();
+        running = new ConcurrentSkipListSet<>();
     }
 
     private void prepareNodesForExecution () {
         for (Node n : nodes) {
-            n.prepareForExecution ();
+            n.prepareForExecution();
         }
     }
 
     private void runNode (Node node) {
-        // If the node is running, we wait for it to stop
-        if(node.isRunning()){
+
+        // If the node is running, we kill it
+        if (node.isRunning()){
             owningWorkspace.stopNode(node);
+        } else {
+            // Create and run the thread
+            NodeExecutionThread t = new NodeExecutionThread(node, this, owningWorkspace);
+            running.add(t);
+            t.start();
         }
-
-        // Then we launch the execution
-
-        // First : we verify that it really is a need to run the node. Maybe it didn't change
-        if (node.shouldBeReRun()){
-            // In order to do that, we wait for every previous node to have finished their own execution
-            while(!havePreviousNodesFinish(node)) {
-                Utils.wait(100);
-            }
-
-            // Now that we are sure that every previous node has finish running, we can actually run the given node
-            owningWorkspace.executeNode(node);
-
-            // Wait for it to finish
-            while(node.isRunning()) {
-                Utils.wait(100);
-            }
-        }
-
-        // After the given node as finished running we start the following ones
-
-
 
     }
 

@@ -16,7 +16,7 @@ public class Ports extends ArrayList<Port> {
 
     // Constructors
     public Ports () {
-        ports = new ArrayList<Port>();
+        ports = new ArrayList<>();
         portsJson = new JSONArray();
     }
 

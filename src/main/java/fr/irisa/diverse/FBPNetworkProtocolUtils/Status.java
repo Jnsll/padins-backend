@@ -1,5 +1,7 @@
 package fr.irisa.diverse.FBPNetworkProtocolUtils;
 
+import java.util.Date;
+
 /**
  * Created by antoine on 02/06/17.
  */
@@ -9,9 +11,8 @@ public class Status {
     private long startedTime;
     private long stoppedTime;
     private long uptime;
-    private boolean started;
-    private boolean running;
     private boolean debug;
+    private Date date;
 
 
     // Constructor
@@ -19,9 +20,8 @@ public class Status {
         startedTime = 0;
         stoppedTime = 0;
         uptime = 0;
-        started = false;
-        running = false;
         debug = false;
+        date = new Date();
     }
 
     /* =================================================================================================================
@@ -36,27 +36,33 @@ public class Status {
         return stoppedTime;
     }
 
-    public void setStartedTime (long time) {
-        this.startedTime = time;
+    public void start () {
+        this.startedTime = date.getTime();
     }
 
-    public void setStoppedTime (long time) {
-        this.stoppedTime = time;
+    public void stop () {
+        this.stoppedTime = date.getTime();
+        uptime += stoppedTime - startedTime;
     }
 
     public long getUptime () {
+        if (stoppedTime == 0) uptime = date.getTime() - startedTime;
         return uptime;
     }
 
     public boolean hasStarted () {
-        return started;
+        return startedTime != 0;
     }
 
     public boolean isRunning () {
-        return running;
+        return stoppedTime < startedTime;
     }
 
     public boolean isInDebugMode () {
         return debug;
     }
+
+    public void turnDebugOn () { this.debug = true; }
+
+    public void turnDebugOff () { this.debug = false; }
 }

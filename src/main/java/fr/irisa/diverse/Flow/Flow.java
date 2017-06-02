@@ -34,9 +34,9 @@ public class Flow implements FlowInterface {
         this.owningWorkspace = workspace;
         this.flow = new JSONObject();
 
-        this.edges = new ArrayList<Edge>();
-        this.nodes = new ArrayList<Node>();
-        this.groups = new ArrayList<Group>();
+        this.edges = new ArrayList<>();
+        this.nodes = new ArrayList<>();
+        this.groups = new ArrayList<>();
 
         componentsLibrary = owningWorkspace.getLibrary();
 
@@ -49,7 +49,16 @@ public class Flow implements FlowInterface {
      * @param source : the parsed file
      */
     public Flow (JSONObject source) {
-        // TODO
+        this.flow = source;
+        this.status = new Status();
+
+        this.id = source.get("id") != null ? (String) source.get("id") : "";
+        this.name = source.get("name") != null ? (String) source.get("name") : "";
+        this.componentsLibrary = source.get("library") != null ? (String) source.get("library") : "";
+        this.description = source.get("description") != null ? (String) source.get("description") : "";
+        this.edges = source.get("edges") != null ? (ArrayList) source.get("edges") : new ArrayList<>();
+        this.nodes = source.get("nodes") != null ? (ArrayList) source.get("nodes") : new ArrayList<>();
+        this.groups = source.get("groups") != null ? (ArrayList) source.get("groups") : new ArrayList<>();
     }
 
     /* =================================================================================================================

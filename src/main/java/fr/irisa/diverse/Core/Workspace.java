@@ -68,7 +68,7 @@ public class Workspace {
      * @return : the uuid of the kernel
      */
     public String startNewKernel (String nodeId) {
-        Kernel k = new Kernel();
+        Kernel k = new Kernel(nodeId, this);
 
         kernels.put(nodeId, k);
 
@@ -122,23 +122,28 @@ public class Workspace {
     }
 
     public void executeNode (Node node) {
-        // If the node is running, we wait for it to stop
-        while(isNodeRunning(node.getId())){
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (node.isExecutable()) {
+            // If the node is running, we wait for it to stop
+            while(isNodeRunning(node.getId())){
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        // Then we launch the execution
-        // TODO
+            // Then we launch the execution
+            String code = node.getCode();
+            Kernel k = kernels.get(node.getId());
+            k.executeCode(code);
+        }
     }
 
     public void stopNode (Node node) {
         // We do it only if the node is running. Otherwise, it is not necessary.
         if (isNodeRunning(node.getId())) {
-            // TODO
+            Kernel k = kernels.get(node.getId());
+            k.stopExecution();
         }
     }
 

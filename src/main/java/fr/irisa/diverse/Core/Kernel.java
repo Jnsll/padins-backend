@@ -51,11 +51,19 @@ public class Kernel {
     private String pathToConnexionFiles = null;
     private JSONParser parser = null;
 
+    // Workspace related info
+    public String linkedNodeId;
+    public Workspace owningWorkspace;
+
 
     // Constructor
-    public Kernel () {
+    public Kernel (String linkedNodeId, Workspace workspace) {
         // Instantiate objects that will be useful later
         this.parser = new JSONParser();
+
+        // Set linkedNodeId & workspace
+        this.linkedNodeId = linkedNodeId;
+        this.owningWorkspace = workspace;
 
         // Retrieve the absolute path to resources/connexion_files
         String tempPath = Kernel.class.getClassLoader().getResource("connexion_files/example.json").getPath();
@@ -89,6 +97,10 @@ public class Kernel {
         stopChannels();
         stopContainer();
         deleteConnexionFile();
+    }
+
+    public void stopExecution () {
+        // TODO
     }
 
     public void verifyChannelsAreOk () {

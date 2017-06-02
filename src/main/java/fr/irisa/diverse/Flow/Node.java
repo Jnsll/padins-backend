@@ -1,12 +1,9 @@
 package fr.irisa.diverse.Flow;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import java.lang.reflect.Array;
+import static java.lang.Math.toIntExact;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * A node correspond to a block on a flow-based program
@@ -14,7 +11,7 @@ import java.util.UUID;
  *
  * Created by antoine on 29/05/17.
  */
-public class Node {
+public class Node implements Comparable<Node>{
 
     // Attributes
     private JSONObject node = null;
@@ -95,6 +92,10 @@ public class Node {
         return executable;
     }
 
+    public String getCode () {
+        return metadata.get("code") == null ? "" : (String) metadata.get("code");
+    }
+
     /* =================================================================================================================
                                                     PUBLIC FUNCTIONS
        ===============================================================================================================*/
@@ -155,7 +156,20 @@ public class Node {
     }
 
     public void prepareForExecution () {
-        // TODO
+        owningFlow.owningWorkspace.stopNode(this);
+    }
+
+    public boolean receivedResultAfterTime (long time) {
+        return lastRun > time;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        // compareTo should return < 0 if this is supposed to be
+        // less than other, > 0 if this is supposed to be greater than
+        // other and 0 if they are supposed to be equal
+        Long l = Long.parseLong(o.getId()) - Long.parseLong(id);
+        return toIntExact(l);
     }
 
     /* =================================================================================================================
@@ -205,7 +219,7 @@ public class Node {
         }
 
         // End
-        return res;
+        return res.size() == 0 ? null : res;
     }
 
     private Node oppositeNodeForPort (Port p, boolean previousNode) {
@@ -213,7 +227,10 @@ public class Node {
         String edgeId = p.getConnectedEdgeId();
         Edge e = owningFlow.getEdge(edgeId);
 
-        // Second : determine whether we have to return the src or tgt node of this edge
+        // Second : If there is no name we return null
+        if(e == null) return null;
+
+        // Third : determine whether we have to return the src or tgt node of this edge
         String resNodeId = (String) (previousNode ? e.getSrc().get("node") : e.getTgt().get("node"));
 
         return owningFlow.getNode(resNodeId, owningFlow.getId());

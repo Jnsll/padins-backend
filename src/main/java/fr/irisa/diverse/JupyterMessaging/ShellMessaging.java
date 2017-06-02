@@ -1,6 +1,7 @@
 package fr.irisa.diverse.JupyterMessaging;
 
 import fr.irisa.diverse.Core.Kernel;
+import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
 import fr.irisa.diverse.JupyterChannels.ShellChannel;
 import org.json.simple.JSONObject;
 
@@ -25,12 +26,14 @@ public class ShellMessaging {
     // Attributes
     private Kernel kernel = null;
     private ShellChannel channel = null;
+    private FBPNetworkProtocolManager manager;
 
     // Constructor
     public ShellMessaging(Kernel kernel, ShellChannel channel) {
 
         this.kernel = kernel;
         this.channel = channel;
+        this.manager = kernel.owningWorkspace.getClientCommunicationManager();
     }
 
     /* =================================================================================================================
@@ -255,11 +258,11 @@ public class ShellMessaging {
                 break;
             case "error":
                 System.err.println("Error executing code of cell nº" + executionCount);
-                // TODO : send message to web UI
+                manager.sendErrorToAll("NETWORK", "[JUPYTER ERROR] For node : " + kernel.linkedNodeId + ", impossible to run code");
                 break;
             case "abort":
                 System.err.println("Execution of the code of cell nº" + executionCount + " has been aborted");
-                // TODO : send message to web UI
+                manager.sendErrorToAll("NETWORK", "[JUPYTER ERROR] For node : " + kernel.linkedNodeId + ", code running aborted");
                 break;
         }
     }
@@ -269,7 +272,10 @@ public class ShellMessaging {
 
         String status = (String) content.get("status");
 
-        if(status.equals("error")) return; // TODO send error to UI
+        if(status.equals("error")) {
+            manager.sendError("NETWORK", "[JUPYTER ERROR] Introspection error for node : " + kernel.linkedNodeId + "");
+            return;
+        }
         else if (status.equals("ok")) {
             boolean found = (boolean) content.get("found");
             if(found) {
@@ -285,7 +291,10 @@ public class ShellMessaging {
 
         String status = (String) content.get("status");
 
-        if(status.equals("error")) return; // TODO send error to UI
+        if(status.equals("error")) {
+            manager.sendError("NETWORK", "[JUPYTER ERROR] Completion error for node : " + kernel.linkedNodeId + "");
+            return;
+        }
         else if (status.equals("ok")) {
             // TODO send info to corresponding UI, probably sending UI username via metadata and retrieving it here
         }

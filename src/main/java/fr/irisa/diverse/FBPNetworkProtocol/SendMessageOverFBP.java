@@ -28,4 +28,6 @@ abstract class SendMessageOverFBP {
     void sendError (String message) {
         owningManager.sendError(PROTOCOL, message);
     }
+
+    void sendErrorToAll (String message) { owningManager.sendErrorToAll(PROTOCOL, message);}
 }
