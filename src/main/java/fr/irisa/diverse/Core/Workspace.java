@@ -161,6 +161,10 @@ public class Workspace {
         }
     }
 
+    public void errorFromKernel (String error) {
+        clientCommunicationManager.sendErrorToAll("NETWORK", "[ERROR JUPYTER] " + error);
+    }
+
     /*==================================================================================================================
                                                 GETTERS AND SETTERS
      =================================================================================================================*/

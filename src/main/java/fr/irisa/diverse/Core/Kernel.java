@@ -1,5 +1,7 @@
 package fr.irisa.diverse.Core;
 
+import fr.irisa.diverse.Flow.Flow;
+import fr.irisa.diverse.Flow.Node;
 import fr.irisa.diverse.JupyterChannels.*;
 import fr.irisa.diverse.JupyterMessaging.Manager;
 import org.json.simple.JSONObject;
@@ -7,17 +9,22 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The kernel is the element that runs the python code and informs every interface of the executed code, the result,
- * that it is busy, idle, etc.
+ * The kernel is the element that runs the python code and decide when it is nedded to inform every interface
+ * of the executed code, the result, that it is busy, idle, etc.
  *
- * 5 channels are used to communicate with the fr.irisa.diverse.Core.Kernel (see fr.irisa.diverse.JupyterMessaging in Jupyter doc to know more about it).
+ * 5 channels are used to communicate with the fr.irisa.diverse.Core.Kernel
+ * (see fr.irisa.diverse.JupyterMessaging in Jupyter doc to know more about it).
  *
  * The kernel is embedded into a Docker container, which creates a connexion_file that this class will read
  * to know on which ports to connect the sockets.
+ *
+ * IMPORTANT : 1 kernel per node, 1 node per kernel. It is a 1-1 relation.
  *
  * Created by antoine on 28/04/17.
  */
@@ -36,7 +43,7 @@ public class Kernel {
 
     // Kernel state & execution info
     private boolean idle = false;
-    private Long nbExecutions = Long.valueOf(0);
+    private long nbExecutions = 0;
 
     // Messages info
     private String session = null;
@@ -55,8 +62,14 @@ public class Kernel {
     public String linkedNodeId;
     public Workspace owningWorkspace;
 
+    // Code execution related attributes
+    private Map<Long, String> awaitingExecutionResult;
 
-    // Constructor
+
+    /*==================================================================================================================
+                                                    CONSTRUCTOR
+     =================================================================================================================*/
+
     public Kernel (String linkedNodeId, Workspace workspace) {
         // Instantiate objects that will be useful later
         this.parser = new JSONParser();
@@ -64,6 +77,9 @@ public class Kernel {
         // Set linkedNodeId & workspace
         this.linkedNodeId = linkedNodeId;
         this.owningWorkspace = workspace;
+
+        // Initialize awaitingExecutionResult map
+        awaitingExecutionResult = new HashMap<>();
 
         // Retrieve the absolute path to resources/connexion_files
         String tempPath = Kernel.class.getClassLoader().getResource("connexion_files/example.json").getPath();
@@ -93,16 +109,30 @@ public class Kernel {
 
     }
 
+    /* =================================================================================================================
+                                                        PUBLIC METHODS
+       ===============================================================================================================*/
+
+    /**
+     * Stop the kernel and its linked Docker container.
+     */
     public void stop () {
         stopChannels();
         stopContainer();
         deleteConnexionFile();
     }
 
+    /**
+     * Stop the execution of kernel, no the container
+     */
     public void stopExecution () {
         // TODO
     }
 
+    /**
+     * Verify that we are still connected to the 5 channels. If not restart them.
+     * TODO : the restart feature
+     */
     public void verifyChannelsAreOk () {
         verifyChannelIsOk(shell);
         verifyChannelIsOk(iopub);
@@ -111,33 +141,56 @@ public class Kernel {
         verifyChannelIsOk(control);
     }
 
-    private void verifyChannelIsOk(JupyterChannel channel) {
-        if (!channel.isRunning()) {
-            try {
-                channel.stop();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            channel.start();
+    /**
+     * Do what's needed when receiving the result of the execution of a code.
+     * It verify that we were waiting for this response and store the result into the node.
+     *
+     * @param result : the result received from the channel
+     * @param executionCount : the execution count from Jupyter
+     */
+    public void handleExecutionResult (JSONObject result, long executionCount) {
+        // TODO : handle the result in a better way, storing each var result one by one.
+        if (awaitingExecutionResult.containsKey(executionCount)) {
+            // Tell the node to store the result
+            Node linkedNode = owningWorkspace.getFlow().getNode(linkedNodeId, owningWorkspace.getUuid());
+            linkedNode.setResult(result.toJSONString());
+
+            // Remove the associations in awaitingExecutionResult
+            awaitingExecutionResult.remove(executionCount);
+        } else {
+            // Create an error because we don't know where the result comes from.
+            System.err.println("Received a result for an unwaited code execution. Kernel's executionCount = " +
+                           nbExecutions + "ExecutionCount = " + executionCount + " - Result = " + result.toJSONString());
         }
+
+
     }
 
     /* =================================================================================================================
-       =================================================================================================================
                                            PUBLIC FUNCTIONS TO INTERACT WITH KERNEL
-       =================================================================================================================
        ===============================================================================================================*/
 
+    /**
+     * Require the kernel to execute a code on the Jupyter Kernel.
+     *
+     * @param code : the code to execute
+     */
     public void executeCode (String code) {
+        // Add the code and the execution number to link the result to the code
+        awaitingExecutionResult.put(nbExecutions+1, code);
+        // Send the execution request message on the shell
         messagesManager.sendMessageOnShell().sendExecuteRequestMessage(code);
     }
 
     /* =================================================================================================================
-       =================================================================================================================
                                                     PRIVATE FUNCTIONS
-       =================================================================================================================
        ===============================================================================================================*/
 
+    /**
+     * Start the container. Must be called only while creating a new instance of Kernel.
+     *
+     * @throws FailedKernelStartException : exception telling that the kernel failed starting.
+     */
     private void startContainer() throws FailedKernelStartException {
 
         File script = null;
@@ -181,6 +234,10 @@ public class Kernel {
 
     }
 
+    /**
+     * Stop the container linked to this kernel.
+     * Usually called when stopping the whole server.
+     */
     private void stopContainer () {
         // Run a script to stop the running container
         File script;
@@ -216,6 +273,9 @@ public class Kernel {
         }
     }
 
+    /**
+     * Start the 5 ZMQ channels
+     */
     private void startChannels () {
         shell.start();
         iopub.start();
@@ -224,6 +284,9 @@ public class Kernel {
         control.start();
     }
 
+    /**
+     * Stop and close the 5 ZMQ channels and their Thread.
+     */
     private void stopChannels() {
         // Fix a bug that prevent from stopping
         shell.doLog(false);
@@ -244,6 +307,34 @@ public class Kernel {
 
     }
 
+    /**
+     * Verify that a channel is running and connected
+     *
+     * @param channel : the channel to check
+     */
+    private void verifyChannelIsOk(JupyterChannel channel) {
+        if (!channel.isRunning()) {
+            try {
+                channel.stop();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            channel.start();
+        }
+    }
+
+    /**
+     * Create the ZMQ sockets and configure their properties and endpoints from a connexion_file.
+     * This connexion_file is generated by the code of the Jupyter kernel inside the Docker container.
+     *
+     * The name of the connexion_file is {{containerId}}.json
+     *
+     * @param path : the absolute Path to the connexion_file
+     * @throws InterruptedException : Exception from Thread, can be thrown if interrupted while sleeping.
+     * @throws FailedRetrievingContainerIPException : Thrown if impossible to retrieve the container's IP
+     * @throws ParseException : Thrown if impossible to parse the File at the given path.
+     * @throws IOException : Look at Javadoc.
+     */
     private void createChannelsFromConnexionFile (String path) throws InterruptedException, FailedRetrievingContainerIPException, ParseException, IOException {
         // We wait until the file has been created
         File f = new File(path);
@@ -280,21 +371,40 @@ public class Kernel {
     }
 
     /* =================================================================================================================
-       =================================================================================================================
                                                     SETTERS AND GETTERS FUNCTIONS
-       =================================================================================================================
        ===============================================================================================================*/
 
+    /**
+     * The container id is an ID associated to a running container by the docker daemon
+     * @return : the id of the running container associated to the instance of kernel.
+     */
     public String getContainerId () {
         return this.containerId;
     }
 
+    /**
+     * The session is a String only used to communicate on the Jupyter messaging protocol
+     * @return : the String session
+     */
     public String getSession () { return this.session != null ? this.session : ""; }
 
+    /**
+     * The session is a String only used to communicate on the Jupyter messaging protocol
+     *
+     * @param session : the new session string to use
+     */
     public void setSession(String session) { this.session = session; }
 
+    /**
+     * The identity is a String only used to communicate on the Jupyter messaging protocol
+     * @return : String containing the identity
+     */
     public String getIdentity () { return this.identity != null ? this.identity : ""; }
 
+    /**
+     * The identity is a String only used to communicate on the Jupyter messaging protocol
+     * @param identity (String) the new identity to use
+     */
     public void setIdentity (String identity) {
         this.identity = identity;
         shell.setIdentity(identity);
@@ -304,18 +414,51 @@ public class Kernel {
         stdin.setIdentity(identity);
     }
 
+    /**
+     * The signature scheme is a parameter to build the HMAC used to communicate on the Jupyter message protocol.
+     * Google it for more information, it is a very common concept.
+     * @return (String) containing the signature scheme
+     */
     public String getSignatureScheme () { return signature_scheme != null ? signature_scheme : ""; }
 
+    /**
+     * The key to give to the algorithm creating the HMAC
+     * @return (String) the key to use
+     */
     public String getKey () { return this.key != null ? this.key : ""; }
 
+    /**
+     * nbExecutions is the number of executions the kernel did.
+     * Called only by the JupyterMessaging.manager to update the nb of execution when receiving an execute_reply msg.
+     * @param nbExecutions : the new number of execution. Usually nbExecution + 1
+     */
     public void setNbExecutions (Long nbExecutions) { this.nbExecutions = nbExecutions; }
 
+    /**
+     * nbExecutions is the number of executions the kernel did.
+     * @return (Long) the nb of executions
+     */
     public Long getNbExecutions () { return nbExecutions; }
 
+    /**
+     * Tells whether the Kernel is idle or running.
+     * Idle means the shell is not doing calculations.
+     * @return : true if idle
+     */
     public boolean isIdle () { return idle; }
 
+    /**
+     * Tells whether the Kernel is idle or running.
+     * Busy means the shell is doing calculations.
+     * @return true is running (= busy)
+     */
     public boolean isBusy () { return !idle; }
 
+    /**
+     * Set the idle state of the Kernel.
+     * Must only be called by the JupyterMessaging.manager when receiving a message on IOPub.
+     * @param value
+     */
     public void setIdleState (boolean value) {
         idle = value ;
     }
@@ -323,10 +466,14 @@ public class Kernel {
     public Manager getMessagesManager () { return messagesManager != null ? messagesManager : new Manager(this); }
 
     /* =================================================================================================================
-       =================================================================================================================
                                                     UTILITY FUNCTIONS
-       =================================================================================================================
        ===============================================================================================================*/
+
+    /**
+     * Regex to know if the given text is an IP Address or not.
+     * @param text (String) the text that you want to determine if it is an IP Address
+     * @return True if the given text is an IP Address
+     */
     private boolean isIpAddress(String text) {
         // Define the REGEX for an ip address
         String IPADDRESS_PATTERN =
@@ -345,6 +492,12 @@ public class Kernel {
         return matcher.matches();
     }
 
+    /**
+     * Retrieve the IP of the Docker container linked to this Kernel.
+     * Use bash commands to do that.
+     * @return (String) the IP address of the container
+     * @throws FailedRetrievingContainerIPException : exception telling that it was unable to retrieve the IP.
+     */
     private String retrieveContainerIp() throws FailedRetrievingContainerIPException {
         // Path to the script used to get a running container's ip address
         String pathToScript = "src/main/resources/retrieve-container-ip.sh";
@@ -368,9 +521,15 @@ public class Kernel {
             throw new FailedRetrievingContainerIPException(this.containerId);
         }
 
+        // If not found we return the localhost
         return "127.0.0.1";
     }
 
+    /**
+     * Delete the connexion file.
+     * This method is used when stopping the kernel, to make sur that, in case the container did not, we delete
+     * the connexion file.
+     */
     private void deleteConnexionFile () {
         String absolutePathToConnexionInfoFile = pathToConnexionFiles + "/" + containerId + ".json";
 
@@ -380,9 +539,7 @@ public class Kernel {
     }
 
     /* =================================================================================================================
-       =================================================================================================================
                                                     EXCEPTION CLASSES
-       =================================================================================================================
        ===============================================================================================================*/
 
     public class FailedKernelStartException extends Exception {

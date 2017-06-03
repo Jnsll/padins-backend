@@ -16,7 +16,7 @@ class Client {
         init();
 
         // Create kernel
-        Kernel kernel = new Kernel();
+        /*Kernel kernel = new Kernel();
         kernels.add(kernel);
 
         // Configure hb and iopub channel to log what they receive
@@ -48,7 +48,7 @@ class Client {
             counter++;
             kernel.verifyChannelsAreOk();
             Thread.sleep(2000);
-        }
+        }*/
     }
 
     private static void init () {

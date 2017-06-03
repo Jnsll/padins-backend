@@ -6,12 +6,20 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 /**
+ * A very simple class to create and handle FBP Network Protocol compliant messages.
+ * The structure of a message is described here :
+ * https://flowbased.github.io/fbp-protocol/#message-structure
+ *
  * Created by antoine on 26/05/2017.
  */
 public class FBPMessage {
 
     // Attributes
     private JSONObject message = null;
+
+    /* =================================================================================================================
+                                                        CONSTRUCTORS
+       ===============================================================================================================*/
 
     public FBPMessage () {
         message = new JSONObject();
@@ -31,7 +39,9 @@ public class FBPMessage {
         // TODO verification steps
     }
 
-    // Getters and setters
+    /* =================================================================================================================
+                                              GETTERS AND SETTERS
+       ===============================================================================================================*/
 
     public String getProtocol () {
         return (String) message.get("protocol");
