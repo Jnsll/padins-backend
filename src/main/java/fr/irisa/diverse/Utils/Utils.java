@@ -5,6 +5,8 @@ import fr.irisa.diverse.Flow.Flow;
 import fr.irisa.diverse.Flow.Group;
 
 /**
+ * A Utils class to store methods that can be useful anywhere across the code, without the need to instantiate it.
+ *
  * Created by antoine on 02/06/17.
  */
 public class Utils {

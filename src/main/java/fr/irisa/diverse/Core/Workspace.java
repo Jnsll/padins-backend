@@ -5,7 +5,7 @@ import fr.irisa.diverse.Flow.Flow;
 import fr.irisa.diverse.Flow.Node;
 
 import javax.websocket.MessageHandler;
-import javax.websocket.Session;
+import org.eclipse.jetty.websocket.api.Session;
 import java.util.*;
 
 /** The workspace is the central element of this project.
@@ -20,25 +20,23 @@ public class Workspace {
 
     // Attributes
     public String uuid = null;
-    private int socketPort;
     private String name = "";
     private Map<String, Kernel> kernels;
     private Flow flow = null;
-    private Map<String, Session> connectedClients = null;
+    private ArrayList<Session> connectedClients = null;
     private FBPNetworkProtocolManager clientCommunicationManager = null;
     private Map<String, FlowExecutionHandler> executionHandlers = null;
     private String library = "hydro-geology";
     public final String RUNTIME_TYPE = "Computational Science";
 
     // Constructor
-    public Workspace (String name, int socketPort) {
+    public Workspace (String name) {
         // Initialize attributes
         this.uuid = UUID.randomUUID().toString();
         this.name = name;
         this.kernels = new Hashtable<>();
         this.flow = new Flow(this);
-        this.connectedClients = new Hashtable<>();
-        this.socketPort = socketPort;
+        this.connectedClients = new ArrayList<>();
         this.clientCommunicationManager = new FBPNetworkProtocolManager(this);
         this.executionHandlers = new Hashtable<>();
     }
@@ -52,7 +50,7 @@ public class Workspace {
      * @param client : the socket of the client
      */
     public void newClientConnection (Session client) {
-        this.connectedClients.put(client.getId(), client);
+        this.connectedClients.add(client);
     }
 
     /** Remove the reference to the client that has just disconnected
@@ -60,7 +58,7 @@ public class Workspace {
      * @param client : the disconnected client
      */
     public void clientDeconnection (Session client) {
-        this.connectedClients.remove(client.getId());
+        this.connectedClients.remove(client);
     }
 
     /** Start a new kernel. Should be used each time a new Simulation or Processing block is created
@@ -182,7 +180,7 @@ public class Workspace {
         this.name = name;
     }
 
-    public Map<String, Session> getConnectedClients() {
+    public ArrayList<Session> getConnectedClients() {
         return connectedClients;
     }
 

@@ -1,6 +1,5 @@
 package fr.irisa.diverse.Core;
 
-import fr.irisa.diverse.Flow.Flow;
 import fr.irisa.diverse.Flow.Node;
 import fr.irisa.diverse.JupyterChannels.*;
 import fr.irisa.diverse.JupyterMessaging.Manager;

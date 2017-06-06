@@ -18,7 +18,7 @@ public class Demo {
         init();
 
         System.out.println("STEP 1 : Creating workspace");
-        Workspace workspace = new Workspace("Hillslope1D", 58902);
+        Workspace workspace = new Workspace("Hillslope1D");
         workspaces.add(workspace);
         FBPNetworkProtocolManager manager = workspace.getClientCommunicationManager();
 

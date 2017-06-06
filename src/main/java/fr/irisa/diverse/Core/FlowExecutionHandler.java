@@ -4,7 +4,6 @@ import fr.irisa.diverse.FBPNetworkProtocolUtils.Status;
 import fr.irisa.diverse.Flow.Flow;
 import fr.irisa.diverse.Flow.Group;
 import fr.irisa.diverse.Flow.Node;
-import fr.irisa.diverse.Utils.Utils;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentSkipListSet;
