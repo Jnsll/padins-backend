@@ -5,10 +5,9 @@ import org.json.simple.JSONObject;
 import fr.irisa.diverse.Flow.*;
 
 import javax.websocket.MessageHandler;
-import javax.websocket.Session;
+import org.eclipse.jetty.websocket.api.Session;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  * Created by antoine on 26/05/2017.
@@ -103,21 +102,19 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
     public void send (FBPMessage msg) {
         // TODO : add secret handling
         try {
-            owningSession.getBasicRemote().sendText(msg.toJSONString());
+            owningSession.getRemote().sendString(msg.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void sendToAll (FBPMessage msg) {
-        Map<String, Session> clients = owningWorkspace.getConnectedClients();
+        ArrayList<Session> clients = owningWorkspace.getConnectedClients();
 
-        Set<String> keys = clients.keySet();
-        for (Object key : keys) {
-            Session client = clients.get(key);
+        for (Session client : clients) {
             try {
                 // TODO : add secret handling for each client
-                client.getBasicRemote().sendText(msg.toJSONString());
+                client.getRemote().sendString(msg.toJSONString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
