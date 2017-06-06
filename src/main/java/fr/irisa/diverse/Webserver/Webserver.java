@@ -1,6 +1,7 @@
 package fr.irisa.diverse.Webserver;
 
 import fr.irisa.diverse.Webserver.Servlets.WebsocketServlet;
+import fr.irisa.diverse.Webserver.Servlets.WorkspacesServlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
@@ -18,7 +19,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
  *
  * Created by antoine on 06/06/17.
  */
-public class Webserver {
+public class Webserver implements Runnable {
 
     private static Webserver instance = null;
 
@@ -37,7 +38,7 @@ public class Webserver {
         // Do nothing
     }
 
-    public void start () throws Exception {
+    public void run () {
         // Define the server
         Server server = new Server();
 
@@ -60,7 +61,7 @@ public class Webserver {
         // Create a servlet context handler
         ServletContextHandler servlets = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servlets.setContextPath("/API");
-        // TODO
+        servlets.addServlet(new ServletHolder(new WorkspacesServlet()), "/workspaces/*");
 
         // Create a websocket servlet handler
         ServletContextHandler socket = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -68,12 +69,17 @@ public class Webserver {
 
         // Add the contextHandler and the servlet context handler to the server
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{ contextHandler1, socket});
+        handlers.setHandlers(new Handler[]{ contextHandler1, servlets, socket});
         server.setHandler(handlers);
 
         // Start the server (because it is configured :) )
         // Server.join is used to make the server join the current thread
-        server.start();
-        server.join();
+        try {
+            server.start();
+            server.join();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
