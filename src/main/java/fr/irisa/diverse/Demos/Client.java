@@ -1,6 +1,6 @@
-package fr.irisa.diverse.Core;
+package fr.irisa.diverse.Demos;
 
-import fr.irisa.diverse.JupyterMessaging.Manager;
+import fr.irisa.diverse.Core.Kernel;
 
 import java.util.ArrayList;
 

@@ -22,6 +22,8 @@ public class Main {
         Map<String, Workspace> workspaces = root.getWorkspaces();
 
         Set<String> keys = workspaces.keySet();
+
+        // Log the loaded workspaces
         for (String key : keys) {
             System.out.println(workspaces.get(key).getFlow().serialize());
         }
@@ -30,8 +32,6 @@ public class Main {
         webserver = Webserver.getInstance();
         webserverThread = new Thread(webserver);
         webserverThread.start();
-
-
 
     }
 }

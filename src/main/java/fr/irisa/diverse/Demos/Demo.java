@@ -1,5 +1,6 @@
-package fr.irisa.diverse.Core;
+package fr.irisa.diverse.Demos;
 
+import fr.irisa.diverse.Core.Workspace;
 import fr.irisa.diverse.FBPNetworkProtocol.FBPMessage;
 import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
 import fr.irisa.diverse.Flow.Node;
@@ -18,7 +19,7 @@ public class Demo {
         init();
 
         System.out.println("STEP 1 : Creating workspace");
-        Workspace workspace = new Workspace("Hillslope1D");
+        Workspace workspace = new Workspace("Hillslope1D", null);
         workspaces.add(workspace);
         FBPNetworkProtocolManager manager = workspace.getClientCommunicationManager();
 
