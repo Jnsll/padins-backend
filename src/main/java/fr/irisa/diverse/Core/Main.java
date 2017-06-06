@@ -10,6 +10,7 @@ public class Main {
     // Attributes
     private static Root root;
     private static Webserver webserver;
+    private static Thread webserverThread;
 
     public static void main (String[] args) throws Exception {
 
@@ -18,7 +19,8 @@ public class Main {
 
         // Initialize and start webserver
         webserver = Webserver.getInstance();
-        webserver.start();
+        webserverThread = new Thread(webserver);
+        webserverThread.start();
 
         // Create a first workspace
         root.createWorkspace("Hillslope 1D");

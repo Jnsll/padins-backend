@@ -57,9 +57,15 @@ public class Root {
      * be undone
      *
      * @param uuid : the id of the workspace to delete
+     * @return True if the workspace has been deleted
      */
-    public void deleteWorkspace (String uuid) {
-        workspaces.remove(uuid);
+    public boolean deleteWorkspace (String uuid, String name) {
+        if (workspaces.containsKey(uuid) && workspaces.get(uuid).getName().equals(name)) {
+            workspaces.remove(uuid);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -84,6 +90,14 @@ public class Root {
         } else {
             return null;
         }
+    }
+
+    /*==================================================================================================================
+                                                SETTERS AND GETTERS
+     =================================================================================================================*/
+
+    public Map<String, Workspace> getWorkspaces() {
+        return workspaces;
     }
 
     /*==================================================================================================================
