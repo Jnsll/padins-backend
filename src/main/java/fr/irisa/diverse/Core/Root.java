@@ -1,8 +1,7 @@
 package fr.irisa.diverse.Core;
 
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Random;
+import java.io.File;
+import java.util.*;
 
 /**
  * This is the Root of the project that initialize everything in order to make this program running properly.
@@ -42,7 +41,7 @@ public class Root {
      */
     public String createWorkspace (String name) {
         // Create a new workspace with the given name
-        Workspace newWorkspace = new Workspace(name);
+        Workspace newWorkspace = new Workspace(name, null);
 
         // Store the workspace, associated with its uuid in a Map
         workspaces.put(newWorkspace.uuid, newWorkspace);
@@ -104,8 +103,30 @@ public class Root {
                                               PRIVATE CLASS METHODS
      =================================================================================================================*/
 
+    private void importWorkspace (String uuid) {
+        // Create a new workspace with the given name
+        Workspace newWorkspace = new Workspace(null, uuid);
+
+        // Store the workspace, associated with its uuid in a Map
+        workspaces.put(newWorkspace.uuid, newWorkspace);
+    }
+
     private void loadStoredWorkspaces () {
-        // TODO
+        final String workspacesPath = Root.class.getClassLoader().getResource("workspaces/").getPath();
+        // First : load the list of folder in the ressources/workspaces folder
+        File dir = new File(workspacesPath);
+        File[] files = dir.listFiles();
+
+        // Add all the directories name into a List
+        List<String> workspacesNames = new ArrayList<>();
+        for (File f : files) {
+            if(f.isDirectory()) workspacesNames.add(f.getName());
+        }
+
+        // Create a workspace for each directory found
+        for (String uuid : workspacesNames) {
+            importWorkspace(uuid);
+        }
     }
 
 

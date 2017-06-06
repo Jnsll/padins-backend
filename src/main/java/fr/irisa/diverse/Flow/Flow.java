@@ -20,7 +20,6 @@ public class Flow implements FlowInterface {
     public Workspace owningWorkspace = null;
     // The below attributes have to be contained into the flow object.
     private String id = "";
-    private String name = "";
     private String description = "";
     private String componentsLibrary = "";
     private ArrayList<Edge> edges = null;
@@ -48,12 +47,12 @@ public class Flow implements FlowInterface {
      *
      * @param source : the parsed file
      */
-    public Flow (JSONObject source) {
+    public Flow (JSONObject source, Workspace workspace) {
         this.flow = source;
         this.status = new Status();
+        this.owningWorkspace = workspace;
 
         this.id = source.get("id") != null ? (String) source.get("id") : "";
-        this.name = source.get("name") != null ? (String) source.get("name") : "";
         this.componentsLibrary = source.get("library") != null ? (String) source.get("library") : "";
         this.description = source.get("description") != null ? (String) source.get("description") : "";
         this.edges = source.get("edges") != null ? (ArrayList) source.get("edges") : new ArrayList<>();
@@ -72,7 +71,7 @@ public class Flow implements FlowInterface {
         JSONArray groups = JSON.jsonArrayFromArrayList(this.groups);
         // Build the JSON file of the flow
         flow.put("id", id);
-        flow.put("name", name);
+        flow.put("name", owningWorkspace.getName());
         flow.put("library", componentsLibrary);
         flow.put("description", description);
         flow.put("edges", edges);
@@ -335,10 +334,6 @@ public class Flow implements FlowInterface {
             // It means that graph is a group
             return getGroup(graph, id);
         }
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setDescription(String description) {

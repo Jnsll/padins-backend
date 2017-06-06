@@ -6,7 +6,20 @@ import fr.irisa.diverse.Flow.Node;
 
 import javax.websocket.MessageHandler;
 import org.eclipse.jetty.websocket.api.Session;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 /** The workspace is the central element of this project.
  *
@@ -28,17 +41,38 @@ public class Workspace {
     private Map<String, FlowExecutionHandler> executionHandlers = null;
     private String library = "hydro-geology";
     public final String RUNTIME_TYPE = "Computational Science";
+    private final String pathToWorkspacesStorage = Workspace.class.getClassLoader().getResource("workspaces/").getPath();
+    private Path pathToFolder;
+    private final String FLOW_FILE_NAME = "flow.json";
 
     // Constructor
-    public Workspace (String name) {
+    public Workspace (String name, String id) {
         // Initialize attributes
-        this.uuid = UUID.randomUUID().toString();
-        this.name = name;
+        this.uuid = id == null ? UUID.randomUUID().toString() : id;
+        this.name = (name != null) ? name : "";
         this.kernels = new Hashtable<>();
-        this.flow = new Flow(this);
         this.connectedClients = new ArrayList<>();
         this.clientCommunicationManager = new FBPNetworkProtocolManager(this);
         this.executionHandlers = new Hashtable<>();
+
+        // Create a folder for this workspace if not already existing
+        this.pathToFolder = Paths.get(URI.create("file:///" + pathToWorkspacesStorage + uuid));
+
+        if (createFolder(this.pathToFolder)) {
+            // If the workspace's folder didn't exist we have created it.
+            // So no flow.json existed, we create a new flow and a new UUID
+            this.flow = new Flow(this);
+        } else {
+            // Otherwise we import the existing flow
+            JSONObject flowJSON = importFlowJSON(this.pathToFolder);
+            if (flowJSON != null) {
+                this.flow = new Flow(flowJSON, this);
+                this.name = (String) flowJSON.get("name");
+            } else {
+                this.flow = new Flow(this);
+            }
+        } // End of creating flow var
+
     }
 
     /*==================================================================================================================
@@ -163,6 +197,19 @@ public class Workspace {
         clientCommunicationManager.sendErrorToAll("NETWORK", "[ERROR JUPYTER] " + error);
     }
 
+    public void save () {
+        // Make sure the workspace folder exist
+        createFolder(this.pathToFolder);
+
+        // Write the serialized Flow object
+        try (FileWriter file = new FileWriter(this.pathToFolder.toString() + "/" + FLOW_FILE_NAME)) {
+            file.write(flow.serialize());
+            System.out.println("Successfully Copied Flow " + flow.getId() + " to File...");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*==================================================================================================================
                                                 GETTERS AND SETTERS
      =================================================================================================================*/
@@ -208,7 +255,41 @@ public class Workspace {
                                               PRIVATE CLASS METHODS
      =================================================================================================================*/
 
+    private JSONObject importFlowJSON (Path pathToFolder) {
+        // Create a JSONParser to parse the content of the file
+        JSONParser parser = new JSONParser();
 
+        // The JSONObject instance that will be returned
+        JSONObject flow;
+
+        try{
+            // Read and parse the json file
+            flow = (JSONObject) parser.parse(new FileReader(pathToFolder.toString() + "/" + FLOW_FILE_NAME));
+            // If the file has been found and parsed we return it as a JSONObject
+            return flow;
+        } catch (ParseException | IOException e) {
+            // If the file hasn't been found we return null
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private boolean createFolder (Path path) {
+        if (Files.notExists(path)) {
+            // If the folder doesn't already exists we create it
+            File f = new File(path.toString());
+            try {
+                // Create the folder
+                f.mkdir();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
     /* =================================================================================================================
                                                     EXCEPTION CLASSES

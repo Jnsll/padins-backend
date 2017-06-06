@@ -2,6 +2,9 @@ package fr.irisa.diverse.Core;
 
 import fr.irisa.diverse.Webserver.Webserver;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Created by antoine on 06/06/17.
  */
@@ -16,14 +19,19 @@ public class Main {
 
         // Initialize Root
         root = Root.getInstance();
+        Map<String, Workspace> workspaces = root.getWorkspaces();
+
+        Set<String> keys = workspaces.keySet();
+        for (String key : keys) {
+            System.out.println(workspaces.get(key).getFlow().serialize());
+        }
 
         // Initialize and start webserver
         webserver = Webserver.getInstance();
         webserverThread = new Thread(webserver);
         webserverThread.start();
 
-        // Create a first workspace
-        root.createWorkspace("Hillslope 1D");
+
 
     }
 }
