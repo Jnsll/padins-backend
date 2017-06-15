@@ -31,6 +31,12 @@ public class Edge {
         this.graph = graph;
     }
 
+    public Edge(JSONObject src, JSONObject tgt, JSONObject metadata, String graph, String id, Flow owningFlow) {
+        this(src, tgt, metadata, graph, owningFlow);
+
+        this.id = id;
+    }
+
     /* =================================================================================================================
                                              GETTERS AND SETTERS FUNCTIONS
        ===============================================================================================================*/

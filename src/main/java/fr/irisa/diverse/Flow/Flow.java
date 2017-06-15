@@ -5,6 +5,8 @@ import fr.irisa.diverse.FBPNetworkProtocolUtils.Status;
 import fr.irisa.diverse.Utils.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 
@@ -55,9 +57,58 @@ public class Flow implements FlowInterface {
         this.id = source.get("id") != null ? (String) source.get("id") : "";
         this.componentsLibrary = source.get("library") != null ? (String) source.get("library") : "";
         this.description = source.get("description") != null ? (String) source.get("description") : "";
-        this.edges = source.get("edges") != null ? (ArrayList) source.get("edges") : new ArrayList<>();
-        this.nodes = source.get("nodes") != null ? (ArrayList) source.get("nodes") : new ArrayList<>();
-        this.groups = source.get("groups") != null ? (ArrayList) source.get("groups") : new ArrayList<>();
+        this.edges = new ArrayList<>();
+        this.nodes = new ArrayList<>();
+        this.groups = new ArrayList<>();
+
+        JSONParser parser = new JSONParser();
+
+        // Add nodes
+        if (source.get("nodes") == null) { this.nodes = new ArrayList<>(); }
+        else {
+            ArrayList<JSONObject> nodes = (ArrayList) source.get("nodes");
+            for (int i=0; i < nodes.size(); i++) {
+                JSONObject a = nodes.get(i);
+                Node n = new Node((String) a.get("id"),(String) a.get("component"), (JSONObject) a.get("metadata"), (String) a.get("graph"),
+                        ComponentsUtils.getComponent(componentsLibrary, (String) a.get("component")).isExecutable(),this);
+                this.nodes.add(n);
+            }
+        }
+
+        // Add edges
+        if (source.get("edges") == null) { this.edges = new ArrayList<>(); }
+        else {
+            ArrayList<JSONObject> edges = (ArrayList) source.get("edges");
+            for (int i=0; i < edges.size(); i++) {
+                JSONObject a = edges.get(i);
+
+                JSONObject src = new JSONObject();
+                JSONObject tgt = new JSONObject();
+                JSONObject metadata = new JSONObject();
+                try {
+                    src = (JSONObject) parser.parse((String) a.get("src"));
+                    tgt = (JSONObject) parser.parse((String) a.get("tgt"));
+                    metadata = (JSONObject) parser.parse((String) a.get("metadata"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Edge e = new Edge(src, tgt, metadata, (String) a.get("graph"), (String) a.get("id"), this);
+                this.edges.add(e);
+            }
+        }
+
+        // Add groups
+        if (source.get("groups") == null) { this.groups = new ArrayList<>(); }
+        else {
+            ArrayList<JSONObject> groups = (ArrayList) source.get("groups");
+            for (int i=0; i < groups.size(); i++) {
+                JSONObject a = groups.get(i);
+                Group g = new Group((String) a.get("name"),(JSONArray) a.get("nodes"),(JSONObject) a.get("metadata"),
+                        (String) a.get("graph"),(String) a.get("id"), this);
+                this.groups.add(g);
+            }
+        }
+
     }
 
     /* =================================================================================================================

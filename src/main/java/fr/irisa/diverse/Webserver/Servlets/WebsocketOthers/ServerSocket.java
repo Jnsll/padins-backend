@@ -31,7 +31,6 @@ public class ServerSocket {
 
     // Constructor
     public ServerSocket (String subprotocol) {
-        System.out.println("Socket init");
         root = Root.getInstance();
         workspaceId = subprotocol;
         communicationManager = new FBPNetworkProtocolManager(root.getWorkspace(workspaceId));

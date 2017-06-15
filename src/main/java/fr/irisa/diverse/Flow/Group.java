@@ -35,6 +35,12 @@ public class Group {
 
     }
 
+    public Group (String name, JSONArray nodes, JSONObject metadata, String graph, String id, Flow owningFlow) {
+        this(name, nodes, metadata, graph, owningFlow);
+
+        this.id = id;
+    }
+
     /* =================================================================================================================
                                                     GETERS AND SETTERS
        ===============================================================================================================*/

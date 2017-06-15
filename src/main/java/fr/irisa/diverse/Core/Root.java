@@ -61,6 +61,7 @@ public class Root {
     public boolean deleteWorkspace (String uuid, String name) {
         if (workspaces.containsKey(uuid) && workspaces.get(uuid).getName().equals(name)) {
             workspaces.remove(uuid);
+            // TODO : remove the folder
             return true;
         } else {
             return false;
