@@ -3,6 +3,10 @@ package fr.irisa.diverse.FBPNetworkProtocol;
 import org.json.simple.JSONObject;
 
 /**
+ * Class managing the Runtime Message for the Flow-Based Programming Network Protocol
+ * To know more about this protocol, take a look at the doc on J.Paul Morisson great website :
+ * https://flowbased.github.io/fbp-protocol/#sub-protocols
+ *
  * Created by antoine on 26/05/2017.
  */
 public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler {

@@ -10,8 +10,25 @@ interface FlowInterface {
 
     // Methods used to modify the graph
 
+    /**
+     * Add a node to the flow
+     *
+     * @param id The id of the node
+     * @param component The component of the node
+     * @param metadata The metadata object of the node
+     * @param graph The graph in which to add the node
+     * @param executable Whether the node is executable or not
+     * @return True if the node has been added
+     */
     boolean addNode (String id, String component, JSONObject metadata, String graph, boolean executable);
 
+    /**
+     * Remove a node from the flow
+     *
+     * @param id The id of the node to remove
+     * @param graph The graph from which to remove the node
+     * @return
+     */
     boolean removeNode (String id, String graph);
 
     boolean renameNode (String from, String to, String graph);

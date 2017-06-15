@@ -6,6 +6,10 @@ import org.json.simple.JSONObject;
 import fr.irisa.diverse.Flow.*;
 
 /**
+ * Class managing the Graph Message for the Flow-Based Programming Network Protocol
+ * To know more about this protocol, take a look at the doc on J.Paul Morisson great website :
+ * https://flowbased.github.io/fbp-protocol/#sub-protocols
+ *
  * Created by antoine on 26/05/2017.
  */
 public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler  {
@@ -26,6 +30,12 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
                                     FBPProtocolHandler INTERFACE METHOD IMPLEMENTATION
        ===============================================================================================================*/
 
+    /**
+     * Handle a message.
+     * It call the corresponding method for each supported type of message.
+     *
+     * @param message : the message to handle
+     */
     public void handleMessage (FBPMessage message) {
         String command = message.getCommand();
 

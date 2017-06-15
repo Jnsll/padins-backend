@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * A Utils class to make easier retrieving components and its inports and outports.
+ *
  * Created by antoine on 29/05/17.
  */
 public class ComponentsUtils {
@@ -50,6 +52,12 @@ public class ComponentsUtils {
                                                     PRIVATE FUNCTIONS
        ===============================================================================================================*/
 
+    /**
+     * Retrieve all the components for a given library
+     *
+     * @param library The library of components
+     * @return The list of components
+     */
     public static ArrayList<Component> getComponentsFromLib (String library) {
         // Initialize components
         components = new ArrayList<>();
@@ -68,15 +76,24 @@ public class ComponentsUtils {
                 components.add(new Component(object, library));
             }
 
+            // Return this list after adding each found component
             return components;
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
+        // Just in case we didn't find anything
         return new ArrayList<Component>();
     }
 
+    /**
+     * Retrieve a specific component for a given name and library
+     *
+     * @param library The library of components
+     * @param name The search component's name
+     * @return The component requested if existing. Otherwise null.
+     */
     public static Component getComponent(String library, String name) {
         // If the last request library is not the same as the one requested this time, we load the
         // data from the corresponding JSON file which can be found in ressources/WebUIComponents

@@ -64,6 +64,11 @@ public class Flow implements FlowInterface {
                                                     PUBLIC FUNCTIONS
        ===============================================================================================================*/
 
+    /**
+     * Serialize the Flow as a JSON and return it
+     *
+     * @return a JSON representation of the flow
+     */
     public String serialize () {
         // Preliminary step : build JSONArray for edges, nodes and groups
         JSONArray edges = JSON.jsonArrayFromArrayList(this.edges);
@@ -254,6 +259,12 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Determine which nodes are the first one on the flow and give the list of them.
+     *
+     * @param nodes The nodes composing the flow
+     * @return The list of first nodes to execute in order to run the flow.
+     */
     public ArrayList<Node> findFirstNodesOfFlow (ArrayList<Node> nodes) {
         ArrayList<Node> res = new ArrayList<>();
         // First, in case nodes is composed of only one node, we return the node
@@ -271,13 +282,24 @@ public class Flow implements FlowInterface {
                                                     GETTERS AND SETTERS
        ===============================================================================================================*/
 
+    /**
+     * The components library is the library that contains all the components the user will be able to use
+     * in order to build his flow.
+     *
+     * @return The name of the library
+     */
     public String getComponentsLibrary() {
         return componentsLibrary;
     }
 
+    /**
+     * The unique id of the Flow
+     * @return The unique id of the Flow as String
+     */
     public String getId() {
         return id;
     }
+
 
     public Edge getEdge (JSONObject src, JSONObject tgt, String graph) {
         if (graphExist(graph) && edgeExist(src, tgt)) {

@@ -6,8 +6,9 @@ import fr.irisa.diverse.Utils.Utils;
 import org.json.simple.JSONObject;
 
 /**
- * Implementation of the handler for messages on the network sub-protocol of the FBP Network Protocol
- * https://flowbased.github.io/fbp-protocol/#network-start
+ * Class managing the Network Message for the Flow-Based Programming Network Protocol
+ * To know more about this protocol, take a look at the doc on J.Paul Morisson great website :
+ * https://flowbased.github.io/fbp-protocol/#sub-protocols
  *
  * Created by antoine on 26/05/2017.
  */
