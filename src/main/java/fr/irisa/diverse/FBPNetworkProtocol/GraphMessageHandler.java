@@ -137,7 +137,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             sendAddInportAndOutportForNode(flow.getNode(id, graph), graph);
 
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to create node because graph " + graph + " doesn't exist");
+            sendError("Unable to create node because graph " + graph + " doesn't exist");
         }
     }
 
@@ -155,7 +155,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendRemoveNodeMessage(id, graph);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove node because graph " + graph + " doesn't exist");
+            sendError("Unable to remove node because graph " + graph + " doesn't exist");
         }
     }
 
@@ -169,7 +169,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendRenameNodeMessage(from, to, graph);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename node " + from);
+            sendError("Unable to rename node " + from);
         }
 
     }
@@ -184,7 +184,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendChangeNodeMessage(id, graph);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change node " + id);
+            sendError("Unable to change node " + id);
         }
     }
 
@@ -216,7 +216,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendRemoveEdgeMessage(graph, src, tgt);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove edge. Maybe the graph doesn't exist or the edge has already been removed.");
+            sendError("Unable to remove edge. Maybe the graph doesn't exist or the edge has already been removed.");
         }
 
     }
@@ -232,7 +232,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendChangeEdgeMessage(graph, src, tgt);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change request edge");
+            sendError("Unable to change request edge");
         }
 
     }
@@ -341,7 +341,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendAddGroupMessage(name, graph);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to add group to graph " + graph + " because it doesn't exist");
+            sendError("Unable to add group to graph " + graph + " because it doesn't exist");
         }
     }
 
@@ -354,7 +354,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendRemoveGroupMessage(name, graph);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to remove group " + name + " because it doesn't exist or graph " + graph + " doesn't exist");
+            sendError("Unable to remove group " + name + " because it doesn't exist or graph " + graph + " doesn't exist");
         }
     }
 
@@ -368,7 +368,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendRenameGroupMessage(from, to, graph);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to rename group " + from);
+            sendError("Unable to rename group " + from);
         }
     }
 
@@ -382,7 +382,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
             // Answer
             sendChangeGroupMessage(name, graph);
         } else {
-            owningWorkspace.getClientCommunicationManager().sendError("graph", "Unable to change group " + name + "'s metadata");
+            sendError("Unable to change group " + name + "'s metadata");
         }
     }
 

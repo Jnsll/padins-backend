@@ -33,7 +33,7 @@ public class ShellMessaging {
 
         this.kernel = kernel;
         this.channel = channel;
-        this.manager = kernel.owningWorkspace.getClientCommunicationManager();
+        this.manager = new FBPNetworkProtocolManager(kernel.owningWorkspace);
     }
 
     /* =================================================================================================================

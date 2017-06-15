@@ -2,12 +2,12 @@ package fr.irisa.diverse.Webserver.Servlets.WebsocketOthers;
 
 import fr.irisa.diverse.Core.Root;
 import fr.irisa.diverse.Core.Workspace;
+import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Several clients can be connected to the same workspace. Each client communicate through a single instance of
@@ -26,13 +26,15 @@ public class ServerSocket {
     private Workspace owningWorkspace = null;
     private Session session;
     private Root root;
-    private String subprotocol;
+    private FBPNetworkProtocolManager communicationManager = null;
+    private String workspaceId;
 
     // Constructor
     public ServerSocket (String subprotocol) {
         System.out.println("Socket init");
         root = Root.getInstance();
-        this.subprotocol = subprotocol;
+        workspaceId = subprotocol;
+        communicationManager = new FBPNetworkProtocolManager(root.getWorkspace(workspaceId));
         // No need to do anything
     }
 
@@ -45,19 +47,22 @@ public class ServerSocket {
     {
         System.out.println("[SOCKET] Opened new connexion");
         this.session = session;
+        communicationManager.setSocket(this);
 
         // Store the workspace instance
-        owningWorkspace = root.getWorkspace(subprotocol);
+        owningWorkspace = root.getWorkspace(workspaceId);
 
         // Send the flow to the newly connected client
         JSONObject flow = new JSONObject();
-        flow.put("flow", owningWorkspace.getFlow().serialize());
+        flow.put("protocol", "flow");
+        flow.put("flow", owningWorkspace.getFlow().getFlowObject());
+        System.out.println(owningWorkspace.getFlow().serialize());
         send(flow.toJSONString());
 
         // Store the client on the workspace instance.
-        owningWorkspace.newClientConnection(session);
+        owningWorkspace.newClientConnection(this);
 
-        System.out.println("Socket connected on workspace : " + subprotocol);
+        System.out.println("Socket connected on workspace : " + workspaceId);
     }
 
 
@@ -72,14 +77,14 @@ public class ServerSocket {
         }
 
         // Redirect the message to the Message Handler
-        owningWorkspace.getClientCommunicationManager().onMessage(message);
+        communicationManager.onMessage(message);
     }
 
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason)
     {
-        if (owningWorkspace != null) owningWorkspace.clientDeconnection(session);
+        if (owningWorkspace != null) owningWorkspace.clientDeconnection(this);
         this.session = null;
     }
 

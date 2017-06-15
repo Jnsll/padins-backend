@@ -300,6 +300,15 @@ public class Flow implements FlowInterface {
         return id;
     }
 
+    public JSONObject getFlowObject () {
+        if (this.flow == null) {
+            this.flow = new JSONObject();
+
+        }
+
+        return this.flow;
+    }
+
 
     public Edge getEdge (JSONObject src, JSONObject tgt, String graph) {
         if (graphExist(graph) && edgeExist(src, tgt)) {

@@ -1,6 +1,7 @@
 package fr.irisa.diverse.FBPNetworkProtocol;
 
 import fr.irisa.diverse.Core.Workspace;
+import fr.irisa.diverse.Webserver.Servlets.WebsocketOthers.ServerSocket;
 import org.json.simple.JSONObject;
 import fr.irisa.diverse.Flow.*;
 
@@ -22,7 +23,7 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
     private ComponentMessageHandler component = null;
     private RuntimeMessageHandler runtime = null;
     private TraceMessageHandler trace = null;
-    private Session owningSession = null;
+    private ServerSocket owningSocket = null;
     Workspace owningWorkspace = null;
     final String FBP_NETWORK_PROTOCOL_VERSION = "0.6";
     private Flow flow = null;
@@ -48,8 +49,8 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
                                                   GETTERS AND SETTERS
        ===============================================================================================================*/
 
-    public void setSession (Session session) {
-        owningSession = session;
+    public void setSocket (ServerSocket socket) {
+        owningSocket = socket;
     }
 
     public String getComponentsLibrary() {
@@ -95,29 +96,18 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
                                                   PUBLIC METHODS
        ===============================================================================================================*/
 
-    public Session getOwningSession() {
-        return owningSession;
-    }
 
     public void send (FBPMessage msg) {
         // TODO : add secret handling
-        try {
-            owningSession.getRemote().sendString(msg.toJSONString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        owningSocket.send(msg.toJSONString());
     }
 
     public void sendToAll (FBPMessage msg) {
-        ArrayList<Session> clients = owningWorkspace.getConnectedClients();
+        ArrayList<ServerSocket> clients = owningWorkspace.getConnectedClients();
 
-        for (Session client : clients) {
-            try {
-                // TODO : add secret handling for each client
-                client.getRemote().sendString(msg.toJSONString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        for (ServerSocket client : clients) {
+            // TODO : add secret handling for each client
+            client.send(msg.toJSONString());
         }
     }
 

@@ -5,6 +5,8 @@ import fr.irisa.diverse.Flow.Flow;
 import fr.irisa.diverse.Flow.Node;
 
 import javax.websocket.MessageHandler;
+
+import fr.irisa.diverse.Webserver.Servlets.WebsocketOthers.ServerSocket;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -36,7 +38,7 @@ public class Workspace {
     private String name = "";
     private Map<String, Kernel> kernels;
     private Flow flow = null;
-    private ArrayList<Session> connectedClients = null;
+    private ArrayList<ServerSocket> connectedClients = null;
     private FBPNetworkProtocolManager clientCommunicationManager = null;
     private Map<String, FlowExecutionHandler> executionHandlers = null;
     private String library = "hydro-geology";
@@ -85,7 +87,7 @@ public class Workspace {
      *
      * @param client : the socket of the client
      */
-    public void newClientConnection (Session client) {
+    public void newClientConnection (ServerSocket client) {
         this.connectedClients.add(client);
     }
 
@@ -93,7 +95,7 @@ public class Workspace {
      *
      * @param client : the disconnected client
      */
-    public void clientDeconnection (Session client) {
+    public void clientDeconnection (ServerSocket client) {
         this.connectedClients.remove(client);
     }
 
@@ -216,11 +218,6 @@ public class Workspace {
                                                 GETTERS AND SETTERS
      =================================================================================================================*/
 
-    public MessageHandler getMessageHandler (Session session) {
-        clientCommunicationManager.setSession(session);
-        return clientCommunicationManager;
-    }
-
     public String getName () {
         return this.name;
     }
@@ -229,7 +226,7 @@ public class Workspace {
         this.name = name;
     }
 
-    public ArrayList<Session> getConnectedClients() {
+    public ArrayList<ServerSocket> getConnectedClients() {
         return connectedClients;
     }
 
@@ -243,10 +240,6 @@ public class Workspace {
 
     public Flow getFlow() {
         return flow;
-    }
-
-    public FBPNetworkProtocolManager getClientCommunicationManager() {
-        return clientCommunicationManager;
     }
 
     public Kernel getKernel (String nodeId) {
