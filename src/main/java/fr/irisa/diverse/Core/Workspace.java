@@ -52,7 +52,6 @@ public class Workspace {
         this.name = (name != null) ? name : "";
         this.kernels = new Hashtable<>();
         this.connectedClients = new ArrayList<>();
-        this.clientCommunicationManager = new FBPNetworkProtocolManager(this);
         this.executionHandlers = new Hashtable<>();
 
         // Create a folder for this workspace if not already existing
@@ -72,6 +71,9 @@ public class Workspace {
                 this.flow = new Flow(this);
             }
         } // End of creating flow var
+
+
+        this.clientCommunicationManager = new FBPNetworkProtocolManager(this);
 
     }
 

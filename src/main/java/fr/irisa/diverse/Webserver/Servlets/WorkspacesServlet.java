@@ -37,6 +37,7 @@ public class WorkspacesServlet extends HttpServlet{
         // Set the response header, telling the request is ok and we will return a JSON
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
+        response.addHeader("Access-Control-Allow-Origin", "*");
 
         // Send the list of workspaces
         response.getWriter().println(workspacesList.toJSONString());

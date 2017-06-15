@@ -1,9 +1,12 @@
-package fr.irisa.diverse.Webserver.Servlets;
+package fr.irisa.diverse.Webserver.Servlets.WebsocketOthers;
 
 import fr.irisa.diverse.Core.Root;
 import fr.irisa.diverse.Core.Workspace;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
+import org.json.simple.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,11 +26,13 @@ public class ServerSocket {
     private Workspace owningWorkspace = null;
     private Session session;
     private Root root;
+    private String subprotocol;
 
     // Constructor
-    public ServerSocket () {
+    public ServerSocket (String subprotocol) {
         System.out.println("Socket init");
         root = Root.getInstance();
+        this.subprotocol = subprotocol;
         // No need to do anything
     }
 
@@ -41,20 +46,18 @@ public class ServerSocket {
         System.out.println("[SOCKET] Opened new connexion");
         this.session = session;
 
-        // Retrieve the workspace
-        List<String> subprotocols = session.getUpgradeRequest().getSubProtocols();
+        // Store the workspace instance
+        owningWorkspace = root.getWorkspace(subprotocol);
 
-        // Verify that the requires subprotocol exist
-        if (subprotocols.size() > 0 && root.hasWorkspace(subprotocols.get(0))) {
-            // Tell the UI we accept the subprotocol (the workspace)
-            session.getUpgradeResponse().setAcceptedSubProtocol(subprotocols.get(0));
+        // Send the flow to the newly connected client
+        JSONObject flow = new JSONObject();
+        flow.put("flow", owningWorkspace.getFlow().serialize());
+        send(flow.toJSONString());
 
-            // Store the workspace instance
-            owningWorkspace = root.getWorkspace(subprotocols.get(0));
+        // Store the client on the workspace instance.
+        owningWorkspace.newClientConnection(session);
 
-            // Store the client on the workspace instance.
-            owningWorkspace.newClientConnection(session);
-        }
+        System.out.println("Socket connected on workspace : " + subprotocol);
     }
 
 
@@ -89,6 +92,20 @@ public class ServerSocket {
             System.err.println("An error occurred with a client : " + t.getMessage() );
         }
 
+    }
+
+    public boolean send (String msg) {
+        if (this.session != null) {
+            try {
+                session.getRemote().sendString(msg);
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        return false;
     }
 
 }
