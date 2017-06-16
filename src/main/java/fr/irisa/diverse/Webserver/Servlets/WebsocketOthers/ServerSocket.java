@@ -55,7 +55,6 @@ public class ServerSocket {
         JSONObject flow = new JSONObject();
         flow.put("protocol", "flow");
         flow.put("flow", owningWorkspace.getFlow().getFlowObject());
-        System.out.println(owningWorkspace.getFlow().serialize());
         send(flow.toJSONString());
 
         // Store the client on the workspace instance.

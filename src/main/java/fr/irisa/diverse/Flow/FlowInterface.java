@@ -35,7 +35,7 @@ interface FlowInterface {
 
     boolean changeNode (String id, JSONObject metadata, String graph);
 
-    boolean addEdge (JSONObject src, JSONObject tgt, JSONObject metadata, String graph);
+    boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph);
 
     boolean removeEdge (String graph, JSONObject src, JSONObject tgt);
 

@@ -190,12 +190,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
     private void addedge (JSONObject payload) {
         // Retrieve needed data for addEdge() method
+        String id = (String) payload.get("id");
         JSONObject src = (JSONObject) payload.get("src");
         JSONObject tgt = (JSONObject) payload.get("tgt");
         JSONObject metadata = (JSONObject) payload.get("metadata");
         String graph = (String) payload.get("graph");
 
-        if (flow.addEdge(src, tgt, metadata, graph)) {
+        if (flow.addEdge(id, src, tgt, metadata, graph)) {
             // Answer
             sendAddEdgeMessage(src, tgt, graph);
         } else {
@@ -446,6 +447,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         Edge edge = flow.getEdge(src, tgt, graph);
         // Build payload
         JSONObject payload = new JSONObject();
+        payload.put("id", edge.getId());
         payload.put("src", edge.getSrc());
         payload.put("tgt", edge.getTgt());
         payload.put("metadata", edge.getMetadata());

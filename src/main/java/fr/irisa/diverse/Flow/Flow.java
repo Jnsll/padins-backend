@@ -121,6 +121,12 @@ public class Flow implements FlowInterface {
      * @return a JSON representation of the flow
      */
     public String serialize () {
+        buildObject();
+        // Return it as a JSON String to send it to frontend
+        return flow.toJSONString();
+    }
+
+    private void buildObject() {
         // Preliminary step : build JSONArray for edges, nodes and groups
         JSONArray edges = JSON.jsonArrayFromArrayList(this.edges);
         JSONArray nodes = JSON.jsonArrayFromArrayList(this.nodes);
@@ -133,9 +139,6 @@ public class Flow implements FlowInterface {
         flow.put("edges", edges);
         flow.put("nodes", nodes);
         flow.put("groups", groups);
-
-        // Return it as a JSON String to send it to frontend
-        return flow.toJSONString();
     }
 
     public boolean addNode(String id, String component, JSONObject metadata, String graph, boolean executable) {
@@ -183,12 +186,12 @@ public class Flow implements FlowInterface {
         }
     }
 
-    public boolean addEdge (JSONObject src, JSONObject tgt, JSONObject metadata, String graph) {
+    public boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph) {
         String srcNodeId = (String) src.get("node");
         String tgtNodeId = (String) tgt.get("node");
 
         if(nodeExist(srcNodeId) && nodeExist(tgtNodeId) && graphExist(graph) && !edgeExist(src, tgt)) {
-            Edge newEdge = new Edge(src, tgt, metadata, graph, this);
+            Edge newEdge = new Edge(src, tgt, metadata, graph, id, this);
             edges.add(newEdge);
 
             Node srcNode = nodes.get(indexOfNode(srcNodeId));
@@ -354,9 +357,8 @@ public class Flow implements FlowInterface {
     public JSONObject getFlowObject () {
         if (this.flow == null) {
             this.flow = new JSONObject();
-
         }
-
+        buildObject();
         return this.flow;
     }
 
