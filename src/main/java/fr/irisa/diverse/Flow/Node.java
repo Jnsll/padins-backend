@@ -103,6 +103,8 @@ public class Node implements Comparable<Node>{
     public void setResult (String result) {
         this.metadata.put("result", result);
         lastRun = date.getTime();
+
+        owningFlow.owningWorkspace.clientCommunicationManager.sendNodeUpdate(this);
     }
 
     /* =================================================================================================================

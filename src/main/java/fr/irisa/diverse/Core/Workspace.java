@@ -39,7 +39,7 @@ public class Workspace {
     private Map<String, Kernel> kernels;
     private Flow flow = null;
     private ArrayList<ServerSocket> connectedClients = null;
-    private FBPNetworkProtocolManager clientCommunicationManager = null;
+    public FBPNetworkProtocolManager clientCommunicationManager = null;
     private Map<String, FlowExecutionHandler> executionHandlers = null;
     private String library = "hydro-geology";
     public final String RUNTIME_TYPE = "Computational Science";

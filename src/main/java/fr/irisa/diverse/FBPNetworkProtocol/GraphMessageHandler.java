@@ -433,7 +433,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("renamenode", payload);
     }
 
-    private void sendChangeNodeMessage (String id, String graph) {
+    public void sendChangeNodeMessage (String id, String graph) {
         Node node = flow.getNode(id, graph);
         // Build payload
         JSONObject payload = new JSONObject();
