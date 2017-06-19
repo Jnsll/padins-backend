@@ -1,5 +1,7 @@
 package fr.irisa.diverse.Core;
 
+import fr.irisa.diverse.Utils.Utils;
+
 import java.io.File;
 import java.util.*;
 
@@ -97,6 +99,10 @@ public class Root {
      =================================================================================================================*/
 
     public Map<String, Workspace> getWorkspaces() {
+        loadStoredWorkspaces();
+
+        Utils.wait(50);
+
         return workspaces;
     }
 
@@ -105,11 +111,14 @@ public class Root {
      =================================================================================================================*/
 
     private void importWorkspace (String uuid) {
-        // Create a new workspace with the given name
-        Workspace newWorkspace = new Workspace(null, uuid);
+        // Verify that the workspace doesn't already exist
+        if (workspaces.get(uuid) == null) {
+            // Create a new workspace with the given name
+            Workspace newWorkspace = new Workspace(null, uuid);
 
-        // Store the workspace, associated with its uuid in a Map
-        workspaces.put(newWorkspace.uuid, newWorkspace);
+            // Store the workspace, associated with its uuid in a Map
+            workspaces.put(newWorkspace.uuid, newWorkspace);
+        }
     }
 
     private void loadStoredWorkspaces () {

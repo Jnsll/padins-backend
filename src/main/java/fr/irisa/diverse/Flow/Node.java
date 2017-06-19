@@ -96,6 +96,15 @@ public class Node implements Comparable<Node>{
         return metadata.get("code") == null ? "" : (String) metadata.get("code");
     }
 
+    public String getResult () {
+        return (String) this.metadata.get("result");
+    }
+
+    public void setResult (String result) {
+        this.metadata.put("result", result);
+        lastRun = date.getTime();
+    }
+
     /* =================================================================================================================
                                                     PUBLIC FUNCTIONS
        ===============================================================================================================*/
@@ -122,15 +131,6 @@ public class Node implements Comparable<Node>{
 
     public ArrayList<Node> nextInFlow () {
         return nextOrPreviousNodeInFlow(getOutports());
-    }
-
-    public String getResult () {
-        return (String) this.metadata.get("result");
-    }
-
-    public void setResult (String result) {
-        this.metadata.put("result", result);
-        lastRun = date.getTime();
     }
 
     public boolean isRunning () {

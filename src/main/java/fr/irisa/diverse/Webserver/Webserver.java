@@ -49,14 +49,16 @@ public class Webserver implements Runnable {
         http.setIdleTimeout(30000);
         server.addConnector(http);
 
-        // Create a new RessourceHandler that serves the static content (html, css and js files) and configures it
-        ResourceHandler resourceHandler = new ResourceHandler();
+        // Create contextHandlers that serves the static content (html, css and js files) and configures it
 
-        ContextHandler contextHandler1 = new ContextHandler();
-        contextHandler1.setContextPath("/");
-        contextHandler1.setResourceBase("src/main/webapp/");
+        ContextHandler contextHandler1 = new ContextHandler("/");
+        contextHandler1.setResourceBase("src/main/webapp/src");
         contextHandler1.setWelcomeFiles(new String[]{"index.html"});
-        contextHandler1.setHandler(resourceHandler);
+        contextHandler1.setHandler(new ResourceHandler());
+
+        ContextHandler node_modules =  new ContextHandler("/node_modules/");
+        node_modules.setResourceBase("src/main/webapp/node_modules");
+        node_modules.setHandler(new ResourceHandler());
 
         // Create a servlet context handler
         ServletContextHandler servlets = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -69,7 +71,7 @@ public class Webserver implements Runnable {
 
         // Add the contextHandler and the servlet context handler to the server
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{ contextHandler1, servlets, socket});
+        handlers.setHandlers(new Handler[]{ contextHandler1, node_modules, servlets, socket});
         server.setHandler(handlers);
 
         // Start the server (because it is configured :) )

@@ -37,9 +37,9 @@ interface FlowInterface {
 
     boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph);
 
-    boolean removeEdge (String graph, JSONObject src, JSONObject tgt);
+    boolean removeEdge (String id, String graph, JSONObject src, JSONObject tgt);
 
-    boolean changeEdge (String graph, JSONObject metadata, JSONObject src, JSONObject tgt);
+    boolean changeEdge (String id, String graph, JSONObject metadata, JSONObject src, JSONObject tgt);
 
     boolean addInitial (String graph, JSONObject metadata, JSONObject src, JSONObject tgt);
 

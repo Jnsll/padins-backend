@@ -209,13 +209,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
     private void removeedge (JSONObject payload) {
         // Retrieve needed data for removeEdge() method
+        String id = (String) payload.get("id");
         String graph = (String) payload.get("graph");
         JSONObject src = (JSONObject) payload.get("src");
         JSONObject tgt = (JSONObject) payload.get("tgt");
 
-        if (flow.removeEdge(graph, src, tgt)) {
+        if (flow.removeEdge(id, graph, src, tgt)) {
             // Answer
-            sendRemoveEdgeMessage(graph, src, tgt);
+            sendRemoveEdgeMessage(id, graph, src, tgt);
         } else {
             sendError("Unable to remove edge. Maybe the graph doesn't exist or the edge has already been removed.");
         }
@@ -224,14 +225,15 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
     private void changeedge (JSONObject payload) {
         // Retrieve needed data for changeEdge() method
+        String id = (String) payload.get("id");
         String graph = (String) payload.get("graph");
         JSONObject metadata = (JSONObject) payload.get("metadata");
         JSONObject src = (JSONObject) payload.get("src");
         JSONObject tgt = (JSONObject) payload.get("tgt");
 
-        if (flow.changeEdge(graph, metadata, src, tgt)) {
+        if (flow.changeEdge(id, graph, metadata, src, tgt)) {
             // Answer
-            sendChangeEdgeMessage(graph, src, tgt);
+            sendChangeEdgeMessage(id, graph, src, tgt);
         } else {
             sendError("Unable to change request edge");
         }
@@ -457,9 +459,10 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("addedge", payload);
     }
 
-    private void sendRemoveEdgeMessage (String graph, JSONObject src, JSONObject tgt) {
+    private void sendRemoveEdgeMessage (String id, String graph, JSONObject src, JSONObject tgt) {
         // Build payload
         JSONObject payload = new JSONObject();
+        payload.put("id", id);
         payload.put("graph", graph);
         payload.put("src", src);
         payload.put("tgt", tgt);
@@ -468,10 +471,11 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("removeedge", payload);
     }
 
-    private void sendChangeEdgeMessage (String graph, JSONObject src, JSONObject tgt) {
+    private void sendChangeEdgeMessage (String id, String graph, JSONObject src, JSONObject tgt) {
         Edge edge = flow.getEdge(src, tgt, graph);
         // Build payload
         JSONObject payload = new JSONObject();
+        payload.put("id", edge.getId());
         payload.put("src", edge.getSrc());
         payload.put("tgt", edge.getTgt());
         payload.put("metadata", edge.getMetadata());

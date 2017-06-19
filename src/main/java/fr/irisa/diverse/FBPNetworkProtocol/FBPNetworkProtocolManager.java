@@ -99,7 +99,9 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
 
     public void send (FBPMessage msg) {
         // TODO : add secret handling
-        owningSocket.send(msg.toJSONString());
+        if (owningSocket != null) {
+            owningSocket.send(msg.toJSONString());
+        }
     }
 
     public void sendToAll (FBPMessage msg) {

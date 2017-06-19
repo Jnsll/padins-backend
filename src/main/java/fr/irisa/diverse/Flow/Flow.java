@@ -206,7 +206,7 @@ public class Flow implements FlowInterface {
         }
     }
 
-    public boolean removeEdge(String graph, JSONObject src, JSONObject tgt) {
+    public boolean removeEdge(String id, String graph, JSONObject src, JSONObject tgt) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && edgeExist(src, tgt)) {
             // If so, retrieve the index of the edge and remove it
@@ -217,11 +217,13 @@ public class Flow implements FlowInterface {
         }
     }
 
-    public boolean changeEdge(String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
+    public boolean changeEdge(String id, String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
         // Verify that the requested graph is the workspace
-        if(graphExist(graph) && edgeExist(src, tgt)) {
+        if(graphExist(graph) && edgeExist(id)) {
             // If so, retrieve the edge and modify its metadata
-            Edge e = edges.get(indexOfEdge(src, tgt));
+            Edge e = edges.get(indexOfEdge(id));
+            e.setSrc(src);
+            e.setTgt(tgt);
             e.setMetadata(metadata);
             return true;
         } else {
@@ -445,6 +447,10 @@ public class Flow implements FlowInterface {
         return indexOfEdge(src, tgt) != -1;
     }
 
+    private boolean edgeExist(String id) {
+        return indexOfEdge(id) != -1;
+    }
+
     private boolean graphExist (String id) {
         if (this.id.equals(id)) return true;
 
@@ -468,6 +474,14 @@ public class Flow implements FlowInterface {
     private int indexOfEdge (JSONObject src, JSONObject tgt) {
         for(int i=0; i<edges.size(); i++) {
             if (edges.get(i).getSrc().equals(src) && edges.get(i).getTgt().equals(tgt)) return i;
+        }
+
+        return -1;
+    }
+
+    private int indexOfEdge (String id) {
+        for(int i=0; i<edges.size(); i++) {
+            if (edges.get(i).getId().equals(id)) return i;
         }
 
         return -1;

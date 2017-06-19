@@ -53,10 +53,18 @@ public class Edge {
         return src;
     }
 
+    public void setSrc (JSONObject src) {
+        this.src = src;
+    }
+
     public JSONObject getTgt () {
         if (tgt == null) tgt = new JSONObject();
 
         return tgt;
+    }
+
+    public void setTgt (JSONObject tgt) {
+        this.tgt = tgt;
     }
 
     public JSONObject getMetadata () {
