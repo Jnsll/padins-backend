@@ -15,7 +15,7 @@ import org.json.simple.JSONObject;
 public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler {
 
     // Attributes
-    private FBPNetworkProtocolManager owningManager;
+    // private FBPNetworkProtocolManager owningManager; From SendMessageOverFBP
 
     // Constructor
     public NetworkMessageHandler (FBPNetworkProtocolManager manager) {
