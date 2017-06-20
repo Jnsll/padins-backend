@@ -33,7 +33,7 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
      */
     @Override
     public void run() {
-
+        System.out.println("Run !");
         // First : we verify that there really is a need to run the node. Maybe it didn't change and neither its previous nodes
         if (node.shouldBeReRun()){
             long beginsRunning = new Date().getTime();

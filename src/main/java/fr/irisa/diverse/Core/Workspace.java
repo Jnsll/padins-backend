@@ -206,12 +206,17 @@ public class Workspace {
         createFolder(this.pathToFolder);
 
         // Write the serialized Flow object
+        System.out.println("Saving");
         try (FileWriter file = new FileWriter(this.pathToFolder.toString() + "/" + FLOW_FILE_NAME)) {
             file.write(flow.serialize());
             System.out.println("Successfully Copied Flow " + flow.getId() + " to File...");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendUpdateNodeMessage (Node node) {
+        this.clientCommunicationManager.sendUpdateNodeMessage(node);
     }
 
     /*==================================================================================================================

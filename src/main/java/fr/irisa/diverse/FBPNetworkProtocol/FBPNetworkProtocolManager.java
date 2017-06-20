@@ -125,6 +125,17 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
         sendToAll(msg);
     }
 
+    public void sendUpdateNodeMessage (Node node) {
+        JSONObject payload = new JSONObject();
+        payload.put("id", node.getId());
+        payload.put("metadata", node.getMetadata());
+        payload.put("graph", node.getGraph());
+
+        FBPMessage msg = new FBPMessage("graph", "changenode", payload.toJSONString());
+
+        sendToAll(msg);
+    }
+
     private FBPMessage createErrorMessage (String protocol, String error) {
         JSONObject obj = new JSONObject();
         obj.put("message", error);

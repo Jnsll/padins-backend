@@ -44,6 +44,11 @@ public class Node implements Comparable<Node>{
         this.lastModification = date.getTime();
         this.lastRun = 0;
 
+        // Start a kernel if needed
+        if (component.equals("Processing") || component.equals("Simulation")) {
+            owningFlow.owningWorkspace.startNewKernel(id);
+        }
+
     }
 
     /* =================================================================================================================
@@ -71,6 +76,7 @@ public class Node implements Comparable<Node>{
     }
 
     public void setMetadata(JSONObject metadata) {
+        date = new Date();
         lastModification = date.getTime();
         this.metadata = metadata;
     }
@@ -101,8 +107,12 @@ public class Node implements Comparable<Node>{
     }
 
     public void setResult (String result) {
+        System.out.println("Received node result : " + result );
         this.metadata.put("result", result);
+        date = new Date();
         lastRun = date.getTime();
+
+        sendUpdateNodeMessage();
     }
 
     /* =================================================================================================================
@@ -117,6 +127,7 @@ public class Node implements Comparable<Node>{
     }
 
     public void assignPortToEdge (String port, String edge) {
+        date = new Date();
         lastModification = date.getTime();
 
         Port p = findPort(port);
@@ -142,17 +153,22 @@ public class Node implements Comparable<Node>{
     }
 
     public boolean shouldBeReRun () {
-        boolean res = lastRun > lastModification;
+        if (!(component.equals("Processing") || component.equals("Simulation"))) {
+            return false;
+        } else {
+            boolean res = lastRun < lastModification;
 
-        ArrayList<Node> previousNodes = previousInFlow();
+            ArrayList<Node> previousNodes = previousInFlow();
 
-        if(previousNodes != null) {
-            for (Node previous : previousNodes) {
-                res = res || previous.shouldBeReRun();
+            if(previousNodes != null) {
+                for (Node previous : previousNodes) {
+                    res = res || previous.shouldBeReRun();
+                }
             }
+
+            return  res;
         }
 
-        return  res;
     }
 
     public void prepareForExecution () {
@@ -168,8 +184,7 @@ public class Node implements Comparable<Node>{
         // compareTo should return < 0 if this is supposed to be
         // less than other, > 0 if this is supposed to be greater than
         // other and 0 if they are supposed to be equal
-        Long l = Long.parseLong(o.getId()) - Long.parseLong(id);
-        return toIntExact(l);
+        return o.getId().compareTo(id);
     }
 
     /* =================================================================================================================
@@ -234,5 +249,9 @@ public class Node implements Comparable<Node>{
         String resNodeId = (String) (previousNode ? e.getSrc().get("node") : e.getTgt().get("node"));
 
         return owningFlow.getNode(resNodeId, owningFlow.getId());
+    }
+
+    private void sendUpdateNodeMessage () {
+        owningFlow.owningWorkspace.sendUpdateNodeMessage(this);
     }
 }

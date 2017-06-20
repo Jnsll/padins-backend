@@ -69,9 +69,9 @@ public class Flow implements FlowInterface {
             ArrayList<JSONObject> nodes = (ArrayList) source.get("nodes");
             for (int i=0; i < nodes.size(); i++) {
                 JSONObject a = nodes.get(i);
-                Node n = new Node((String) a.get("id"),(String) a.get("component"), (JSONObject) a.get("metadata"), (String) a.get("graph"),
-                        ComponentsUtils.getComponent(componentsLibrary, (String) a.get("component")).isExecutable(),this);
-                this.nodes.add(n);
+                // Add each node
+                addNode((String) a.get("id"), (String) a.get("component"), (JSONObject) a.get("metadata"), (String) a.get("graph"),
+                        ComponentsUtils.getComponent(componentsLibrary, (String) a.get("component")).isExecutable());
             }
         }
 
@@ -92,8 +92,8 @@ public class Flow implements FlowInterface {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                Edge e = new Edge(src, tgt, metadata, (String) a.get("graph"), (String) a.get("id"), this);
-                this.edges.add(e);
+
+                addEdge((String) a.get("id"), src, tgt, metadata, (String) a.get("graph"));
             }
         }
 
@@ -103,9 +103,9 @@ public class Flow implements FlowInterface {
             ArrayList<JSONObject> groups = (ArrayList) source.get("groups");
             for (int i=0; i < groups.size(); i++) {
                 JSONObject a = groups.get(i);
-                Group g = new Group((String) a.get("name"),(JSONArray) a.get("nodes"),(JSONObject) a.get("metadata"),
-                        (String) a.get("graph"),(String) a.get("id"), this);
-                this.groups.add(g);
+                // addGroup(String name, JSONArray nodes, JSONObject metadata, String graph)
+                addGroup((String) a.get("name"),(JSONArray) a.get("nodes"),(JSONObject) a.get("metadata"),
+                        (String) a.get("graph"));
             }
         }
 

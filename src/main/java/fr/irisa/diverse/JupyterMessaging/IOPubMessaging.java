@@ -69,24 +69,13 @@ class IOPubMessaging {
         JSONObject content = message.getContent();
 
         Long executionCount = (Long) content.get("execution_count");
-        String status = (String) content.get("status");
-        if(executionCount > kernel.getNbExecutions()) {
+        if(executionCount >= kernel.getNbExecutions()) {
             // Increase the executionCount of the kernel
             kernel.setNbExecutions(executionCount);
 
-            // Handle the status field
-            switch (status) {
-                case "ok" :
-                    // Send the result to the kernel
-                    JSONObject result = (JSONObject) content.get("payload");
-                    kernel.handleExecutionResult(result, executionCount);
-                    break;
-                case "error" :
-                    kernel.owningWorkspace.errorFromKernel("Execution_reply status : error");
-                    break;
-                case "abort" :
-                    kernel.owningWorkspace.errorFromKernel("Execution aborted");
-            }
+            // Send the result to the kernel
+            JSONObject result = (JSONObject) content.get("data");
+            kernel.handleExecutionResult(result, executionCount);
 
         }
     }
