@@ -145,4 +145,8 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
 
         return msg;
     }
+
+    public void sendNodeUpdate (Node node) {
+        graph.sendChangeNodeMessage(node.getId(), node.getGraph());
+    }
 }
