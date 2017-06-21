@@ -106,7 +106,7 @@ public abstract class JupyterChannel implements Runnable {
             } else if (!isUuid(incomingMessage.get(incomingMessage.size()-1))) {
                 // Last received message is not a correct uuid, we remove everything from incoming message, log it and
                 for(int i=0; i<incomingMessage.size(); i++) {
-                    System.out.println("\033[33m" + "[WARNING]" + "\033[0m" + "Loosing data on " + name + " socket : " + incomingMessage.get(0));
+                    System.out.println("\033[33m" + "[WARNING]" + "\033[0m" + " Loosing data on " + name + " socket : " + incomingMessage.get(0));
                     incomingMessage.remove(0);
                 }
                 // add the correct uuid in the beginning

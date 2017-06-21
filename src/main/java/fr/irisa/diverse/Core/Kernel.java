@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -62,7 +63,7 @@ public class Kernel {
     public Workspace owningWorkspace;
 
     // Code execution related attributes
-    private Map<Long, String> awaitingExecutionResult;
+    private ArrayList<String> awaitingResults;
 
 
     /*==================================================================================================================
@@ -77,8 +78,8 @@ public class Kernel {
         this.linkedNodeId = linkedNodeId;
         this.owningWorkspace = workspace;
 
-        // Initialize awaitingExecutionResult map
-        awaitingExecutionResult = new HashMap<>();
+        // Initialize awaitingResult list
+        this.awaitingResults = new ArrayList<>();
 
         // Retrieve the absolute path to resources/connexion_files
         String tempPath = Kernel.class.getClassLoader().getResource("connexion_files/example.json").getPath();
@@ -144,23 +145,34 @@ public class Kernel {
      * Do what's needed when receiving the result of the execution of a code.
      * It verify that we were waiting for this response and store the result into the node.
      *
-     * @param result : the result received from the channel
-     * @param executionCount : the execution count from Jupyter
+     * @param result : the result received from the channel's stdout
      */
-    public void handleExecutionResult (JSONObject result, long executionCount) {
-        // TODO : handle the result in a better way, storing each var result one by one.
-        if (awaitingExecutionResult.containsKey(executionCount)) {
-            // Tell the node to store the result
-            Node linkedNode = owningWorkspace.getFlow().getNode(linkedNodeId, owningWorkspace.getUuid());
-            linkedNode.setResult(result.toJSONString());
+    public void handleExecutionResult (String[] result) {
+        // Build an object containing the results associated with their variable
+        JSONParser parser = new JSONParser();
+        JSONObject res = new JSONObject();
+        if (result.length == this.awaitingResults.size()) {
+            for(int i=0; i<result.length; i++) {
+                // Parse the result to store it with the right type
+                Object r = new Object();
+                try {
+                    r = parser.parse(result[i]);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                res.put(this.awaitingResults.get(i), r);
+            }
 
-            // Remove the associations in awaitingExecutionResult
-            awaitingExecutionResult.remove(executionCount);
+            // Reinitialize awaitingResults to be sure the next time this method is called, it will contain only
+            // the var to get for the next code to execute.
+            this.awaitingResults = new ArrayList<>();
         } else {
-            // Create an error because we don't know where the result comes from.
-            System.err.println("Received a result for an unwaited code execution. Kernel's executionCount = " +
-                           nbExecutions + "ExecutionCount = " + executionCount + " - Result = " + result.toJSONString());
+            // TODO : send an error
         }
+
+        // Tell the node to store the result
+        Node linkedNode = owningWorkspace.getFlow().getNode(linkedNodeId, owningWorkspace.getUuid());
+        linkedNode.setResult(res);
 
 
     }
@@ -175,8 +187,20 @@ public class Kernel {
      * @param code : the code to execute
      */
     public void executeCode (String code) {
-        // Add the code and the execution number to link the result to the code
-        awaitingExecutionResult.put(nbExecutions+1, code);
+        // Because we will wait for the stdout to get the result of the execution that we are interested in,
+        // we store an array containing each variable we wait for the result.
+        String[] codeLines = code.split("\\r\\n|\\n|\\r");
+        for (String line: codeLines) {
+            if (line.indexOf("print(") != -1) {
+                // Retrieve the name of the variable
+                int i = line.indexOf("print(") + 6;
+                int j = line.indexOf(")");
+                String var = line.substring(i,j);
+                // Store this name
+                this.awaitingResults.add(var);
+            }
+        }
+
         // Send the execution request message on the shell
         messagesManager.sendMessageOnShell().sendExecuteRequestMessage(code);
     }

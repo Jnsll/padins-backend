@@ -106,7 +106,7 @@ public class Node implements Comparable<Node>{
         return (String) this.metadata.get("result");
     }
 
-    public void setResult (String result) {
+    public void setResult (JSONObject result) {
         System.out.println("Received node result : " + result );
         this.metadata.put("result", result);
         date = new Date();

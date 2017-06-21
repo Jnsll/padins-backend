@@ -75,7 +75,7 @@ class IOPubMessaging {
 
             // Send the result to the kernel
             JSONObject result = (JSONObject) content.get("data");
-            kernel.handleExecutionResult(result, executionCount);
+            System.out.println("Received execution result for execution " + executionCount + " : " + result.toJSONString());
 
         }
     }
@@ -100,10 +100,20 @@ class IOPubMessaging {
 
     private void handleStreamMessage(JupyterMessage message) {
         JSONObject content = message.getContent();
-
         String stream = content.get("name").toString();
         String text = content.get("text").toString();
         System.out.println(stream + " : " + text);
+
+        if (message.getParentHeader().get("msg_type").equals("execute_request")) {
+            if (content.get("name").equals("stdout")) {
+                // If we receive something on stdout, we store the result of each variable
+                String result = content.get("text").toString();
+                this.kernel.handleExecutionResult(result.split("\\r\\n|\\n|\\r"));
+
+            } else if (content.get("name").equals("stderr")) {
+
+            }
+        }
     }
 
 
