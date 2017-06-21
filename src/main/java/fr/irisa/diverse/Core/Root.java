@@ -130,8 +130,10 @@ public class Root {
         // Add all the directories name into a List
         List<String> workspacesNames = new ArrayList<>();
         for (File f : files) {
-            if(f.isDirectory()) workspacesNames.add(f.getName());
+            if(f.isDirectory() ) workspacesNames.add(f.getName());
         }
+
+        workspacesNames.remove("utils");
 
         // Create a workspace for each directory found
         for (String uuid : workspacesNames) {

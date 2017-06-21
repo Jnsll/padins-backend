@@ -56,14 +56,13 @@ public class Kernel {
     private String signature_scheme = null;
     private String key = null;
     private String pathToConnexionFiles = null;
+    private String pathToWorkspace = null;
+    private String pathToUtils = null;
     private JSONParser parser = null;
 
     // Workspace related info
     public String linkedNodeId;
     public Workspace owningWorkspace;
-
-    // Code execution related attributes
-    private ArrayList<String> awaitingResults;
 
 
     /*==================================================================================================================
@@ -78,8 +77,9 @@ public class Kernel {
         this.linkedNodeId = linkedNodeId;
         this.owningWorkspace = workspace;
 
-        // Initialize awaitingResult list
-        this.awaitingResults = new ArrayList<>();
+        // Set the path to the workspace
+        this.pathToWorkspace = Kernel.class.getClassLoader().getResource("workspaces/" + owningWorkspace.getUuid()).getPath();
+        this.pathToUtils = Kernel.class.getClassLoader().getResource("workspaces/utils/").getPath();
 
         // Retrieve the absolute path to resources/connexion_files
         String tempPath = Kernel.class.getClassLoader().getResource("connexion_files/example.json").getPath();
@@ -98,6 +98,8 @@ public class Kernel {
                 createChannelsFromConnexionFile(absolutePathToConnexionInfoFile);
 
                 startChannels();
+
+                iopub.doLog(true);
 
                 // Create a message manager that will handle reaction to incoming messages
                 messagesManager = new Manager(this);
@@ -151,22 +153,34 @@ public class Kernel {
         // Build an object containing the results associated with their variable
         JSONParser parser = new JSONParser();
         JSONObject res = new JSONObject();
-        if (result.length == this.awaitingResults.size()) {
-            for(int i=0; i<result.length; i++) {
-                // Parse the result to store it with the right type
-                Object r = new Object();
-                try {
-                    r = parser.parse(result[i]);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                res.put(this.awaitingResults.get(i), r);
+        if (result.length > 1) {
+            // First skip the line until we meet the beginning line that is delimited by the identifier :
+            // #BEGINNING OF DATA RETRIEVING
+            // To change it, go into ressources/workspaces/utils/sendTheseDataToNextNodes
+            int beginningLineIndex = 0;
+            while (beginningLineIndex < result.length && !result[beginningLineIndex].equals("#BEGINNING OF DATA RETRIEVING")) {
+                beginningLineIndex++;
             }
 
-            // Reinitialize awaitingResults to be sure the next time this method is called, it will contain only
-            // the var to get for the next code to execute.
-            this.awaitingResults = new ArrayList<>();
+            if (beginningLineIndex < result.length) {
+                // Store each key, value pair after the delimiter
+                // A key is a line starting with "key " followed by the key. The next lines, until a new "key " contain
+                // the value
+                for(int i=beginningLineIndex+1; i<result.length; i++) {
+                    // Retrieve the key
+                    String key = result[i]. substring(4);
+                    i++;
+                    // Parse the result to store it with the right type
+                    Object value = new Object();
+                    try {
+                        value = parser.parse(result[i]);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    res.put(key, value);
+            }
+            }
         } else {
             // TODO : send an error
         }
@@ -188,22 +202,14 @@ public class Kernel {
      * @param code : the code to execute
      */
     public void executeCode (String code) {
-        // Because we will wait for the stdout to get the result of the execution that we are interested in,
-        // we store an array containing each variable we wait for the result.
-        String[] codeLines = code.split("\\r\\n|\\n|\\r");
-        for (String line: codeLines) {
-            if (line.indexOf("print(") != -1) {
-                // Retrieve the name of the variable
-                int i = line.indexOf("print(") + 6;
-                int j = line.indexOf(")");
-                String var = line.substring(i,j);
-                // Store this name
-                this.awaitingResults.add(var);
-            }
-        }
+        // Add a few lines on top of the code to import the sendTheseDataToNextNodes function
+        String codeToExecute = "import sys\nimport os\nsys.path.append('/home/diverse/workspace')\n" +
+                "sys.path.append('/home/diverse/utils')\nfrom sendTheseDataToNextNodes import sendTheseDataToNextNodes\n\n";
+        // Add the code the user typed
+        codeToExecute += code;
 
         // Send the execution request message on the shell
-        messagesManager.sendMessageOnShell().sendExecuteRequestMessage(code);
+        messagesManager.sendMessageOnShell().sendExecuteRequestMessage(codeToExecute);
     }
 
     /* =================================================================================================================
@@ -225,7 +231,7 @@ public class Kernel {
             Writer streamWriter = new OutputStreamWriter(new FileOutputStream(script));
             PrintWriter printWriter = new PrintWriter(streamWriter);
             printWriter.println("#!/bin/bash");
-            printWriter.println("docker run -d --rm -v " + pathToConnexionFiles + ":/home/diverse/connexion_files antoinecheronirisa/lmt-python-core");
+            printWriter.println("docker run -d --rm -v " + pathToConnexionFiles + ":/home/diverse/connexion_files -v " + pathToWorkspace + ":/home/diverse/workspace -v " + pathToUtils + ":/home/diverse/utils antoinecheronirisa/lmt-python-core");
             printWriter.println("exit");
             printWriter.close();
 
@@ -484,7 +490,6 @@ public class Kernel {
      * @param value
      */
     public void setIdleState (boolean value) {
-        System.out.println("Setting kernel idle state : " + value);
         idle = value ;
     }
 

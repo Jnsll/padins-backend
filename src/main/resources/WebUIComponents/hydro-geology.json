@@ -51,7 +51,7 @@
         }
       ],
       "language" : "Python",
-      "code" : "",
+      "code" : "\n\n#Use the below function to choose the data you want to send to the next node.\n#Add each variable between the parenthesis. They will be accessible from the next node with the exact same name.\n# Be carefull not to override them on the next node.\nsendTheseDataToNextNodes()",
       "tests" : ""
     },
     {
@@ -71,7 +71,7 @@
         }
       ],
       "language" : "Python",
-      "code" : "",
+      "code" : "\n\n#Use the below function to choose the data you want to send to the next node.\n#Add each variable between the parenthesis. They will be accessible from the next node with the exact same name.\n# Be carefull not to override them on the next node.\nsendTheseDataToNextNodes()",
       "tests" : ""
     },
     {
