@@ -135,12 +135,13 @@ public class FlowExecutionHandler {
         // Start a while that look at the toLaunch list and start running a Node as soon as possible.
         while ((!toLaunch.isEmpty() || !running.isEmpty()) && !stop) {
             for (Node n : toLaunch) {
-                System.out.println("Node " + n.getComponent() + " will be launched");
+                System.out.println("\nNode " + n.getComponent() + " will be launched");
                 // Verify that all the previous nodes in the flow have finished their execution
                 if (havePreviousNodesFinish(n)) {
                     // If so, start running it
-                    System.out.println("Start running node " + n.getComponent());
+                    System.out.println("Start running node " + n.getComponent() + ", " + n.getId());
                     runNode(n);
+                    System.out.println("Started running node " + n.getComponent() + ", " + n.getId());
                     toLaunch.remove(n);
                 }
             }

@@ -160,6 +160,7 @@ public class Kernel {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+
                 res.put(this.awaitingResults.get(i), r);
             }
 
@@ -483,6 +484,7 @@ public class Kernel {
      * @param value
      */
     public void setIdleState (boolean value) {
+        System.out.println("Setting kernel idle state : " + value);
         idle = value ;
     }
 

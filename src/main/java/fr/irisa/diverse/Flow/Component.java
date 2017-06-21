@@ -2,10 +2,6 @@ package fr.irisa.diverse.Flow;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.util.Set;
 
 /**
  * A component is an element that turns to be a Node we used on the UI.
@@ -25,17 +21,20 @@ public class Component {
     private String fromLibrary = "";
     private String name = "";
     private String description = "";
-    private Ports inports;
-    private Ports outports;
+    private JSONArray inports;
+    private JSONArray outports;
     private String language = "";
     private String code = "";
     private String tests = "";
     private boolean executable;
 
+    private JSONObject originalJsonObject;
+
     /* =================================================================================================================
                                                     CONSTRUCTOR
        ===============================================================================================================*/
     Component (JSONObject json, String library) {
+        this.originalJsonObject = json;
         component = new JSONObject();
         this.fromLibrary = library;
         this.name = library + "/" + json.get("name");
@@ -45,14 +44,14 @@ public class Component {
         if(json.get("code") != null) this.code = (String) json.get("code");
         if(json.get("tests") != null) this.tests = (String) json.get("tests");
         this.executable = json.get("executable") != null && (boolean) json.get("executable");
-        if(json.get("inports") == null || !(json.get("inports") instanceof JSONArray)) inports = new Ports();
+        if(json.get("inports") == null || !(json.get("inports") instanceof JSONArray)) inports = new JSONArray();
         else {
-            this.inports = new Ports((JSONArray) json.get("inports"));
+            this.inports = (JSONArray) json.get("inports");
         }
 
-        if (json.get("outports") == null || !(json.get("outports") instanceof JSONArray)) outports = new Ports();
+        if (json.get("outports") == null || !(json.get("outports") instanceof JSONArray)) outports = new JSONArray();
         else {
-            this.outports = new Ports((JSONArray) json.get("outports"));
+            this.outports = (JSONArray) json.get("outports");
         }
     }
 
@@ -84,8 +83,7 @@ public class Component {
      * @return the list of inports
      */
     Ports getInports() {
-        if (inports == null) inports = new Ports();
-        return inports;
+        return new Ports(inports);
     }
 
     /**
@@ -95,8 +93,7 @@ public class Component {
      * @return the list of outports
      */
     Ports getOutports() {
-        if (outports == null) outports = new Ports();
-        return outports;
+        return new Ports(outports);
     }
 
     /**
@@ -177,6 +174,6 @@ public class Component {
      */
     public JSONObject toJson() {
         buildJson();
-        return component;
+        return new JSONObject(component);
     }
 }

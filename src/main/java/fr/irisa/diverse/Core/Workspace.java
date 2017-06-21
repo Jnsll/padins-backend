@@ -170,6 +170,9 @@ public class Workspace {
 
             // Then we launch the execution
             String code = node.getCode();
+
+            System.out.println(node.getPreviousNodesData().toJSONString());
+
             Kernel k = kernels.get(node.getId());
             k.executeCode(code);
         }

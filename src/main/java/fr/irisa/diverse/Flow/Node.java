@@ -4,6 +4,8 @@ import org.json.simple.JSONObject;
 import static java.lang.Math.toIntExact;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * A node correspond to a block on a flow-based program
@@ -102,8 +104,8 @@ public class Node implements Comparable<Node>{
         return metadata.get("code") == null ? "" : (String) metadata.get("code");
     }
 
-    public String getResult () {
-        return (String) this.metadata.get("result");
+    public JSONObject getResult () {
+        return (JSONObject) this.metadata.get("result");
     }
 
     public void setResult (JSONObject result) {
@@ -134,6 +136,28 @@ public class Node implements Comparable<Node>{
         if (p != null) {
             p.setConnectedEdge(edge);
         }
+    }
+
+    public JSONObject getPreviousNodesData () {
+        JSONObject res = new JSONObject();
+
+        ArrayList<Node> previousNodes = previousInFlow();
+        if (previousNodes != null) {
+            for(int i=0; i<previousNodes.size(); i++) {
+                JSONObject data = previousNodes.get(i).getResult();
+
+                if (data != null) {
+                    // Take each key => value pair in data and put it into res
+                    Iterator iterator = data.keySet().iterator();
+                    while(iterator.hasNext()) {
+                        String key = (String) iterator.next();
+                        res.put(key, data.get(key));
+                    }
+                }
+            }
+        }
+
+        return res;
     }
 
     public ArrayList<Node> previousInFlow () {

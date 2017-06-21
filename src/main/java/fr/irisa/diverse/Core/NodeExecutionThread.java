@@ -42,7 +42,7 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
             workspace.executeNode(node);
 
             // Now we wait for the Kernel to finish executing the code of this node.
-            while (workspace.isNodeRunning(node.getId()) && !node.receivedResultAfterTime(beginsRunning)) {
+            while (workspace.isNodeRunning(node.getId()) || !node.receivedResultAfterTime(beginsRunning)) {
                 Utils.wait(100);
             }
         }
@@ -53,6 +53,7 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
         ArrayList<Node> nextInFlow = node.nextInFlow();
         if (nextInFlow != null ) {
             for (Node n : node.nextInFlow()) {
+                System.out.println("Next node to launch is " + n.getComponent() + ", " + n.getId());
                 executionHandler.addToLaunch(n);
             }
         }
