@@ -124,6 +124,8 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
         Component c = ComponentsUtils.getComponent(owningWorkspace.getLibrary(), component);
         boolean executable = c.isExecutable();
+        metadata.put("code", c.getCode());
+        metadata.put("language", c.getLanguage());
 
         // Add the node into the flow and if it succeed send a message back to the connected clients
         // & start a kernel if the node is a Processing or Simulation

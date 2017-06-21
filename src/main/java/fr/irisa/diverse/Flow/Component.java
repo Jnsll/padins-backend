@@ -149,6 +149,7 @@ public class Component {
         component.put("subgraph", false); // TODO
         component.put("inPorts", getInports().toString());
         component.put("outPorts", getOutports().toString());
+        component.put("code", code);
     }
 
     /* =================================================================================================================
