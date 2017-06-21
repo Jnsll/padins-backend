@@ -62,7 +62,7 @@ class IOPubMessaging {
         JSONObject content = message.getContent();
 
         Long executionCount = (Long) content.get("execution_count");
-        if(executionCount > kernel.getNbExecutions()) kernel.setNbExecutions(executionCount);
+        if(executionCount != null && executionCount > kernel.getNbExecutions()) kernel.setNbExecutions(executionCount);
     }
 
     private void handleExecuteResultMessage(JupyterMessage message) {
