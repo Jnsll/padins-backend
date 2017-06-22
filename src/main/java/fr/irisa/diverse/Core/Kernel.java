@@ -8,9 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -99,8 +97,6 @@ public class Kernel {
 
                 startChannels();
 
-                iopub.doLog(true);
-
                 // Create a message manager that will handle reaction to incoming messages
                 messagesManager = new Manager(this);
             }
@@ -168,7 +164,9 @@ public class Kernel {
                 // the value
                 for(int i=beginningLineIndex+1; i<result.length; i++) {
                     // Retrieve the key
-                    String key = result[i]. substring(4);
+                    int firstIndexOfKey = 4;
+                    while (result[i].charAt(firstIndexOfKey) == ' ') { firstIndexOfKey++; }
+                    String key = result[i].substring(firstIndexOfKey);
                     i++;
                     // Parse the result to store it with the right type
                     Object value = new Object();
@@ -201,12 +199,23 @@ public class Kernel {
      *
      * @param code : the code to execute
      */
-    public void executeCode (String code) {
+    public void executeCode (String code, Node node) {
         // Add a few lines on top of the code to import the sendTheseDataToNextNodes function
         String codeToExecute = "import sys\nimport os\nsys.path.append('/home/diverse/workspace')\n" +
                 "sys.path.append('/home/diverse/utils')\nfrom sendTheseDataToNextNodes import sendTheseDataToNextNodes\n\n";
+        // Add the variables retrieved from the previous nodes
+        JSONObject var = node.getPreviousNodesData();
+        Set keys = var.keySet();
+        Iterator<String> keysIterator = keys.iterator();
+        while(keysIterator.hasNext()) {
+            String key = keysIterator.next();
+            codeToExecute += key + " = " + var.get(key).toString() + "\n";
+        }
+
         // Add the code the user typed
         codeToExecute += code;
+
+        System.out.println("Executing code");
 
         // Send the execution request message on the shell
         messagesManager.sendMessageOnShell().sendExecuteRequestMessage(codeToExecute);

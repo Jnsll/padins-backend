@@ -33,7 +33,6 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
      */
     @Override
     public void run() {
-        System.out.println("Run !");
         // First : we verify that there really is a need to run the node. Maybe it didn't change and neither its previous nodes
         if (node.shouldBeReRun()){
             long beginsRunning = new Date().getTime();
@@ -53,7 +52,6 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
         ArrayList<Node> nextInFlow = node.nextInFlow();
         if (nextInFlow != null ) {
             for (Node n : node.nextInFlow()) {
-                System.out.println("Next node to launch is " + n.getComponent() + ", " + n.getId());
                 executionHandler.addToLaunch(n);
             }
         }

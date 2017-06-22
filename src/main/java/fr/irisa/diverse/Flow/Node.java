@@ -109,7 +109,6 @@ public class Node implements Comparable<Node>{
     }
 
     public void setResult (JSONObject result) {
-        System.out.println("Received node result : " + result );
         this.metadata.put("result", result);
         date = new Date();
         lastRun = date.getTime();
@@ -186,7 +185,7 @@ public class Node implements Comparable<Node>{
 
             if(previousNodes != null) {
                 for (Node previous : previousNodes) {
-                    res = res || previous.shouldBeReRun();
+                    res = res || previous.lastModification > this.lastRun;
                 }
             }
 

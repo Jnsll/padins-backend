@@ -174,7 +174,7 @@ public class Workspace {
             System.out.println(node.getPreviousNodesData().toJSONString());
 
             Kernel k = kernels.get(node.getId());
-            k.executeCode(code);
+            k.executeCode(code, node);
         }
     }
 
