@@ -1,7 +1,7 @@
 package fr.irisa.diverse.Flow;
 
 import fr.irisa.diverse.Core.Workspace;
-import fr.irisa.diverse.FBPNetworkProtocolUtils.Status;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.Utils.Status;
 import fr.irisa.diverse.Utils.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

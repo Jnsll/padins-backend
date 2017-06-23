@@ -1,4 +1,4 @@
-package fr.irisa.diverse.FBPNetworkProtocol;
+package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol;
 
 /**
  * Class managing the Trace Message for the Flow-Based Programming Network Protocol

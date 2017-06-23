@@ -2,7 +2,8 @@ package fr.irisa.diverse.Webserver.Servlets.WebsocketOthers;
 
 import fr.irisa.diverse.Core.Root;
 import fr.irisa.diverse.Core.Workspace;
-import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPMessage;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPNetworkProtocolManager;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.json.simple.JSONObject;
@@ -67,15 +68,15 @@ public class ServerSocket {
     @OnWebSocketMessage
     public void onText(String message)
     {
-        if (session == null || owningWorkspace == null)
+        if (session != null && owningWorkspace != null)
         {
-            // no connection, do nothing.
-            // this is possible due to async behavior
-            return;
-        }
+            // Find where to redirect : FBP or Tree view
+            // We use the FBPMessage format to make handling methods consistent event though Tree view is not part of because.
+            FBPMessage msg = new FBPMessage(message);
 
-        // Redirect the message to the Message Handler
-        communicationManager.onMessage(message);
+            // Redirect the message to the Message Handler
+            communicationManager.onMessage(msg);
+        }
     }
 
 

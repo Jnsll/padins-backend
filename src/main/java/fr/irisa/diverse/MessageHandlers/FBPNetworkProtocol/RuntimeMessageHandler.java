@@ -1,4 +1,4 @@
-package fr.irisa.diverse.FBPNetworkProtocol;
+package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol;
 
 import org.json.simple.JSONObject;
 

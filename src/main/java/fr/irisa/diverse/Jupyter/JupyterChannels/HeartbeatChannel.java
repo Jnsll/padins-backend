@@ -1,4 +1,4 @@
-package fr.irisa.diverse.JupyterChannels;
+package fr.irisa.diverse.Jupyter.JupyterChannels;
 
 import fr.irisa.diverse.Core.Kernel;
 import org.zeromq.ZMQ;

@@ -1,4 +1,4 @@
-package fr.irisa.diverse.FBPNetworkProtocol;
+package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol;
 
 /**
  * A FBPProtocolHandler is a component that handle message on a specific FBP Network Protocol sub-protocol.

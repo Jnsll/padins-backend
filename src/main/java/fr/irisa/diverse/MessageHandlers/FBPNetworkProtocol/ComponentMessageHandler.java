@@ -1,4 +1,4 @@
-package fr.irisa.diverse.FBPNetworkProtocol;
+package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol;
 
 import fr.irisa.diverse.Flow.Component;
 import fr.irisa.diverse.Flow.ComponentsUtils;

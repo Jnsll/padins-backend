@@ -1,13 +1,10 @@
 package fr.irisa.diverse.Core;
 
-import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPNetworkProtocolManager;
 import fr.irisa.diverse.Flow.Flow;
 import fr.irisa.diverse.Flow.Node;
 
-import javax.websocket.MessageHandler;
-
 import fr.irisa.diverse.Webserver.Servlets.WebsocketOthers.ServerSocket;
-import org.eclipse.jetty.websocket.api.Session;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -21,7 +18,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 /** The workspace is the central element of this project.
  *

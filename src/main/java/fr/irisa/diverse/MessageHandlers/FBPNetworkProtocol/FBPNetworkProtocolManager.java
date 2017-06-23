@@ -1,4 +1,4 @@
-package fr.irisa.diverse.FBPNetworkProtocol;
+package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol;
 
 import fr.irisa.diverse.Core.Workspace;
 import fr.irisa.diverse.Webserver.Servlets.WebsocketOthers.ServerSocket;
@@ -6,14 +6,12 @@ import org.json.simple.JSONObject;
 import fr.irisa.diverse.Flow.*;
 
 import javax.websocket.MessageHandler;
-import org.eclipse.jetty.websocket.api.Session;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Created by antoine on 26/05/2017.
  */
-public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
+public class FBPNetworkProtocolManager implements MessageHandler.Whole<FBPMessage> {
 
     // TODO : implement capabilities as described here : https://flowbased.github.io/fbp-protocol/#capabilities
 
@@ -61,9 +59,7 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<String> {
                                        MessageHandler.Whole INTERFACE METHOD IMPLEMENTATION
            ===============================================================================================================*/
     @Override
-    public void onMessage(String msg) {
-        // Parse the received message add put it into a JSONObject.
-        FBPMessage message = new FBPMessage(msg);
+    public void onMessage(FBPMessage message) {
 
         String protocol = message.getProtocol();
 

@@ -1,7 +1,7 @@
-package fr.irisa.diverse.JupyterChannels;
+package fr.irisa.diverse.Jupyter.JupyterChannels;
 
 import fr.irisa.diverse.Core.Kernel;
-import fr.irisa.diverse.JupyterMessaging.Manager;
+import fr.irisa.diverse.Jupyter.JupyterMessaging.Manager;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;

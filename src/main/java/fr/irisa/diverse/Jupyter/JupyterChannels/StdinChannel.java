@@ -1,4 +1,4 @@
-package fr.irisa.diverse.JupyterChannels;
+package fr.irisa.diverse.Jupyter.JupyterChannels;
 
 import fr.irisa.diverse.Core.Kernel;
 import org.zeromq.ZMQ;
@@ -6,7 +6,7 @@ import org.zeromq.ZMQ;
 /**
  * Created by antoine on 03/05/17.
  */
-public class IOPubChannel extends JupyterChannel {
+public class StdinChannel extends JupyterChannel {
 
     /* Superclass attributes
         String name;
@@ -21,8 +21,8 @@ public class IOPubChannel extends JupyterChannel {
         Thread thread;
      */
 
-    public IOPubChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
-        super(name, transport, ip, port, containerID, ZMQ.SUB, kernel);
+    public StdinChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
+        super(name, transport, ip, port, containerID, ZMQ.DEALER, kernel);
     }
 
     /* =================================================================================================================
@@ -35,17 +35,25 @@ public class IOPubChannel extends JupyterChannel {
     protected void initializeThread() {
         // First : connect the server
         this.socket.connect(this.socketAddress);
-        this.socket.subscribe("".getBytes());
         this.connected = true;
-        System.out.println("Connected to IOPub publisher on : " + this.socketAddress);
     }
 
     @Override
     protected void stopThread() {
-        // When stopping the thread : terminate the context & close socket
-        this.socket.close();
+        // When stopping the thread : destroy the context & not connected anymore
+        this.socket.disconnect(socketAddress);
         this.context.term();
         this.connected = false;
     }
 
+    /**
+     * Send a message as bytes, needed by Jupyter
+     * @param message : the message to send to the shell
+     */
+    public void send (String[] message) {
+        for(int i=0; i<message.length-1; i++) {
+            socket.sendMore(message[i].getBytes());
+        }
+        socket.send(message[message.length-1]);
+    }
 }

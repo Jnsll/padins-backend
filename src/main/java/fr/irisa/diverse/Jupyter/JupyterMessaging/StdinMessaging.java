@@ -1,7 +1,7 @@
-package fr.irisa.diverse.JupyterMessaging;
+package fr.irisa.diverse.Jupyter.JupyterMessaging;
 
 import fr.irisa.diverse.Core.Kernel;
-import fr.irisa.diverse.JupyterChannels.StdinChannel;
+import fr.irisa.diverse.Jupyter.JupyterChannels.StdinChannel;
 import org.json.simple.JSONObject;
 
 /** Implementation of the messaging mechanism for the Stdin channel. For more information :

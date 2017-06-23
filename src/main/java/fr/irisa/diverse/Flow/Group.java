@@ -1,10 +1,9 @@
 package fr.irisa.diverse.Flow;
 
-import fr.irisa.diverse.FBPNetworkProtocolUtils.Status;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.Utils.Status;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 /** A group is a part of the flow, that has quite the same structure.

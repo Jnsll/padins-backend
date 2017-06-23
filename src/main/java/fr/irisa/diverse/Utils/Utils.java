@@ -1,6 +1,6 @@
 package fr.irisa.diverse.Utils;
 
-import fr.irisa.diverse.FBPNetworkProtocolUtils.Status;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.Utils.Status;
 import fr.irisa.diverse.Flow.Flow;
 import fr.irisa.diverse.Flow.Group;
 

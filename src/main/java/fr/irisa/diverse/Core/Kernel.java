@@ -1,8 +1,8 @@
 package fr.irisa.diverse.Core;
 
 import fr.irisa.diverse.Flow.Node;
-import fr.irisa.diverse.JupyterChannels.*;
-import fr.irisa.diverse.JupyterMessaging.Manager;
+import fr.irisa.diverse.Jupyter.JupyterChannels.*;
+import fr.irisa.diverse.Jupyter.JupyterMessaging.Manager;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * of the executed code, the result, that it is busy, idle, etc.
  *
  * 5 channels are used to communicate with the fr.irisa.diverse.Core.Kernel
- * (see fr.irisa.diverse.JupyterMessaging in Jupyter doc to know more about it).
+ * (see fr.irisa.diverse.Jupyter.JupyterMessaging in Jupyter doc to know more about it).
  *
  * The kernel is embedded into a Docker container, which creates a connexion_file that this class will read
  * to know on which ports to connect the sockets.

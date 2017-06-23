@@ -1,10 +1,8 @@
 package fr.irisa.diverse.Demos;
 
 import fr.irisa.diverse.Core.Workspace;
-import fr.irisa.diverse.FBPNetworkProtocol.FBPMessage;
-import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
-import fr.irisa.diverse.Flow.Node;
-import org.json.simple.JSONObject;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPMessage;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPNetworkProtocolManager;
 
 import java.util.ArrayList;
 

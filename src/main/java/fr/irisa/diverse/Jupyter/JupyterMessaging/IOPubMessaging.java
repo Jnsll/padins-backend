@@ -1,7 +1,7 @@
-package fr.irisa.diverse.JupyterMessaging;
+package fr.irisa.diverse.Jupyter.JupyterMessaging;
 
 import fr.irisa.diverse.Core.Kernel;
-import fr.irisa.diverse.JupyterChannels.IOPubChannel;
+import fr.irisa.diverse.Jupyter.JupyterChannels.IOPubChannel;
 import org.json.simple.JSONObject;
 
 /**

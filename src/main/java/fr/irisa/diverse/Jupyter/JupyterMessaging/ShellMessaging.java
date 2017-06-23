@@ -1,8 +1,8 @@
-package fr.irisa.diverse.JupyterMessaging;
+package fr.irisa.diverse.Jupyter.JupyterMessaging;
 
 import fr.irisa.diverse.Core.Kernel;
-import fr.irisa.diverse.FBPNetworkProtocol.FBPNetworkProtocolManager;
-import fr.irisa.diverse.JupyterChannels.ShellChannel;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPNetworkProtocolManager;
+import fr.irisa.diverse.Jupyter.JupyterChannels.ShellChannel;
 import org.json.simple.JSONObject;
 
 /** This class provide a function to create every request message for the shell socket of Jupyter, as documented here :

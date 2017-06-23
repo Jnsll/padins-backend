@@ -1,4 +1,4 @@
-package fr.irisa.diverse.JupyterMessaging;
+package fr.irisa.diverse.Jupyter.JupyterMessaging;
 
 import fr.irisa.diverse.Core.Kernel;
 import org.json.simple.JSONObject;

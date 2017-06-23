@@ -1,4 +1,4 @@
-package fr.irisa.diverse.FBPNetworkProtocolUtils;
+package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.Utils;
 
 import java.util.Date;
 

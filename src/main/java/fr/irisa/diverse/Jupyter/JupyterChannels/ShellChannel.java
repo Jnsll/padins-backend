@@ -1,12 +1,14 @@
-package fr.irisa.diverse.JupyterChannels;
+package fr.irisa.diverse.Jupyter.JupyterChannels;
 
 import fr.irisa.diverse.Core.Kernel;
 import org.zeromq.ZMQ;
 
 /**
+ * This class is used to create both the shell and control channels
+ *
  * Created by antoine on 03/05/17.
  */
-public class StdinChannel extends JupyterChannel {
+public class ShellChannel extends JupyterChannel {
 
     /* Superclass attributes
         String name;
@@ -21,30 +23,33 @@ public class StdinChannel extends JupyterChannel {
         Thread thread;
      */
 
-    public StdinChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
+    public ShellChannel(String name, String transport, String ip, long port, String containerID, Kernel kernel) {
         super(name, transport, ip, port, containerID, ZMQ.DEALER, kernel);
     }
-
-    /* =================================================================================================================
-       =================================================================================================================
-                                                    CUSTOM METHODS
-       =================================================================================================================
-       ===============================================================================================================*/
 
     @Override
     protected void initializeThread() {
         // First : connect the server
         this.socket.connect(this.socketAddress);
         this.connected = true;
+
+        // Send kernel_info request
+        if (name.equals("shell")) messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
     }
 
     @Override
     protected void stopThread() {
-        // When stopping the thread : destroy the context & not connected anymore
         this.socket.disconnect(socketAddress);
         this.context.term();
         this.connected = false;
     }
+
+
+    /* =================================================================================================================
+       =================================================================================================================
+                                                    CUSTOM CHANNEL METHODS
+       =================================================================================================================
+       ===============================================================================================================*/
 
     /**
      * Send a message as bytes, needed by Jupyter
@@ -56,4 +61,5 @@ public class StdinChannel extends JupyterChannel {
         }
         socket.send(message[message.length-1]);
     }
+
 }
