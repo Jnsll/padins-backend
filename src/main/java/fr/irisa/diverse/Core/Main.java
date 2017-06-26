@@ -23,11 +23,6 @@ public class Main {
 
         Set<String> keys = workspaces.keySet();
 
-        // Log the loaded workspaces
-        for (String key : keys) {
-            System.out.println(workspaces.get(key).getFlow().serialize());
-        }
-
         // Initialize and start webserver
         webserver = Webserver.getInstance();
         webserverThread = new Thread(webserver);

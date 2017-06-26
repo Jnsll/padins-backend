@@ -4,6 +4,7 @@ import fr.irisa.diverse.Core.Root;
 import fr.irisa.diverse.Core.Workspace;
 import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPMessage;
 import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPNetworkProtocolManager;
+import fr.irisa.diverse.MessageHandlers.FileExplorer.FileExplorerMessageHandler;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.json.simple.JSONObject;
@@ -28,6 +29,7 @@ public class ServerSocket {
     private Session session;
     private Root root;
     private FBPNetworkProtocolManager communicationManager = null;
+    private FileExplorerMessageHandler fileExplorerMessageHandler = null;
     private String workspaceId;
 
     // Constructor
@@ -35,7 +37,7 @@ public class ServerSocket {
         root = Root.getInstance();
         workspaceId = subprotocol;
         communicationManager = new FBPNetworkProtocolManager(root.getWorkspace(workspaceId));
-        // No need to do anything
+        fileExplorerMessageHandler = new FileExplorerMessageHandler(root.getWorkspace(workspaceId));
     }
 
     /* =================================================================================================================
@@ -47,7 +49,7 @@ public class ServerSocket {
     {
         System.out.println("[SOCKET] Opened new connexion");
         this.session = session;
-        communicationManager.setSocket(this);
+        storeSocketOnMessageHandlers();
 
         // Store the workspace instance
         owningWorkspace = root.getWorkspace(workspaceId);
@@ -74,8 +76,14 @@ public class ServerSocket {
             // We use the FBPMessage format to make handling methods consistent event though Tree view is not part of because.
             FBPMessage msg = new FBPMessage(message);
 
-            // Redirect the message to the Message Handler
-            communicationManager.onMessage(msg);
+            if (msg.getProtocol() == null) { return; }
+
+            if (msg.getProtocol().equals("fileexplorer")) {
+                fileExplorerMessageHandler.onMessage(msg);
+            } else {
+                // Redirect the message to the Message Handler
+                communicationManager.onMessage(msg);
+            }
         }
     }
 
@@ -110,6 +118,15 @@ public class ServerSocket {
         }
 
         return false;
+    }
+
+    /* =================================================================================================================
+                                                  PRIVATE METHODS
+       ===============================================================================================================*/
+
+    private void storeSocketOnMessageHandlers () {
+        communicationManager.setSocket(this);
+        fileExplorerMessageHandler.setSocket(this);
     }
 
 }

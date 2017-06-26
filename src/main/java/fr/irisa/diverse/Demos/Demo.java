@@ -27,19 +27,19 @@ public class Demo {
         System.out.println("\nSTEP 3 : Creating a Raw data node and a Model node");
         FBPMessage createNode1 = new FBPMessage("graph", "addnode", "{\"id\":\"123456789\", \"component\":\"Raw data\", \"metadata\":\"{}\", \"graph\":\""  + workspace.getUuid() + "\"}");
         FBPMessage createNode2 = new FBPMessage("graph", "addnode", "{\"id\":\"931261982\", \"component\":\"Model\", \"metadata\":\"{}\", \"graph\":\""  + workspace.getUuid() + "\"}");
-        manager.onMessage(createNode1.toJSONString());
-        manager.onMessage(createNode2.toJSONString());
+        manager.onMessage(createNode1);
+        manager.onMessage(createNode2);
 
         System.out.println("\nSTEP 4 : Connecting those 2 nodes with an edge");
         FBPMessage connectNode1And2WithEdge = new FBPMessage("graph", "addedge", "{\"src\":{\"node\":\"123456789\", \"port\":\"raw-data\"}, \"tgt\":{\"node\":\"931261982\", \"port\":\"Pre-processed data\"},\"metadata\":{}, \"graph\":\""  + workspace.getUuid() + "\"}");
-        manager.onMessage(connectNode1And2WithEdge.toJSONString());
+        manager.onMessage(connectNode1And2WithEdge);
 
         System.out.println("\nSTEP 5 : Display workspace's flow after Step 4");
         System.out.println(workspace.getFlow().serialize());
 
         System.out.println("\nSTEP 6 : Run the flow");
         FBPMessage startFlow = new FBPMessage("network", "start", "{\"graph\":\"" + workspace.getUuid() + "\"}");
-        manager.onMessage(startFlow.toJSONString());
+        manager.onMessage(startFlow);
 
         /*System.out.println("\nSTEP 6 : Create a Processing node which contains a code 8+5");
         FBPMessage createNode3 = new FBPMessage("graph", "addnode", "{\"id\":\"819846731\", \"component\":\"Processing\", \"metadata\":{\"code\":\"8+5\"}, \"graph\":\""  + workspace.getUuid() + "\"}");

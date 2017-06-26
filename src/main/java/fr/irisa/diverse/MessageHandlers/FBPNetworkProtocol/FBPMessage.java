@@ -74,7 +74,7 @@ public class FBPMessage {
         try {
             p = (JSONObject) parser.parse(payload);
         } catch (ParseException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
 
         message.put("payload", p);

@@ -1,5 +1,7 @@
 package fr.irisa.diverse.Webserver;
 
+import fr.irisa.diverse.Core.Root;
+import fr.irisa.diverse.Webserver.Servlets.UploadServlet;
 import fr.irisa.diverse.Webserver.Servlets.WebsocketServlet;
 import fr.irisa.diverse.Webserver.Servlets.WorkspacesServlet;
 import org.eclipse.jetty.server.Handler;
@@ -10,6 +12,8 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+
+import javax.servlet.MultipartConfigElement;
 
 /**
  * A REST webserver that serves the static content and provides methods to discover the available workspaces.
@@ -25,9 +29,11 @@ public class Webserver implements Runnable {
 
     private final String SERVER_IP = "0.0.0.0";
     private final int SERVER_PORT = 8080;
+    private Root root;
 
     // Singleton methods
     public static Webserver getInstance () {
+
         if (instance == null) instance = new Webserver();
 
         return instance;
@@ -36,6 +42,7 @@ public class Webserver implements Runnable {
     // Constructor
     private Webserver () {
         // Do nothing
+        root = Root.getInstance();
     }
 
     public void run () {
@@ -64,6 +71,9 @@ public class Webserver implements Runnable {
         ServletContextHandler servlets = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servlets.setContextPath("/API");
         servlets.addServlet(new ServletHolder(new WorkspacesServlet()), "/workspaces/*");
+        ServletHolder uploadFileServletHolder = new ServletHolder(new UploadServlet());
+        uploadFileServletHolder.getRegistration().setMultipartConfig(new MultipartConfigElement(root.PATH_TO_WORKSPACE_STORAGE));
+        servlets.addServlet(uploadFileServletHolder, "/upload/*");
 
         // Create a websocket servlet handler
         ServletContextHandler socket = new ServletContextHandler(ServletContextHandler.SESSIONS);

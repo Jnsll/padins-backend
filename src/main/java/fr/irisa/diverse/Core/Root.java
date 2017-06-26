@@ -15,6 +15,7 @@ import java.util.*;
 public class Root {
     // Attributes
     private Map<String, Workspace> workspaces = null;
+    public final String PATH_TO_WORKSPACE_STORAGE = Root.class.getClassLoader().getResource("workspaces/").getPath();
 
     // Singleton object
     private static Root ourInstance = new Root();

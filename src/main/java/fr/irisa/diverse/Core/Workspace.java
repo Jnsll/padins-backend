@@ -40,7 +40,7 @@ public class Workspace {
     private String library = "hydro-geology";
     public final String RUNTIME_TYPE = "Computational Science";
     private final String pathToWorkspacesStorage = Workspace.class.getClassLoader().getResource("workspaces/").getPath();
-    private Path pathToFolder;
+    private Path pathToWorkspaceFolder;
     private final String FLOW_FILE_NAME = "flow.json";
 
     // Constructor
@@ -53,15 +53,15 @@ public class Workspace {
         this.executionHandlers = new Hashtable<>();
 
         // Create a folder for this workspace if not already existing
-        this.pathToFolder = Paths.get(URI.create("file:///" + pathToWorkspacesStorage + uuid));
+        this.pathToWorkspaceFolder = Paths.get(URI.create("file:///" + pathToWorkspacesStorage + uuid));
 
-        if (createFolder(this.pathToFolder)) {
+        if (createFolder(this.pathToWorkspaceFolder)) {
             // If the workspace's folder didn't exist we have created it.
             // So no flow.json existed, we create a new flow and a new UUID
             this.flow = new Flow(this);
         } else {
             // Otherwise we import the existing flow
-            JSONObject flowJSON = importFlowJSON(this.pathToFolder);
+            JSONObject flowJSON = importFlowJSON(this.pathToWorkspaceFolder);
             if (flowJSON != null) {
                 this.flow = new Flow(flowJSON, this);
                 this.name = (String) flowJSON.get("name");
@@ -202,11 +202,11 @@ public class Workspace {
 
     public void save () {
         // Make sure the workspace folder exist
-        createFolder(this.pathToFolder);
+        createFolder(this.pathToWorkspaceFolder);
 
         // Write the serialized Flow object
         System.out.println("Saving");
-        try (FileWriter file = new FileWriter(this.pathToFolder.toString() + "/" + FLOW_FILE_NAME)) {
+        try (FileWriter file = new FileWriter(this.pathToWorkspaceFolder.toString() + "/" + FLOW_FILE_NAME)) {
             file.write(flow.serialize());
             System.out.println("Successfully Copied Flow " + flow.getId() + " to File...");
         } catch (IOException e) {
@@ -248,6 +248,10 @@ public class Workspace {
 
     public Kernel getKernel (String nodeId) {
         return kernels.get(nodeId);
+    }
+
+    public Path getPathToWorkspaceFolder() {
+        return pathToWorkspaceFolder;
     }
 
     /*==================================================================================================================
