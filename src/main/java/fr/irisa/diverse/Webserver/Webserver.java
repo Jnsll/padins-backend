@@ -73,7 +73,7 @@ public class Webserver implements Runnable {
         servlets.addServlet(new ServletHolder(new WorkspacesServlet()), "/workspaces/*");
         ServletHolder uploadFileServletHolder = new ServletHolder(new UploadServlet());
         uploadFileServletHolder.getRegistration().setMultipartConfig(new MultipartConfigElement(root.PATH_TO_WORKSPACE_STORAGE));
-        servlets.addServlet(uploadFileServletHolder, "/upload/*");
+        servlets.addServlet(uploadFileServletHolder, "/file-manager/*");
 
         // Create a websocket servlet handler
         ServletContextHandler socket = new ServletContextHandler(ServletContextHandler.SESSIONS);

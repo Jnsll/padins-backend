@@ -101,6 +101,7 @@ public class FileExplorerMessageHandler implements MessageHandler.Whole<FBPMessa
             o.put("name", f.getName());
             if (f.isDirectory() && f.listFiles().length > 0) {
                 o.put("children", folderStructure(path + "/" + f.getName()));
+                o.put("isExpanded", true);
             } else if (f.isDirectory()) {
                 o.put("children", new JSONArray());
             }
