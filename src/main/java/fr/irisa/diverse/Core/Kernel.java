@@ -232,6 +232,12 @@ public class Kernel {
         // Add a few lines on top of the code to import the sendTheseDataToNextNodes function
         String codeToExecute = "import sys\nimport os\nimport pickle\nsys.path.append('/home/diverse/workspace')\n" +
                 "sys.path.append('/home/diverse/utils')\nfrom sendTheseDataToNextNodes import sendTheseDataToNextNodes\n\n";
+
+        // Add all the imports the user wrote
+        int lastImportIndex = code.lastIndexOf("import");
+        int indexForVarInjection = lastImportIndex + code.substring(lastImportIndex).indexOf("\n") + 1;
+        codeToExecute += code.substring(0, indexForVarInjection) + "\n";
+
         // Add the variables retrieved from the previous nodes
         JSONObject var = node.getPreviousNodesDataPickled();
         Set keys = var.keySet();
@@ -242,8 +248,8 @@ public class Kernel {
             codeToExecute += key + " = pickle.loads(" + var.get(key).toString() + ")\n";
         }
 
-        // Add the code the user typed
-        codeToExecute += code;
+        // Add the rest of the code the user typed
+        codeToExecute += "\n" + code.substring(indexForVarInjection);
 
         System.out.println("Executing code");
 

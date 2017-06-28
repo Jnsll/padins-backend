@@ -17,15 +17,18 @@ def jsonify (value):
     elif isinstance(value, list):
         res = '['
         for member in value:
-            res += jsonify(member) + ','
-        res += res[:-1] + ']'
+            if member is not None:
+                res += jsonify(member) + ','
+        res = res[:-1] + ']'
         return res
     elif isinstance(value, dict):
         res = '{'
         for key, item in value.items():
-            res += '"' + key + '": ' + jsonify(item) + ','
+            if item is not None :
+                res += '"' + key + '": ' + jsonify(item) + ','
         res = res[:-1] + '}'
         return res
+    elif value is None:
+        return ''
     else :
-        print(jsonify(value.__dict__))
         return jsonify(value.__dict__)

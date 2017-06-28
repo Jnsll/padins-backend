@@ -17,16 +17,18 @@ public class Main {
 
     public static void main (String[] args) throws Exception {
 
+        // Initialize and start webserver
+        webserver = Webserver.getInstance();
+        webserverThread = new Thread(webserver);
+        webserverThread.start();
+
         // Initialize Root
         root = Root.getInstance();
         Map<String, Workspace> workspaces = root.getWorkspaces();
 
         Set<String> keys = workspaces.keySet();
 
-        // Initialize and start webserver
-        webserver = Webserver.getInstance();
-        webserverThread = new Thread(webserver);
-        webserverThread.start();
+
 
     }
 }
