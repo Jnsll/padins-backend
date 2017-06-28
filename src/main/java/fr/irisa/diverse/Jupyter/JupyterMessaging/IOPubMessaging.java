@@ -102,7 +102,7 @@ class IOPubMessaging {
         JSONObject content = message.getContent();
         String stream = content.get("name").toString();
         String text = content.get("text").toString();
-        System.out.println(stream + " : " + text);
+        // System.out.println(stream + " : " + text);
 
         if (message.getParentHeader().get("msg_type").equals("execute_request")) {
             if (content.get("name").equals("stdout")) {

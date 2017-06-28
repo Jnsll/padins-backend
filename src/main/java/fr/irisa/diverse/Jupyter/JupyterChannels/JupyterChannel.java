@@ -2,6 +2,10 @@ package fr.irisa.diverse.Jupyter.JupyterChannels;
 
 import fr.irisa.diverse.Core.Kernel;
 import fr.irisa.diverse.Jupyter.JupyterMessaging.Manager;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;
@@ -233,6 +237,20 @@ public abstract class JupyterChannel implements Runnable {
             msg += "\nParent_header : " + incomingMessage.get(4);
             msg += "\nMetadata : " + incomingMessage.get(5);
             msg += "\nContent : " + incomingMessage.get(6);
+
+            if(incomingMessage.get(0).indexOf("error") != -1) {
+                JSONParser parser = new JSONParser();
+                try {
+                    JSONObject content = (JSONObject) parser.parse(incomingMessage.get(6));
+                    JSONArray traceback = (JSONArray) content.get("traceback");
+                    System.out.println("TRACEBACK");
+                    for(int i=0; i<traceback.size(); i++) {
+                        System.out.println(traceback.get(i));
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
 
         } else {
             // If not, we log all the received data, without any prefix

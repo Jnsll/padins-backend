@@ -1,11 +1,10 @@
 package fr.irisa.diverse.Flow;
 
 import org.json.simple.JSONObject;
-import static java.lang.Math.toIntExact;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Set;
 
 /**
  * A node correspond to a block on a flow-based program
@@ -25,6 +24,8 @@ public class Node implements Comparable<Node>{
     private Ports inports = null;
     private Ports outports = null;
     private boolean executable;
+
+    private JSONObject pickledResult = null;
 
     private long lastRun;
     private long lastModification;
@@ -104,11 +105,17 @@ public class Node implements Comparable<Node>{
         return metadata.get("code") == null ? "" : (String) metadata.get("code");
     }
 
-    public JSONObject getResult () {
+    public JSONObject getJsonResult() {
         return (JSONObject) this.metadata.get("result");
     }
 
-    public void setResult (JSONObject result) {
+    public JSONObject getPickledResult() { return pickledResult != null ? pickledResult : new JSONObject(); }
+
+    public void setPickledResult (JSONObject result) {
+        pickledResult = result;
+    }
+
+    public void setJsonResult(JSONObject result) {
         this.metadata.put("result", result);
         date = new Date();
         lastRun = date.getTime();
@@ -137,13 +144,13 @@ public class Node implements Comparable<Node>{
         }
     }
 
-    public JSONObject getPreviousNodesData () {
+    public JSONObject getPreviousNodesDataPickled() {
         JSONObject res = new JSONObject();
 
         ArrayList<Node> previousNodes = previousInFlow();
         if (previousNodes != null) {
             for(int i=0; i<previousNodes.size(); i++) {
-                JSONObject data = previousNodes.get(i).getResult();
+                JSONObject data = previousNodes.get(i).getPickledResult();
 
                 if (data != null) {
                     // Take each key => value pair in data and put it into res

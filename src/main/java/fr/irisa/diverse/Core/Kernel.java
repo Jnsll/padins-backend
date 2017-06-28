@@ -97,6 +97,8 @@ public class Kernel {
 
                 startChannels();
 
+                iopub.doLog(true);
+
                 // Create a message manager that will handle reaction to incoming messages
                 messagesManager = new Manager(this);
             }
@@ -149,6 +151,7 @@ public class Kernel {
         // Build an object containing the results associated with their variable
         JSONParser parser = new JSONParser();
         JSONObject res = new JSONObject();
+        JSONObject pickled = new JSONObject();
         if (result.length > 1) {
             // First skip the line until we meet the beginning line that is delimited by the identifier :
             // #BEGINNING OF DATA RETRIEVING
@@ -160,23 +163,48 @@ public class Kernel {
 
             if (beginningLineIndex < result.length) {
                 // Store each key, value pair after the delimiter
-                // A key is a line starting with "key " followed by the key. The next lines, until a new "key " contain
-                // the value
-                for(int i=beginningLineIndex+1; i<result.length; i++) {
+                // A typical line is :
+                //  key theKey
+                //  pickle thePickledValue
+                //  json theJsonifiedValue
+                //  their might be several lines to display a value, so we have to loop over the lines.
+                int i = beginningLineIndex+1;
+                while(i<result.length) {
                     // Retrieve the key
                     int firstIndexOfKey = 4;
                     while (result[i].charAt(firstIndexOfKey) == ' ') { firstIndexOfKey++; }
                     String key = result[i].substring(firstIndexOfKey);
                     i++;
-                    // Parse the result to store it with the right type
+
+                    // Retrieve the pickled value
+                    int firstIndexOfPickledValue = 6;
+                    while (result[i].charAt(firstIndexOfPickledValue) == ' ') { firstIndexOfPickledValue++; }
+                    String pickle = result[i].substring(firstIndexOfPickledValue);
+                    i++;
+
+                    // Retrieve the jsonified value
+                    int firstIndexOfJSON = 5;
+                    while (result[i].charAt(firstIndexOfJSON) == ' ') { firstIndexOfJSON++; }
+                    // Search for next occurence of key
+                    int lastLineOfJSON = i;
+                    while (lastLineOfJSON+1 < result.length && result[lastLineOfJSON+1].length() >= 3 && !result[lastLineOfJSON+1].substring(0,3).equals("key")) { lastLineOfJSON++; }
+
+                    String JSON = result[i].substring(firstIndexOfJSON);
+                    i++;
+                    while (i < result.length && i <= lastLineOfJSON) {
+                        i++;
+                        JSON += result[i];
+                    }
+
                     Object value = new Object();
                     try {
-                        value = parser.parse(result[i]);
+                        value = parser.parse(JSON);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
                     res.put(key, value);
+                    pickled.put(key, pickle);
             }
             }
         } else {
@@ -185,7 +213,8 @@ public class Kernel {
 
         // Tell the node to store the result
         Node linkedNode = owningWorkspace.getFlow().getNode(linkedNodeId, owningWorkspace.getUuid());
-        linkedNode.setResult(res);
+        linkedNode.setJsonResult(res);
+        linkedNode.setPickledResult(pickled);
 
 
     }
@@ -201,15 +230,16 @@ public class Kernel {
      */
     public void executeCode (String code, Node node) {
         // Add a few lines on top of the code to import the sendTheseDataToNextNodes function
-        String codeToExecute = "import sys\nimport os\nsys.path.append('/home/diverse/workspace')\n" +
+        String codeToExecute = "import sys\nimport os\nimport pickle\nsys.path.append('/home/diverse/workspace')\n" +
                 "sys.path.append('/home/diverse/utils')\nfrom sendTheseDataToNextNodes import sendTheseDataToNextNodes\n\n";
         // Add the variables retrieved from the previous nodes
-        JSONObject var = node.getPreviousNodesData();
+        JSONObject var = node.getPreviousNodesDataPickled();
         Set keys = var.keySet();
         Iterator<String> keysIterator = keys.iterator();
+
         while(keysIterator.hasNext()) {
             String key = keysIterator.next();
-            codeToExecute += key + " = " + var.get(key).toString() + "\n";
+            codeToExecute += key + " = pickle.loads(" + var.get(key).toString() + ")\n";
         }
 
         // Add the code the user typed
