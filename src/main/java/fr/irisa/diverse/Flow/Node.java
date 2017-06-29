@@ -105,6 +105,11 @@ public class Node implements Comparable<Node>{
         return metadata.get("code") == null ? "" : (String) metadata.get("code");
     }
 
+    public JSONObject getResult () {
+        if (isExecutable()) return getPickledResult();
+        else return getJsonResult();
+    }
+
     public JSONObject getJsonResult() {
         return (JSONObject) this.metadata.get("result");
     }
@@ -144,24 +149,39 @@ public class Node implements Comparable<Node>{
         }
     }
 
-    public JSONObject getPreviousNodesDataPickled() {
+    public JSONObject getPreviousNodesData() {
         JSONObject res = new JSONObject();
+        JSONObject pickled = new JSONObject();
+        JSONObject jsonified = new JSONObject();
 
         ArrayList<Node> previousNodes = previousInFlow();
         if (previousNodes != null) {
             for(int i=0; i<previousNodes.size(); i++) {
-                JSONObject data = previousNodes.get(i).getPickledResult();
+                JSONObject data = previousNodes.get(i).getResult();
 
                 if (data != null) {
-                    // Take each key => value pair in data and put it into res
-                    Iterator iterator = data.keySet().iterator();
-                    while(iterator.hasNext()) {
-                        String key = (String) iterator.next();
-                        res.put(key, data.get(key));
+                    if (previousNodes.get(i).isExecutable()) {
+                        // Take each key => value pair in data and put it into res
+                        Iterator iterator = data.keySet().iterator();
+                        while (iterator.hasNext()) {
+                            String key = (String) iterator.next();
+                            pickled.put(key, data.get(key));
+                        }
+
+                    } else {
+                        // Take each key => value pair in data and put it into res
+                        Iterator iterator = data.keySet().iterator();
+                        while (iterator.hasNext()) {
+                            String key = (String) iterator.next();
+                            jsonified.put(key, data.get(key));
+                        }
                     }
                 }
             }
         }
+
+        res.put("jsonified", jsonified);
+        res.put("pickled", pickled);
 
         return res;
     }
