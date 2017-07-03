@@ -99,12 +99,16 @@ public class Workspace {
      *
      * @return : the uuid of the kernel
      */
-    public String startNewKernel (String nodeId) {
-        Kernel k = new Kernel(nodeId, this);
+    public void startNewKernel (String nodeId) {
+        Runnable task = () -> {
+            Kernel k = new Kernel(nodeId, this);
 
-        kernels.put(nodeId, k);
+            kernels.put(nodeId, k);
+        };
 
-        return k.getContainerId();
+        Thread thread = new Thread(task);
+        thread.start();
+
     }
 
     /** Stop a running kernel. Commonly used when a node is removed
