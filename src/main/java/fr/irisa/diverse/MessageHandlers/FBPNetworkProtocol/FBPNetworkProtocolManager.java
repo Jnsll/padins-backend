@@ -1,7 +1,9 @@
 package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol;
 
+import fr.irisa.diverse.Core.Kernel;
 import fr.irisa.diverse.Core.Workspace;
 import fr.irisa.diverse.Webserver.Servlets.WebsocketOthers.ServerSocket;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import fr.irisa.diverse.Flow.*;
 
@@ -128,6 +130,16 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<FBPMessag
         payload.put("graph", node.getGraph());
 
         FBPMessage msg = new FBPMessage("graph", "changenode", payload.toJSONString());
+
+        sendToAll(msg);
+    }
+
+    public void handleTracebackFromKernel (JSONArray traceback, Kernel k) {
+        JSONObject payload = new JSONObject();
+        payload.put("node", owningWorkspace.getNodeIdForKernel(k));
+        payload.put("traceback", traceback);
+
+        FBPMessage msg = new FBPMessage("trace", "nodetraceback", payload.toJSONString());
 
         sendToAll(msg);
     }

@@ -256,6 +256,16 @@ public class Workspace {
         return pathToWorkspaceFolder;
     }
 
+    public String getNodeIdForKernel (Kernel k) {
+        Set<String> keys = kernels.keySet();
+        for (String key: keys) {
+            if (kernels.get(key).equals(k)) { return key; }
+            else { return ""; }
+        }
+
+        return "";
+    }
+
     /*==================================================================================================================
                                               PRIVATE CLASS METHODS
      =================================================================================================================*/

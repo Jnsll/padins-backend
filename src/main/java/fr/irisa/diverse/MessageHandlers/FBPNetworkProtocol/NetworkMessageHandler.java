@@ -92,11 +92,11 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
         boolean started = false;
 
         try {
+            // Send a network started message
+            sendStartedMessage(graph);
             // Start the graph
             owningManager.owningWorkspace.startGraph(graph);
             started = true;
-            // Send a network started message
-            sendStartedMessage(graph);
             // Wait for the run to finish
             while (owningManager.owningWorkspace.graphRunning(graph)) {
                 Thread.sleep(200);

@@ -2,6 +2,8 @@ package fr.irisa.diverse.Jupyter.JupyterMessaging;
 
 import fr.irisa.diverse.Core.Kernel;
 import fr.irisa.diverse.Jupyter.JupyterChannels.IOPubChannel;
+import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPMessage;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -61,8 +63,8 @@ class IOPubMessaging {
     private void handleErrorMessage(JupyterMessage message) {
         JSONObject content = message.getContent();
 
-        Long executionCount = (Long) content.get("execution_count");
-        if(executionCount != null && executionCount > kernel.getNbExecutions()) kernel.setNbExecutions(executionCount);
+        // Content contains ename, evalue and traceback
+        kernel.owningWorkspace.clientCommunicationManager.handleTracebackFromKernel((JSONArray) content.get("traceback"), this.kernel);
     }
 
     private void handleExecuteResultMessage(JupyterMessage message) {
@@ -114,6 +116,7 @@ class IOPubMessaging {
 
             }
         }
+
     }
 
 
