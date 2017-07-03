@@ -230,7 +230,7 @@ public class Kernel {
      */
     public void executeCode (String code, Node node) {
         // Add a few lines on top of the code to import the sendTheseDataToNextNodes function
-        String codeToExecute = "import sys\nimport os\nimport pickle\nsys.path.append('/home/diverse/workspace')\n" +
+        String codeToExecute = "import sys\nimport os\nimport pickle\nimport json\nsys.path.append('/home/diverse/workspace')\n" +
                 "sys.path.append('/home/diverse/utils')\nfrom sendTheseDataToNextNodes import sendTheseDataToNextNodes\n\n";
 
         // Add all the imports the user wrote
@@ -239,13 +239,24 @@ public class Kernel {
         codeToExecute += code.substring(0, indexForVarInjection) + "\n";
 
         // Add the variables retrieved from the previous nodes
-        JSONObject var = node.getPreviousNodesDataPickled();
-        Set keys = var.keySet();
-        Iterator<String> keysIterator = keys.iterator();
+        JSONObject var = node.getPreviousNodesData();
+        JSONObject jsonified = (JSONObject) var.get("jsonified");
+        JSONObject pickled = (JSONObject) var.get("pickled");
 
-        while(keysIterator.hasNext()) {
-            String key = keysIterator.next();
-            codeToExecute += key + " = pickle.loads(" + var.get(key).toString() + ")\n";
+        // Add all pickled variables
+        Set pkeys = pickled.keySet();
+        Iterator<String> pkeysIterator = pkeys.iterator();
+        while(pkeysIterator.hasNext()) {
+            String key = pkeysIterator.next();
+            codeToExecute += key + " = pickle.loads(" + pickled.get(key).toString() + ")\n";
+        }
+
+        // Add all jsonified variables
+        Set jkeys = jsonified.keySet();
+        Iterator<String> jkeysIterator = jkeys.iterator();
+        while(jkeysIterator.hasNext()) {
+            String key = jkeysIterator.next();
+            codeToExecute += key + " = json.loads(" + jsonified.get(key).toString() + ")\n";
         }
 
         // Add the rest of the code the user typed

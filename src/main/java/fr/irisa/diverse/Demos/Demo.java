@@ -41,10 +41,10 @@ public class Demo {
         FBPMessage startFlow = new FBPMessage("network", "start", "{\"graph\":\"" + workspace.getUuid() + "\"}");
         manager.onMessage(startFlow);
 
-        /*System.out.println("\nSTEP 6 : Create a Processing node which contains a code 8+5");
+        System.out.println("\nSTEP 6 : Create a Processing node which contains a code 8+5");
         FBPMessage createNode3 = new FBPMessage("graph", "addnode", "{\"id\":\"819846731\", \"component\":\"Processing\", \"metadata\":{\"code\":\"8+5\"}, \"graph\":\""  + workspace.getUuid() + "\"}");
         manager.onMessage(createNode3.toJSONString());
-
+        /*
         Thread.sleep(1000);
 
         System.out.println("\nSTEP 7 : Run Processing block's code");
@@ -95,6 +95,7 @@ public class Demo {
                 for(int i= 0; i< workspaces.size(); i++) {
                     System.out.println("Shutting down kernel for workspace" + i);
                     workspaces.get(i).stopKernels();
+                    workspaces.get(i).save();
                 }
             }
         };
