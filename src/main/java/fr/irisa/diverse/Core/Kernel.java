@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The kernel is the element that runs the python code and decide when it is nedded to inform every interface
+ * The kernel is the element that runs the python code and decide when it is needed to inform every interface
  * of the executed code, the result, that it is busy, idle, etc.
  *
  * 5 channels are used to communicate with the fr.irisa.diverse.Core.Kernel
@@ -123,7 +123,7 @@ public class Kernel {
     }
 
     /**
-     * Stop the execution of kernel, no the container
+     * Stop the execution of kernel, not the container
      */
     public void stopExecution () {
         // TODO
@@ -188,7 +188,7 @@ public class Kernel {
                     // Search for next occurence of key
                     int lastLineOfJSON = i;
                     while (lastLineOfJSON+1 < result.length && result[lastLineOfJSON+1].length() >= 3 && !result[lastLineOfJSON+1].substring(0,3).equals("key")) { lastLineOfJSON++; }
-
+                    // Add each line of JSON data into a String.
                     String JSON = result[i].substring(firstIndexOfJSON);
                     i++;
                     while (i < result.length && i <= lastLineOfJSON) {
@@ -196,6 +196,7 @@ public class Kernel {
                         JSON += result[i];
                     }
 
+                    // Jsonify the read line.
                     Object value = new Object();
                     try {
                         value = parser.parse(JSON);
@@ -203,6 +204,7 @@ public class Kernel {
                         e.printStackTrace();
                     }
 
+                    // Store the JSON and the pickle in the res object
                     res.put(key, value);
                     pickled.put(key, pickle);
             }

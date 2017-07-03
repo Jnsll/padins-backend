@@ -9,7 +9,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
- * Handle the execution of one group or flow.
+ * Handle the execution of one group or flow. A group or flow is composed of several nodes. One node is one block on
+ * the UI.
  *
  * You have to create one instance of this class per flow you want to run.
  * Then, when you want to run a flow, it works has following :
@@ -19,10 +20,10 @@ import java.util.concurrent.ConcurrentSkipListSet;
  *      Beside that, we have a master that look at each node in the Set and run it if possible.
  *      The execution of a node is done in a new thread.
  *      After starting the execution of a node, it put the thread into a Running Set.
- *      When the execution of a Node in a thread finish, it adds the nodes following the one that just runned into the
+ *      When the execution of a Node in a thread finishes, it adds the nodes following the one that just runned into the
  *      toLaunch Set.
- *      In order to run a node, the master verify that every dependency have finished their execution. If not, it continues
- *      going through the Set, looking for nodes that can run.
+ *      In order to run a node, the master verify that its dependencies have finished their own execution.
+ *      If not, it continues going through the Set, looking for nodes that can be launched.
  *      When both Set (toLaunch and running) are empty, we stop the master and the execution of the flow is finished.
  *
  * Created by antoine on 02/06/17.
@@ -37,6 +38,7 @@ public class FlowExecutionHandler {
 
     private Set<Node> toLaunch;
     private Set<NodeExecutionThread> running;
+    private Map<Node, NodeExecutionThread> runningMap;
     private boolean stop;
 
     /*==================================================================================================================
@@ -47,6 +49,7 @@ public class FlowExecutionHandler {
         this.flow = flow;
         this.toLaunch = new ConcurrentSkipListSet<>();
         this.running = new ConcurrentSkipListSet<>();
+        this.runningMap = new HashMap<>();
         this.stop = false;
 
         Object o = flow.getGraph(graph);
@@ -96,7 +99,7 @@ public class FlowExecutionHandler {
      * @param t : the Thread that finished.
      */
     public void runningThreadFinished (Thread t) {
-        running.remove(t);
+        removeThread(t);
     }
 
     /*==================================================================================================================
@@ -115,9 +118,9 @@ public class FlowExecutionHandler {
      =================================================================================================================*/
 
     /**
-     * Actually starts the flow to execute.
+     * Starts the flow to execute.
      *
-     * It starts with retrieve the first nodes to execute.
+     * It begins with retrieving the first nodes to execute.
      * Then put them into the toLaunch set and start doing the master job, as described above.
      */
     private void runNodes () {
@@ -132,7 +135,7 @@ public class FlowExecutionHandler {
         // Tell the status that we started
         status.start();
 
-        // Start a while that look at the toLaunch list and start running a Node as soon as possible.
+        // Start a while loop that look at the toLaunch list and start running a Node as soon as possible.
         while ((!toLaunch.isEmpty() || !running.isEmpty()) && !stop) {
             for (Node n : toLaunch) {
                 System.out.println("\nNode " + n.getComponent() + " will be launched");
@@ -157,20 +160,33 @@ public class FlowExecutionHandler {
     private void stopNodes (ArrayList<Node> nodes) {
         // First : set stop to true to stop the while in runNodes
         this.stop = true;
-        // Second : interrupt the Thread and remove them from the set.
+        // Second : interrupt the Thread and remove them from the instance.
         for (Thread t : running) {
             t.interrupt();
-            running.remove(t);
+            removeThread(t);
         }
 
         // Third : make sure the nodes have been stopped
         for (Node n : nodes) {
+            toLaunch.remove(n);
             owningWorkspace.stopNode(n);
         }
+    }
 
-        // Finally empty the toLaunch set
-        toLaunch = new ConcurrentSkipListSet<>();
-        running = new ConcurrentSkipListSet<>();
+    /**
+     * Remove a given thread from everywhere it is stored in the class.
+     *
+     * @param t : the Thread to remove
+     */
+    private void removeThread (Thread t) {
+        // Remove the thread in the runningMap
+        Set<Node> keys = runningMap.keySet();
+        for (Node n : keys) {
+            if (runningMap.get(n).equals(t)) { runningMap.remove(n, t); }
+        }
+
+        // Remove the thread in the running set
+        running.remove(t);
     }
 
     private void prepareNodesForExecution () {
