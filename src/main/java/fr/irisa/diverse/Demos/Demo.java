@@ -43,7 +43,7 @@ public class Demo {
 
         System.out.println("\nSTEP 6 : Create a Processing node which contains a code 8+5");
         FBPMessage createNode3 = new FBPMessage("graph", "addnode", "{\"id\":\"819846731\", \"component\":\"Processing\", \"metadata\":{\"code\":\"8+5\"}, \"graph\":\""  + workspace.getUuid() + "\"}");
-        manager.onMessage(createNode3.toJSONString());
+        // manager.onMessage(createNode3.toJSONString());
         /*
         Thread.sleep(1000);
 

@@ -236,13 +236,16 @@ public abstract class JupyterChannel implements Runnable {
             msg += "\nHeader : " + incomingMessage.get(3);
             msg += "\nParent_header : " + incomingMessage.get(4);
             msg += "\nMetadata : " + incomingMessage.get(5);
-            // msg += "\nContent : " + incomingMessage.get(6); TODO : TEMPORARY
+            if (incomingMessage.get(6).length() < 1000) {
+                msg += "\nContent : " + incomingMessage.get(6);
+            }
 
             if(incomingMessage.get(0).indexOf("error") != -1) {
                 JSONParser parser = new JSONParser();
                 try {
                     JSONObject content = (JSONObject) parser.parse(incomingMessage.get(6));
                     JSONArray traceback = (JSONArray) content.get("traceback");
+                    System.out.println(incomingMessage.get(6));
                     System.out.println("TRACEBACK");
                     for(int i=0; i<traceback.size(); i++) {
                         System.out.println(traceback.get(i));
