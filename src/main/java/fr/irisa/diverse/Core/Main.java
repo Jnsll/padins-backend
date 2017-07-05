@@ -6,6 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Unique main of the project.
+ *
+ * Its role is to initialize the project. It creates a Root instance and start the webserver.
+ *
  * Created by antoine on 06/06/17.
  */
 public class Main {
@@ -27,8 +31,6 @@ public class Main {
         Map<String, Workspace> workspaces = root.getWorkspaces();
 
         Set<String> keys = workspaces.keySet();
-
-
 
     }
 }

@@ -134,6 +134,12 @@ public class Workspace {
         }
     }
 
+    /**
+     * Start the execution of a given graph.
+     *
+     * @param graph : the id of the graph. Can be the full flow or a group.
+     * @throws NotExistingGraphException
+     */
     public void startGraph (String graph) throws NotExistingGraphException {
         // Check if an execution handler is associated to this graph
         executionHandlers.computeIfAbsent(graph, k -> new FlowExecutionHandler(graph, this, this.flow));
@@ -142,6 +148,11 @@ public class Workspace {
         executionHandler.run();
     }
 
+    /**
+     * Stop a running graph
+     *
+     * @param graph : the id of the graph. Can be the full flow or a group.
+     */
     public void stopGraph (String graph) {
         // Check if an execution handler is associated to this graph
         FlowExecutionHandler executionHandler = executionHandlers.get(graph);
@@ -149,6 +160,12 @@ public class Workspace {
         executionHandler.stop();
     }
 
+    /**
+     * Is a graph running ?
+     *
+     * @param graph : the id of the graph. Can be the full flow or a group.
+     * @return true if the execution of the graph is running.
+     */
     public boolean graphRunning (String graph) {
         // Check if an execution handler is associated to this graph
         FlowExecutionHandler executionHandler = executionHandlers.get(graph);
@@ -157,6 +174,11 @@ public class Workspace {
         else return executionHandler.isRunning();
     }
 
+    /**
+     * Launch the execution of a given node.
+     *
+     * @param node : the node to execute.
+     */
     public void executeNode (Node node) {
         if (node.isExecutable()) {
             // If the node is running, we wait for it to stop
@@ -176,6 +198,11 @@ public class Workspace {
         }
     }
 
+    /**
+     * Stop the execution of a given node.
+     *
+     * @param node : the node to stop.
+     */
     public void stopNode (Node node) {
         // We do it only if the node is running. Otherwise, it is not necessary.
         if (isNodeRunning(node.getId())) {
@@ -184,6 +211,12 @@ public class Workspace {
         }
     }
 
+    /**
+     * Is a given node running ?
+     *
+     * @param nodeId : the id of the node
+     * @return True if the node is running
+     */
     public boolean isNodeRunning (String nodeId) {
         // First retrieve the node
         Node n = flow.getNode(nodeId, uuid);
@@ -198,10 +231,20 @@ public class Workspace {
         }
     }
 
+    /**
+     * Handle an error returned by the Jupyter kernel.
+     * It sends an error message to the connected UIs.
+     *
+     * @param error : the error sent by the kernel.
+     */
     public void errorFromKernel (String error) {
         clientCommunicationManager.sendErrorToAll("NETWORK", "[ERROR JUPYTER] " + error);
     }
 
+    /**
+     * Save the workspace, storing the full flow as a json file in the workspace folder on the HD.
+     * Each workspace has its own folder on the HD.
+     */
     public void save () {
         // Make sure the workspace folder exist
         createFolder(this.pathToWorkspaceFolder);
@@ -216,6 +259,10 @@ public class Workspace {
         }
     }
 
+    /**
+     * Send a message to the UI containing the modifications done on the given node.
+     * @param node : the node for which you want to send the information to the UIs.
+     */
     public void sendUpdateNodeMessage (Node node) {
         this.clientCommunicationManager.sendUpdateNodeMessage(node);
     }
@@ -224,26 +271,54 @@ public class Workspace {
                                                 GETTERS AND SETTERS
      =================================================================================================================*/
 
+    /**
+     * Get the name of the workspace. The name is defined by the end-user.
+     * @return the name of the workspace.
+     */
     public String getName () {
         return this.name;
     }
 
+    /**
+     * Change the name of the workspace to the given value.
+     * @param name the new name of the workspace
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the list of the connected clients.
+     * @return the list of connected clients as an array of ServerSocket.
+     */
     public ArrayList<ServerSocket> getConnectedClients() {
         return connectedClients;
     }
 
+    /**
+     * Get the library of components used in this workspace.
+     *
+     * @return the name of the library.
+     */
     public String getLibrary() {
         return library;
     }
 
+    /**
+     * Get the unique id of the workspace.
+     *
+     * @return the uuid.
+     */
     public String getUuid() {
         return uuid;
     }
 
+    /**
+     * Get the flow designed by the user. The flow is the bunch of components (nodes), linked with edges that
+     * described the process the user wants to study/simulate.
+     *
+     * @return the Flow instance
+     */
     public Flow getFlow() {
         return flow;
     }
@@ -252,6 +327,11 @@ public class Workspace {
         return kernels.get(nodeId);
     }
 
+    /**
+     * Get the absolute path to the workspace folder on the machine.
+     *
+     * @return the path of the workspace
+     */
     public Path getPathToWorkspaceFolder() {
         return pathToWorkspaceFolder;
     }
@@ -270,6 +350,12 @@ public class Workspace {
                                               PRIVATE CLASS METHODS
      =================================================================================================================*/
 
+    /**
+     * Import a flow as a JSONObject from the given folder. The flow file must be named flow.json
+     *
+     * @param pathToFolder the path to the folder containing the flow.
+     * @return a JSONObject containing the flow.
+     */
     private JSONObject importFlowJSON (Path pathToFolder) {
         // Create a JSONParser to parse the content of the file
         JSONParser parser = new JSONParser();
@@ -289,6 +375,12 @@ public class Workspace {
         }
     }
 
+    /**
+     * Create the folder of the workspace.
+     *
+     * @param path the path to folder in which you want to create the folder.
+     * @return True if the folder exists after this method run.
+     */
     private boolean createFolder (Path path) {
         if (Files.notExists(path)) {
             // If the folder doesn't already exists we create it
@@ -302,7 +394,7 @@ public class Workspace {
                 return false;
             }
         } else {
-            return false;
+            return true;
         }
     }
 
@@ -310,6 +402,9 @@ public class Workspace {
                                                     EXCEPTION CLASSES
        ===============================================================================================================*/
 
+    /**
+     * Exception indicating that the graph to run doesn't exist.
+     */
     public class NotExistingGraphException extends Exception {
         public NotExistingGraphException(String graph) {
             super("[ERROR] Impossible to run the graph " + graph + ", because it doesn't exist");

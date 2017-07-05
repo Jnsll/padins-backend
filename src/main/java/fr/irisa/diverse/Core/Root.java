@@ -6,9 +6,8 @@ import java.io.File;
 import java.util.*;
 
 /**
- * This is the Root of the project that initialize everything in order to make this program running properly.
- *
- * To be sure there is only one Root we made it a singleton.
+ * This is the Root singleton of the project that loads the workspaces on startup and is used across the project
+ * to manage the workspaces.
  *
  * Created by antoine on 25/05/2017.
  */
@@ -27,6 +26,7 @@ public class Root {
 
     // Constructor
     private Root() {
+        // Instantiate the workspaces Map
         workspaces = new Hashtable<>();
 
         loadStoredWorkspaces();
@@ -99,10 +99,14 @@ public class Root {
                                                 SETTERS AND GETTERS
      =================================================================================================================*/
 
+    /**
+     * @return the Map of Name <-> Workspace instance
+     */
     public Map<String, Workspace> getWorkspaces() {
-        loadStoredWorkspaces();
-
-        Utils.wait(50);
+        if (workspaces != null && workspaces.isEmpty()) {
+            loadStoredWorkspaces();
+            Utils.wait(50);
+        }
 
         return workspaces;
     }
@@ -111,6 +115,10 @@ public class Root {
                                               PRIVATE CLASS METHODS
      =================================================================================================================*/
 
+    /**
+     * Import  a workspace with the given uuid
+     * @param uuid the unique id of the workspace to import.
+     */
     private void importWorkspace (String uuid) {
         // Verify that the workspace doesn't already exist
         if (workspaces.get(uuid) == null) {
@@ -122,7 +130,13 @@ public class Root {
         }
     }
 
+    /**
+     * Load all the workspaces stored on the HD and store them in the
+     * workspaces attribute of the class.
+     */
     private void loadStoredWorkspaces () {
+        if (workspaces == null) { workspaces = new HashMap<>(); }
+
         final String workspacesPath = Root.class.getClassLoader().getResource("workspaces/").getPath();
         // First : load the list of folder in the ressources/workspaces folder
         File dir = new File(workspacesPath);
