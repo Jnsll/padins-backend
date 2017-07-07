@@ -116,8 +116,13 @@ public class Workspace {
      * @param nodeId : the nodeId linked to the kernel
      */
     public void stopKernel (String nodeId) {
-        Kernel kernel = kernels.get(nodeId);
-        if(kernel != null) kernel.stop();
+        Runnable task = () -> {
+            Kernel kernel = kernels.get(nodeId);
+            if(kernel != null) kernel.stop();
+        };
+
+        Thread thread = new Thread(task);
+        thread.start();
     }
 
     /**

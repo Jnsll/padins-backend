@@ -162,6 +162,7 @@ public abstract class JupyterChannel implements Runnable {
      */
     public void stop() throws InterruptedException {
         if(thread != null && !thread.isInterrupted()) {
+            context.term();
             thread.interrupt();
 
             while(!thread.isInterrupted()) {

@@ -104,6 +104,7 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
                 }
                 // After it finishes : send a Stopped message
                 sendStoppedMessage(graph);
+                System.out.println("Simulation finished");
 
             } catch (Workspace.NotExistingGraphException e) {
                 if (started) {
