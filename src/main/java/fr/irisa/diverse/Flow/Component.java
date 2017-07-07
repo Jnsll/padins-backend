@@ -4,13 +4,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
- * A component is an element that turns to be a Node we used on the UI.
- * It is something close to the notion of Class in object-oriented programming. It can be used to do a Node but not
- * alone.
+ * A component is something close to the notion of Class in object-oriented programming.
+ * Its instance is a Node.
  *
- * A component is a concept of Flow-Based Programming.
+ * A component is a concept of Flow-Based Programming and its fields are imposed by the FBP.
  *
- * There is a library that contains all the component a given workspace can use.
+ * There is a library that contains all the components a given workspace can use.
+ * This library is in resources/WebUIComponents
  *
  * Created by antoine on 29/05/17.
  */
@@ -28,22 +28,28 @@ public class Component {
     private String tests = "";
     private boolean executable;
 
-    private JSONObject originalJsonObject;
-
     /* =================================================================================================================
                                                     CONSTRUCTOR
        ===============================================================================================================*/
     Component (JSONObject json, String library) {
-        this.originalJsonObject = json;
+        // Initialize the JSONObject that will store the component informations
         component = new JSONObject();
+
+        // Store the library name, the name of the component and its description.
+        // It is FBP compliant.
         this.fromLibrary = library;
         this.name = library + "/" + json.get("name");
         this.description = (String) json.get("description");
 
+        // Retrieve the language, code and tests information from the file.
         if(json.get("langague") != null) this.language = (String) json.get("language");
         if(json.get("code") != null) this.code = (String) json.get("code");
         if(json.get("tests") != null) this.tests = (String) json.get("tests");
+
+        // Retrieve the information about whether it is an executable component or not.
         this.executable = json.get("executable") != null && (boolean) json.get("executable");
+
+        // Retrieve the list of inports and outports of the component.
         if(json.get("inports") == null || !(json.get("inports") instanceof JSONArray)) inports = new JSONArray();
         else {
             this.inports = (JSONArray) json.get("inports");

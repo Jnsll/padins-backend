@@ -10,7 +10,18 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 
-/** A flow is the JSON file containing all the data structure of a workspace.
+/**
+ * The Flow is the main data structure of the project.
+ *
+ * It contains the graph, that is the ensemble of elements that describe the process that the user
+ * wants to execute/simulate. This process is composed of nodes, connected with edges.
+ *
+ * The flow also contains groups, that are some subgraph of the graph. They are used to let the user
+ * simulate some part of the graph instead of everything.
+ *
+ * Beside that, the flow contains the library of components available.
+ *
+ * We represent and store the flow as a JSON file.
  * The web interface uses it, and only it, to create the view.
  *
  * Created by antoine on 26/05/2017.
@@ -29,7 +40,10 @@ public class Flow implements FlowInterface {
     private ArrayList<Group> groups = null;
     private Status status = null;
 
-    // Constructor
+    /* =================================================================================================================
+                                                CONSTRUCTORS
+       ===============================================================================================================*/
+
     public Flow (Workspace workspace) {
         this.id = workspace.getUuid();
         this.owningWorkspace = workspace;
@@ -44,8 +58,8 @@ public class Flow implements FlowInterface {
         this.status = new Status();
     }
 
-    /** Constructor that creates a fr.irisa.diverse.Flow from a JSONObject.
-     * Use case : after server restart, re-create workspaces from the saved JSON files.
+    /** Constructor that creates a Flow from a JSONObject.
+     * Use case : after server restart, re-create workspaces' flows from the saved JSON files.
      *
      * @param source : the parsed file
      */
@@ -126,6 +140,20 @@ public class Flow implements FlowInterface {
         return flow.toJSONString();
     }
 
+    /**
+     * Build the Json object with the following structure
+     *
+     * {
+     *     'id': string,
+     *     'name': string,
+     *     'library': string,
+     *     'description': string,
+     *     'edges': Edge[],
+     *     'nodes': Node[],
+     *     'groups': Group[]
+     * }
+     *
+     */
     private void buildObject() {
         // Preliminary step : build JSONArray for edges, nodes and groups
         JSONArray edges = JSON.jsonArrayFromArrayList(this.edges);
@@ -141,6 +169,16 @@ public class Flow implements FlowInterface {
         flow.put("groups", groups);
     }
 
+    /**
+     * Add a new node onto the graph
+     *
+     * @param id The id of the node
+     * @param component The component of the node
+     * @param metadata The metadata object of the node
+     * @param graph The graph in which to add the node
+     * @param executable Whether the node is executable or not
+     * @return True if added
+     */
     public boolean addNode(String id, String component, JSONObject metadata, String graph, boolean executable) {
         if (graphExist(graph) && !nodeExist(id)){
             Node n = new Node(id, component, metadata, graph, executable, this);
@@ -151,6 +189,13 @@ public class Flow implements FlowInterface {
         return false;
     }
 
+    /**
+     * Remove an existing node from the graph.
+     *
+     * @param id The id of the node to remove
+     * @param graph The graph from which to remove the node
+     * @return True if removed
+     */
     public boolean removeNode(String id, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && nodeExist(id)) {
@@ -162,6 +207,14 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Change the id of a node
+     *
+     * @param from : the previous id
+     * @param to : the new id
+     * @param graph : the graph where the node is
+     * @return True if successfully done
+     */
     public boolean renameNode(String from, String to, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && nodeExist(from)) {
@@ -174,6 +227,14 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Update the metadata of a node.
+     *
+     * @param id the id of the node
+     * @param metadata the new metadata
+     * @param graph the graph where the node is
+     * @return True if successfully done
+     */
     public boolean changeNode(String id, JSONObject metadata, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && nodeExist(id)) {
@@ -186,6 +247,16 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Add an edge, connecting two nodes on the graph.
+     *
+     * @param id the id of the new edge
+     * @param src the src node of the edge
+     * @param tgt the tgt node of the edge
+     * @param metadata the metadata of the edge
+     * @param graph the graph where the edge is
+     * @return True if added
+     */
     public boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph) {
         String srcNodeId = (String) src.get("node");
         String tgtNodeId = (String) tgt.get("node");
@@ -206,6 +277,15 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Remove an existing edge from the graph.
+     *
+     * @param id the id of the edge
+     * @param graph the graph where the edge is
+     * @param src the src node of the edge
+     * @param tgt the tgt node of the edge
+     * @return True if removed
+     */
     public boolean removeEdge(String id, String graph, JSONObject src, JSONObject tgt) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && edgeExist(src, tgt)) {
@@ -217,6 +297,16 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Modify the src, tgt and metadata of an edge
+     *
+     * @param id the unique id of the edge
+     * @param graph the graph where the edge is
+     * @param metadata the new metadata of the edge
+     * @param src the new src object of the edge
+     * @param tgt the tgt object of the edge
+     * @return True if changed
+     */
     public boolean changeEdge(String id, String graph, JSONObject metadata, JSONObject src, JSONObject tgt) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && edgeExist(id)) {
@@ -271,6 +361,15 @@ public class Flow implements FlowInterface {
         return true;
     }
 
+    /**
+     * Create a new group that is a kind of subgraph user can run independently.
+     *
+     * @param name the name of the new group
+     * @param nodes the nodes in this group
+     * @param metadata the metadata of the new group
+     * @param graph the graph where the group is (can be another group)
+     * @return
+     */
     public boolean addGroup(String name, JSONArray nodes, JSONObject metadata, String graph) {
         if(graphExist(graph) && !groupExist(name)){
             Group g = new Group(name, nodes, metadata, graph, this);
@@ -282,6 +381,13 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Remove an existing group
+     *
+     * @param name name of the group to delete
+     * @param graph the graph where the group is
+     * @return
+     */
     public boolean removeGroup(String name, String graph) {
         if(graphExist(graph) && groupExist(name)) {
             groups.remove(indexOfGroup(name));
@@ -291,6 +397,14 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Rename a group.
+     *
+     * @param from the old name
+     * @param to the new name
+     * @param graph the graph where the group is
+     * @return
+     */
     public boolean renameGroup(String from, String to, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && groupExist(from)) {
@@ -303,6 +417,14 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Change the metadata of a group.
+     *
+     * @param name name of the group
+     * @param metadata new metadata of the group
+     * @param graph the graph where the group is
+     * @return
+     */
     public boolean changeGroup(String name, JSONObject metadata, String graph) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && groupExist(name)) {
@@ -356,6 +478,9 @@ public class Flow implements FlowInterface {
         return id;
     }
 
+    /**
+     * @return the flow as JSONObject
+     */
     public JSONObject getFlowObject () {
         if (this.flow == null) {
             this.flow = new JSONObject();
@@ -365,6 +490,14 @@ public class Flow implements FlowInterface {
     }
 
 
+    /**
+     * Get an edge from its source and target nodes
+     *
+     * @param src the source node of the edge. Src format is : {node: string(id), port: string}
+     * @param tgt the target node of the edge. Tgt format is : {node: string(id), port: string}
+     * @param graph the graph where the edge is supposed to be
+     * @return the Edge if found, null if not
+     */
     public Edge getEdge (JSONObject src, JSONObject tgt, String graph) {
         if (graphExist(graph) && edgeExist(src, tgt)) {
             return edges.get(indexOfEdge(src, tgt));
@@ -373,6 +506,11 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Get an edge from its id
+     * @param id the id of the edge
+     * @return the Edge if found, null if not
+     */
     public Edge getEdge (String id) {
         // Look at each edge and if its id is the same as the given one, returns it.
         for (int i=0; i<edges.size(); i++) {
@@ -382,10 +520,19 @@ public class Flow implements FlowInterface {
         return null;
     }
 
+    /**
+     * @return the list of nodes
+     */
     public ArrayList<Node> getNodes() {
         return nodes;
     }
 
+    /**
+     * Get the list of nodes of a given group.
+     *
+     * @param g the group
+     * @return the list of nodes that are in the given group
+     */
     public ArrayList<Node> getNodes (Group g) {
         JSONArray nodesId = g.getNodes();
         ArrayList<Node> res = new ArrayList<>();
@@ -398,6 +545,13 @@ public class Flow implements FlowInterface {
         return res;
     }
 
+    /**
+     * Get a node
+     *
+     * @param id the id of the node
+     * @param graph the graph where the node is
+     * @return the Node if found, null if not
+     */
     public Node getNode (String id, String graph) {
         if (graphExist(graph) && nodeExist(id)) {
             return nodes.get(indexOfNode(id));
@@ -406,6 +560,13 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Get a group
+     *
+     * @param name the name of the group
+     * @param graph the graph where the Group is
+     * @return the Group if found, null if not
+     */
     public Group getGroup (String name, String graph) {
         if (graphExist(graph) && groupExist(name)) {
             return groups.get(indexOfGroup(name));
@@ -414,6 +575,12 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Get a graph
+     *
+     * @param graph the id of the graph
+     * @return the graph as an object that can be Flow or Group
+     */
     public Object getGraph (String graph) {
         if (graph.equals(id)) return this;
         else {
@@ -422,10 +589,19 @@ public class Flow implements FlowInterface {
         }
     }
 
+    /**
+     * Set the description of the flow/project.
+     *
+     * @param description the new description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Get the status of the Flow
+     * @return the Status instance
+     */
     public Status getStatus() {
         return status;
     }
@@ -434,6 +610,12 @@ public class Flow implements FlowInterface {
                                                     PRIVATE FUNCTIONS
        ===============================================================================================================*/
 
+    /**
+     * Test whether a node exists or not
+     *
+     * @param id the id of the node
+     * @return True if the node exists
+     */
     private boolean nodeExist (String id) {
         // Go trough all the nodes and if it finds one with the given id return true, else return false
         for (Node node : nodes) {
@@ -443,14 +625,33 @@ public class Flow implements FlowInterface {
         return false;
     }
 
+    /**
+     * Test whether an edge exists or not
+     *
+     * @param src the source node of the edge. Src format is : {node: string(id), port: string}
+     * @param tgt the target node of the edge. Tgt format is : {node: string(id), port: string}
+     * @return True if exists
+     */
     private boolean edgeExist (JSONObject src, JSONObject tgt) {
         return indexOfEdge(src, tgt) != -1;
     }
 
+    /**
+     * Test whether an edge exists or not
+     *
+     * @param id the id of the edge
+     * @return True if exists
+     */
     private boolean edgeExist(String id) {
         return indexOfEdge(id) != -1;
     }
 
+    /**
+     * Test whether a graph exists or not
+     *
+     * @param id the id of the graph
+     * @return True if exists
+     */
     private boolean graphExist (String id) {
         if (this.id.equals(id)) return true;
 
@@ -461,6 +662,12 @@ public class Flow implements FlowInterface {
         return false;
     }
 
+    /**
+     * Test whether a group exists or not
+     *
+     * @param name the name of the group
+     * @return True if exists
+     */
     private boolean groupExist (String name) {
         if (this.groups == null) return false;
 
@@ -471,6 +678,13 @@ public class Flow implements FlowInterface {
         return false;
     }
 
+    /**
+     * Get the index of an edge in the edges array
+     *
+     * @param src the source node of the edge. Src format is : {node: string(id), port: string}
+     * @param tgt the target node of the edge. Tgt format is : {node: string(id), port: string}
+     * @return the index of the edge, -1 if not in edges
+     */
     private int indexOfEdge (JSONObject src, JSONObject tgt) {
         for(int i=0; i<edges.size(); i++) {
             if (edges.get(i).getSrc().equals(src) && edges.get(i).getTgt().equals(tgt)) return i;
@@ -479,6 +693,12 @@ public class Flow implements FlowInterface {
         return -1;
     }
 
+    /**
+     * Get the index of an edge in the edges array
+     *
+     * @param id the id of the edge
+     * @return the index of the edge, -1 if not in edges
+     */
     private int indexOfEdge (String id) {
         for(int i=0; i<edges.size(); i++) {
             if (edges.get(i).getId().equals(id)) return i;
@@ -487,6 +707,12 @@ public class Flow implements FlowInterface {
         return -1;
     }
 
+    /**
+     * Get the index of a node in the nodes array
+     *
+     * @param id the id of the node
+     * @return the index of the node, -1 if not in nodes
+     */
     private int indexOfNode (String id) {
         for(int i=0; i<nodes.size(); i++) {
             if (nodes.get(i).getId().equals(id)) return i;
@@ -495,6 +721,12 @@ public class Flow implements FlowInterface {
         return -1;
     }
 
+    /**
+     * Get the index of a group in the groups array
+     *
+     * @param name the name of the group
+     * @return the index of the group, -1 if not in groups
+     */
     private int indexOfGroup (String name) {
         for(int i=0; i<groups.size(); i++) {
             if (groups.get(i).getName().equals(name)) return i;

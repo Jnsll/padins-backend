@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * A Utils class to make easier retrieving components and its inports and outports.
+ * A Utils class to make easier retrieving components and their inports and outports.
  *
  * Created by antoine on 29/05/17.
  */
