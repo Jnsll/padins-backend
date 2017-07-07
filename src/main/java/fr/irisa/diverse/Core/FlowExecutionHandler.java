@@ -71,6 +71,7 @@ public class FlowExecutionHandler {
      * Start the execution of the flow given to the constructor
      */
     public void run () {
+        stop = false;
         prepareNodesForExecution();
 
         runNodes();
@@ -170,6 +171,12 @@ public class FlowExecutionHandler {
         for (Node n : nodes) {
             toLaunch.remove(n);
             owningWorkspace.stopNode(n);
+        }
+    }
+
+    public void errorExecutingNode (Node n) {
+        if (n != null && nodes.indexOf(n) != -1) {
+            stop();
         }
     }
 

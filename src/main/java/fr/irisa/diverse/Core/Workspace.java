@@ -199,6 +199,23 @@ public class Workspace {
     }
 
     /**
+     * Broadcast the information that the given node throws an error while executing in the kernel.
+     *
+     * @param nodeId the id of the node.
+     */
+    public void errorExecutingNode (String nodeId) {
+        Node node = flow.getNode(nodeId, flow.getId());
+        node.errorOccurred();
+
+        Set<String> keys = executionHandlers.keySet();
+        Iterator i = keys.iterator();
+
+        while (i.hasNext()) {
+            executionHandlers.get(i.next()).errorExecutingNode(node);
+        }
+    }
+
+    /**
      * Stop the execution of a given node.
      *
      * @param node : the node to stop.
@@ -336,6 +353,11 @@ public class Workspace {
         return pathToWorkspaceFolder;
     }
 
+    /**
+     * Get the node associated to a kernel
+     * @param k the kernel
+     * @return the id of the node
+     */
     public String getNodeIdForKernel (Kernel k) {
         Set<String> keys = kernels.keySet();
         for (String key: keys) {

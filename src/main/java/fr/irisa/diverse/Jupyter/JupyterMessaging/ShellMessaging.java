@@ -258,11 +258,13 @@ public class ShellMessaging {
                 break;
             case "error":
                 System.err.println("Error executing code of cell nº" + executionCount);
-                manager.sendErrorToAll("NETWORK", "[JUPYTER ERROR] For node : " + kernel.linkedNodeId + ", impossible to run code");
+                manager.sendErrorToAll("network", "[JUPYTER ERROR] For node : " + kernel.linkedNodeId + ", impossible to run code");
+                kernel.owningWorkspace.errorExecutingNode(kernel.linkedNodeId);
                 break;
             case "abort":
                 System.err.println("Execution of the code of cell nº" + executionCount + " has been aborted");
-                manager.sendErrorToAll("NETWORK", "[JUPYTER ERROR] For node : " + kernel.linkedNodeId + ", code running aborted");
+                manager.sendErrorToAll("network", "[JUPYTER ERROR] For node : " + kernel.linkedNodeId + ", code running aborted");
+                kernel.owningWorkspace.errorExecutingNode(kernel.linkedNodeId);
                 break;
         }
     }

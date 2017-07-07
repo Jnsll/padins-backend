@@ -1,7 +1,9 @@
 package fr.irisa.diverse.Flow;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -29,6 +31,7 @@ public class Node implements Comparable<Node>{
 
     private long lastRun;
     private long lastModification;
+    private long lastError;
 
     private Date date;
 
@@ -46,6 +49,7 @@ public class Node implements Comparable<Node>{
         this.date = new Date();
         this.lastModification = date.getTime();
         this.lastRun = 0;
+        this.lastError = 0;
 
         // Start a kernel if needed
         if (component.equals("Processing") || component.equals("Simulation")) {
@@ -191,7 +195,12 @@ public class Node implements Comparable<Node>{
     }
 
     public ArrayList<Node> nextInFlow () {
-        return nextOrPreviousNodeInFlow(getOutports());
+        if (lastModification > lastError) {
+            return nextOrPreviousNodeInFlow(getOutports());
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 
     public boolean isRunning () {
@@ -221,12 +230,20 @@ public class Node implements Comparable<Node>{
 
     }
 
+    public boolean noKnownError () {
+        return lastError < lastModification;
+    }
+
     public void prepareForExecution () {
         owningFlow.owningWorkspace.stopNode(this);
     }
 
     public boolean receivedResultAfterTime (long time) {
         return lastRun > time;
+    }
+
+    public void errorOccurred() {
+        this.lastError = new Date().getTime();
     }
 
     @Override
