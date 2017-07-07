@@ -86,36 +86,42 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
     }
 
     private void start(FBPMessage message) {
-        JSONObject payload = message.getPayloadAsJSON();
-        String graph = (String) payload.get("graph");
+        Runnable task = () -> {
+            JSONObject payload = message.getPayloadAsJSON();
+            String graph = (String) payload.get("graph");
 
-        boolean started = false;
+            boolean started = false;
 
-        try {
-            // Send a network started message
-            sendStartedMessage(graph);
-            // Start the graph
-            owningManager.owningWorkspace.startGraph(graph);
-            started = true;
-            // Wait for the run to finish
-            while (owningManager.owningWorkspace.graphRunning(graph)) {
-                Thread.sleep(200);
-            }
-            // After it finishes : send a Stopped message
-            sendStoppedMessage(graph);
-
-        } catch (Workspace.NotExistingGraphException e) {
-            if (started) {
+            try {
+                // Send a network started message
+                sendStartedMessage(graph);
+                // Start the graph
+                owningManager.owningWorkspace.startGraph(graph);
+                started = true;
+                // Wait for the run to finish
+                while (owningManager.owningWorkspace.graphRunning(graph)) {
+                    Thread.sleep(200);
+                }
+                // After it finishes : send a Stopped message
                 sendStoppedMessage(graph);
+
+            } catch (Workspace.NotExistingGraphException e) {
+                if (started) {
+                    sendStoppedMessage(graph);
+                }
+                // Send the error to the clients
+                sendError(e.getMessage());
+                // Print stack trace in stderr
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                // Thread.sleep exception
+                e.printStackTrace();
             }
-            // Send the error to the clients
-            sendError(e.getMessage());
-            // Print stack trace in stderr
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            // Thread.sleep exception
-            e.printStackTrace();
-        }
+        };
+
+        Thread thread = new Thread(task);
+        thread.start();
+
     }
 
     private void stop(FBPMessage message) {
