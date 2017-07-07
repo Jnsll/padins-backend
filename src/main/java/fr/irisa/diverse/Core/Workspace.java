@@ -339,8 +339,7 @@ public class Workspace {
     public String getNodeIdForKernel (Kernel k) {
         Set<String> keys = kernels.keySet();
         for (String key: keys) {
-            if (kernels.get(key).equals(k)) { return key; }
-            else { return ""; }
+            if (kernels.get(key).getContainerId().equals(k.getContainerId())) { return key; }
         }
 
         return "";
@@ -394,7 +393,7 @@ public class Workspace {
                 return false;
             }
         } else {
-            return true;
+            return false;
         }
     }
 

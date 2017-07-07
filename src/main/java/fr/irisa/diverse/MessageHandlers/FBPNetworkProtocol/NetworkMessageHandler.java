@@ -170,7 +170,7 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
         payload.put("time", String.valueOf(status.getStartedTime()));
         payload.put("graph", graph);
         payload.put("started", status.hasStarted());
-        payload.put("running", status.isRunning());
+        payload.put("running", true);
         payload.put("debug", status.isInDebugMode());
 
         // Send it
