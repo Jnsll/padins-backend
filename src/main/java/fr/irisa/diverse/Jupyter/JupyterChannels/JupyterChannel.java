@@ -9,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;
+import org.zeromq.ZMQException;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -89,63 +90,71 @@ public abstract class JupyterChannel implements Runnable {
         // This is where we will handle the socket behavior
         while(!Thread.currentThread().isInterrupted()) {
 
-            // First : empty the incomingMessage because we are receiving a new one.
-            incomingMessage = new ArrayList<>();
+            try {
+                // First : empty the incomingMessage because we are receiving a new one.
+                incomingMessage = new ArrayList<>();
 
-            // We look for the delimiter to start handling the message
-            String lastMessageReceived = socket.recvStr();
+                // We look for the delimiter to start handling the message
+                String lastMessageReceived = socket.recvStr();
 
-            while(!lastMessageReceived.equals("<IDS|MSG>")) {
-                incomingMessage.add(lastMessageReceived);
+                while (!lastMessageReceived.equals("<IDS|MSG>")) {
+                    incomingMessage.add(lastMessageReceived);
 
-                lastMessageReceived = socket.recvStr();
-            }
-
-            // Here we've received the delimiter.
-            // Now we check whether the previously received message was a uuid or not
-            if(incomingMessage.size() == 0) {
-                // It means that we did not received any uuid.
-                // So, we retrieve the previous one
-                incomingMessage.add(0, lastCorrectUuidReceived);
-            } else if (!isUuid(incomingMessage.get(incomingMessage.size()-1))) {
-                // Last received message is not a correct uuid, we remove everything from incoming message, log it and
-                for(int i=0; i<incomingMessage.size(); i++) {
-                    System.out.println("\033[33m" + "[WARNING]" + "\033[0m" + " Loosing data on " + name + " socket : " + incomingMessage.get(0));
-                    incomingMessage.remove(0);
+                    lastMessageReceived = socket.recvStr();
                 }
-                // add the correct uuid in the beginning
-                incomingMessage.add(0, lastCorrectUuidReceived);
 
-            } else {
-                // Uuid is correct and incomingMessage.size > 0
-                if(incomingMessage.size() > 1) {
-                    for(int i=0; i<incomingMessage.size() - 1; i++) {
-                        System.out.println("\033[33m" + "[WARNING]" + "\033[0m" + "Loosing data on " + name + " socket : " + incomingMessage.get(0));
+                // Here we've received the delimiter.
+                // Now we check whether the previously received message was a uuid or not
+                if (incomingMessage.size() == 0) {
+                    // It means that we did not received any uuid.
+                    // So, we retrieve the previous one
+                    incomingMessage.add(0, lastCorrectUuidReceived);
+                } else if (!isUuid(incomingMessage.get(incomingMessage.size() - 1))) {
+                    // Last received message is not a correct uuid, we remove everything from incoming message, log it and
+                    for (int i = 0; i < incomingMessage.size(); i++) {
+                        System.out.println("\033[33m" + "[WARNING]" + "\033[0m" + " Loosing data on " + name + " socket : " + incomingMessage.get(0));
                         incomingMessage.remove(0);
                     }
+                    // add the correct uuid in the beginning
+                    incomingMessage.add(0, lastCorrectUuidReceived);
+
+                } else {
+                    // Uuid is correct and incomingMessage.size > 0
+                    if (incomingMessage.size() > 1) {
+                        for (int i = 0; i < incomingMessage.size() - 1; i++) {
+                            System.out.println("\033[33m" + "[WARNING]" + "\033[0m" + "Loosing data on " + name + " socket : " + incomingMessage.get(0));
+                            incomingMessage.remove(0);
+                        }
+                    }
+
+                    // Store the correct uuuid
+                    lastCorrectUuidReceived = incomingMessage.get(incomingMessage.size() - 1);
                 }
 
-                // Store the correct uuuid
-                lastCorrectUuidReceived = incomingMessage.get(incomingMessage.size()-1);
+                incomingMessage.add(lastMessageReceived); // delimiter <IDS|MSG>
+                incomingMessage.add(socket.recvStr()); // hmac
+                incomingMessage.add(socket.recvStr()); // header
+                incomingMessage.add(socket.recvStr()); // parent_header
+                incomingMessage.add(socket.recvStr()); // metadata
+                incomingMessage.add(socket.recvStr()); // content
+
+                // Log if configured
+                if (this.log) logMessage(incomingMessage);
+                // Save history if configured
+                if (this.storeHistory) history.add(incomingMessage);
+
+                // Finally handle the incoming message
+                handleMessage(incomingMessage);
+            } catch (ZMQException e) {
+                if (e.getErrorCode() == ZMQ.Error.ETERM.getCode()) {
+                    break;
+                }
             }
-
-            incomingMessage.add(lastMessageReceived); // delimiter <IDS|MSG>
-            incomingMessage.add(socket.recvStr()); // hmac
-            incomingMessage.add(socket.recvStr()); // header
-            incomingMessage.add(socket.recvStr()); // parent_header
-            incomingMessage.add(socket.recvStr()); // metadata
-            incomingMessage.add(socket.recvStr()); // content
-
-            // Log if configured
-            if(this.log) logMessage(incomingMessage);
-            // Save history if configured
-            if(this.storeHistory) history.add(incomingMessage);
-
-            // Finally handle the incoming message
-            handleMessage(incomingMessage);
         } // End while
 
-        stopThread();
+        socket.setLinger(0);
+        socket.close();
+        this.connected = false;
     }
 
     /**
@@ -164,18 +173,8 @@ public abstract class JupyterChannel implements Runnable {
         if(thread != null && !thread.isInterrupted()) {
             context.term();
             thread.interrupt();
-
-            while(!thread.isInterrupted()) {
-                Thread.sleep(100);
-            }
+            thread.join();
         }
-    }
-
-    /**
-     * Resume the channel and reconnect it
-     */
-    public void resume() {
-        if(thread != null) thread.run();
     }
 
     /*==================================================================================================================
@@ -294,6 +293,4 @@ public abstract class JupyterChannel implements Runnable {
      =================================================================================================================*/
 
     protected abstract void initializeThread();
-
-    protected abstract void stopThread();
 }

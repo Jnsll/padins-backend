@@ -40,12 +40,4 @@ public class IOPubChannel extends JupyterChannel {
         System.out.println("Connected to IOPub publisher on : " + this.socketAddress);
     }
 
-    @Override
-    protected void stopThread() {
-        // When stopping the thread : terminate the context & close socket
-        this.socket.close();
-        this.context.term();
-        this.connected = false;
-    }
-
 }

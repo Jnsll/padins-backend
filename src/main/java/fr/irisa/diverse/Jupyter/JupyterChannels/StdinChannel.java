@@ -38,14 +38,6 @@ public class StdinChannel extends JupyterChannel {
         this.connected = true;
     }
 
-    @Override
-    protected void stopThread() {
-        // When stopping the thread : destroy the context & not connected anymore
-        this.socket.disconnect(socketAddress);
-        this.context.term();
-        this.connected = false;
-    }
-
     /**
      * Send a message as bytes, needed by Jupyter
      * @param message : the message to send to the shell

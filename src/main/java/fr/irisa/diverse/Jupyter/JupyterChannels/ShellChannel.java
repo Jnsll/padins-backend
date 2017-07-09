@@ -37,13 +37,6 @@ public class ShellChannel extends JupyterChannel {
         if (name.equals("shell")) messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
     }
 
-    @Override
-    protected void stopThread() {
-        this.socket.disconnect(socketAddress);
-        this.context.term();
-        this.connected = false;
-    }
-
 
     /* =================================================================================================================
        =================================================================================================================

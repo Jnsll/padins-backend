@@ -2,6 +2,7 @@ package fr.irisa.diverse.Jupyter.JupyterChannels;
 
 import fr.irisa.diverse.Core.Kernel;
 import org.zeromq.ZMQ;
+import org.zeromq.ZMQException;
 
 /**
  * Created by antoine on 03/05/17.
@@ -34,23 +35,29 @@ public class HeartbeatChannel extends JupyterChannel {
 
         // Loop that will run whenever the Thread runs
         // This is where we will handle the socket behavior
-        try {
-            while(!Thread.currentThread().isInterrupted()) {
+        while(!Thread.currentThread().isInterrupted()) {
+            try {
                 // Send 'ping'
                 Thread.sleep(1000);
 
                 socket.send("ping".getBytes(), 0);
 
                 String message = socket.recvStr();
-                if(this.log) System.out.println("Received : " + message + " on socket " + name);
+                if (this.log) System.out.println("Received : " + message + " on socket " + name);
 
+            } catch (ZMQException e) {
+                if (e.getErrorCode() == ZMQ.Error.ETERM.getCode()) {
+                    break;
+                }
+            } catch (InterruptedException e)  {
+                break;
             }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+
         }
 
-
-        stopThread();
+        socket.setLinger(0);
+        socket.close();
+        this.connected = false;
 
     }
 
@@ -67,14 +74,6 @@ public class HeartbeatChannel extends JupyterChannel {
         this.connected = true;
 
         System.out.println("Connected to HB on " + socketAddress);
-    }
-
-    @Override
-    protected void stopThread() {
-        // When stopping the thread : destroy the context & not connected anymore
-        this.socket.close();
-        this.context.term();
-        this.connected = false;
     }
 
 }
