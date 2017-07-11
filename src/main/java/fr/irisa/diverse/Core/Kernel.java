@@ -310,8 +310,7 @@ public class Kernel {
             this.containerId = in.readLine().substring(0,12);
 
             // Log the containerId of the newly started docker Jupyter
-            System.out.println("New Jupyter kernel started. Its id is :");
-            System.out.println(containerId);
+            System.out.println("Kernel started with id " + containerId);
             String line = null;
             while((line=in.readLine()) != null) {
                 System.out.println(line);

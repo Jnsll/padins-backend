@@ -72,8 +72,6 @@ public class HeartbeatChannel extends JupyterChannel {
         // First : connect to the ZMQ server
         this.socket.connect(this.socketAddress);
         this.connected = true;
-
-        System.out.println("Connected to HB on " + socketAddress);
     }
 
 }

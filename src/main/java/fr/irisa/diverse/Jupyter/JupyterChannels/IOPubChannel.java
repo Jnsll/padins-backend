@@ -37,7 +37,6 @@ public class IOPubChannel extends JupyterChannel {
         this.socket.connect(this.socketAddress);
         this.socket.subscribe("".getBytes());
         this.connected = true;
-        System.out.println("Connected to IOPub publisher on : " + this.socketAddress);
     }
 
 }
