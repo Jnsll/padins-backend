@@ -96,8 +96,8 @@ public class Kernel {
                 createChannelsFromConnexionFile(absolutePathToConnexionInfoFile);
 
                 startChannels();
-
-                iopub.doLog(true);
+                idle = true;
+                shell.sendKernelInfoRequest();
 
                 // Create a message manager that will handle reaction to incoming messages
                 messagesManager = new Manager(this);
@@ -237,8 +237,11 @@ public class Kernel {
 
         // Add all the imports the user wrote
         int lastImportIndex = code.lastIndexOf("import");
-        int indexForVarInjection = lastImportIndex + code.substring(lastImportIndex).indexOf("\n") + 1;
-        codeToExecute += code.substring(0, indexForVarInjection) + "\n";
+        int indexForVarInjection = 0;
+        if (lastImportIndex != -1) {
+            indexForVarInjection = lastImportIndex + code.substring(lastImportIndex).indexOf("\n") + 1;
+            codeToExecute += code.substring(0, indexForVarInjection) + "\n";
+        }
 
         // Add the variables retrieved from the previous nodes
         JSONObject var = node.getPreviousNodesData();

@@ -219,7 +219,7 @@ public class ShellMessaging {
     public String sendKernelInfoRequestMessage () {
         JupyterMessage message = new JupyterMessage(kernel, "kernel_info_request");
 
-        channel.send(message.getMessageToSend());
+        //channel.send(message.getMessageToSend());
 
         return message.toString();
     }

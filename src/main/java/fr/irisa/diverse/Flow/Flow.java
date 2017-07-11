@@ -449,7 +449,7 @@ public class Flow implements FlowInterface {
         if (nodes.size() == 1 ) return nodes;
         // Elsewhere, we search for the node in the list that doesn't have a previous node and that have a next one.
         for (Node n : nodes) {
-            if(n.previousInFlow() == null && n.nextInFlow() != null) res.add(n);
+            if(n.previousInFlow() == null) res.add(n);
         }
 
         // Finally return the list

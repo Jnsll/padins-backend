@@ -32,9 +32,6 @@ public class ShellChannel extends JupyterChannel {
         // First : connect the server
         this.socket.connect(this.socketAddress);
         this.connected = true;
-
-        // Send kernel_info request
-        if (name.equals("shell")) messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
     }
 
 
@@ -53,6 +50,10 @@ public class ShellChannel extends JupyterChannel {
             socket.sendMore(message[i].getBytes());
         }
         socket.send(message[message.length-1]);
+    }
+
+    public void sendKernelInfoRequest() {
+        messagesManager.sendMessageOnShell().sendKernelInfoRequestMessage();
     }
 
 }

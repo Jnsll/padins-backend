@@ -36,7 +36,7 @@ public abstract class JupyterChannel implements Runnable {
     boolean connected = false;
     boolean log = false;
 
-    private Kernel owningKernel;
+    Kernel owningKernel;
     Manager messagesManager;
     private Thread thread;
 

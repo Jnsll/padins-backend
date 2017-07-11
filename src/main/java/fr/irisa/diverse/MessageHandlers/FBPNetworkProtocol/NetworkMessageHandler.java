@@ -65,9 +65,6 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
        ===============================================================================================================*/
 
     private void persist(FBPMessage message) {
-        // Might probably do something ... to do
-
-        // Temporary : store the flow
         this.owningManager.owningWorkspace.save();
 
         sendPersistMessage(message);
