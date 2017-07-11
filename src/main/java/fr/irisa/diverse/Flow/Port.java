@@ -128,7 +128,5 @@ public class Port {
         portJSON.put("metadata", getMetadata().toJSONString());
         portJSON.put("connectedEdges", getConnectedEdgesId());
         portJSON.put("type", getType());
-
-        // System.out.println(portJSON.toJSONString());
     }
 }
