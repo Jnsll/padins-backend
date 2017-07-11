@@ -2,6 +2,7 @@ package fr.irisa.diverse.Flow;
 
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -16,7 +17,7 @@ public class Port {
     private String port = "";
     private String node = "";
     private JSONObject metadata = null;
-    private String connectedEdge = "";
+    private ArrayList<String> connectedEdges;
     private final String type = "Object";
 
     // Constructors
@@ -26,6 +27,7 @@ public class Port {
         this.port = port;
         this.name = name;
         this.metadata = new JSONObject();
+        this.connectedEdges = new ArrayList<>();
     }
 
     Port (String port, String name, JSONObject metadata) {
@@ -33,10 +35,10 @@ public class Port {
         this.metadata = metadata;
     }
 
-    Port (String port, String name, JSONObject metadata, String connectedEdge) {
+    Port (String port, String name, JSONObject metadata, ArrayList<String> connectedEdges) {
         this(port, name, metadata);
 
-        this.connectedEdge = connectedEdge;
+        this.connectedEdges = connectedEdges;
     }
 
     /* =================================================================================================================
@@ -59,10 +61,10 @@ public class Port {
         return metadata;
     }
 
-    public String getConnectedEdgeId () {
-        if (connectedEdge == null) connectedEdge = "";
+    public ArrayList<String> getConnectedEdgesId() {
+        if (connectedEdges == null) connectedEdges = new ArrayList<>();
 
-        return connectedEdge;
+        return connectedEdges;
     }
 
     public String getType() {
@@ -81,8 +83,20 @@ public class Port {
         this.node = node;
     }
 
-    public void setConnectedEdge(String connectedEdge) {
-        this.connectedEdge = connectedEdge;
+    public void setConnectedEdges(ArrayList<String> connectedEdges) {
+        this.connectedEdges = connectedEdges;
+    }
+
+    public void addConnectedEdge (String edgeId) {
+        if (this.connectedEdges.indexOf(edgeId) == -1) {
+            this.connectedEdges.add(edgeId);
+        }
+    }
+
+    public void removeConnectedEdge (String edgeId) {
+        if (this.connectedEdges.indexOf(edgeId) != -1) {
+            this.connectedEdges.remove(this.connectedEdges.indexOf(edgeId));
+        }
     }
 
     /* =================================================================================================================
@@ -112,7 +126,9 @@ public class Port {
         portJSON.put("node", getNode());
         portJSON.put("port", getPort());
         portJSON.put("metadata", getMetadata().toJSONString());
-        portJSON.put("connectedEdge", getConnectedEdgeId());
+        portJSON.put("connectedEdges", getConnectedEdgesId());
         portJSON.put("type", getType());
+
+        // System.out.println(portJSON.toJSONString());
     }
 }

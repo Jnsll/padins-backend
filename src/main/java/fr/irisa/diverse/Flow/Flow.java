@@ -289,8 +289,20 @@ public class Flow implements FlowInterface {
     public boolean removeEdge(String id, String graph, JSONObject src, JSONObject tgt) {
         // Verify that the requested graph is the workspace
         if(graphExist(graph) && edgeExist(src, tgt)) {
+            String edgeId = edges.get(indexOfEdge(src, tgt)).getId();
             // If so, retrieve the index of the edge and remove it
             edges.remove(indexOfEdge(src, tgt));
+            // Then remove the edge from the nodes ports
+            String srcNodeId = (String) src.get("node");
+            String tgtNodeId = (String) tgt.get("node");
+            if(nodeExist(srcNodeId)) {
+                Node srcNode = nodes.get(indexOfNode(srcNodeId));
+                srcNode.unassignPortToEdge((String) src.get("port"), edgeId);
+            }
+            if (nodeExist(tgtNodeId)) {
+                Node tgtNode = nodes.get(indexOfNode(tgtNodeId));
+                tgtNode.assignPortToEdge((String) tgt.get("port"), edgeId);
+            }
             return true;
         } else {
             return false;

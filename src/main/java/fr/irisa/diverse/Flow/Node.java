@@ -1,9 +1,8 @@
 package fr.irisa.diverse.Flow;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 
-import java.time.LocalTime;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -83,8 +82,7 @@ public class Node implements Comparable<Node>{
     }
 
     public void setMetadata(JSONObject metadata) {
-        date = new Date();
-        lastModification = date.getTime();
+        nodeUpdated();
         this.metadata = metadata;
     }
 
@@ -144,12 +142,20 @@ public class Node implements Comparable<Node>{
     }
 
     public void assignPortToEdge (String port, String edge) {
-        date = new Date();
-        lastModification = date.getTime();
+        nodeUpdated();
 
         Port p = findPort(port);
         if (p != null) {
-            p.setConnectedEdge(edge);
+            p.addConnectedEdge(edge);
+        }
+    }
+
+    public void unassignPortToEdge (String port, String edge) {
+        nodeUpdated();
+
+        Port p = findPort(port);
+        if (p != null) {
+            p.removeConnectedEdge(edge);
         }
     }
 
@@ -294,31 +300,46 @@ public class Node implements Comparable<Node>{
         ArrayList<Node> res = new ArrayList<>();
         boolean previous = ports == getInports();
 
-        // Search the previous or next node for each ports in ports an add it into res
+        // Search the previous or next nodes for each ports in ports an add them into res
         for (int i=0; i<ports.size(); i++) {
-            Node n = oppositeNodeForPort(ports.get(i), previous);
-            if (n != null) res.add(n);
+            ArrayList<Node> n = oppositeNodesForPort(ports.get(i), previous);
+            if (n != null) {
+                for(int j=0; j<n.size(); j++) {
+                    res.add(n.get(j));
+                }
+            }
         }
 
         // End
         return res.size() == 0 ? null : res;
     }
 
-    private Node oppositeNodeForPort (Port p, boolean previousNode) {
+    private ArrayList<Node> oppositeNodesForPort(Port p, boolean previousNode) {
         // First : retrieve the edge
-        String edgeId = p.getConnectedEdgeId();
-        Edge e = owningFlow.getEdge(edgeId);
+        ArrayList<String> edgesIds = p.getConnectedEdgesId();
+        ArrayList<Node> oppositeNodes = new ArrayList<>();
 
-        // Second : If there is no name we return null
-        if(e == null) return null;
+        for (int i=0; i<edgesIds.size(); i++) {
+            Edge e = owningFlow.getEdge(edgesIds.get(i));
+            // Second : determine whether we have to return the src or tgt node of this edge
+            String resNodeId = (String) (previousNode ? e.getSrc().get("node") : e.getTgt().get("node"));
+            // Add the node into the list
+            oppositeNodes.add(owningFlow.getNode(resNodeId, owningFlow.getId()));
+        }
 
-        // Third : determine whether we have to return the src or tgt node of this edge
-        String resNodeId = (String) (previousNode ? e.getSrc().get("node") : e.getTgt().get("node"));
 
-        return owningFlow.getNode(resNodeId, owningFlow.getId());
+        // Finally, if there is no edge we return null
+        if(oppositeNodes.size() == 0) return null;
+
+        return oppositeNodes;
     }
 
     private void sendUpdateNodeMessage () {
         owningFlow.owningWorkspace.sendUpdateNodeMessage(this);
+    }
+
+    private void nodeUpdated () {
+        date = new Date();
+        lastModification = date.getTime();
     }
 }
