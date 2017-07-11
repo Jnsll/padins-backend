@@ -30,6 +30,7 @@ public class Webserver implements Runnable {
     private final String SERVER_IP = "0.0.0.0";
     private final int SERVER_PORT = 8080;
     private Root root;
+    private Server server = null;
 
     // Singleton methods
     public static Webserver getInstance () {
@@ -45,9 +46,17 @@ public class Webserver implements Runnable {
         root = Root.getInstance();
     }
 
+    public void stop () {
+        try {
+            server.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void run () {
         // Define the server
-        Server server = new Server();
+        server = new Server();
 
         // Add http connector to server
         ServerConnector http = new ServerConnector(server);
@@ -91,6 +100,7 @@ public class Webserver implements Runnable {
             server.join();
         } catch (Exception e) {
             e.printStackTrace();
+            server.destroy();
         }
 
     }

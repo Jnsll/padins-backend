@@ -2,7 +2,6 @@ package fr.irisa.diverse.Core;
 
 import fr.irisa.diverse.Webserver.Webserver;
 
-import java.sql.Time;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
@@ -52,7 +51,17 @@ public class Main {
         return new Thread () {
             @Override
             public void run () {
-                System.out.println("Shutting down all the kernels");
+                System.out.println("Shutting down the webserver...");
+                webserver.stop();
+                try {
+                    webserverThread.join();
+                    System.out.println("Webserver stopped");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                System.out.println("Shutting down all the kernels...");
 
                 // Retrieve the iterator for the workspaces
                 Map<String, Workspace> workspacesMap = root.getWorkspaces();
@@ -82,6 +91,7 @@ public class Main {
                 try {
                     es.shutdown();
                     es.awaitTermination(3, TimeUnit.MINUTES);
+                    System.out.println("Kernels shut down.");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
