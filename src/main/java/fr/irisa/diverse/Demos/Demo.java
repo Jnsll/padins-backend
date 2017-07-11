@@ -94,7 +94,7 @@ public class Demo {
 
                 for(int i= 0; i< workspaces.size(); i++) {
                     System.out.println("Shutting down kernel for workspace" + i);
-                    workspaces.get(i).stopKernels();
+                    // workspaces.get(i).stopKernels();
                     workspaces.get(i).save();
                 }
             }

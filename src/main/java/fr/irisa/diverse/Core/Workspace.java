@@ -18,6 +18,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /** The workspace is the central element of this project.
  *
@@ -101,9 +104,9 @@ public class Workspace {
      */
     public void startNewKernel (String nodeId) {
         Runnable task = () -> {
-            Kernel k = new Kernel(nodeId, this);
+                Kernel k = new Kernel(nodeId, this);
 
-            kernels.put(nodeId, k);
+                kernels.put(nodeId, k);
         };
 
         Thread thread = new Thread(task);
@@ -129,14 +132,28 @@ public class Workspace {
      * Stop all the kernels.
      * Use only when all users have stopped the connexion or when you stop the server.
      */
-    public void stopKernels () {
+    public boolean stopKernels () throws InterruptedException {
+        // Retrieve all the kernels started on the workspace
         Set keys = kernels.keySet();
         Iterator iterator = keys.iterator();
 
+        // Create an executor service to launch the stop of every kernels in the same time and wait for every one
+        // of them to be stopped.
+        ExecutorService es = Executors.newCachedThreadPool();
+
         while(iterator.hasNext()){
+            // Create the stop task for each kernel
             Kernel k = kernels.get(iterator.next());
-            k.stop();
+            Runnable task = () -> {
+                k.stop();
+            };
+
+            // Execute the stop task via the executor service
+            es.execute(task);
         }
+
+        es.shutdown();
+        return es.awaitTermination(3, TimeUnit.MINUTES);
     }
 
     /**
