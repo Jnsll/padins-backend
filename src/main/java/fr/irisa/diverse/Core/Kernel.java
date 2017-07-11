@@ -261,7 +261,7 @@ public class Kernel {
         Iterator<String> jkeysIterator = jkeys.iterator();
         while(jkeysIterator.hasNext()) {
             String key = jkeysIterator.next();
-            codeToExecute += key + " = json.loads(" + jsonified.get(key).toString() + ")\n";
+            codeToExecute += key + " = json.loads('" + jsonified.get(key).toString() + "')\n";
         }
 
         // Add the rest of the code the user typed
