@@ -157,4 +157,28 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<FBPMessag
     public void sendNodeUpdate (Node node) {
         graph.sendChangeNodeMessage(node.getId(), node.getGraph());
     }
+
+    /* =================================================================================================================
+                                       MESSAGE ADDED TO FIT OUR NEEDS
+       ===============================================================================================================*/
+
+    public void sendStartNode (String id) {
+        JSONObject payload = new JSONObject();
+        payload.put("id", id);
+
+        FBPMessage msg = new FBPMessage("network", "startnode", payload.toJSONString());
+
+        // Send it
+        sendToAll(msg);
+    }
+
+    public void sendFinishNode (String id) {
+        JSONObject payload = new JSONObject();
+        payload.put("id", id);
+
+        FBPMessage msg = new FBPMessage("network", "finishnode", payload.toJSONString());
+
+        // Send it
+        sendToAll(msg);
+    }
 }

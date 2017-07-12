@@ -219,6 +219,9 @@ public class FlowExecutionHandler {
         running.add(t);
         t.start();
 
+        // Send a message to the UI to let it know that the node is being executed
+        owningWorkspace.clientCommunicationManager.sendStartNode(node.getId());
+
     }
 
     /**

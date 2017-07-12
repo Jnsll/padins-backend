@@ -57,6 +57,9 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
                 }
             }
 
+            // Send a message to the UIs to let the connected users know that the nodes finished running
+            workspace.clientCommunicationManager.sendFinishNode(node.getId());
+
             executionHandler.runningThreadFinished(Thread.currentThread());
         } else {
             // If the previous execution thrown an error that has not been corrected, we stop the execution

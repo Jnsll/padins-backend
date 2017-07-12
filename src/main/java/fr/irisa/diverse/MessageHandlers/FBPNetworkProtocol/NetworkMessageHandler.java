@@ -2,6 +2,7 @@ package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol;
 
 import fr.irisa.diverse.Core.Workspace;
 import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.Utils.Status;
+import fr.irisa.diverse.Utils.JSON;
 import fr.irisa.diverse.Utils.Utils;
 import org.json.simple.JSONObject;
 

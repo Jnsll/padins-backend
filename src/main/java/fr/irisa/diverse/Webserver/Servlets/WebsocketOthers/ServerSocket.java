@@ -106,7 +106,7 @@ public class ServerSocket {
 
     }
 
-    public boolean send (String msg) {
+    synchronized public boolean send (String msg) {
         if (this.session != null) {
             try {
                 session.getRemote().sendString(msg);
