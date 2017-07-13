@@ -30,6 +30,7 @@ public class WorkspacesServlet extends HttpServlet{
                                                   HTTPSERVLET METHODS
        ===============================================================================================================*/
 
+    @Override
     protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve the list of available workspaces
         JSONArray workspacesList = getWorkspacesList();
@@ -43,19 +44,27 @@ public class WorkspacesServlet extends HttpServlet{
         response.getWriter().println(workspacesList.toJSONString());
     }
 
-    protected void doPut (HttpServletRequest request, HttpServletResponse response) {
+    @Override
+    public void doPut (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve the parameter name
         String name = request.getParameter("name");
 
-        // Create a workspace
-        root.createWorkspace(name);
+        if (name != null) {
 
-        // Set the response status to OK
-        response.setStatus(HttpServletResponse.SC_OK);
+            // Create a workspace
+            root.createWorkspace(name);
+
+            // Set the response status to OK
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.addHeader("Access-Control-Allow-Origin", "*");
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
 
     }
 
-    protected void doPost (HttpServletRequest request, HttpServletResponse response) {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve the parameters name and uuid
         String uuid = request.getParameter("uuid");
         String name = request.getParameter("name");
@@ -69,23 +78,32 @@ public class WorkspacesServlet extends HttpServlet{
 
             // Set the status of the response to OK
             response.setStatus(HttpServletResponse.SC_OK);
+            response.addHeader("Access-Control-Allow-Origin", "*");
         } else {
             // It means that a problem occurs or the workspace doesn't exist
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
-    protected void doDelete (HttpServletRequest request, HttpServletResponse response) {
+    @Override
+    public void doDelete (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve the name and id of the workspace to delete
         String uuid = request.getParameter("uuid");
         String name = request.getParameter("name");
 
         if (root.deleteWorkspace(uuid, name)) {
             response.setStatus(HttpServletResponse.SC_OK);
+            response.addHeader("Access-Control-Allow-Origin", "*");
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
 
+    }
+
+    @Override
+    public void doOptions (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.addHeader("Access-Control-Allow-Origin", "*"); // TODO remove in prod mode
+        response.addHeader("Access-Control-Allow-Methods", "POST, DELETE, PUT");
     }
 
     /* =================================================================================================================

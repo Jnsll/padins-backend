@@ -62,6 +62,7 @@ public class Workspace {
             // If the workspace's folder didn't exist we have created it.
             // So no flow.json existed, we create a new flow and a new UUID
             this.flow = new Flow(this);
+            this.save();
         } else {
             // Otherwise we import the existing flow
             JSONObject flowJSON = importFlowJSON(this.pathToWorkspaceFolder);
@@ -431,6 +432,9 @@ public class Workspace {
             try {
                 // Create the folder
                 f.mkdir();
+                // Create an empty flow.json file
+                f = new File(path + "/flow.json");
+                f.createNewFile();
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

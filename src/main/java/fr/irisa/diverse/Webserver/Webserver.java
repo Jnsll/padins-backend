@@ -79,7 +79,9 @@ public class Webserver implements Runnable {
         // Create a servlet context handler
         ServletContextHandler servlets = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servlets.setContextPath("/API");
-        servlets.addServlet(new ServletHolder(new WorkspacesServlet()), "/workspaces/*");
+        ServletHolder workspacesServletHolder = new ServletHolder(new WorkspacesServlet());
+        workspacesServletHolder.getRegistration().setMultipartConfig(new MultipartConfigElement(this.getClass().getClassLoader().getResource("").toString()));
+        servlets.addServlet(workspacesServletHolder, "/workspaces/*");
         ServletHolder uploadFileServletHolder = new ServletHolder(new UploadServlet());
         uploadFileServletHolder.getRegistration().setMultipartConfig(new MultipartConfigElement(root.PATH_TO_WORKSPACE_STORAGE));
         servlets.addServlet(uploadFileServletHolder, "/file-manager/*");
