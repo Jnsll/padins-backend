@@ -530,9 +530,13 @@ public class Node implements Comparable<Node>{
         for (int i=0; i<edgesIds.size(); i++) {
             Edge e = owningFlow.getEdge(edgesIds.get(i));
             // Second : determine whether we have to return the src or tgt node of this edge
-            String resNodeId = (String) (previousNode ? e.getSrc().get("node") : e.getTgt().get("node"));
-            // Add the node into the list
-            oppositeNodes.add(owningFlow.getNode(resNodeId, owningFlow.getId()));
+            try {
+                String resNodeId = (String) (previousNode ? e.getSrc().get("node") : e.getTgt().get("node"));
+                // Add the node into the list
+                oppositeNodes.add(owningFlow.getNode(resNodeId, owningFlow.getId()));
+            } catch (NullPointerException e1) {
+                // Do nothing, continue
+            }
         }
 
 
