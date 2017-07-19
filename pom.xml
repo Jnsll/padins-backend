@@ -6,7 +6,11 @@
 
     <groupId>fr.irisa.diverse</groupId>
     <artifactId>padins</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0-ALPHA</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -58,20 +62,17 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1</version>
-                <executions>
-                    <execution><goals><goal>java</goal></goals></execution>
-                </executions>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <mainClass>fr.irisa.diverse.Core.Main</mainClass>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
             <!-- Command to run the maven-assembly-plugin : in the padins-backend folder : mvn package -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.0.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -85,7 +86,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-my-jar-with-dependencies</id>
+                        <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
