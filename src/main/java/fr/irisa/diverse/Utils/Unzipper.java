@@ -22,16 +22,16 @@ public class Unzipper {
     /**
      * Extracts a zip file specified by the zipFilePath to a directory specified by
      * destDirectory (will be created if does not exists)
-     * @param zipFilePath
+     * @param zipFileIS
      * @param destDirectory
      * @throws IOException
      */
-    public static void unzip(String zipFilePath, String destDirectory) throws IOException {
+    public static void unzip(InputStream zipFileIS, String destDirectory) throws IOException {
         File destDir = new File(destDirectory);
         if (!destDir.exists()) {
             destDir.mkdir();
         }
-        ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
+        ZipInputStream zipIn = new ZipInputStream(zipFileIS);
         ZipEntry entry = zipIn.getNextEntry();
         // iterates over entries in the zip file
         while (entry != null) {

@@ -1,5 +1,6 @@
 package fr.irisa.diverse.Flow;
 
+import fr.irisa.diverse.Core.Root;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class ComponentsUtils {
 
     // Attributes
-    private static final String pathToComponentLibrary = ComponentsUtils.class.getClassLoader().getResource("WebUIComponents/example.json").getPath().replace("example.json", "");
+    private static final String pathToComponentLibrary = Root.PATH_TO_PROJECT_STORAGE + "/WebUIComponents/";
     private static ArrayList<Component> components = null;
     private static final JSONParser parser = new JSONParser();
     private static String lastRequestedLibrary = "";

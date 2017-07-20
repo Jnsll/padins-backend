@@ -53,8 +53,8 @@ public class Kernel {
     private String ip = null;
     private String signature_scheme = null;
     private String key = null;
-    private String pathToConnexionFiles = null;
-    private String pathToWorkspace = null;
+    private String pathToConnexionFilesFolder = null;
+    private String pathToWorkspaceStorage = null;
     private String pathToUtils = null;
     private JSONParser parser = null;
 
@@ -76,12 +76,11 @@ public class Kernel {
         this.owningWorkspace = workspace;
 
         // Set the path to the workspace
-        this.pathToWorkspace = Kernel.class.getClassLoader().getResource("workspaces/" + owningWorkspace.getUuid()).getPath();
-        this.pathToUtils = Kernel.class.getClassLoader().getResource("workspaces/utils/").getPath();
+        this.pathToWorkspaceStorage = Root.PATH_TO_PROJECT_STORAGE + "/workspaces/" + owningWorkspace.getUuid();
+        this.pathToUtils = Root.PATH_TO_PROJECT_STORAGE + "/workspaces/utils";
 
         // Retrieve the absolute path to resources/connexion_files
-        String tempPath = Kernel.class.getClassLoader().getResource("connexion_files/example.json").getPath();
-        pathToConnexionFiles = tempPath.replace("/example.json", "");
+        pathToConnexionFilesFolder = Root.PATH_TO_PROJECT_STORAGE + "/connexion_files";
 
         try {
             // Start a new container from image antoinecheronirisa/lmt-python-core
@@ -91,7 +90,7 @@ public class Kernel {
             // to the proper zmq sockets
             if(this.containerId != null) {
                 // Path to the connection_info file
-                String absolutePathToConnexionInfoFile = pathToConnexionFiles + "/" + containerId + ".json";
+                String absolutePathToConnexionInfoFile = pathToConnexionFilesFolder + "/" + containerId + ".json";
 
                 createChannelsFromConnexionFile(absolutePathToConnexionInfoFile);
 
@@ -292,7 +291,7 @@ public class Kernel {
             Writer streamWriter = new OutputStreamWriter(new FileOutputStream(script));
             PrintWriter printWriter = new PrintWriter(streamWriter);
             printWriter.println("#!/bin/bash");
-            printWriter.println("docker run -d --rm -v " + pathToConnexionFiles + ":/home/diverse/connexion_files -v " + pathToWorkspace + ":/home/diverse/workspace -v " + pathToUtils + ":/home/diverse/utils antoinecheronirisa/lmt-python-core");
+            printWriter.println("docker run -d --rm -v " + pathToConnexionFilesFolder + ":/home/diverse/connexion_files -v " + pathToWorkspaceStorage + ":/home/diverse/workspace -v " + pathToUtils + ":/home/diverse/utils antoinecheronirisa/lmt-python-core");
             printWriter.println("exit");
             printWriter.close();
 
@@ -590,7 +589,7 @@ public class Kernel {
      */
     private String retrieveContainerIp() throws FailedRetrievingContainerIPException {
         // Path to the script used to get a running container's ip address
-        String pathToScript = "src/main/resources/retrieve-container-ip.sh";
+        String pathToScript = Root.PATH_TO_PROJECT_STORAGE + "/retrieve-container-ip.sh";
 
         try {
             ProcessBuilder pb = new ProcessBuilder( pathToScript, containerId);
@@ -598,7 +597,7 @@ public class Kernel {
             // Runs the command to get its result (the ip address)
             Process proc = pb.start();
 
-            // Retrieve the outputstream to read the result
+            // Retrieve the inputstreams to read the result
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line;
 
@@ -621,7 +620,7 @@ public class Kernel {
      * the connexion file.
      */
     private void deleteConnexionFile () {
-        String absolutePathToConnexionInfoFile = pathToConnexionFiles + "/" + containerId + ".json";
+        String absolutePathToConnexionInfoFile = pathToConnexionFilesFolder + "/" + containerId + ".json";
 
         // We wait until the file has been created
         File f = new File(absolutePathToConnexionInfoFile);

@@ -42,7 +42,7 @@ public class Workspace {
     private Map<String, FlowExecutionHandler> executionHandlers = null;
     private String library = "hydro-geology";
     public final String RUNTIME_TYPE = "Computational Science";
-    private final String pathToWorkspacesStorage = Workspace.class.getClassLoader().getResource("workspaces/").getPath();
+    private final String pathToWorkspacesStorage = Root.PATH_TO_PROJECT_STORAGE + "/workspaces/";
     private Path pathToWorkspaceFolder;
     private final String FLOW_FILE_NAME = "flow.json";
 
@@ -293,7 +293,7 @@ public class Workspace {
         System.out.println("Saving");
         try (FileWriter file = new FileWriter(this.pathToWorkspaceFolder.toString() + "/" + FLOW_FILE_NAME)) {
             file.write(flow.serialize());
-            System.out.println("Successfully Copied Flow " + flow.getId() + " to File...");
+            System.out.println("Successfully Copied Flow " + flow.getId() + " to File :)");
         } catch (IOException e) {
             e.printStackTrace();
         }
