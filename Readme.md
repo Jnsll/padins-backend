@@ -18,7 +18,7 @@ and the data she picked up on the real case study.
 
 There are two way to run this project : docker or using the binaries.
 
-###Using docker :
+### Using docker :
 **Prerequisites**
 
 To run this project, you'll need :
@@ -33,7 +33,7 @@ https://www.docker.com/community-edition
 2. Go to : http://localhost:8080
 
 
-###Using the binaries
+### Using the binaries
 **Prerequisites**
 
 To run this project, you'll need :
