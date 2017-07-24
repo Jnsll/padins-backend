@@ -423,8 +423,17 @@ public class Node implements Comparable<Node>{
     /**
      * Method used to prevent this node that an error occurred during its execution.
      */
-    public void errorOccurred() {
+    public void errorOccurred () {
         this.lastError = new Date().getTime();
+    }
+
+    /**
+     * Empty the traceback in the metadata
+     */
+    public void emptyTraceback () {
+        if (this.metadata != null) {
+            this.metadata.put("traceback", "");
+        }
     }
 
     @Override

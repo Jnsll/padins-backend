@@ -37,6 +37,9 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
             try {
                 // First : we verify that there really is a need to run the node. Maybe it didn't change and neither its previous nodes
                 if (node.shouldBeReRun()) {
+                    // Empty the previous traceback
+                    node.emptyTraceback();
+
                     long beginsRunning = new Date().getTime();
 
                     // Now that we are sure that every previous node has finish running, we can actually run the given node

@@ -149,8 +149,6 @@ public class FlowExecutionHandler {
             }
         }
 
-        System.out.println("Stopping execution !");
-
         // Here it is finished, we change the status
         status.stop();
     }
@@ -165,7 +163,6 @@ public class FlowExecutionHandler {
         this.stop = true;
         // Second : interrupt the Thread and remove them from the instance.
         for (Thread t : running) {
-            System.out.println("Interrupting thread");
             t.interrupt();
             removeThread(t);
         }
