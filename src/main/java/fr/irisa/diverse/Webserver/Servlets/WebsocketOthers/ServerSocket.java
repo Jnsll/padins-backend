@@ -99,6 +99,7 @@ public class ServerSocket {
     @OnWebSocketError
     public void onError(Throwable t) {
         if (owningWorkspace != null) {
+            t.printStackTrace();
             System.err.println("An error occurred with a client on workspace : " + owningWorkspace.getName() + "\n" + t.getMessage() );
         } else {
             System.err.println("An error occurred with a client : " + t.getMessage() );
@@ -109,7 +110,7 @@ public class ServerSocket {
     synchronized public boolean send (String msg) {
         if (this.session != null) {
             try {
-                session.getRemote().sendString(msg);
+                this.session.getRemote().sendString(msg);
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();

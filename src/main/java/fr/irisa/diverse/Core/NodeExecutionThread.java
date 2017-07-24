@@ -34,33 +34,42 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
     @Override
     public void run() {
         if (node.noKnownError()) {
-            // First : we verify that there really is a need to run the node. Maybe it didn't change and neither its previous nodes
-            if (node.shouldBeReRun()){
-                long beginsRunning = new Date().getTime();
+            try {
+                // First : we verify that there really is a need to run the node. Maybe it didn't change and neither its previous nodes
+                if (node.shouldBeReRun()) {
+                    long beginsRunning = new Date().getTime();
 
-                // Now that we are sure that every previous node has finish running, we can actually run the given node
-                workspace.executeNode(node);
+                    // Now that we are sure that every previous node has finish running, we can actually run the given node
+                    workspace.executeNode(node);
 
-                // Now we wait for the Kernel to finish executing the code of this node.
-                while (workspace.isNodeRunning(node.getId()) || !node.receivedResultAfterTime(beginsRunning)) {
-                    Utils.wait(100);
+                    // Now we wait for the Kernel to finish executing the code of this node.
+                    while (workspace.isNodeRunning(node.getId()) || (!node.receivedResultAfterTime(beginsRunning) && !node.lastRunReturnedError())) {
+                        Thread.sleep(100);
+                    }
                 }
+            } catch (InterruptedException e) {
+                // Stop the node execution
+                workspace.stopNode(node);
+            } finally {
+                if (!node.lastRunReturnedError()) {
+                    // After it finishes and we're sure the node receives the result,
+                    // we add the next nodes to the Set of node to launch
+                    // and remove this Thread from the running ones.
+                    ArrayList<Node> nextInFlow = node.nextInFlow();
+                    if (nextInFlow != null) {
+                        for (Node n : node.nextInFlow()) {
+                            executionHandler.addToLaunch(n);
+                        }
+                    }
+                }
+
+
+                // Send a message to the UIs to let the connected users know that the nodes finished running
+                workspace.clientCommunicationManager.sendFinishNode(node.getId());
+
+                executionHandler.runningThreadFinished(Thread.currentThread());
             }
 
-            // After it finishes and we're sure the node receives the result,
-            // we add the next nodes to the Set of node to launch
-            // and remove this Thread from the running ones.
-            ArrayList<Node> nextInFlow = node.nextInFlow();
-            if (nextInFlow != null ) {
-                for (Node n : node.nextInFlow()) {
-                    executionHandler.addToLaunch(n);
-                }
-            }
-
-            // Send a message to the UIs to let the connected users know that the nodes finished running
-            workspace.clientCommunicationManager.sendFinishNode(node.getId());
-
-            executionHandler.runningThreadFinished(Thread.currentThread());
         } else {
             // If the previous execution thrown an error that has not been corrected, we stop the execution
             workspace.errorExecutingNode(node.getId());

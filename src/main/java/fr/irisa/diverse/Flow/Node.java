@@ -399,6 +399,12 @@ public class Node implements Comparable<Node>{
     }
 
     /**
+     * Has the last run returned an error ?
+     * @return {boolean} True if the last run returned an error, false otherwise
+     */
+    public boolean lastRunReturnedError () { return isExecutable() ? lastError >= lastRun : false ; }
+
+    /**
      * Prepare the node for the execution, stopping it if it is already running.
      */
     public void prepareForExecution () {

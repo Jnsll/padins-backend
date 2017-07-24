@@ -95,15 +95,19 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<FBPMessag
        ===============================================================================================================*/
 
 
-    public void send (FBPMessage msg) {
+    synchronized public void send (FBPMessage msg) {
         // TODO : add secret handling
         if (owningSocket != null) {
             owningSocket.send(msg.toJSONString());
         }
     }
 
-    public void sendToAll (FBPMessage msg) {
-        ArrayList<ServerSocket> clients = owningWorkspace.getConnectedClients();
+    synchronized public void sendToAll (FBPMessage msg) {
+        ArrayList<ServerSocket> clients = new ArrayList<>();
+        for (ServerSocket client : owningWorkspace.getConnectedClients()) {
+            clients.add(client);
+        }
+
 
         for (ServerSocket client : clients) {
             // TODO : add secret handling for each client
@@ -111,13 +115,13 @@ public class FBPNetworkProtocolManager implements MessageHandler.Whole<FBPMessag
         }
     }
 
-    public void sendError(String protocol, String error) {
+    synchronized public void sendError(String protocol, String error) {
         FBPMessage msg = createErrorMessage(protocol, error);
 
         send(msg);
     }
 
-    public void sendErrorToAll(String protocol, String error) {
+    synchronized public void sendErrorToAll(String protocol, String error) {
         FBPMessage msg = createErrorMessage(protocol, error);
 
         sendToAll(msg);
