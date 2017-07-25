@@ -36,9 +36,6 @@ public class Main {
 
         // Initialize Root
         root = Root.getInstance();
-        Map<String, Workspace> workspaces = root.getWorkspaces();
-
-        Set<String> keys = workspaces.keySet();
 
     }
 

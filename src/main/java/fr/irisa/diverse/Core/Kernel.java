@@ -363,7 +363,7 @@ public class Kernel {
     }
 
     /**
-     * Start the 5 ZMQ channels
+     * Start the 5 ZMQ channels that communicate with the Jupyter kernel that is inside a Docker container.
      */
     private void startChannels () {
         shell.start();
@@ -552,6 +552,10 @@ public class Kernel {
         idle = value ;
     }
 
+    /**
+     * Get the message manager. It is used to communicate with the Jupyter kernel.
+     * @return {Manager} the manager used by the kernel.
+     */
     public Manager getMessagesManager () { return messagesManager != null ? messagesManager : new Manager(this); }
 
     /* =================================================================================================================

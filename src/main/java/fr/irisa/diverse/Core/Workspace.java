@@ -99,7 +99,8 @@ public class Workspace {
         this.connectedClients.remove(client);
     }
 
-    /** Start a new kernel. Should be used each time a new Simulation or Processing block is created
+    /** Start a new kernel asynchronously.
+     * Should be used each time a new Simulation or Processing block is created
      *
      * @return : the uuid of the kernel
      */
@@ -115,7 +116,8 @@ public class Workspace {
 
     }
 
-    /** Stop a running kernel. Commonly used when a node is removed
+    /** Stop a running kernel asynchronously.
+     * Commonly used when a node is removed
      *
      * @param nodeId : the nodeId linked to the kernel
      */
@@ -363,6 +365,11 @@ public class Workspace {
         return flow;
     }
 
+    /**
+     * Get the Kernel (so the Docker container) that corresponds and execute the given node.
+     * @param nodeId {String} the id of the node you want to get its kernel
+     * @return {Kernel} the kernel linked to the given node.
+     */
     public Kernel getKernel (String nodeId) {
         return kernels.get(nodeId);
     }

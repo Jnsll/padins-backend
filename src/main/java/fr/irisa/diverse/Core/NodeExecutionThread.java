@@ -46,12 +46,14 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
                     workspace.executeNode(node);
 
                     // Now we wait for the Kernel to finish executing the code of this node.
+                    // It it throw an error, we stop waiting.
                     while (workspace.isNodeRunning(node.getId()) || (!node.receivedResultAfterTime(beginsRunning) && !node.lastRunReturnedError())) {
                         Thread.sleep(100);
                     }
                 }
             } catch (InterruptedException e) {
-                // Stop the node execution
+                // This exception is catch only if the execution throw an error.
+                // So, we stop the node execution
                 workspace.stopNode(node);
             } finally {
                 if (!node.lastRunReturnedError()) {
@@ -67,9 +69,10 @@ public class NodeExecutionThread extends Thread implements Comparable<NodeExecut
                 }
 
 
-                // Send a message to the UIs to let the connected users know that the nodes finished running
+                // Send a message to the UIs to let the connected users know that the nodes finished running.
                 workspace.clientCommunicationManager.sendFinishNode(node.getId());
 
+                // Tell to the executionHandler that this node finished its execution.
                 executionHandler.runningThreadFinished(Thread.currentThread());
             }
 

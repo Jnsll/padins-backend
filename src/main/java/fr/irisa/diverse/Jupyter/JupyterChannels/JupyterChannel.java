@@ -17,25 +17,40 @@ import java.util.regex.Pattern;
 
 
 /**
+ * A Kernel uses 5 channels to communicates on both side (client/server). All this is explained here :
+ * http://jupyter-client.readthedocs.io/en/latest/messaging.html#
+ *
+ * The Jupyter channel is the abstract class that implements the common behavior of all the Jupyter Channels of this
+ * program.
+ *
+ * When needed, the child classes (Heartbeat, IOPub, Shell, Control, Stdin) override the necessary methods and attributes.
+ *
  * Created by antoine on 28/04/17.
  */
 public abstract class JupyterChannel implements Runnable {
 
-    // Attributes
+    /*==================================================================================================================
+                                                    ATTRIBUTES
+     =================================================================================================================*/
+
+    // Main attributes
     String name;
     private final int JUPYTER_MESSAGE_LENGTH = 7;
     private String lastCorrectUuidReceived = "";
     private ArrayList<String> incomingMessage = null;
 
+    // ZMQ and socket related attributes
     Context context = null;
     Socket socket = null;
     String socketAddress;
     private String identity;
     private int socketType;
 
+    // Communication state attributes
     boolean connected = false;
     boolean log = false;
 
+    // Attributes related to this program architecture : the linked objects.
     Kernel owningKernel;
     Manager messagesManager;
     private Thread thread;
@@ -43,6 +58,10 @@ public abstract class JupyterChannel implements Runnable {
     //Attributes related to history
     private boolean storeHistory = true;
     private ArrayList<ArrayList<String>> history = null;
+
+    /*==================================================================================================================
+                                                    CONSTRUCTOR
+     =================================================================================================================*/
 
     JupyterChannel(String name, String transport, String ip, long port, String containerID, int socketType, Kernel kernel) {
         // Store the name & type
@@ -81,7 +100,7 @@ public abstract class JupyterChannel implements Runnable {
      =================================================================================================================*/
 
     /**
-     * Run methods from Runnable interface
+     * Run method from Runnable interface
      */
     public void run() {
         initializeThread();
@@ -96,8 +115,11 @@ public abstract class JupyterChannel implements Runnable {
 
                 // We look for the delimiter to start handling the message
                 String lastMessageReceived = socket.recvStr();
-
                 while (!lastMessageReceived.equals("<IDS|MSG>")) {
+                    // We store the previous messages received, because we need the message right before the delimiter
+                    // in order to make verifications.
+                    // We look for the delimiter because it is always the same, so it makes its detection easier than
+                    // the message before it.
                     incomingMessage.add(lastMessageReceived);
 
                     lastMessageReceived = socket.recvStr();
@@ -131,12 +153,12 @@ public abstract class JupyterChannel implements Runnable {
                     lastCorrectUuidReceived = incomingMessage.get(incomingMessage.size() - 1);
                 }
 
-                incomingMessage.add(lastMessageReceived); // delimiter <IDS|MSG>
-                incomingMessage.add(socket.recvStr()); // hmac
-                incomingMessage.add(socket.recvStr()); // header
-                incomingMessage.add(socket.recvStr()); // parent_header
-                incomingMessage.add(socket.recvStr()); // metadata
-                incomingMessage.add(socket.recvStr()); // content
+                incomingMessage.add(lastMessageReceived);   // delimiter <IDS|MSG>
+                incomingMessage.add(socket.recvStr());      // hmac
+                incomingMessage.add(socket.recvStr());      // header
+                incomingMessage.add(socket.recvStr());      // parent_header
+                incomingMessage.add(socket.recvStr());      // metadata
+                incomingMessage.add(socket.recvStr());      // content
 
                 // Log if configured
                 if (this.log) logMessage(incomingMessage);
@@ -146,12 +168,15 @@ public abstract class JupyterChannel implements Runnable {
                 // Finally handle the incoming message
                 handleMessage(incomingMessage);
             } catch (ZMQException e) {
+                // Catch a ZMQException in order to close the channel properly.
+                // It is thrown only when we call context.term
                 if (e.getErrorCode() == ZMQ.Error.ETERM.getCode()) {
                     break;
                 }
             }
         } // End while
 
+        // End the thread by closing the socket properly
         socket.setLinger(0);
         socket.close();
         this.connected = false;
@@ -189,6 +214,10 @@ public abstract class JupyterChannel implements Runnable {
         this.log = log;
     }
 
+    /**
+     * Is the Channel running ?
+     * @return {boolean} true if still alive, false otherwise
+     */
     public boolean isRunning() {
         return thread.isAlive();
     }
@@ -240,6 +269,8 @@ public abstract class JupyterChannel implements Runnable {
                 msg += "\nContent : " + incomingMessage.get(6);
             }
 
+            // Then we verify whether the message is a traceback message.
+            // If so, we log the message differently to make it easier to read for the programmer.
             if(incomingMessage.get(0).indexOf("error") != -1) {
                 JSONParser parser = new JSONParser();
                 try {
@@ -256,7 +287,8 @@ public abstract class JupyterChannel implements Runnable {
             }
 
         } else {
-            // If not, we log all the received data, without any prefix
+            // If the message is not as long as a typical Jupyter message,
+            // we log all the received data, without any prefix.
             for (String anIncomingMessage : incomingMessage) {
                 msg += "\n" + anIncomingMessage;
             }
@@ -274,6 +306,11 @@ public abstract class JupyterChannel implements Runnable {
         messagesManager.handleMessage(name, incomingMessage);
     }
 
+    /**
+     * Verify whether the given message is a correct UUID (Universally Unique IDentifier)
+     * @param message {String} the message to test
+     * @return {boolean} True if the message is a UUID, false otherwise.
+     */
     private boolean isUuid (String message) {
         // Define the REGEX for an ip address
         String UUID_PATTERN = "(kernel)\\.([a-z-0-9-\\-]){36}\\.(.*)";
@@ -292,5 +329,10 @@ public abstract class JupyterChannel implements Runnable {
                                         METHODS IMPLEMENTED BY LOWER CLASSES
      =================================================================================================================*/
 
+    /**
+     * Define a initializeThread method that should be overridden by the child classes.
+     *
+     * This method is called when the Thread start in order to initialize what needs to be initialized.
+     */
     protected abstract void initializeThread();
 }

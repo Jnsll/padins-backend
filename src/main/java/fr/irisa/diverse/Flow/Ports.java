@@ -6,6 +6,10 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 /**
+ * A Ports is a List of Port. See fr.irisa.diverse.Flow.Port to know more about it.
+ *
+ * It is used to make inports and outports manipulation easier on the programming side.
+ *
  * Created by antoine on 29/05/17.
  */
 public class Ports extends ArrayList<Port> {
@@ -66,6 +70,10 @@ public class Ports extends ArrayList<Port> {
         return ports.get(index);
     }
 
+    /**
+     * Change the node connected to those Ports
+     * @param node {String} the id of the node
+     */
     public void setNode (String node) {
         for (Object o: ports) {
             Port port = (Port) o;
@@ -73,6 +81,11 @@ public class Ports extends ArrayList<Port> {
         }
     }
 
+    /**
+     * Get the index of a given port in this Ports object
+     * @param name {String} the name of the port
+     * @return {int} the index of the port in the List. Returns -1 if not in Ports.
+     */
     public int indexOfPort (String name) {
         for(int i=0; i<ports.size(); i++) {
             if (ports.get(i).getName().equals(name)) return i;
@@ -85,6 +98,11 @@ public class Ports extends ArrayList<Port> {
                                                     PRIVATE FUNCTIONS
        ===============================================================================================================*/
 
+    /**
+     * Build the JSONArray that can be serialized and send to other programs easily.
+     *
+     * The Ports JSONArray contains the id of each port in this Ports object.
+     */
     private void build () {
         portsJson = new JSONArray();
         for (Object port: ports) {

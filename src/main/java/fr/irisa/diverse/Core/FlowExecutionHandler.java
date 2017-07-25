@@ -174,6 +174,11 @@ public class FlowExecutionHandler {
         }
     }
 
+    /**
+     * Handle the execution of the workflow when an error occurs during the execution
+     * of the given node.
+     * @param n {Node} the node that thrown an error
+     */
     public void errorExecutingNode (Node n) {
         if (n != null && nodes.indexOf(n) != -1) {
             stop();
@@ -196,6 +201,9 @@ public class FlowExecutionHandler {
         running.remove(t);
     }
 
+    /**
+     * Prepare the nodes for being executed.
+     */
     private void prepareNodesForExecution () {
         for (Node n : nodes) {
             n.prepareForExecution();
