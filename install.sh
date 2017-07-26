@@ -7,4 +7,3 @@ npm install
 npm run build
 cd ../../../
 mvn package
-docker pull antoinecheronirisa/lmt-python-core
