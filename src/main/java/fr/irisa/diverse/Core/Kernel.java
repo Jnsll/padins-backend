@@ -291,7 +291,7 @@ public class Kernel {
             Writer streamWriter = new OutputStreamWriter(new FileOutputStream(script));
             PrintWriter printWriter = new PrintWriter(streamWriter);
             printWriter.println("#!/bin/bash");
-            printWriter.println("docker run -d --rm -v " + pathToConnexionFilesFolder + ":/home/diverse/connexion_files -v " + pathToWorkspaceStorage + ":/home/diverse/workspace -v " + pathToUtils + ":/home/diverse/utils antoinecheronirisa/lmt-python-core");
+            printWriter.println("docker run -d -v " + pathToConnexionFilesFolder + ":/home/diverse/connexion_files -v " + pathToWorkspaceStorage + ":/home/diverse/workspace -v " + pathToUtils + ":/home/diverse/utils antoinecheronirisa/lmt-python-core");
             printWriter.println("exit");
             printWriter.close();
 
@@ -338,6 +338,7 @@ public class Kernel {
             PrintWriter printWriter = new PrintWriter(streamWriter);
             printWriter.println("#!/bin/bash");
             printWriter.println("docker stop " + containerId);
+            printWriter.println("docker rm" + containerId);
             printWriter.println("exit");
             printWriter.close();
 

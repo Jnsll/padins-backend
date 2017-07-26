@@ -35,4 +35,19 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Transform an array of String into a single String.
+     * @param input {String[]} the input the transform
+     * @return {String} the single line String
+     */
+    public static String StringArrayToString (String[] input) {
+        String res = "";
+
+        for (int i=0; i< input.length; i++) {
+            res += input[i] + "\n";
+        }
+
+        return res;
+    }
 }

@@ -2,6 +2,7 @@ package fr.irisa.diverse.Jupyter.JupyterMessaging;
 
 import fr.irisa.diverse.Core.Kernel;
 import fr.irisa.diverse.Jupyter.JupyterChannels.StdinChannel;
+import fr.irisa.diverse.Utils.Utils;
 import org.json.simple.JSONObject;
 
 /** Implementation of the messaging mechanism for the Stdin channel. For more information :
@@ -22,7 +23,7 @@ public class StdinMessaging {
                                                 CONSTRUCTOR
      =================================================================================================================*/
 
-    public StdinMessaging(Kernel kernel, StdinChannel channel) {
+    StdinMessaging(Kernel kernel, StdinChannel channel) {
 
         this.kernel = kernel;
         this.channel = channel;
@@ -38,7 +39,7 @@ public class StdinMessaging {
             case "input_request" :
                 handleInputRequestMessage(message);
             default :
-                System.err.println("Received unknown message on stdin channel : " + message.getMessageToSend());
+                System.err.println("Received unknown message on stdin channel : " + Utils.StringArrayToString(message.getMessageToSend()));
         }
     }
 
