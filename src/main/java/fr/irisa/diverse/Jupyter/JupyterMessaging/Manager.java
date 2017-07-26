@@ -5,18 +5,30 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-/** The manager is a component that handle everything related to reacting to incoming messages
+/** The manager is a component that handle everything related to reacting to incoming messages.
+ *
+ * It is the main class to use in order to handle the messages coming from a Jupyter Kernel.
+ *
+ * It has a main method that is handleMessage. This method takes the sourceChannel and the incoming message
+ * and redirect it to the proper handler.
  *
  * Created by antoine on 16/05/2017.
  */
 public class Manager {
 
-    // Attributes
+    /* =================================================================================================================
+                                                ATTRIBUTES
+     =================================================================================================================*/
+
     private Kernel owningKernel = null;
     private ShellMessaging shellMessaging = null;
     private IOPubMessaging ioPubMessaging = null;
     private StdinMessaging stdinMessaging = null;
     private ShellMessaging controlMessaging = null;
+
+    /* =================================================================================================================
+                                                CONSTRUCTOR
+     =================================================================================================================*/
 
     public Manager (Kernel kernel) {
         owningKernel = kernel;
@@ -26,6 +38,16 @@ public class Manager {
         controlMessaging = new ShellMessaging(owningKernel, kernel.control);
     }
 
+    /* =================================================================================================================
+                                           PUBLIC METHODS
+     =================================================================================================================*/
+
+    /**
+     * Handles any Jupyter Message coming from a channel.
+     *
+     * @param sourceChannel {String} the name of the channel the message comes from
+     * @param incomingMessage {String[]} the received message
+     */
     public void handleMessage (String sourceChannel, ArrayList<String> incomingMessage) {
         JupyterMessage message = new JupyterMessage(owningKernel, incomingMessage);
 
@@ -57,14 +79,32 @@ public class Manager {
         }
     }
 
+    /**
+     * Send a message on the shell channel, using this method's returned object followed by
+     * a call to the method sending the message you want to send.
+     *
+     * @return {ShellMessaging} the component that handle sending correctly formatted messages over the shell channel.
+     */
     public ShellMessaging sendMessageOnShell () {
         return shellMessaging;
     }
 
+    /**
+     * Respond to a prompt request on Stdin, using this method's returned object followed by a call to
+     * the method to answer on the channel.
+     *
+     * @return {StdinMessaging} the component that handle sending correctly formatted messages over the stdin channel
+     */
     public StdinMessaging respondeOnStdin () {
         return stdinMessaging;
     }
 
+    /**
+     * Send a message on the control channel, using this method's returned object followed by
+     * a call to the method sending the message you want to send.
+     *
+     * @return {ShellMessaging} the component that handle sending correctly formatted messages over the control channel.
+     */
     public ShellMessaging sendMessageOnControl () {
         return controlMessaging;
     }
@@ -73,6 +113,13 @@ public class Manager {
                                            MESSAGE HEADER RELATED METHODS
      =================================================================================================================*/
 
+    /**
+     * Verify that the HMAC in the given message is correct, according to the Jupyter documentation.
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#the-wire-protocol
+     *
+     * @param message {JupyterMessage} the message to test
+     * @return {boolean} True if correct, false if not
+     */
     private boolean hmacIsCorrect(JupyterMessage message) {
         /* TODO : the below code isn't doing the job. We need to figure out what the problem is.
          It is surprising, this code is doing the same thing as session.sign in the jupyter_client project */
@@ -87,6 +134,13 @@ public class Manager {
         return true;
     }
 
+    /**
+     * Handle the header from the received message.
+     * The header contains : String msg_id, String username, String session, String date, String msg_type,
+     * String version="5.0"
+     *
+     * @param header {JSONObject} the header to handle its content
+     */
     private void handleHeader(JSONObject header) {
 
         // Retrieve the session id and set it to the kernel
@@ -94,6 +148,11 @@ public class Manager {
         owningKernel.setSession(session);
     }
 
+    /**
+     * Handle the given uuid by using it as the identity of the kernel.
+     *
+     * @param uuid {String} the uuid to handle
+     */
     private void handleUUID (String uuid) {
         if (owningKernel.getIdentity().equals("") && uuid != null && !uuid.equals("")) setKernelsIdentity(uuid);
     }

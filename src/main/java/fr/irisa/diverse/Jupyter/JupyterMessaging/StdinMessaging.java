@@ -11,17 +11,28 @@ import org.json.simple.JSONObject;
  */
 public class StdinMessaging {
 
-    // Attributes
+    /* =================================================================================================================
+                                               ATTRIBUTES
+     =================================================================================================================*/
+
     private Kernel kernel = null;
     private StdinChannel channel = null;
 
-    // Constructor
+    /* =================================================================================================================
+                                                CONSTRUCTOR
+     =================================================================================================================*/
+
     public StdinMessaging(Kernel kernel, StdinChannel channel) {
 
         this.kernel = kernel;
         this.channel = channel;
     }
 
+    /**
+     * Handle the given message, coming from the Stdin Channel
+     * @param type {String} the type of the message
+     * @param message {JupyterMessage} the message itself
+     */
     public void handleMessage (String type, JupyterMessage message) {
         switch (type) {
             case "input_request" :
@@ -35,6 +46,17 @@ public class StdinMessaging {
                                        METHODS TO REACT TO INCOMING STDIN MESSAGES
      =================================================================================================================*/
 
+    /**
+     * Handle an input_request message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * 1. Prompts all the UI for the answer
+     * 2. Retrieve the answer and build the message
+     * 3. Respond to the kernel with a input_reply message
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleInputRequestMessage (JupyterMessage message) {
 
         String prompt = (String) message.getContent().get("prompt"); // Prompt to display to user

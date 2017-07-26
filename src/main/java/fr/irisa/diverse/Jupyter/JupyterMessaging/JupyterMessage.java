@@ -17,14 +17,17 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 /**
- * Implementation of the basis of a Jupyter message.
+ * Data structure of a Jupyter message.
  * The documentation is available here : http://jupyter-client.readthedocs.io/en/latest/messaging.html#general-message-format
  *
  * Created by antoine on 10/05/2017.
  */
 class JupyterMessage {
 
-    // Attributes
+    /* =================================================================================================================
+                                               ATTRIBUTES
+     =================================================================================================================*/
+
     private Kernel kernel = null;
     private JSONObject message;
 
@@ -37,6 +40,10 @@ class JupyterMessage {
     private JSONObject parent_header;
     private JSONObject metadata;
     private JSONObject content;
+
+    /* =================================================================================================================
+                                               CONSTRUCTORS
+     =================================================================================================================*/
 
     /**
      * Constructor with minimal number of arguments
@@ -124,33 +131,98 @@ class JupyterMessage {
                                                GETTER AND SETTERS
      =================================================================================================================*/
 
+    /**
+     * Get the header of the message as a JSONObject.
+     * The header contains : String msg_id, String username, String session, String date, String msg_type,
+     * String version="5.0"
+     *
+     * @return {JSONObject} the header of the message.
+     */
     public JSONObject getHeader () { return this.header; }
 
+    /**
+     * Set the parent header of the message.
+     *
+     * Use it when the message you create respond to another message.
+     *
+     * The parent_header must contain : String msg_id, String username, String session, String date, String msg_type,
+     * String version="5.0"
+     *
+     * @param parent_header {JSONObject} the parent header
+     */
     public void setParentHeader (JSONObject parent_header) {
         this.parent_header = parent_header;
     }
 
+    /**
+     * Get the parent header of the message.
+     *
+     * The parent_header must contain : String msg_id, String username, String session, String date, String msg_type,
+     * String version="5.0"
+     *
+     * @return {JSONObject} the parent header
+     */
     public JSONObject getParentHeader () { return this.parent_header; }
 
+    /**
+     * Set the metadata part of the message.
+     * Its content is free.
+     *
+     * @param metadata {JSONObject} the metadata
+     */
     public void setMetadata (JSONObject metadata) {
         this.metadata = metadata;
     }
 
+    /**
+     * Get the HMAC of the message
+     * @return {String} the HMAC
+     */
     public String getHmac () {
         if(this.hmac == null) this.hmac = generateHmac();
         return this.hmac;
     }
 
+    /**
+     * Get the metadata of the message.
+     * Its content is free.
+     *
+     * @return {JSONObject} the metadata
+     */
     public JSONObject getMetadata () { return this.metadata; }
 
+    /**
+     * Get the universally unique identifier (UUID) of the message
+     * @return {String} the UUID of the message
+     */
     public String getUuid () { return uuid; }
 
+    /**
+     * Set the content part of the message. It must be a JSON.
+     * Its content depends on the type of message, according to this documentation :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html
+     *
+     * @param content {JSONObject} the content part.
+     */
     public void setContent (JSONObject content) {
         this.content = content;
     }
 
+    /**
+     * Get the content part of the message. It must be a JSON.
+     * Its content depends on the type of message, according to this documentation :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html
+     *
+     * @return {JSONObject} the content of the message.
+     */
     public JSONObject getContent () { return this.content; }
 
+    /**
+     * Get the message serialized in the proper format in order to send it through the channel,
+     * using the ZMQ library.
+     *
+     * @return {String[]} the serialized message
+     */
     public String[] getMessageToSend () {
         buildMessage();
 

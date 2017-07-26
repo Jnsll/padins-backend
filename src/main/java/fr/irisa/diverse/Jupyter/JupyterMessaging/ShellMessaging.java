@@ -23,12 +23,18 @@ import org.json.simple.JSONObject;
  */
 public class ShellMessaging {
 
-    // Attributes
+    /* =================================================================================================================
+                                               ATTRIBUTES
+     =================================================================================================================*/
+
     private Kernel kernel = null;
     private ShellChannel channel = null;
     private FBPNetworkProtocolManager manager;
 
-    // Constructor
+    /* =================================================================================================================
+                                                CONSTRUCTOR
+     =================================================================================================================*/
+
     public ShellMessaging(Kernel kernel, ShellChannel channel) {
 
         this.kernel = kernel;
@@ -40,6 +46,11 @@ public class ShellMessaging {
                                                 HANDLE MESSAGE METHOD
      =================================================================================================================*/
 
+    /**
+     * Handle the given message, coming from the Shell or Control Channel
+     * @param type {String} the type of the message
+     * @param message {JupyterMessage} the message itself
+     */
     public void handleMessage (String type, JupyterMessage message) {
         switch (type) {
             case "execute_reply" :
@@ -245,6 +256,17 @@ public class ShellMessaging {
                                         METHODS TO HANDLE SHELL REPLY MESSAGES
      =================================================================================================================*/
 
+    /**
+     * Handle an excute_reply message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#execution-results
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * - OK : do nothing
+     * - ERROR : Broadcast the error to the UIs and log an error
+     * - ABORT : Broadcast the abort to the UIs and log an error
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleExecuteReplyMessage (JupyterMessage message) {
         JSONObject content = message.getContent();
 
@@ -269,6 +291,16 @@ public class ShellMessaging {
         }
     }
 
+    /**
+     * Handle an introspection_reply message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#introspection
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * - OK : TODO send result to UIs
+     * - ERROR : Broadcast an error to the UIs
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleIntrospectionReplyMessage (JupyterMessage message) {
         JSONObject content = message.getContent();
 
@@ -288,6 +320,16 @@ public class ShellMessaging {
         }
     }
 
+    /**
+     * Handle an completion_reply message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#completion
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * - OK : TODO send info to corresponding UI, probably sending UI username via metadata and retrieving it here
+     * - ERROR : Broadcast an error to the UIs
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleCompletionReplyMessage (JupyterMessage message) {
         JSONObject content = message.getContent();
 
@@ -304,27 +346,81 @@ public class ShellMessaging {
 
     }
 
+    /**
+     * Handle an history_reply message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#history
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * TODO
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleHistoryReplyMessage (JupyterMessage message) {
         JSONObject content = message.getContent();
         // TODO
     }
 
+    /**
+     * Handle a is_complete_reply message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-completeness
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * TODO
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleCodeCompletenessReplyMessage (JupyterMessage message) {
         // TODO
     }
 
+    /**
+     * Handle a connect_reply message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#connect
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * TODO
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleConnectionReplyMessage (JupyterMessage message) {
         // TODO
     }
 
+    /**
+     * Handle a comm_info_reply message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#comm-info
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * TODO
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleCommInfoReplyMessage (JupyterMessage message) {
         // TODO
     }
 
+    /**
+     * Handle a kernel_info_reply message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * TODO
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleKernelInfoReplyMessage (JupyterMessage message) {
         // TODO
     }
 
+    /**
+     * Handle a shutdown_reply message, according to this doc :
+     * http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-shutdown
+     *
+     * Our implementation behavior: depends on the status of the message.
+     * TODO
+     *
+     * @param message {JupyterMessage} the received message
+     */
     private void handleShutdownReplyMessage (JupyterMessage message) {
         // TODO
     }
