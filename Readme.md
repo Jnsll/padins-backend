@@ -28,6 +28,11 @@ To run this project, you'll need :
 https://www.docker.com/community-edition
 ```
 
+*Our lmt-python-core image*
+```
+docker pull antoinecheronirisa/lmt-python-core
+```
+
 **Then you just need to run it, no installation needed**
 
 **UNIX-based OS**
