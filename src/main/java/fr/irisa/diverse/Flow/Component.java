@@ -1,5 +1,7 @@
 package fr.irisa.diverse.Flow;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -118,6 +120,8 @@ public class Component {
      * @return the source code as String
      */
     public String getCode() {
+        if (code == null) return "";
+
         return code;
     }
 
@@ -127,6 +131,8 @@ public class Component {
      * @return the tests code as String
      */
     public String getTests() {
+        if (tests == null) return "";
+
         return tests;
     }
 

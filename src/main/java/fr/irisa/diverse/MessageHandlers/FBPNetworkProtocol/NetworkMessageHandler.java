@@ -2,7 +2,6 @@ package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol;
 
 import fr.irisa.diverse.Core.Workspace;
 import fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.Utils.Status;
-import fr.irisa.diverse.Utils.JSON;
 import fr.irisa.diverse.Utils.Utils;
 import org.json.simple.JSONObject;
 
@@ -72,7 +71,7 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
     }
 
     private void getstatus(FBPMessage message) {
-        JSONObject payload = message.getPayloadAsJSON();
+        JSONObject payload = message.getPayload();
         String graph = (String) payload.get("graph");
 
         sendStatusMessage(graph);
@@ -85,7 +84,7 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
 
     private void start(FBPMessage message) {
         Runnable task = () -> {
-            JSONObject payload = message.getPayloadAsJSON();
+            JSONObject payload = message.getPayload();
             String graph = (String) payload.get("graph");
 
             boolean started = false;
@@ -124,7 +123,7 @@ public class NetworkMessageHandler extends SendMessageOverFBP implements FBPProt
     }
 
     private void stop(FBPMessage message) {
-        JSONObject payload = message.getPayloadAsJSON();
+        JSONObject payload = message.getPayload();
         // Retrieve the id of the graph
         String graph = (String) payload.get("graph");
 

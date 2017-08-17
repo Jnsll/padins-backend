@@ -12,6 +12,7 @@ import org.json.simple.parser.ParseException;
  *
  * Created by antoine on 26/05/2017.
  */
+@SuppressWarnings("unchecked")
 public class FBPMessage {
 
     // Attributes
@@ -36,37 +37,67 @@ public class FBPMessage {
     public FBPMessage (String message) {
         this.message = JSON.stringToJsonObject(message);
 
-        // TODO verification steps
+        // TODO : verification steps
     }
 
     /* =================================================================================================================
                                               GETTERS AND SETTERS
        ===============================================================================================================*/
 
+    /**
+     * Returns the protocol field of the message as a String.
+     * The protocols are : runtime - graph - component - network - trace
+     *
+     * @return {String} the protocol field of the message.
+     */
     public String getProtocol () {
         return (String) message.get("protocol");
     }
 
+    /**
+     * Returns the command field of the message.
+     * The command is the name of the action to do. For example removeedge
+     *
+     * @return {String} the command field of the message
+     */
     public String getCommand () {
         return (String) message.get("command");
     }
 
-    public JSONObject getPayloadAsJSON () {
+    /**
+     * Returns the payload of the message, as a JSONObject.
+     * The payload contains all the interesting information to handle the message. It must be compliant
+     * with the documentation. Each command has a different payload.
+     *
+     * @return {JSONObject} the payload of the message
+     */
+    public JSONObject getPayload() {
         return (JSONObject) message.get("payload");
     }
 
-    public String getPayloadAsJString () {
-        return (String) message.get("payload");
-    }
-
+    /**
+     * Set the protocol field of the message.
+     *
+     * @param protocol {String} the new protocol. Must be : runtime - graph - component - network - trace
+     */
     public void setProtocol(String protocol) {
         message.put("protocol", protocol);
     }
 
+    /**
+     * Set the command field of the message.
+     *
+     * @param command {String} the new command
+     */
     public void setCommand (String command) {
         message.put("command", command);
     }
 
+    /**
+     * Set the payload of the message, from a String.
+     *
+     * @param payload {String} the new payload, as a serialized JSON object
+     */
     public void setPayload (String payload) {
         // Parse payload to avoid backslash in the serialized message
         JSONParser parser = new JSONParser();
@@ -80,9 +111,11 @@ public class FBPMessage {
         message.put("payload", p);
     }
 
-    public void setPayloadFromJson (JSONObject payload) {
-        message.put("payload", payload.toString());
-    }
-
+    /**
+     * Serialize the message to a JSON compliant String.
+     * Commonly used to send the message through a socket.
+     *
+     * @return {String} the serialized message
+     */
     public String toJSONString () { return message.toJSONString(); }
 }

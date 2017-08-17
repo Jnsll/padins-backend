@@ -7,8 +7,8 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Class managing the Component Message for the Flow-Based Programming Network Protocol
- * To know more about this protocol, take a look at the doc on J.Paul Morisson great website :
+ * Class managing the Component messages for the Flow-Based Programming Network Protocol
+ * To know more about this protocol, take a look at the doc on J.Paul Morisson's website :
  * https://flowbased.github.io/fbp-protocol/#sub-protocols
  *
  * Created by antoine on 26/05/2017.
@@ -21,7 +21,7 @@ public class ComponentMessageHandler extends SendMessageOverFBP implements FBPPr
     /* =================================================================================================================
                                                         CONSTRUCTOR
        ===============================================================================================================*/
-    public ComponentMessageHandler (FBPNetworkProtocolManager manager) {
+    ComponentMessageHandler (FBPNetworkProtocolManager manager) {
         this.owningManager = manager;
         this.componentsLibrary = owningManager.getComponentsLibrary();
         this.PROTOCOL = "component";
@@ -82,7 +82,7 @@ public class ComponentMessageHandler extends SendMessageOverFBP implements FBPPr
      */
     private void getsource(FBPMessage message) {
         // Retrieve the name of the component for which the user request the source code
-        String name = (String) message.getPayloadAsJSON().get("name");
+        String name = (String) message.getPayload().get("name");
         int slashIndex = name.lastIndexOf('/');
 
         // Split the name of the library and the name of the component
@@ -123,6 +123,7 @@ public class ComponentMessageHandler extends SendMessageOverFBP implements FBPPr
      * @param library : the library of components
      * @param component : the component for which to send the source code
      */
+    @SuppressWarnings("unchecked")
     private void sendSourceMessage (String library, String component) {
         Component component1 = ComponentsUtils.getComponent(library, component);
 

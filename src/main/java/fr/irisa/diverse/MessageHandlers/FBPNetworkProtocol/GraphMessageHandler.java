@@ -12,6 +12,7 @@ import fr.irisa.diverse.Flow.*;
  *
  * Created by antoine on 26/05/2017.
  */
+@SuppressWarnings("unchecked")
 public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler  {
 
     // Attributes
@@ -44,61 +45,61 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
                 clear();
                 break;
             case "addnode" :
-                addnode(message.getPayloadAsJSON());
+                addnode(message.getPayload());
                 break;
             case "removenode" :
-                removenode(message.getPayloadAsJSON());
+                removenode(message.getPayload());
                 break;
             case "renamenode" :
-                renamenode(message.getPayloadAsJSON());
+                renamenode(message.getPayload());
                 break;
             case "changenode" :
-                changenode(message.getPayloadAsJSON());
+                changenode(message.getPayload());
                 break;
             case "addedge" :
-                addedge(message.getPayloadAsJSON());
+                addedge(message.getPayload());
                 break;
             case "removeedge" :
-                removeedge(message.getPayloadAsJSON());
+                removeedge(message.getPayload());
                 break;
             case "changeedge" :
-                changeedge(message.getPayloadAsJSON());
+                changeedge(message.getPayload());
                 break;
             case "addinitial" :
-                addinitial(message.getPayloadAsJSON());
+                addinitial(message.getPayload());
                 break;
             case "removeinitial" :
-                removeinitial(message.getPayloadAsJSON());
+                removeinitial(message.getPayload());
                 break;
             case "addinport" :
-                addinport(message.getPayloadAsJSON());
+                addinport(message.getPayload());
                 break;
             case "removeinport" :
-                removeinport(message.getPayloadAsJSON());
+                removeinport(message.getPayload());
                 break;
             case "renameinport" :
-                renameinport(message.getPayloadAsJSON());
+                renameinport(message.getPayload());
                 break;
             case "addoutport" :
-                addoutport(message.getPayloadAsJSON());
+                addoutport(message.getPayload());
                 break;
             case "removeoutport" :
-                removeoutport(message.getPayloadAsJSON());
+                removeoutport(message.getPayload());
                 break;
             case "renameoutport" :
-                renameoutport(message.getPayloadAsJSON());
+                renameoutport(message.getPayload());
                 break;
             case "addgroup" :
-                addgroup(message.getPayloadAsJSON());
+                addgroup(message.getPayload());
                 break;
             case "removegroup" :
-                removegroup(message.getPayloadAsJSON());
+                removegroup(message.getPayload());
                 break;
             case "renamegroup" :
-                renamegroup(message.getPayloadAsJSON());
+                renamegroup(message.getPayload());
                 break;
             case "changegroup" :
-                changegroup(message.getPayloadAsJSON());
+                changegroup(message.getPayload());
                 break;
             default :
                 sendError("Error with message : " + message.toJSONString());
@@ -110,10 +111,21 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
                                    PRIVATE METHODS TO HANDLE RECEIVED MESSAGES
        ===============================================================================================================*/
 
+    /**
+     * Clear the content of the graph.
+     * https://flowbased.github.io/fbp-protocol/#graph-clear
+     */
     private void clear () {
         System.out.println("You are trying to empty the graph. It is too dangerous to be implemented");
     }
 
+    /**
+     * Handle a "addnode" message by adding a new Node object into the list of nodes in the Flow object.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addnode
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void addnode (JSONObject payload) {
         // Retrieve needed data for addNode() method
         String id = (String) payload.get("id");
@@ -123,9 +135,12 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         String graph = (String) payload.get("graph");
 
         Component c = ComponentsUtils.getComponent(owningWorkspace.getLibrary(), component);
-        boolean executable = c.isExecutable();
-        metadata.put("code", c.getCode());
-        metadata.put("language", c.getLanguage());
+        boolean executable = false;
+        if (c != null) {
+            executable = c.isExecutable();
+            metadata.put("code", c.getCode());
+            metadata.put("language", c.getLanguage());
+        }
 
         // Add the node into the flow and if it succeed send a message back to the connected clients
         // & start a kernel if the node is a Processing or Simulation
@@ -139,6 +154,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         }
     }
 
+    /**
+     * Handle a "removenode" message by removing the Node object with the given id, from the Flow object.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removenode
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void removenode (JSONObject payload) {
         // Retrieve needed data for removeNode() method
         String id = (String) payload.get("id");
@@ -157,6 +179,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         }
     }
 
+    /**
+     * Handle a "renamenode" message by changing its id.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-renamenode
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void renamenode (JSONObject payload) {
         // Retrieve needed data for renameNode() method
         String from = (String) payload.get("from");
@@ -172,6 +201,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
     }
 
+    /**
+     * Handle a "changenode" message by updating the metadata field of the Node object with the given id,
+     * from the Flow object.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-changenode
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void changenode (JSONObject payload) {
         // Retrieve needed data for changeNode() method
         String id = (String) payload.get("id");
@@ -186,6 +223,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         }
     }
 
+    /**
+     * Handle a "addedge" message by adding a new Edge object into the Flow. The edge is created from the data
+     * we retrieve in the given payload object, in accordance to the FBPNP documentation.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addedge
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void addedge (JSONObject payload) {
         // Retrieve needed data for addEdge() method
         String id = (String) payload.get("id");
@@ -205,6 +250,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
     }
 
+    /**
+     * Handle a "removeedge" message by removing the Edge object with the given id, from the Flow object.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removeedge
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void removeedge (JSONObject payload) {
         // Retrieve needed data for removeEdge() method
         String id = (String) payload.get("id");
@@ -221,6 +273,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
     }
 
+    /**
+     * Handle a "changeedge" message by updating the metadata field of the Edge object with the given id,
+     * from the Flow object.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-changeedge
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void changeedge (JSONObject payload) {
         // Retrieve needed data for changeEdge() method
         String id = (String) payload.get("id");
@@ -238,6 +298,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
     }
 
+    /**
+     * Handle a "addinitial" message. Don't do anything for now.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addinitial
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void addinitial (JSONObject payload) {
         // Retrieve needed data for addInitial() method
         String graph = (String) payload.get("graph");
@@ -251,6 +318,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
     }
 
+    /**
+     * Handle a "removeinitial" message. Don't do anything for now.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removeinitial
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void removeinitial (JSONObject payload) {
         // Retrieve needed data for removeInitial() method
         JSONObject src = (JSONObject) payload.get("src");
@@ -262,6 +336,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         // answer later
     }
 
+    /**
+     * Handle a "addinport" message. Don't do anything for now.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addinport
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void addinport (JSONObject payload) {
         // Retrieve needed data for addInport() method
         String name = (String) payload.get("public");
@@ -275,6 +356,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         // answer later
     }
 
+    /**
+     * Handle a "removeinport" message. Don't do anything for now.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removeinport
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void removeinport (JSONObject payload) {
         // Retrieve needed data for removeInport() method
         String name = (String) payload.get("public");
@@ -285,6 +373,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         // answer later
     }
 
+    /**
+     * Handle a "renameinport" message. Don't do anything for now.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-renameinport
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void renameinport (JSONObject payload) {
         // Retrieve needed data for renameInport() method
         String from = (String) payload.get("from");
@@ -296,6 +391,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         // answer later
     }
 
+    /**
+     * Handle a "addoutport" message. Don't do anything for now.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addoutport
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void addoutport (JSONObject payload) {
         // Retrieve needed data for addOutport() method
         String name = (String) payload.get("public");
@@ -310,6 +412,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
     }
 
+    /**
+     * Handle a "removeoutport" message. Don't do anything for now.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removeoutport
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void removeoutport (JSONObject payload) {
         // Retrieve needed data for removeOutport() method
         String name = (String) payload.get("public");
@@ -320,6 +429,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         // answer later
     }
 
+    /**
+     * Handle a "renameoutport" message. Don't do anything for now.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-renameoutport
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void renameoutport (JSONObject payload) {
         // Retrieve needed data for renameOutport() method
         String from = (String) payload.get("from");
@@ -331,6 +447,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         // answer later
     }
 
+    /**
+     * Handle a "addgroup" message by adding a group to the graph.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addgroup
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void addgroup (JSONObject payload) {
         // Retrieve needed data for addGroup() method
         String name = (String) payload.get("name");
@@ -346,6 +469,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         }
     }
 
+    /**
+     * Handle a "removegroup" message by removing a group from the graph.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removegroup
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void removegroup (JSONObject payload) {
         // Retrieve needed data for removeGroup() method
         String name = (String) payload.get("name");
@@ -359,6 +489,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         }
     }
 
+    /**
+     * Handle a "renamegroup" message by renaming an existing group from the graph.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-renamegroup
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void renamegroup (JSONObject payload) {
         // Retrieve needed data for renameGroup() method
         String from = (String) payload.get("from");
@@ -373,6 +510,13 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         }
     }
 
+    /**
+     * Handle a "changegroup" message by updating its metadata.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-changegroup
+     *
+     * @param payload {JSONObject} the payload from the received message
+     */
     private void changegroup (JSONObject payload) {
         // Retrieve needed data for changeGroup() method
         String name = (String) payload.get("name");
@@ -391,10 +535,23 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
                                             PRIVATE METHODS TO SEND MESSAGES
        ===============================================================================================================*/
 
+    /**
+     * Send a "clear" message on the graph protocol
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-clear
+     */
     private void sendClearMessage () {
         System.out.println("You are trying to empty the graph. It is too dangerous to be implemented");
     }
 
+    /**
+     * Send a "addnode" message for the Node with the given id in the given graph.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addnode
+     *
+     * @param id {String} id of the new node.
+     * @param graph {String} id of the graph on which to create the node.
+     */
     private void sendAddNodeMessage (String id, String graph) {
         // Retrieve newly create node
         Node node = flow.getNode(id, graph);
@@ -410,6 +567,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("addnode", payload);
     }
 
+    /**
+     * Send a "removenode" message in order to remove the node with the given id from the graph.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removenode
+     *
+     * @param id {String} id of the node to remove.
+     * @param graph {String} id of the graph on which to remove the node.
+     */
     private void sendRemoveNodeMessage (String id, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -420,6 +585,15 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("removenode", payload);
     }
 
+    /**
+     * Send a "renamenode" message in order to replace the node with the new given id.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-renamenode
+     *
+     * @param from {String} previous id
+     * @param to {String} new id
+     * @param graph {String} id of the graph the node is on
+     */
     private void sendRenameNodeMessage (String from, String to, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -431,7 +605,15 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("renamenode", payload);
     }
 
-    public void sendChangeNodeMessage (String id, String graph) {
+    /**
+     * Send a "changenode" message in order to update its metadata.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-changenode
+     *
+     * @param id {String} the id of the node
+     * @param graph {String} the graph the node is on
+     */
+    private void sendChangeNodeMessage (String id, String graph) {
         Node node = flow.getNode(id, graph);
         // Build payload
         JSONObject payload = new JSONObject();
@@ -443,6 +625,15 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("changenode", payload);
     }
 
+    /**
+     * Send a "addedge" message in order to create a new edge that connects two existing nodes.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addedge
+     *
+     * @param src {JSONObject} the node's id, port and index of the source node
+     * @param tgt {JSONObject} the node's id, port and index of the target node
+     * @param graph {String} the graph the edge will be on
+     */
     private void sendAddEdgeMessage (JSONObject src, JSONObject tgt, String graph) {
         Edge edge = flow.getEdge(src, tgt, graph);
         // Build payload
@@ -457,6 +648,16 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("addedge", payload);
     }
 
+    /**
+     * Send a "removeedge" message in order to remove the edge from the graph.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removeedge
+     *
+     * @param id {String} the id of the edge
+     * @param graph {String} the id of the graph the edge is on
+     * @param src {JSONObject} the node's id, port and index of the source node
+     * @param tgt {JSONObject} the node's id, port and index of the target node
+     */
     private void sendRemoveEdgeMessage (String id, String graph, JSONObject src, JSONObject tgt) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -469,6 +670,16 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("removeedge", payload);
     }
 
+    /**
+     * Send a "changeedge" message in order to connect an edge update its metadata.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-changeedge
+     *
+     * @param id {String} the id of the edge
+     * @param graph {String} the id of the graph the edge is on
+     * @param src {JSONObject} the node's id, port and index of the source node
+     * @param tgt {JSONObject} the node's id, port and index of the target node
+     */
     private void sendChangeEdgeMessage (String id, String graph, JSONObject src, JSONObject tgt) {
         Edge edge = flow.getEdge(src, tgt, graph);
         // Build payload
@@ -483,14 +694,37 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("changeedge", payload);
     }
 
+    /**
+     * Send a "addinitial" message. Behavior and interest to find ...
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addinitial
+     *
+     * @param msg {JSONObject} the msg to send
+     */
     private void sendAddInitialMessage (JSONObject msg) {
         // Not used for now
     }
 
+    /**
+     * Send a "removeinitial" message. Behavior and interest to find ...
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removeinitial
+     *
+     * @param msg {JSONObject} the msg to send
+     */
     private void sendRemoveInitialMessage (JSONObject msg) {
         // Not used for now
     }
 
+    /**
+     * Send a "addinport" message.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addinport
+     *
+     * @param port {Port} the port to add
+     * @param node {String} the id of the node on which to add the port
+     * @param graph {String} the id of the graph the node is on
+     */
     private void sendAddInportMessage (Port port, String node, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -504,6 +738,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("addinport", payload);
     }
 
+    /**
+     * Send a "removeinport" message.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removeinport
+     *
+     * @param name {String} the name of the port to delete
+     * @param graph {String} the id of the graph the port is on
+     */
     private void sendRemoveInportMessage (String name, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -514,6 +756,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("removeinport", payload);
     }
 
+    /**
+     * Send a "renameinport" message.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-renameinport
+     * @param from {String} original exported port name
+     * @param to {String} new exported port name
+     * @param graph {String} graph the action targets
+     */
     private void sendRenameInportMessage (String from, String to, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -525,6 +775,15 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("renameinport", payload);
     }
 
+    /**
+     * Send a "addoutport" message.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addoutport
+     *
+     * @param port {Port} the new port
+     * @param node {String} the node's id
+     * @param graph {String} the id of the graph the action targets
+     */
     private void sendAddOutportMessage (Port port, String node, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -538,6 +797,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("addoutport", payload);
     }
 
+    /**
+     * Send a "removeoutport" message. Remove an exported port in the graph.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removeoutport
+     *
+     * @param name {String} name of the exported port
+     * @param graph {String} id of the graph the action targets
+     */
     private void sendRemoveOutportMessage (String name, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -548,6 +815,15 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("removeoutport", payload);
     }
 
+    /**
+     * Send a "renameoutport" message. Rename an exported port in the graph.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-renameoutport
+     *
+     * @param from {String} previous name
+     * @param to {String} new name
+     * @param graph {String} id of the graph the action targets
+     */
     private void sendRenameOutportMessage (String from, String to, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -559,6 +835,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("renameoutport", payload);
     }
 
+    /**
+     * Send a "addgroup" message. Add a group to the graph
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-addgroup
+     *
+     * @param name {String} name of the group
+     * @param graph {String} id of the graph the action targets
+     */
     private void sendAddGroupMessage (String name, String graph) {
         Group group = flow.getGroup(name, graph);
         // Build payload
@@ -572,6 +856,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("addgroup", payload);
     }
 
+    /**
+     * Send a "removegroup" message. Remove a group from the graph
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-removegroup
+     *
+     * @param name {String} name of the group
+     * @param graph {String} id of the graph the action targets
+     */
     private void sendRemoveGroupMessage (String name, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -582,6 +874,15 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("removegroup", payload);
     }
 
+    /**
+     * Send a "removegroup" message. Rename a group in the graph
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-renamegroup
+     *
+     * @param from {String} the previous name
+     * @param to {String} the new name
+     * @param graph {String} id of the graph the action targets
+     */
     private void sendRenameGroupMessage (String from, String to, String graph) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -593,6 +894,14 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
         sendMessageToAll("renamegroup", payload);
     }
 
+    /**
+     * Send a "changegroup" message. Change a group's metadata.
+     *
+     * https://flowbased.github.io/fbp-protocol/#graph-changegroup
+     *
+     * @param name {String} name of the group
+     * @param graph {String} id of the graph the action targets
+     */
     private void sendChangeGroupMessage (String name, String graph) {
         Group group = flow.getGroup(name, graph);
         // Build payload
@@ -606,9 +915,15 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
     }
 
     /* =================================================================================================================
-                      PRIVATE METHODS TO SEND MESSAGES. METHODS THAT ARE SPECIFICALLY FOR THIS PROGRAM
+                      PRIVATE METHODS TO SEND MESSAGES. METHODS THAT ARE SPECIFIC TO THIS PROGRAM
        ===============================================================================================================*/
 
+    /**
+     * Send addinport and addoutport message for the given node.
+     *
+     * @param node {Node}
+     * @param graph {String} the id of the graph the action targets
+     */
     private void sendAddInportAndOutportForNode (Node node, String graph) {
         Ports inports = node.getInports();
         Ports outports = node.getOutports();
