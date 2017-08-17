@@ -1,7 +1,5 @@
 package fr.irisa.diverse.Flow;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
