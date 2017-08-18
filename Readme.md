@@ -37,21 +37,15 @@ docker pull antoinecheronirisa/lmt-python-core
 
 **UNIX-based OS**
 1. Open a terminal
-2.  `docker run -it --rm -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock antoinecheronirisa/padins`
+2.  `docker run -it --rm -p 8080:8080 -v /usr/include/padins/0-1-0:/usr/include/padins/0-1-0 -v /var/run/docker.sock:/var/run/docker.sock antoinecheronirisa/padins`
 3. Go to : http://localhost:8080
 
-**WNIDOWS**
+**WNIDOWS**(data will not be persistent. I recommend using a Linux vm)
 1. Open the Windows Cmd
 2. Open port 445 of Windows trough the firewall, typing `netsh firewall set portopening tcp 445 enable`
 3. Make sure docker is started, then `docker run -it --rm -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock antoinecheronirisa/padins`
 4. Open another Windows Cmd and type the following command to get the padins container's IP address : `docker-machine ip default`. Info : default is the name of the open VirtualBox.
 5. Go to : http://{{ container's IP address }}:8080
-
-**Persisting data**
-
-To persist data used in the container, mount a volume to :  /root/.padins/0-1-0.
-Here is an example of the command you can use, supposing that you have a .padins/0-1-0 folder in your home directory :
-`docker run -it --rm -p 8080:8080 -v /usr/include/padins/0-1-0:/usr/include/padins/0-1-0 -v /var/run/docker.sock:/var/run/docker.sock antoinecheronirisa/padins`
 
 **Stopping the server**
 
