@@ -4,18 +4,22 @@ import org.json.simple.JSONObject;
 
 /**
  * Class managing the Runtime Message for the Flow-Based Programming Network Protocol
- * To know more about this protocol, take a look at the doc on J.Paul Morisson great website :
+ * To know more about this protocol, take a look at the doc on J.Paul Morisson's website :
  * https://flowbased.github.io/fbp-protocol/#sub-protocols
  *
  * Created by antoine on 26/05/2017.
  */
+@SuppressWarnings("unchecked")
 public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler {
 
     // Attributes
     private FBPNetworkProtocolManager owningManager;
 
-    // Constructor
-    public RuntimeMessageHandler (FBPNetworkProtocolManager manager) {
+    /* =================================================================================================================
+                                                    CONSTRUCTOR
+       ===============================================================================================================*/
+
+    RuntimeMessageHandler (FBPNetworkProtocolManager manager) {
         this.PROTOCOL = "runtime";
         this.owningManager = manager;
     }
@@ -24,6 +28,12 @@ public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProt
                                     FBPProtocolHandler INTERFACE METHOD IMPLEMENTATION
        ===============================================================================================================*/
 
+    /**
+     * Handle a message.
+     * It call the corresponding method for each supported type of message.
+     *
+     * @param message : the message to handle
+     */
     public void handleMessage (FBPMessage message) {
         String command = message.getCommand();
 
@@ -46,18 +56,38 @@ public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProt
                                         PRIVATE METHODS TO HANDLE RECEIVED MESSAGES
        ===============================================================================================================*/
 
+    /**
+     * Handle a "getruntime" message by answering with a "runtime" message.
+     *
+     * https://flowbased.github.io/fbp-protocol/#runtime-getruntime
+     */
     private void getruntime () {
         sendRuntimeMessage();
     }
 
+    /**
+     * Handle a "packet" message.
+     *
+     * https://flowbased.github.io/fbp-protocol/#runtime-packet
+     */
     private void packet () {
-        // TODO : figure out int what case we could use it and how.
+        // TODO : figure out in what case we could use it and how.
     }
 
     /* =================================================================================================================
                                                PRIVATE METHODS TO SEND MESSAGES
        ===============================================================================================================*/
 
+    /**
+     * Send a packet message.
+     *
+     * https://flowbased.github.io/fbp-protocol/#runtime-packet
+     *
+     * @param port {String} port name for the input or output port
+     * @param event {String} packet event
+     * @param graph {String} graph the action targets
+     * @param payloadToSend {JSONObject} payload for the packet. Used only with begingroup (for group names) and data packets
+     */
     private void sendPacketMessage (String port, String event, String graph, JSONObject payloadToSend) {
         // Build payload
         JSONObject payload = new JSONObject();
@@ -72,8 +102,9 @@ public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProt
     }
 
     /**
-     * Send a ports message as a response to packet or each time the available ports change
-     * as described here : https://flowbased.github.io/fbp-protocol/#runtime-ports
+     * Send a ports message as a response to packet or each time the available ports change.
+     *
+     * https://flowbased.github.io/fbp-protocol/#runtime-ports
      */
     private void sendPortsMessage () {
         // Build payload
@@ -87,7 +118,9 @@ public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProt
     }
 
     /**
-     * Send a runtime message as a response as described here : https://flowbased.github.io/fbp-protocol/#runtime-runtime
+     * Send a "runtime" message.
+     *
+     * https://flowbased.github.io/fbp-protocol/#runtime-runtime
      */
     private void sendRuntimeMessage () {
         // Build payload

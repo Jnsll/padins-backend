@@ -7,7 +7,7 @@ import fr.irisa.diverse.Flow.*;
 
 /**
  * Class managing the Graph Message for the Flow-Based Programming Network Protocol
- * To know more about this protocol, take a look at the doc on J.Paul Morisson great website :
+ * To know more about this protocol, take a look at the doc on J.Paul Morisson's website :
  * https://flowbased.github.io/fbp-protocol/#sub-protocols
  *
  * Created by antoine on 26/05/2017.
@@ -19,8 +19,11 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
     private Workspace owningWorkspace;
     private Flow flow;
 
-    // Constructor
-    public GraphMessageHandler (FBPNetworkProtocolManager manager) {
+    /* =================================================================================================================
+                                                    CONSTRUCTOR
+       ===============================================================================================================*/
+
+    GraphMessageHandler (FBPNetworkProtocolManager manager) {
         this.owningManager = manager;
         this.flow = owningManager.owningWorkspace.getFlow();
         this.owningWorkspace = manager.owningWorkspace;
@@ -291,7 +294,7 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
 
         if (flow.changeEdge(id, graph, metadata, src, tgt)) {
             // Answer
-            sendChangeEdgeMessage(id, graph, src, tgt);
+            sendChangeEdgeMessage(graph, src, tgt);
         } else {
             sendError("Unable to change request edge");
         }
@@ -675,12 +678,11 @@ public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtoc
      *
      * https://flowbased.github.io/fbp-protocol/#graph-changeedge
      *
-     * @param id {String} the id of the edge
      * @param graph {String} the id of the graph the edge is on
      * @param src {JSONObject} the node's id, port and index of the source node
      * @param tgt {JSONObject} the node's id, port and index of the target node
      */
-    private void sendChangeEdgeMessage (String id, String graph, JSONObject src, JSONObject tgt) {
+    private void sendChangeEdgeMessage (String graph, JSONObject src, JSONObject tgt) {
         Edge edge = flow.getEdge(src, tgt, graph);
         // Build payload
         JSONObject payload = new JSONObject();

@@ -3,7 +3,8 @@ package fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol;
 import org.json.simple.JSONObject;
 
 /**
- * Abstract class that implements methods related to sending messages from the server to the UIs.
+ * Abstract class that implements methods related to sending messages from the server to the UIs, over the
+ * Flow-Based Programming Network Protocol.
  *
  * Created by antoine on 30/05/17.
  */
