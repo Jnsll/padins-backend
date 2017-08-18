@@ -32,8 +32,10 @@ public class ServerSocket {
     private FileExplorerMessageHandler fileExplorerMessageHandler = null;
     private String workspaceId;
 
-    // Constructor
-    public ServerSocket (String subprotocol) {
+    /* =================================================================================================================
+                                                  CONSTRUCTOR
+       ===============================================================================================================*/
+    ServerSocket (String subprotocol) {
         root = Root.getInstance();
         workspaceId = subprotocol;
         communicationManager = new FBPNetworkProtocolManager(root.getWorkspace(workspaceId));
@@ -107,6 +109,12 @@ public class ServerSocket {
 
     }
 
+    /**
+     * Send the given message over the socket.
+     *
+     * @param msg {String} the message to send.
+     * @return {boolean} sending confirmation.
+     */
     synchronized public boolean send (String msg) {
         if (this.session != null) {
             try {
@@ -125,6 +133,9 @@ public class ServerSocket {
                                                   PRIVATE METHODS
        ===============================================================================================================*/
 
+    /**
+     * Pass its instance to the objects that will need it in order to send messages to the connected client.
+     */
     private void storeSocketOnMessageHandlers () {
         communicationManager.setSocket(this);
         fileExplorerMessageHandler.setSocket(this);
