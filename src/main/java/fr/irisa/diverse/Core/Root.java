@@ -19,7 +19,7 @@ public class Root {
     // Attributes
     private Map<String, Workspace> workspaces = null;
     public static final String DATA_STRUCTURE_VERSION = "0-1-0";
-    public static final String PATH_TO_PROJECT_STORAGE = System.getenv("HOME") + "/.padins/" + DATA_STRUCTURE_VERSION;
+    public static final String PATH_TO_PROJECT_STORAGE = "/usr/include/padins/" + DATA_STRUCTURE_VERSION;
 
     // Singleton object
     private static Root ourInstance = new Root();
@@ -50,15 +50,12 @@ public class Root {
      * @param name of the workspace/project
      * @return the uuid of the newly create workspace
      */
-    public String createWorkspace (String name) {
+    public void createWorkspace (String name) {
         // Create a new workspace with the given name
         Workspace newWorkspace = new Workspace(name, null);
 
         // Store the workspace, associated with its uuid in a Map
         workspaces.put(newWorkspace.uuid, newWorkspace);
-
-        // Return the uuid
-        return newWorkspace.uuid;
     }
 
     /**

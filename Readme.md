@@ -51,8 +51,20 @@ docker pull antoinecheronirisa/lmt-python-core
 
 To persist data used in the container, mount a volume to :  /root/.padins/0-1-0.
 Here is an example of the command you can use, supposing that you have a .padins/0-1-0 folder in your home directory :
-`docker run -it --rm -p 8080:8080 -v $HOME/.padins/0-1-0:/root/.padins/0-1-0 -v /var/run/docker.sock:/var/run/docker.sock antoinecheronirisa/padins`
+`docker run -it --rm -p 8080:8080 -v /usr/include/padins/0-1-0:/usr/include/padins/0-1-0 -v /var/run/docker.sock:/var/run/docker.sock antoinecheronirisa/padins`
 
+**Stopping the server**
+
+Simply use 'ctrl+c'
+
+**Starting the server in the background**
+
+Replace `-it` with `-d` in the commands above. `-it` stands for interactive. Instead `-d` stands for detached. 
+When using -d, if you want to stop the server I recommend naming the container, for example 'padins-server', then using
+the command 'docker stop padins-server'.
+
+As an example, you can use this command :
+`docker run -d --rm -p 8080:8080 -v /usr/include/padins/0-1-0:/usr/include/padins/0-1-0 -v /var/run/docker.sock:/var/run/docker.sock --name padins-server antoinecheronirisa/padins`
 
 ### Using the binaries (Linux and MacOS)
 **[INFO]** MacOS doesn't have the package manager apt-get. Instead, on every command using apt-get, use brew. For instance, `apt-get install maven` becomes `brew install maven`.
