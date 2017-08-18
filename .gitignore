@@ -5,3 +5,4 @@ target/
 python-core-comm-test.iml
 src/main/webapp/
 src/main/java/fr/irisa/diverse/Demos
+.DS_Store

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title><%= config.title %> - <%= page.title %></title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='<%= url_for("css/docs.css") %>' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      <% for (var i=0; i < site.data.nav.length; i++) { var link = site.data.nav[i]; %>
+      <li> <%- link_to(url_for(link.id + "/index.html"), link.title) %> </li>
+      <% } %>
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      <% if (site.data[page.parent]) {
+        for(var i=0; i < site.data[page.parent].length; i++) { var section = site.data[page.parent][i] %>
+        <ul class='nav'>
+          <span><%= section.title %></span>
+          <ul class='nav'>
+            <% for(var j=0; j < section.items.length; j++) { var item = section.items[j]; %>
+              <li>
+                <a href='<% if (item.href) { %><%= item.href %><% } else { %><%= item.id + ".html" %><% } %>' 
+                <% if(item.id == page.id) { %> class='active' <% } %> >
+                  <%= item.title %>
+                </a>
+              </li>
+            <% } %>
+          </ul>
+        </ul>
+      <% }} %>
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1><%= page.title %></h1>
+      <%- page.content %>
+    </div>
+  </div>
+  <div class='switch-page'>
+    <% if (page.previous) { %>
+      <a class='previous' href='<%= url_for(page.previous) %>'>Previous</a>
+    <% } %>
+    <% if (page.next) { %>
+      <a class='next' href='<%= url_for(page.next) %>'>Next</a>
+    <% } %>
+  </div>
+</body>
+</html>
