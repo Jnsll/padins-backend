@@ -16,7 +16,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import javax.servlet.MultipartConfigElement;
 
 /**
- * A REST webserver that serves the static content and provides methods to discover the available workspaces.
+ * A HTTP REST webserver that serves the static content and provides endpoints to discover the available workspaces.
  * After the client choose the workspace she wants to connect to, the communications switch to the websocket.
  *
  * SINGLETON
@@ -29,10 +29,17 @@ public class Webserver implements Runnable {
 
     private final String SERVER_IP = "0.0.0.0";
     private final int SERVER_PORT = 8080;
-    private Root root;
     private Server server = null;
 
-    // Singleton methods
+    /* =================================================================================================================
+                                                     SINGLETON METHOD
+       ===============================================================================================================*/
+
+    /**
+     * Returns the instance of the webserver.
+     *
+     * @return {Webserver} the webserver singleton
+     */
     public static Webserver getInstance () {
 
         if (instance == null) instance = new Webserver();
@@ -40,12 +47,21 @@ public class Webserver implements Runnable {
         return instance;
     }
 
-    // Constructor
+    /* =================================================================================================================
+                                                        CONSTRUCTOR
+       ===============================================================================================================*/
     private Webserver () {
         // Do nothing
-        root = Root.getInstance();
     }
 
+
+    /* =================================================================================================================
+                                                        CONSTRUCTOR
+       ===============================================================================================================*/
+
+    /**
+     * Stop the webserver
+     */
     public void stop () {
         try {
             server.stop();
@@ -54,6 +70,9 @@ public class Webserver implements Runnable {
         }
     }
 
+    /**
+     * Configure and start the webserver
+     */
     public void run () {
         // Define the server
         server = new Server();
@@ -107,6 +126,7 @@ public class Webserver implements Runnable {
         // Server.join is used to make the server join the current thread
         try {
             server.start();
+            System.out.println("\n\n" + "\033[32m" + "[INFO] " + "\033[0m" + "Server started successfully ! Go to : http://localhost:" + SERVER_PORT + "\n");
             server.join();
         } catch (Exception e) {
             e.printStackTrace();

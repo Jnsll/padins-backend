@@ -13,6 +13,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
+ * A servlet that provides an upload file service.
+ *
+ * It provides PUT, POST & DELETE
+ *
  * Created by antoine on 26/06/17.
  */
 public class UploadServlet  extends HttpServlet {
@@ -21,7 +25,10 @@ public class UploadServlet  extends HttpServlet {
     private Root root;
     private Workspace linkedWorkspace;
 
-    // Constructor
+    /* =================================================================================================================
+                                                  CONSTRUCTOR
+       ===============================================================================================================*/
+
     public UploadServlet () {
         // Retrieve the root element
         this.root = Root.getInstance();
@@ -160,6 +167,12 @@ public class UploadServlet  extends HttpServlet {
                                                   UTILS METHODS
        ===============================================================================================================*/
 
+    /**
+     * Verify that the given path is valid
+     *
+     * @param path {String} the path to verify
+     * @return {boolean} wether the path is valid or not
+     */
     private boolean pathIsValid (String path) {
         // TODO : write the method that verify that the path is in the workspace's folder and not above it,
         // to avoid security issues

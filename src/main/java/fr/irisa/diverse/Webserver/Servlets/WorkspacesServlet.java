@@ -14,14 +14,25 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Provides a RESTFul service to manage the workspaces.
+ *
+ * A workspace correspond to a project. Each workspace has one (work)flow/graph and an associated directory to let the
+ * user import all the files she needs.
+ *
+ * Implements : GET, PUT, POST, DELETE
+ *
  * Created by antoine on 06/06/17.
  */
+@SuppressWarnings("unchecked")
 public class WorkspacesServlet extends HttpServlet{
 
     // Attributes
-    Root root;
+    private Root root;
 
-    // Constructor
+    /* =================================================================================================================
+                                                      CONSTRUCTOR
+       ===============================================================================================================*/
+
     public WorkspacesServlet() {
         root = Root.getInstance();
     }
@@ -110,6 +121,11 @@ public class WorkspacesServlet extends HttpServlet{
                                                   CUSTOM METHODS
        ===============================================================================================================*/
 
+    /**
+     * Returns the list of existing workspaces
+     *
+     * @return {ArrayList} the list of existing workspaces
+     */
     private JSONArray getWorkspacesList () {
         JSONArray res = new JSONArray();
 

@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
+ * Utils class that implements a few useful functions to make JSON manipulation easier.
+ *
  * Created by antoine on 26/05/2017.
  */
 public abstract class JSON {
@@ -36,6 +38,12 @@ public abstract class JSON {
         return res;
     }
 
+    /**
+     * Transform an array list into a JSON formatted String.
+     *
+     * @param list {ArrayList} the list to format
+     * @return {String} a JSON formatted array
+     */
     public static String jsonArrayListToString (ArrayList list) {
         String res = "[";
 
@@ -52,6 +60,12 @@ public abstract class JSON {
         return res;
     }
 
+    /**
+     * Transform a JSON object into an array of string.
+     *
+     * @param obj {JSONObject} the object to parse
+     * @return {String[]} an array of string with the given object content
+     */
     public static String[] jsonObjectToStringArray (JSONObject obj) {
         // Retrieve the iterator of the obj to go trough it.
         Set keys = obj.keySet();
@@ -71,6 +85,12 @@ public abstract class JSON {
         return res;
     }
 
+    /**
+     * Transform a JSONObject into an ArrayList<String>
+     *
+     * @param obj {JSONObject} the object to transform
+     * @return {ArrayList<String>} containing everything from the given object
+     */
     public static ArrayList<String> jsonObjectToArrayList (JSONObject obj) {
         // Retrieve the iterator of the obj to go trough it.
         Set keys = obj.keySet();
@@ -87,6 +107,12 @@ public abstract class JSON {
         return res;
     }
 
+    /**
+     * Transform an ArrayList into a JSONArray.
+     *
+     * @param list {ArrayList} the list to parse
+     * @return {JSONArray} the list formatted as a JSON array
+     */
     public static JSONArray jsonArrayFromArrayList (ArrayList list) {
         JSONArray res = new JSONArray();
 

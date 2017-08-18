@@ -149,9 +149,9 @@ public class Root {
             File folder = new File(PATH_TO_PROJECT_STORAGE);
             try {
                 // 2. Using mkdir
-                System.out.println("[INFO] Creating folder to : " + PATH_TO_PROJECT_STORAGE);
+                System.out.println("\033[32m" + "[INFO] " + "\033[0m" +"Creating folder to : " + PATH_TO_PROJECT_STORAGE);
                 folder.mkdir();
-                System.out.println("[INFO] Successfully created folder " + PATH_TO_PROJECT_STORAGE);
+                System.out.println("\033[32m" + "[INFO] " + "\033[0m" +"Successfully created folder " + PATH_TO_PROJECT_STORAGE);
                 // Set add default_storage_directory_content to True
                 addDefaultContent();
             } catch (Exception e) {

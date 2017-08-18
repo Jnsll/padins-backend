@@ -7,6 +7,11 @@ import fr.irisa.diverse.Webserver.Servlets.WebsocketOthers.WorkspaceSocketCreato
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
+/**
+ * Configure the WebsocketServletFactory to use the workspace socket creator.
+ *
+ * Created by antoine on 26/06/17
+ */
 
 @SuppressWarnings("serial")
 @WebServlet(name = "Server WebSocket Servlet")

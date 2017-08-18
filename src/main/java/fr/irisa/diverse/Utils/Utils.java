@@ -11,6 +11,12 @@ import fr.irisa.diverse.Flow.Group;
  */
 public class Utils {
 
+    /**
+     * Returns the status of the given graph.
+     *
+     * @param graph {Flow or Group} the graph to get the status for.
+     * @return {Status} the status of the graph
+     */
     public static Status getGraphStatus (Object graph) {
         // Retrieve the graph
         Status status = null;
@@ -28,6 +34,11 @@ public class Utils {
         return status;
     }
 
+    /**
+     * Wait N milliseconds, N being the input.
+     *
+     * @param millis {int} the time to wait, in ms
+     */
     public static void wait (int millis) {
         try {
             Thread.sleep(millis);
