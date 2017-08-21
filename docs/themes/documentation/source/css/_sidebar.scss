@@ -1,3 +1,5 @@
+$footerHeight: 52px;
+
 .sidebar {
   position: fixed;
   top: 60px;
@@ -8,6 +10,8 @@
 
 .sidebar-nav {
   padding: 20px 25px;
+  height: calc(100% - 40px - #{$footerHeight}); // 40px is the padding, 52 the footer height
+  overflow: scroll;
 
   span {
     color: #666666;
@@ -59,7 +63,7 @@
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -67,6 +71,7 @@
   text-align: center;
   display: block;
   text-decoration: none;
+  width: $menuWidth;
 
   i, span {
     display: inline-block;

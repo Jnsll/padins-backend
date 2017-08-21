@@ -1,12 +1,94 @@
 - title: Introduction
-  items:
+  items: 
   - id: index
-    title: Intro
+    title: Index
 - title: Core
-  items:
-  - id: flow-execution-handler
-    title: FlowExecutionHandler
-  - id: kernel
-    title: Kernel
-  - id: main
-    title: Main
+  items: 
+  - id: Kernel
+    title: Kernel.java
+  - id: Main
+    title: Main.java
+  - id: NodeExecutionThread
+    title: NodeExecutionThread.java
+  - id: Root
+    title: Root.java
+  - id: Workspace
+    title: Workspace.java
+- title: Flow
+  items: 
+  - id: ComponentsUtils
+    title: ComponentsUtils.java
+  - id: Edge
+    title: Edge.java
+  - id: Flow
+    title: Flow.java
+  - id: FlowInterface
+    title: FlowInterface.java
+  - id: Group
+    title: Group.java
+  - id: Node
+    title: Node.java
+  - id: Port
+    title: Port.java
+  - id: Ports
+    title: Ports.java
+- title: Jupyter
+  items: 
+  - id: IOPubChannel
+    title: IOPubChannel.java
+  - id: JupyterChannel
+    title: JupyterChannel.java
+  - id: ShellChannel
+    title: ShellChannel.java
+  - id: StdinChannel
+    title: StdinChannel.java
+  - id: IOPubMessaging
+    title: IOPubMessaging.java
+  - id: JupyterMessage
+    title: JupyterMessage.java
+  - id: Manager
+    title: Manager.java
+  - id: ShellMessaging
+    title: ShellMessaging.java
+  - id: StdinMessaging
+    title: StdinMessaging.java
+- title: MessageHandlers
+  items: 
+  - id: FBPMessage
+    title: FBPMessage.java
+  - id: FBPNetworkProtocolManager
+    title: FBPNetworkProtocolManager.java
+  - id: FBPProtocolHandler
+    title: FBPProtocolHandler.java
+  - id: GraphMessageHandler
+    title: GraphMessageHandler.java
+  - id: NetworkMessageHandler
+    title: NetworkMessageHandler.java
+  - id: RuntimeMessageHandler
+    title: RuntimeMessageHandler.java
+  - id: SendMessageOverFBP
+    title: SendMessageOverFBP.java
+  - id: TraceMessageHandler
+    title: TraceMessageHandler.java
+  - id: Status
+    title: Status.java
+  - id: FileExplorerMessageHandler
+    title: FileExplorerMessageHandler.java
+- title: Utils
+  items: 
+  - id: Unzipper
+    title: Unzipper.java
+  - id: Utils
+    title: Utils.java
+- title: Webserver
+  items: 
+  - id: ServerSocket
+    title: ServerSocket.java
+  - id: WorkspaceSocketCreator
+    title: WorkspaceSocketCreator.java
+  - id: WebsocketServlet
+    title: WebsocketServlet.java
+  - id: WorkspacesServlet
+    title: WorkspacesServlet.java
+  - id: Webserver
+    title: Webserver.java
