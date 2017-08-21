@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Core</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Flow</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 class='active'  >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Jupyter</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>MessageHandlers</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Utils</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Webserver</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Port"><a href="#public-class-Port" class="headerlink" title="public class Port"></a><code>public class Port</code></h2><p>A Port is either an input or output of a Node. It offers the possibility to connect nodes together.</p>
+<p>For a functional purpose, a port has a name and a port. The name is the label that should be displayed, and the port correspond to the name used to differentiate two ports.</p>
+<p>We use several inports or outports to offer different connexion functionality. For example, a node Addition could have to inports A and B and one outport sum. A and B are used to differentiate the two data to sum, and the outport is used to transmit the result to another node. We can link it to another sum node and sum the result with another B data. An so on.</p>
+<p>Created by antoine on 29/05/17.</p>
+<h2 id="public-String-getId"><a href="#public-String-getId" class="headerlink" title="public String getId()"></a><code>public String getId()</code></h2><p>Get the id of the Port</p>
+<ul>
+<li><strong>Returns:</strong> {String} the id of the port</li>
+</ul>
+<h2 id="public-String-getPort"><a href="#public-String-getPort" class="headerlink" title="public String getPort ()"></a><code>public String getPort ()</code></h2><p>Get the port name, the one used by the program to differentiate ports.</p>
+<ul>
+<li><strong>Returns:</strong> {String} the port’s name</li>
+</ul>
+<h2 id="public-JSONObject-getMetadata"><a href="#public-JSONObject-getMetadata" class="headerlink" title="public JSONObject getMetadata ()"></a><code>public JSONObject getMetadata ()</code></h2><p>Get the metadata of the port.</p>
+<ul>
+<li><strong>Returns:</strong> {JSONObject} the metadata</li>
+</ul>
+<h2 id="public-ArrayList-lt-String-gt-getConnectedEdgesId"><a href="#public-ArrayList-lt-String-gt-getConnectedEdgesId" class="headerlink" title="public ArrayList&lt;String&gt; getConnectedEdgesId()"></a><code>public ArrayList&lt;String&gt; getConnectedEdgesId()</code></h2><p>Get the connected edges’id of the port.</p>
+<p>This method can be used to make easier retrieving the nodes connected to the opposite of the edge connected to this port.</p>
+<p>Several edges can be connected on one port.</p>
+<ul>
+<li><strong>Returns:</strong> {ArrayList<string>} the list of the ids of the edges connected to the port.</string></li>
+</ul>
+<h2 id="public-String-getType"><a href="#public-String-getType" class="headerlink" title="public String getType()"></a><code>public String getType()</code></h2><p>Get the type of data that can be connected to this port.</p>
+<ul>
+<li><strong>Returns:</strong> </li>
+</ul>
+<h2 id="public-String-getName"><a href="#public-String-getName" class="headerlink" title="public String getName()"></a><code>public String getName()</code></h2><p>Get the public name of the port, the one to display on the UIs.</p>
+<ul>
+<li><strong>Returns:</strong> {String} the name of the port.</li>
+</ul>
+<h2 id="public-String-getNode"><a href="#public-String-getNode" class="headerlink" title="public String getNode()"></a><code>public String getNode()</code></h2><p>Get the node on which this port is.</p>
+<ul>
+<li><strong>Returns:</strong> {Node} the node containing the port.</li>
+</ul>
+<h2 id="public-void-setNode-String-node"><a href="#public-void-setNode-String-node" class="headerlink" title="public void setNode(String node)"></a><code>public void setNode(String node)</code></h2><p>Set the node containing this port.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>node</code> — {Node} the new node containing this port.</li>
+</ul>
+<h2 id="public-void-setConnectedEdges-ArrayList-lt-String-gt-connectedEdges"><a href="#public-void-setConnectedEdges-ArrayList-lt-String-gt-connectedEdges" class="headerlink" title="public void setConnectedEdges(ArrayList&lt;String&gt; connectedEdges)"></a><code>public void setConnectedEdges(ArrayList&lt;String&gt; connectedEdges)</code></h2><p>Set the list of edges connected to this port.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>connectedEdges</code> — {ArrayList<string>} the list of the ids of the edges connected to this port.</string></li>
+</ul>
+<h2 id="public-void-addConnectedEdge-String-edgeId"><a href="#public-void-addConnectedEdge-String-edgeId" class="headerlink" title="public void addConnectedEdge (String edgeId)"></a><code>public void addConnectedEdge (String edgeId)</code></h2><p>Connect a new edge to this port.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>edgeId</code> — {String} the id of the edge.</li>
+</ul>
+<h2 id="public-void-removeConnectedEdge-String-edgeId"><a href="#public-void-removeConnectedEdge-String-edgeId" class="headerlink" title="public void removeConnectedEdge (String edgeId)"></a><code>public void removeConnectedEdge (String edgeId)</code></h2><p>Disconnect an edge from this port</p>
+<ul>
+<li><strong>Parameters:</strong> <code>edgeId</code> — {String} the id of the edge</li>
+</ul>
+<h2 id="private-void-build"><a href="#private-void-build" class="headerlink" title="private void build ()"></a><code>private void build ()</code></h2><p>Build the port object in order to create a JSON that can be serialized and sent.</p>
+<p>The Port object JSONObject contains : - id {String} - public {String} - node {String} - port {String} - metadata {JSONObject} - connectedEdges {List<string>} - type {String}</string></p>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

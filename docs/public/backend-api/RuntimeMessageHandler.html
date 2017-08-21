@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Core</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Flow</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Jupyter</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>MessageHandlers</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 class='active'  >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Utils</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Webserver</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="SuppressWarnings-quot-unchecked-quot-public-class-RuntimeMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler"><a href="#SuppressWarnings-quot-unchecked-quot-public-class-RuntimeMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler" class="headerlink" title="@SuppressWarnings(&quot;unchecked&quot;) public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler"></a><code>@SuppressWarnings(&quot;unchecked&quot;) public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler</code></h2><p>Class managing the Runtime Message for the Flow-Based Programming Network Protocol To know more about this protocol, take a look at the doc on J.Paul Morisson’s website : <a href="https://flowbased.github.io/fbp-protocol/#sub-protocols" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#sub-protocols</a></p>
+<p>Created by antoine on 26/05/2017.</p>
+<h2 id="public-void-handleMessage-FBPMessage-message"><a href="#public-void-handleMessage-FBPMessage-message" class="headerlink" title="public void handleMessage (FBPMessage message)"></a><code>public void handleMessage (FBPMessage message)</code></h2><p>Handle a message. It call the corresponding method for each supported type of message.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — : the message to handle</li>
+</ul>
+<h2 id="private-void-getruntime"><a href="#private-void-getruntime" class="headerlink" title="private void getruntime ()"></a><code>private void getruntime ()</code></h2><p>Handle a “getruntime” message by answering with a “runtime” message.</p>
+<p><a href="https://flowbased.github.io/fbp-protocol/#runtime-getruntime" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-getruntime</a></p>
+<h2 id="private-void-packet"><a href="#private-void-packet" class="headerlink" title="private void packet ()"></a><code>private void packet ()</code></h2><p>Handle a “packet” message.</p>
+<p><a href="https://flowbased.github.io/fbp-protocol/#runtime-packet" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-packet</a></p>
+<h2 id="private-void-sendPacketMessage-String-port-String-event-String-graph-JSONObject-payloadToSend"><a href="#private-void-sendPacketMessage-String-port-String-event-String-graph-JSONObject-payloadToSend" class="headerlink" title="private void sendPacketMessage (String port, String event, String graph, JSONObject payloadToSend)"></a><code>private void sendPacketMessage (String port, String event, String graph, JSONObject payloadToSend)</code></h2><p>Send a packet message.</p>
+<p><a href="https://flowbased.github.io/fbp-protocol/#runtime-packet" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-packet</a></p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>port</code> — {String} port name for the input or output port</li>
+<li><code>event</code> — {String} packet event</li>
+<li><code>graph</code> — {String} graph the action targets</li>
+<li><code>payloadToSend</code> — {JSONObject} payload for the packet. Used only with begingroup (for group names) and data packets</li>
+</ul>
+</li>
+</ul>
+<h2 id="private-void-sendPortsMessage"><a href="#private-void-sendPortsMessage" class="headerlink" title="private void sendPortsMessage ()"></a><code>private void sendPortsMessage ()</code></h2><p>Send a ports message as a response to packet or each time the available ports change.</p>
+<p><a href="https://flowbased.github.io/fbp-protocol/#runtime-ports" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-ports</a></p>
+<h2 id="private-void-sendRuntimeMessage"><a href="#private-void-sendRuntimeMessage" class="headerlink" title="private void sendRuntimeMessage ()"></a><code>private void sendRuntimeMessage ()</code></h2><p>Send a “runtime” message.</p>
+<p><a href="https://flowbased.github.io/fbp-protocol/#runtime-runtime" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-runtime</a></p>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

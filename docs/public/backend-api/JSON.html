@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Core</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Flow</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Jupyter</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>MessageHandlers</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Utils</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Webserver</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-abstract-class-JSON"><a href="#public-abstract-class-JSON" class="headerlink" title="public abstract class JSON"></a><code>public abstract class JSON</code></h2><p>Utils class that implements a few useful functions to make JSON manipulation easier.</p>
+<p>Created by antoine on 26/05/2017.</p>
+<h2 id="public-static-JSONObject-stringToJsonObject-String-s"><a href="#public-static-JSONObject-stringToJsonObject-String-s" class="headerlink" title="public static JSONObject stringToJsonObject (String s)"></a><code>public static JSONObject stringToJsonObject (String s)</code></h2><p>Parse and return a JSONObject from a String</p>
+<ul>
+<li><strong>Parameters:</strong> <code>s</code> — : the string to parse</li>
+<li><strong>Returns:</strong> : a JSONObject that can be manipulate</li>
+</ul>
+<h2 id="public-static-String-jsonArrayListToString-ArrayList-list"><a href="#public-static-String-jsonArrayListToString-ArrayList-list" class="headerlink" title="public static String jsonArrayListToString (ArrayList list)"></a><code>public static String jsonArrayListToString (ArrayList list)</code></h2><p>Transform an array list into a JSON formatted String.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>list</code> — {ArrayList} the list to format</li>
+<li><strong>Returns:</strong> {String} a JSON formatted array</li>
+</ul>
+<h2 id="public-static-String-jsonObjectToStringArray-JSONObject-obj"><a href="#public-static-String-jsonObjectToStringArray-JSONObject-obj" class="headerlink" title="public static String[] jsonObjectToStringArray (JSONObject obj)"></a><code>public static String[] jsonObjectToStringArray (JSONObject obj)</code></h2><p>Transform a JSON object into an array of string.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>obj</code> — {JSONObject} the object to parse</li>
+<li><strong>Returns:</strong> {String[]} an array of string with the given object content</li>
+</ul>
+<h2 id="public-static-ArrayList-lt-String-gt-jsonObjectToArrayList-JSONObject-obj"><a href="#public-static-ArrayList-lt-String-gt-jsonObjectToArrayList-JSONObject-obj" class="headerlink" title="public static ArrayList&lt;String&gt; jsonObjectToArrayList (JSONObject obj)"></a><code>public static ArrayList&lt;String&gt; jsonObjectToArrayList (JSONObject obj)</code></h2><p>Transform a JSONObject into an ArrayList<string></string></p>
+<ul>
+<li><strong>Parameters:</strong> <code>obj</code> — {JSONObject} the object to transform</li>
+<li><strong>Returns:</strong> {ArrayList<string>} containing everything from the given object</string></li>
+</ul>
+<h2 id="public-static-JSONArray-jsonArrayFromArrayList-ArrayList-list"><a href="#public-static-JSONArray-jsonArrayFromArrayList-ArrayList-list" class="headerlink" title="public static JSONArray jsonArrayFromArrayList (ArrayList list)"></a><code>public static JSONArray jsonArrayFromArrayList (ArrayList list)</code></h2><p>Transform an ArrayList into a JSONArray.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>list</code> — {ArrayList} the list to parse</li>
+<li><strong>Returns:</strong> {JSONArray} the list formatted as a JSON array</li>
+</ul>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

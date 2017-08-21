@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Core</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 class='active'  >
+                  Workspace.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Flow</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Jupyter</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>MessageHandlers</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Utils</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Webserver</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Workspace"><a href="#public-class-Workspace" class="headerlink" title="public class Workspace"></a><code>public class Workspace</code></h2><p>A workspace corresponds to one project, so one flow. It can have several kernels and connected users. One flow is represented by one JSON, containing all the vue structure.</p>
+<p>Created by antoine on 25/05/2017.</p>
+<h2 id="public-void-newClientConnection-ServerSocket-client"><a href="#public-void-newClientConnection-ServerSocket-client" class="headerlink" title="public void newClientConnection (ServerSocket client)"></a><code>public void newClientConnection (ServerSocket client)</code></h2><ul>
+<li><strong>Parameters:</strong> <code>client</code> — : the socket of the client</li>
+</ul>
+<h2 id="public-void-clientDeconnection-ServerSocket-client"><a href="#public-void-clientDeconnection-ServerSocket-client" class="headerlink" title="public void clientDeconnection (ServerSocket client)"></a><code>public void clientDeconnection (ServerSocket client)</code></h2><ul>
+<li><strong>Parameters:</strong> <code>client</code> — : the disconnected client</li>
+</ul>
+<h2 id="public-void-startNewKernel-String-nodeId"><a href="#public-void-startNewKernel-String-nodeId" class="headerlink" title="public void startNewKernel (String nodeId)"></a><code>public void startNewKernel (String nodeId)</code></h2><p>Should be used each time a new Simulation or Processing block is created</p>
+<ul>
+<li><strong>Returns:</strong> : the uuid of the kernel</li>
+</ul>
+<h2 id="public-void-stopKernel-String-nodeId"><a href="#public-void-stopKernel-String-nodeId" class="headerlink" title="public void stopKernel (String nodeId)"></a><code>public void stopKernel (String nodeId)</code></h2><p>Commonly used when a node is removed</p>
+<ul>
+<li><strong>Parameters:</strong> <code>nodeId</code> — : the nodeId linked to the kernel</li>
+</ul>
+<h2 id="public-boolean-stopKernels-throws-InterruptedException"><a href="#public-boolean-stopKernels-throws-InterruptedException" class="headerlink" title="public boolean stopKernels () throws InterruptedException"></a><code>public boolean stopKernels () throws InterruptedException</code></h2><p>Stop all the kernels. Use only when all users have stopped the connexion or when you stop the server.</p>
+<h2 id="public-void-startGraph-String-graph-throws-NotExistingGraphException"><a href="#public-void-startGraph-String-graph-throws-NotExistingGraphException" class="headerlink" title="public void startGraph (String graph) throws NotExistingGraphException"></a><code>public void startGraph (String graph) throws NotExistingGraphException</code></h2><p>Start the execution of a given graph.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>graph</code> — : the id of the graph. Can be the full flow or a group.</li>
+<li><strong>Exceptions:</strong> <code>NotExistingGraphException</code> — </li>
+</ul>
+<h2 id="public-void-stopGraph-String-graph"><a href="#public-void-stopGraph-String-graph" class="headerlink" title="public void stopGraph (String graph)"></a><code>public void stopGraph (String graph)</code></h2><p>Stop a running graph</p>
+<ul>
+<li><strong>Parameters:</strong> <code>graph</code> — : the id of the graph. Can be the full flow or a group.</li>
+</ul>
+<h2 id="public-boolean-graphRunning-String-graph"><a href="#public-boolean-graphRunning-String-graph" class="headerlink" title="public boolean graphRunning (String graph)"></a><code>public boolean graphRunning (String graph)</code></h2><p>Is a graph running ?</p>
+<ul>
+<li><strong>Parameters:</strong> <code>graph</code> — : the id of the graph. Can be the full flow or a group.</li>
+<li><strong>Returns:</strong> true if the execution of the graph is running.</li>
+</ul>
+<h2 id="public-void-executeNode-Node-node"><a href="#public-void-executeNode-Node-node" class="headerlink" title="public void executeNode (Node node)"></a><code>public void executeNode (Node node)</code></h2><p>Launch the execution of a given node.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>node</code> — : the node to execute.</li>
+</ul>
+<h2 id="public-void-errorExecutingNode-String-nodeId"><a href="#public-void-errorExecutingNode-String-nodeId" class="headerlink" title="public void errorExecutingNode (String nodeId)"></a><code>public void errorExecutingNode (String nodeId)</code></h2><p>Broadcast the information that the given node throws an error while executing in the kernel.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>nodeId</code> — the id of the node.</li>
+</ul>
+<h2 id="public-void-stopNode-Node-node"><a href="#public-void-stopNode-Node-node" class="headerlink" title="public void stopNode (Node node)"></a><code>public void stopNode (Node node)</code></h2><p>Stop the execution of a given node.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>node</code> — : the node to stop.</li>
+</ul>
+<h2 id="public-boolean-isNodeRunning-String-nodeId"><a href="#public-boolean-isNodeRunning-String-nodeId" class="headerlink" title="public boolean isNodeRunning (String nodeId)"></a><code>public boolean isNodeRunning (String nodeId)</code></h2><p>Is a given node running ?</p>
+<ul>
+<li><strong>Parameters:</strong> <code>nodeId</code> — : the id of the node</li>
+<li><strong>Returns:</strong> True if the node is running</li>
+</ul>
+<h2 id="public-void-errorFromKernel-String-error"><a href="#public-void-errorFromKernel-String-error" class="headerlink" title="public void errorFromKernel (String error)"></a><code>public void errorFromKernel (String error)</code></h2><p>Handle an error returned by the Jupyter kernel. It sends an error message to the connected UIs.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>error</code> — : the error sent by the kernel.</li>
+</ul>
+<h2 id="public-void-save"><a href="#public-void-save" class="headerlink" title="public void save ()"></a><code>public void save ()</code></h2><p>Save the workspace, storing the full flow as a json file in the workspace folder on the HD. Each workspace has its own folder on the HD.</p>
+<h2 id="public-void-sendUpdateNodeMessage-Node-node"><a href="#public-void-sendUpdateNodeMessage-Node-node" class="headerlink" title="public void sendUpdateNodeMessage (Node node)"></a><code>public void sendUpdateNodeMessage (Node node)</code></h2><p>Send a message to the UI containing the modifications done on the given node.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>node</code> — : the node for which you want to send the information to the UIs.</li>
+</ul>
+<h2 id="public-String-getName"><a href="#public-String-getName" class="headerlink" title="public String getName ()"></a><code>public String getName ()</code></h2><p>Get the name of the workspace. The name is defined by the end-user.</p>
+<ul>
+<li><strong>Returns:</strong> the name of the workspace.</li>
+</ul>
+<h2 id="public-void-setName-String-name"><a href="#public-void-setName-String-name" class="headerlink" title="public void setName(String name)"></a><code>public void setName(String name)</code></h2><p>Change the name of the workspace to the given value.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>name</code> — the new name of the workspace</li>
+</ul>
+<h2 id="public-ArrayList-lt-ServerSocket-gt-getConnectedClients"><a href="#public-ArrayList-lt-ServerSocket-gt-getConnectedClients" class="headerlink" title="public ArrayList&lt;ServerSocket&gt; getConnectedClients()"></a><code>public ArrayList&lt;ServerSocket&gt; getConnectedClients()</code></h2><p>Get the list of the connected clients.</p>
+<ul>
+<li><strong>Returns:</strong> the list of connected clients as an array of ServerSocket.</li>
+</ul>
+<h2 id="public-String-getLibrary"><a href="#public-String-getLibrary" class="headerlink" title="public String getLibrary()"></a><code>public String getLibrary()</code></h2><p>Get the library of components used in this workspace.</p>
+<ul>
+<li><strong>Returns:</strong> the name of the library.</li>
+</ul>
+<h2 id="public-String-getUuid"><a href="#public-String-getUuid" class="headerlink" title="public String getUuid()"></a><code>public String getUuid()</code></h2><p>Get the unique id of the workspace.</p>
+<ul>
+<li><strong>Returns:</strong> the uuid.</li>
+</ul>
+<h2 id="public-Flow-getFlow"><a href="#public-Flow-getFlow" class="headerlink" title="public Flow getFlow()"></a><code>public Flow getFlow()</code></h2><p>Get the flow designed by the user. The flow is the bunch of components (nodes), linked with edges that described the process the user wants to study/simulate.</p>
+<ul>
+<li><strong>Returns:</strong> the Flow instance</li>
+</ul>
+<h2 id="public-Kernel-getKernel-String-nodeId"><a href="#public-Kernel-getKernel-String-nodeId" class="headerlink" title="public Kernel getKernel (String nodeId)"></a><code>public Kernel getKernel (String nodeId)</code></h2><p>Get the Kernel (so the Docker container) that corresponds and execute the given node.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>nodeId</code> — {String} the id of the node you want to get its kernel</li>
+<li><strong>Returns:</strong> {Kernel} the kernel linked to the given node.</li>
+</ul>
+<h2 id="public-Path-getPathToWorkspaceFolder"><a href="#public-Path-getPathToWorkspaceFolder" class="headerlink" title="public Path getPathToWorkspaceFolder()"></a><code>public Path getPathToWorkspaceFolder()</code></h2><p>Get the absolute path to the workspace folder on the machine.</p>
+<ul>
+<li><strong>Returns:</strong> the path of the workspace</li>
+</ul>
+<h2 id="public-String-getNodeIdForKernel-Kernel-k"><a href="#public-String-getNodeIdForKernel-Kernel-k" class="headerlink" title="public String getNodeIdForKernel (Kernel k)"></a><code>public String getNodeIdForKernel (Kernel k)</code></h2><p>Get the node associated to a kernel</p>
+<ul>
+<li><strong>Parameters:</strong> <code>k</code> — the kernel</li>
+<li><strong>Returns:</strong> the id of the node</li>
+</ul>
+<h2 id="private-JSONObject-importFlowJSON-Path-pathToFolder"><a href="#private-JSONObject-importFlowJSON-Path-pathToFolder" class="headerlink" title="private JSONObject importFlowJSON (Path pathToFolder)"></a><code>private JSONObject importFlowJSON (Path pathToFolder)</code></h2><p>Import a flow as a JSONObject from the given folder. The flow file must be named flow.json</p>
+<ul>
+<li><strong>Parameters:</strong> <code>pathToFolder</code> — the path to the folder containing the flow.</li>
+<li><strong>Returns:</strong> a JSONObject containing the flow.</li>
+</ul>
+<h2 id="private-boolean-createFolder-Path-path"><a href="#private-boolean-createFolder-Path-path" class="headerlink" title="private boolean createFolder (Path path)"></a><code>private boolean createFolder (Path path)</code></h2><p>Create the folder of the workspace.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>path</code> — the path to folder in which you want to create the folder.</li>
+<li><strong>Returns:</strong> True if the folder exists after this method run.</li>
+</ul>
+<h2 id="public-class-NotExistingGraphException-extends-Exception"><a href="#public-class-NotExistingGraphException-extends-Exception" class="headerlink" title="public class NotExistingGraphException extends Exception"></a><code>public class NotExistingGraphException extends Exception</code></h2><p>Exception indicating that the graph to run doesn’t exist.</p>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

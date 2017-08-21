@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Core</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 class='active'  >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Flow</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Jupyter</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>MessageHandlers</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Utils</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Webserver</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Kernel"><a href="#public-class-Kernel" class="headerlink" title="public class Kernel"></a><code>public class Kernel</code></h2><p>The kernel is the element that runs the python code and decide when it is needed to inform every interface of the executed code, the result, that it is busy, idle, etc.</p>
+<p>5 channels are used to communicate with the fr.irisa.diverse.Core.Kernel (see fr.irisa.diverse.Jupyter.JupyterMessaging in Jupyter doc to know more about it).</p>
+<p>The kernel is embedded into a Docker container, which creates a connexion_file that this class will read to know on which ports to connect the sockets.</p>
+<p>IMPORTANT : 1 kernel per node, 1 node per kernel. It is a 1-1 relation.</p>
+<p>Created by antoine on 28/04/17.</p>
+<h2 id="public-void-stop"><a href="#public-void-stop" class="headerlink" title="public void stop ()"></a><code>public void stop ()</code></h2><p>Stop the kernel and its linked Docker container.</p>
+<h2 id="public-void-stopExecution"><a href="#public-void-stopExecution" class="headerlink" title="public void stopExecution ()"></a><code>public void stopExecution ()</code></h2><p>Stop the execution of kernel, not the container</p>
+<h2 id="public-void-verifyChannelsAreOk"><a href="#public-void-verifyChannelsAreOk" class="headerlink" title="public void verifyChannelsAreOk ()"></a><code>public void verifyChannelsAreOk ()</code></h2><p>Verify that we are still connected to the 5 channels. If not restart them. TODO : the restart feature</p>
+<h2 id="public-void-handleExecutionResult-String-result"><a href="#public-void-handleExecutionResult-String-result" class="headerlink" title="public void handleExecutionResult (String[] result)"></a><code>public void handleExecutionResult (String[] result)</code></h2><p>Do what’s needed when receiving the result of the execution of a code. It verify that we were waiting for this response and store the result into the node.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>result</code> — : the result received from the channel’s stdout</li>
+</ul>
+<h2 id="public-void-executeCode-String-code-Node-node"><a href="#public-void-executeCode-String-code-Node-node" class="headerlink" title="public void executeCode (String code, Node node)"></a><code>public void executeCode (String code, Node node)</code></h2><p>Require the kernel to execute a code on the Jupyter Kernel.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>code</code> — : the code to execute</li>
+</ul>
+<h2 id="private-void-startContainer-throws-FailedKernelStartException"><a href="#private-void-startContainer-throws-FailedKernelStartException" class="headerlink" title="private void startContainer() throws FailedKernelStartException"></a><code>private void startContainer() throws FailedKernelStartException</code></h2><p>Start the container. Must be called only while creating a new instance of Kernel.</p>
+<ul>
+<li><strong>Exceptions:</strong> <code>FailedKernelStartException</code> — : exception telling that the kernel failed starting.</li>
+</ul>
+<h2 id="private-void-stopContainer"><a href="#private-void-stopContainer" class="headerlink" title="private void stopContainer ()"></a><code>private void stopContainer ()</code></h2><p>Stop the container linked to this kernel. Usually called when stopping the whole server.</p>
+<h2 id="private-void-startChannels"><a href="#private-void-startChannels" class="headerlink" title="private void startChannels ()"></a><code>private void startChannels ()</code></h2><p>Start the 5 ZMQ channels that communicate with the Jupyter kernel that is inside a Docker container.</p>
+<h2 id="private-void-stopChannels"><a href="#private-void-stopChannels" class="headerlink" title="private void stopChannels()"></a><code>private void stopChannels()</code></h2><p>Stop and close the 5 ZMQ channels and their Thread.</p>
+<h2 id="private-void-verifyChannelIsOk-JupyterChannel-channel"><a href="#private-void-verifyChannelIsOk-JupyterChannel-channel" class="headerlink" title="private void verifyChannelIsOk(JupyterChannel channel)"></a><code>private void verifyChannelIsOk(JupyterChannel channel)</code></h2><p>Verify that a channel is running and connected</p>
+<ul>
+<li><strong>Parameters:</strong> <code>channel</code> — : the channel to check</li>
+</ul>
+<h2 id="private-void-createChannelsFromConnexionFile-String-path-throws-InterruptedException-FailedRetrievingContainerIPException-ParseException-IOException"><a href="#private-void-createChannelsFromConnexionFile-String-path-throws-InterruptedException-FailedRetrievingContainerIPException-ParseException-IOException" class="headerlink" title="private void createChannelsFromConnexionFile (String path) throws InterruptedException, FailedRetrievingContainerIPException, ParseException, IOException"></a><code>private void createChannelsFromConnexionFile (String path) throws InterruptedException, FailedRetrievingContainerIPException, ParseException, IOException</code></h2><p>Create the ZMQ sockets and configure their properties and endpoints from a connexion_file. This connexion_file is generated by the code of the Jupyter kernel inside the Docker container.</p>
+<p>The name of the connexion_file is .json</p>
+<ul>
+<li><strong>Parameters:</strong> <code>path</code> — : the absolute Path to the connexion_file</li>
+<li><strong>Exceptions:</strong><ul>
+<li><code>InterruptedException</code> — : Exception from Thread, can be thrown if interrupted while sleeping.</li>
+<li><code>FailedRetrievingContainerIPException</code> — : Thrown if impossible to retrieve the container’s IP</li>
+<li><code>ParseException</code> — : Thrown if impossible to parse the File at the given path.</li>
+<li><code>IOException</code> — : Look at Javadoc.</li>
+</ul>
+</li>
+</ul>
+<h2 id="public-String-getContainerId"><a href="#public-String-getContainerId" class="headerlink" title="public String getContainerId ()"></a><code>public String getContainerId ()</code></h2><p>The container id is an ID associated to a running container by the docker daemon</p>
+<ul>
+<li><strong>Returns:</strong> : the id of the running container associated to the instance of kernel.</li>
+</ul>
+<h2 id="public-String-getSession"><a href="#public-String-getSession" class="headerlink" title="public String getSession ()"></a><code>public String getSession ()</code></h2><p>The session is a String only used to communicate on the Jupyter messaging protocol</p>
+<ul>
+<li><strong>Returns:</strong> : the String session</li>
+</ul>
+<h2 id="public-void-setSession-String-session"><a href="#public-void-setSession-String-session" class="headerlink" title="public void setSession(String session)"></a><code>public void setSession(String session)</code></h2><p>The session is a String only used to communicate on the Jupyter messaging protocol</p>
+<ul>
+<li><strong>Parameters:</strong> <code>session</code> — : the new session string to use</li>
+</ul>
+<h2 id="public-String-getIdentity"><a href="#public-String-getIdentity" class="headerlink" title="public String getIdentity ()"></a><code>public String getIdentity ()</code></h2><p>The identity is a String only used to communicate on the Jupyter messaging protocol</p>
+<ul>
+<li><strong>Returns:</strong> : String containing the identity</li>
+</ul>
+<h2 id="public-void-setIdentity-String-identity"><a href="#public-void-setIdentity-String-identity" class="headerlink" title="public void setIdentity (String identity)"></a><code>public void setIdentity (String identity)</code></h2><p>The identity is a String only used to communicate on the Jupyter messaging protocol</p>
+<ul>
+<li><strong>Parameters:</strong> <code>identity</code> — (String) the new identity to use</li>
+</ul>
+<h2 id="public-String-getSignatureScheme"><a href="#public-String-getSignatureScheme" class="headerlink" title="public String getSignatureScheme ()"></a><code>public String getSignatureScheme ()</code></h2><p>The signature scheme is a parameter to build the HMAC used to communicate on the Jupyter message protocol. Google it for more information, it is a very common concept.</p>
+<ul>
+<li><strong>Returns:</strong> (String) containing the signature scheme</li>
+</ul>
+<h2 id="public-String-getKey"><a href="#public-String-getKey" class="headerlink" title="public String getKey ()"></a><code>public String getKey ()</code></h2><p>The key to give to the algorithm creating the HMAC</p>
+<ul>
+<li><strong>Returns:</strong> (String) the key to use</li>
+</ul>
+<h2 id="public-void-setNbExecutions-Long-nbExecutions"><a href="#public-void-setNbExecutions-Long-nbExecutions" class="headerlink" title="public void setNbExecutions (Long nbExecutions)"></a><code>public void setNbExecutions (Long nbExecutions)</code></h2><p>nbExecutions is the number of executions the kernel did. Called only by the JupyterMessaging.manager to update the nb of execution when receiving an execute_reply msg.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>nbExecutions</code> — : the new number of execution. Usually nbExecution + 1</li>
+</ul>
+<h2 id="public-Long-getNbExecutions"><a href="#public-Long-getNbExecutions" class="headerlink" title="public Long getNbExecutions ()"></a><code>public Long getNbExecutions ()</code></h2><p>nbExecutions is the number of executions the kernel did.</p>
+<ul>
+<li><strong>Returns:</strong> (Long) the nb of executions</li>
+</ul>
+<h2 id="public-boolean-isIdle"><a href="#public-boolean-isIdle" class="headerlink" title="public boolean isIdle ()"></a><code>public boolean isIdle ()</code></h2><p>Tells whether the Kernel is idle or running. Idle means the shell is not doing calculations.</p>
+<ul>
+<li><strong>Returns:</strong> : true if idle</li>
+</ul>
+<h2 id="public-boolean-isBusy"><a href="#public-boolean-isBusy" class="headerlink" title="public boolean isBusy ()"></a><code>public boolean isBusy ()</code></h2><p>Tells whether the Kernel is idle or running. Busy means the shell is doing calculations.</p>
+<ul>
+<li><strong>Returns:</strong> true is running (= busy)</li>
+</ul>
+<h2 id="public-void-setIdleState-boolean-value"><a href="#public-void-setIdleState-boolean-value" class="headerlink" title="public void setIdleState (boolean value)"></a><code>public void setIdleState (boolean value)</code></h2><p>Set the idle state of the Kernel. Must only be called by the JupyterMessaging.manager when receiving a message on IOPub.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>value</code> — </li>
+</ul>
+<h2 id="public-Manager-getMessagesManager"><a href="#public-Manager-getMessagesManager" class="headerlink" title="public Manager getMessagesManager ()"></a><code>public Manager getMessagesManager ()</code></h2><p>Get the message manager. It is used to communicate with the Jupyter kernel.</p>
+<ul>
+<li><strong>Returns:</strong> {Manager} the manager used by the kernel.</li>
+</ul>
+<h2 id="private-boolean-isIpAddress-String-text"><a href="#private-boolean-isIpAddress-String-text" class="headerlink" title="private boolean isIpAddress(String text)"></a><code>private boolean isIpAddress(String text)</code></h2><p>Regex to know if the given text is an IP Address or not.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>text</code> — (String) the text that you want to determine if it is an IP Address</li>
+<li><strong>Returns:</strong> True if the given text is an IP Address</li>
+</ul>
+<h2 id="private-String-retrieveContainerIp-throws-FailedRetrievingContainerIPException"><a href="#private-String-retrieveContainerIp-throws-FailedRetrievingContainerIPException" class="headerlink" title="private String retrieveContainerIp() throws FailedRetrievingContainerIPException"></a><code>private String retrieveContainerIp() throws FailedRetrievingContainerIPException</code></h2><p>Retrieve the IP of the Docker container linked to this Kernel. Use bash commands to do that.</p>
+<ul>
+<li><strong>Returns:</strong> (String) the IP address of the container</li>
+<li><strong>Exceptions:</strong> <code>FailedRetrievingContainerIPException</code> — : exception telling that it was unable to retrieve the IP.</li>
+</ul>
+<h2 id="private-void-deleteConnexionFile"><a href="#private-void-deleteConnexionFile" class="headerlink" title="private void deleteConnexionFile ()"></a><code>private void deleteConnexionFile ()</code></h2><p>Delete the connexion file. This method is used when stopping the kernel, to make sur that, in case the container did not, we delete the connexion file.</p>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

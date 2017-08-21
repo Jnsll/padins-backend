@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Core</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Flow</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Jupyter</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 class='active'  >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>MessageHandlers</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Utils</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Webserver</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-ShellMessaging"><a href="#public-class-ShellMessaging" class="headerlink" title="public class ShellMessaging"></a><code>public class ShellMessaging</code></h2><p><a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-shell-router-dealer-channel" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-shell-router-dealer-channel</a></p>
+<p>The list of messages is : execute_request inspect_request complete_request history_request is_complete_request connect_request comm_info_request kernel_info_request shutdown_request</p>
+<p>Created by antoine on 10/05/2017.</p>
+<h2 id="public-void-handleMessage-String-type-JupyterMessage-message"><a href="#public-void-handleMessage-String-type-JupyterMessage-message" class="headerlink" title="public void handleMessage (String type, JupyterMessage message)"></a><code>public void handleMessage (String type, JupyterMessage message)</code></h2><p>Handle the given message, coming from the Shell or Control Channel</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>type</code> — {String} the type of the message</li>
+<li><code>message</code> — {JupyterMessage} the message itself</li>
+</ul>
+</li>
+</ul>
+<h2 id="public-String-sendExecuteRequestMessage-String-code"><a href="#public-String-sendExecuteRequestMessage-String-code" class="headerlink" title="public String sendExecuteRequestMessage (String code)"></a><code>public String sendExecuteRequestMessage (String code)</code></h2><p>Implementation of execute_request message according to documentation <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#execute" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#execute</a></p>
+<ul>
+<li><strong>Parameters:</strong> <code>code</code> — : python code to execute</li>
+<li><strong>Returns:</strong> : the message sent through the channel</li>
+</ul>
+<h2 id="public-String-sendIntrospectionRequestMessage-String-code-int-cursorPos"><a href="#public-String-sendIntrospectionRequestMessage-String-code-int-cursorPos" class="headerlink" title="public String sendIntrospectionRequestMessage (String code, int cursorPos)"></a><code>public String sendIntrospectionRequestMessage (String code, int cursorPos)</code></h2><p>Implementation of introspection inspect_request according to documentation <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#introspection" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#introspection</a></p>
+<ul>
+<li><strong>Returns:</strong> : the message sent through the channel</li>
+</ul>
+<h2 id="public-String-sendCompletionRequestMessage-String-code-int-cursorPos"><a href="#public-String-sendCompletionRequestMessage-String-code-int-cursorPos" class="headerlink" title="public String sendCompletionRequestMessage (String code, int cursorPos)"></a><code>public String sendCompletionRequestMessage (String code, int cursorPos)</code></h2><p>Implementation of introspection complete_request according to documentation <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#completion" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#completion</a></p>
+<ul>
+<li><strong>Returns:</strong> : the message sent through the channel</li>
+</ul>
+<h2 id="public-String-sendHistoryRequestMessage-int-nbOfCells"><a href="#public-String-sendHistoryRequestMessage-int-nbOfCells" class="headerlink" title="public String sendHistoryRequestMessage (int nbOfCells)"></a><code>public String sendHistoryRequestMessage (int nbOfCells)</code></h2><p>Implementation of introspection complete_request according to documentation <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#history" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#history</a></p>
+<ul>
+<li><strong>Returns:</strong> : the message sent through the channel</li>
+</ul>
+<h2 id="public-String-sendCodeCompletenessRequestMessage-String-code"><a href="#public-String-sendCodeCompletenessRequestMessage-String-code" class="headerlink" title="public String sendCodeCompletenessRequestMessage (String code)"></a><code>public String sendCodeCompletenessRequestMessage (String code)</code></h2><p>Implementation of introspection complete_request according to documentation <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-completeness" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-completeness</a></p>
+<ul>
+<li><strong>Returns:</strong> : the message sent through the channel</li>
+</ul>
+<h2 id="public-String-sendConnectRequestMessage"><a href="#public-String-sendConnectRequestMessage" class="headerlink" title="public String sendConnectRequestMessage ()"></a><code>public String sendConnectRequestMessage ()</code></h2><p>Implementation of introspection complete_request according to documentation <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#connect" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#connect</a></p>
+<ul>
+<li><strong>Returns:</strong> : the message sent through the channel</li>
+</ul>
+<h2 id="public-String-sendCommInfoRequestMessage"><a href="#public-String-sendCommInfoRequestMessage" class="headerlink" title="public String sendCommInfoRequestMessage ()"></a><code>public String sendCommInfoRequestMessage ()</code></h2><p>Implementation of introspection complete_request according to documentation <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#comm-info" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#comm-info</a></p>
+<ul>
+<li><strong>Returns:</strong> : the message sent through the channel</li>
+</ul>
+<h2 id="public-String-sendKernelInfoRequestMessage"><a href="#public-String-sendKernelInfoRequestMessage" class="headerlink" title="public String sendKernelInfoRequestMessage ()"></a><code>public String sendKernelInfoRequestMessage ()</code></h2><p>Implementation of introspection complete_request according to documentation <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info</a></p>
+<ul>
+<li><strong>Returns:</strong> : the message sent through the channel</li>
+</ul>
+<h2 id="public-String-sendKernelShutdownRequestMessage-boolean-restart"><a href="#public-String-sendKernelShutdownRequestMessage-boolean-restart" class="headerlink" title="public String sendKernelShutdownRequestMessage (boolean restart)"></a><code>public String sendKernelShutdownRequestMessage (boolean restart)</code></h2><p>Implementation of introspection complete_request according to documentation <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-shutdown" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-shutdown</a></p>
+<ul>
+<li><strong>Returns:</strong> : the message sent through the channel</li>
+</ul>
+<h2 id="private-void-handleExecuteReplyMessage-JupyterMessage-message"><a href="#private-void-handleExecuteReplyMessage-JupyterMessage-message" class="headerlink" title="private void handleExecuteReplyMessage (JupyterMessage message)"></a><code>private void handleExecuteReplyMessage (JupyterMessage message)</code></h2><p>Handle an excute_reply message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#execution-results" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#execution-results</a></p>
+<p>Our implementation behavior: depends on the status of the message. - OK : do nothing - ERROR : Broadcast the error to the UIs and log an error - ABORT : Broadcast the abort to the UIs and log an error</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
+</ul>
+<h2 id="private-void-handleIntrospectionReplyMessage-JupyterMessage-message"><a href="#private-void-handleIntrospectionReplyMessage-JupyterMessage-message" class="headerlink" title="private void handleIntrospectionReplyMessage (JupyterMessage message)"></a><code>private void handleIntrospectionReplyMessage (JupyterMessage message)</code></h2><p>Handle an introspection_reply message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#introspection" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#introspection</a></p>
+<p>Our implementation behavior: depends on the status of the message. - OK : TODO send result to UIs - ERROR : Broadcast an error to the UIs</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
+</ul>
+<h2 id="private-void-handleCompletionReplyMessage-JupyterMessage-message"><a href="#private-void-handleCompletionReplyMessage-JupyterMessage-message" class="headerlink" title="private void handleCompletionReplyMessage (JupyterMessage message)"></a><code>private void handleCompletionReplyMessage (JupyterMessage message)</code></h2><p>Handle an completion_reply message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#completion" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#completion</a></p>
+<p>Our implementation behavior: depends on the status of the message. - OK : TODO send info to corresponding UI, probably sending UI username via metadata and retrieving it here - ERROR : Broadcast an error to the UIs</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
+</ul>
+<h2 id="private-void-handleHistoryReplyMessage-JupyterMessage-message"><a href="#private-void-handleHistoryReplyMessage-JupyterMessage-message" class="headerlink" title="private void handleHistoryReplyMessage (JupyterMessage message)"></a><code>private void handleHistoryReplyMessage (JupyterMessage message)</code></h2><p>Handle an history_reply message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#history" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#history</a></p>
+<p>Our implementation behavior: depends on the status of the message. TODO</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
+</ul>
+<h2 id="private-void-handleCodeCompletenessReplyMessage-JupyterMessage-message"><a href="#private-void-handleCodeCompletenessReplyMessage-JupyterMessage-message" class="headerlink" title="private void handleCodeCompletenessReplyMessage (JupyterMessage message)"></a><code>private void handleCodeCompletenessReplyMessage (JupyterMessage message)</code></h2><p>Handle a is_complete_reply message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-completeness" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-completeness</a></p>
+<p>Our implementation behavior: depends on the status of the message. TODO</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
+</ul>
+<h2 id="private-void-handleConnectionReplyMessage-JupyterMessage-message"><a href="#private-void-handleConnectionReplyMessage-JupyterMessage-message" class="headerlink" title="private void handleConnectionReplyMessage (JupyterMessage message)"></a><code>private void handleConnectionReplyMessage (JupyterMessage message)</code></h2><p>Handle a connect_reply message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#connect" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#connect</a></p>
+<p>Our implementation behavior: depends on the status of the message. TODO</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
+</ul>
+<h2 id="private-void-handleCommInfoReplyMessage-JupyterMessage-message"><a href="#private-void-handleCommInfoReplyMessage-JupyterMessage-message" class="headerlink" title="private void handleCommInfoReplyMessage (JupyterMessage message)"></a><code>private void handleCommInfoReplyMessage (JupyterMessage message)</code></h2><p>Handle a comm_info_reply message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#comm-info" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#comm-info</a></p>
+<p>Our implementation behavior: depends on the status of the message. TODO</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
+</ul>
+<h2 id="private-void-handleKernelInfoReplyMessage-JupyterMessage-message"><a href="#private-void-handleKernelInfoReplyMessage-JupyterMessage-message" class="headerlink" title="private void handleKernelInfoReplyMessage (JupyterMessage message)"></a><code>private void handleKernelInfoReplyMessage (JupyterMessage message)</code></h2><p>Handle a kernel_info_reply message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info</a></p>
+<p>Our implementation behavior: depends on the status of the message. TODO</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
+</ul>
+<h2 id="private-void-handleShutdownReplyMessage-JupyterMessage-message"><a href="#private-void-handleShutdownReplyMessage-JupyterMessage-message" class="headerlink" title="private void handleShutdownReplyMessage (JupyterMessage message)"></a><code>private void handleShutdownReplyMessage (JupyterMessage message)</code></h2><p>Handle a shutdown_reply message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-shutdown" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-shutdown</a></p>
+<p>Our implementation behavior: depends on the status of the message. TODO</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
+</ul>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

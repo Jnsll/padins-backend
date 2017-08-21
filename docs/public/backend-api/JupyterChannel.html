@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Core</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Flow</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Jupyter</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 class='active'  >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>MessageHandlers</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Utils</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Webserver</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-abstract-class-JupyterChannel-implements-Runnable"><a href="#public-abstract-class-JupyterChannel-implements-Runnable" class="headerlink" title="public abstract class JupyterChannel implements Runnable"></a><code>public abstract class JupyterChannel implements Runnable</code></h2><p>A Kernel uses 5 channels to communicates on both side (client/server). All this is explained here : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#</a></p>
+<p>The Jupyter channel is the abstract class that implements the common behavior of all the Jupyter Channels of this program.</p>
+<p>When needed, the child classes (Heartbeat, IOPub, Shell, Control, Stdin) override the necessary methods and attributes.</p>
+<p>Created by antoine on 28/04/17.</p>
+<h2 id="public-void-run"><a href="#public-void-run" class="headerlink" title="public void run()"></a><code>public void run()</code></h2><p>Run method from Runnable interface</p>
+<h2 id="public-void-start"><a href="#public-void-start" class="headerlink" title="public void start()"></a><code>public void start()</code></h2><p>Start the thread that makes the channel working</p>
+<h2 id="public-void-stop-throws-InterruptedException"><a href="#public-void-stop-throws-InterruptedException" class="headerlink" title="public void stop() throws InterruptedException"></a><code>public void stop() throws InterruptedException</code></h2><p>Interrupt the channel by interrupting the thread</p>
+<h2 id="public-void-doLog-boolean-log"><a href="#public-void-doLog-boolean-log" class="headerlink" title="public void doLog (boolean log)"></a><code>public void doLog (boolean log)</code></h2><p>If true, the channel will log every message it receives. Otherwise, doesn’t log anything.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>log</code> — : boolean</li>
+</ul>
+<h2 id="public-boolean-isRunning"><a href="#public-boolean-isRunning" class="headerlink" title="public boolean isRunning()"></a><code>public boolean isRunning()</code></h2><p>Is the Channel running ?</p>
+<ul>
+<li><strong>Returns:</strong> {boolean} true if still alive, false otherwise</li>
+</ul>
+<h2 id="public-void-setIdentity-String-identity"><a href="#public-void-setIdentity-String-identity" class="headerlink" title="public void setIdentity(String identity)"></a><code>public void setIdentity(String identity)</code></h2><p>Set the identity of the ZMQ socket. The identity is sent as a message preceding the other messages sent with socket.sendMore and socket.send</p>
+<ul>
+<li><strong>Parameters:</strong> <code>identity</code> — : a String representing the chosen identity</li>
+</ul>
+<h2 id="public-void-doStoreHistory-boolean-b"><a href="#public-void-doStoreHistory-boolean-b" class="headerlink" title="public void doStoreHistory (boolean b)"></a><code>public void doStoreHistory (boolean b)</code></h2><p>Set the behavior of the channel about storing messages history</p>
+<ul>
+<li><strong>Parameters:</strong> <code>b</code> — : true to store, false not to</li>
+</ul>
+<h2 id="private-void-logMessage-ArrayList-lt-String-gt-incomingMessage"><a href="#private-void-logMessage-ArrayList-lt-String-gt-incomingMessage" class="headerlink" title="private void logMessage (ArrayList&lt;String&gt; incomingMessage)"></a><code>private void logMessage (ArrayList&lt;String&gt; incomingMessage)</code></h2><ul>
+<li><strong>Parameters:</strong> <code>incomingMessage</code> — : complete Jupyter message. Look at the Jupyter doc to know more about it</li>
+</ul>
+<h2 id="private-void-handleMessage-ArrayList-lt-String-gt-incomingMessage"><a href="#private-void-handleMessage-ArrayList-lt-String-gt-incomingMessage" class="headerlink" title="private void handleMessage(ArrayList&lt;String&gt; incomingMessage)"></a><code>private void handleMessage(ArrayList&lt;String&gt; incomingMessage)</code></h2><ul>
+<li><strong>Parameters:</strong> <code>incomingMessage</code> — : the received message, look at Jupyter doc to know its format</li>
+</ul>
+<h2 id="private-boolean-isUuid-String-message"><a href="#private-boolean-isUuid-String-message" class="headerlink" title="private boolean isUuid (String message)"></a><code>private boolean isUuid (String message)</code></h2><p>Verify whether the given message is a correct UUID (Universally Unique IDentifier)</p>
+<ul>
+<li><strong>Parameters:</strong> <code>message</code> — {String} the message to test</li>
+<li><strong>Returns:</strong> {boolean} True if the message is a UUID, false otherwise.</li>
+</ul>
+<h2 id="protected-abstract-void-initializeThread"><a href="#protected-abstract-void-initializeThread" class="headerlink" title="protected abstract void initializeThread()"></a><code>protected abstract void initializeThread()</code></h2><p>Define a initializeThread method that should be overridden by the child classes.</p>
+<p>This method is called when the Thread start in order to initialize what needs to be initialized.</p>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Core</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Flow</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Jupyter</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>MessageHandlers</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 class='active'  >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Utils</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>Webserver</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="SuppressWarnings-quot-unchecked-quot-public-class-FBPNetworkProtocolManager"><a href="#SuppressWarnings-quot-unchecked-quot-public-class-FBPNetworkProtocolManager" class="headerlink" title="@SuppressWarnings(&quot;unchecked&quot;) public class FBPNetworkProtocolManager"></a><code>@SuppressWarnings(&quot;unchecked&quot;) public class FBPNetworkProtocolManager</code></h2><p>The FBPNetworkProtocolManager handle the FBP Network Protocol’s compliant messages received on the socket endpoint.</p>
+<p>Its main role is to read the protocol field of the message and redirect the message to the proper handler, and to send the already formatted messages to the clients.</p>
+<p>It can also send a few custom messages (startnode and finishnode), handles the traceback received from the kernel and send a changenode message.</p>
+<p>Created by antoine on 26/05/2017.</p>
+<h2 id="public-void-setSocket-ServerSocket-socket"><a href="#public-void-setSocket-ServerSocket-socket" class="headerlink" title="public void setSocket (ServerSocket socket)"></a><code>public void setSocket (ServerSocket socket)</code></h2><p>Set the attached socket. The socket will be used to send messages to the right client.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>socket</code> — {ServerSocket} the connected client’s socket instance</li>
+</ul>
+<h2 id="String-getComponentsLibrary"><a href="#String-getComponentsLibrary" class="headerlink" title="String getComponentsLibrary()"></a><code>String getComponentsLibrary()</code></h2><p>Returns the name of the component library used in the workspace.</p>
+<ul>
+<li><strong>Returns:</strong> {String} the name of the component library</li>
+</ul>
+<h2 id="synchronized-public-void-send-FBPMessage-msg"><a href="#synchronized-public-void-send-FBPMessage-msg" class="headerlink" title="synchronized public void send (FBPMessage msg)"></a><code>synchronized public void send (FBPMessage msg)</code></h2><p>Send the given message to the connected client.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>msg</code> — {FBPMessage} the message to send</li>
+</ul>
+<h2 id="synchronized-private-void-sendMsgToSocket-FBPMessage-msg-ServerSocket-socket"><a href="#synchronized-private-void-sendMsgToSocket-FBPMessage-msg-ServerSocket-socket" class="headerlink" title="synchronized private void sendMsgToSocket (FBPMessage msg, ServerSocket socket)"></a><code>synchronized private void sendMsgToSocket (FBPMessage msg, ServerSocket socket)</code></h2><p>Send the given message through the given socket.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>msg</code> — {FBPMessage} the message to send</li>
+<li><code>socket</code> — {ServerSocket} the destination socket</li>
+</ul>
+</li>
+</ul>
+<h2 id="synchronized-void-sendToAll-FBPMessage-msg"><a href="#synchronized-void-sendToAll-FBPMessage-msg" class="headerlink" title="synchronized void sendToAll (FBPMessage msg)"></a><code>synchronized void sendToAll (FBPMessage msg)</code></h2><p>Send the given message to all the clients connected on the workspace.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>msg</code> — {FBPMessage} the message to send</li>
+</ul>
+<h2 id="synchronized-public-void-sendError-String-protocol-String-error"><a href="#synchronized-public-void-sendError-String-protocol-String-error" class="headerlink" title="synchronized public void sendError(String protocol, String error)"></a><code>synchronized public void sendError(String protocol, String error)</code></h2><p>Send an error message to the client.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>protocol</code> — {String} the protocol on which the error has been thrown.</li>
+<li><code>error</code> — {String} the error message.</li>
+</ul>
+</li>
+</ul>
+<h2 id="synchronized-public-void-sendErrorToAll-String-protocol-String-error"><a href="#synchronized-public-void-sendErrorToAll-String-protocol-String-error" class="headerlink" title="synchronized public void sendErrorToAll(String protocol, String error)"></a><code>synchronized public void sendErrorToAll(String protocol, String error)</code></h2><p>Send an error message to all the clients connected on the workspace.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>protocol</code> — {String} the protocol on which the error has been thrown.</li>
+<li><code>error</code> — {String} the error message.</li>
+</ul>
+</li>
+</ul>
+<h2 id="public-void-sendUpdateNodeMessage-Node-node"><a href="#public-void-sendUpdateNodeMessage-Node-node" class="headerlink" title="public void sendUpdateNodeMessage (Node node)"></a><code>public void sendUpdateNodeMessage (Node node)</code></h2><p>Send a changenode message to all clients in order to tell the UIs to update the node.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>node</code> — {Node} the updated node</li>
+</ul>
+<h2 id="public-void-handleTracebackFromKernel-JSONArray-traceback-Kernel-k"><a href="#public-void-handleTracebackFromKernel-JSONArray-traceback-Kernel-k" class="headerlink" title="public void handleTracebackFromKernel (JSONArray traceback, Kernel k)"></a><code>public void handleTracebackFromKernel (JSONArray traceback, Kernel k)</code></h2><p>Handle the traceback coming from the kernel, redirecting it to the UIs.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>traceback</code> — {JSONArray} the traceback, as an array on text lines.</li>
+<li><code>k</code> — {Kernel} the kernel that provide the traceback</li>
+</ul>
+</li>
+</ul>
+<h2 id="private-FBPMessage-createErrorMessage-String-protocol-String-error"><a href="#private-FBPMessage-createErrorMessage-String-protocol-String-error" class="headerlink" title="private FBPMessage createErrorMessage (String protocol, String error)"></a><code>private FBPMessage createErrorMessage (String protocol, String error)</code></h2><p>Create an FBPNP compliant error message from the given protocol and error message.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>protocol</code> — {String} the protocol on which the error has been thrown.</li>
+<li><code>error</code> — {String} the error message.</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> {FBPMessage} the FBPNP compliant error message.</li>
+</ul>
+<h2 id="public-void-sendStartNode-String-id"><a href="#public-void-sendStartNode-String-id" class="headerlink" title="public void sendStartNode (String id)"></a><code>public void sendStartNode (String id)</code></h2><p>Send a startnode message that say that the node with the given id has just started being executed.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>id</code> — {String} the uuid of the node</li>
+</ul>
+<h2 id="public-void-sendFinishNode-String-id"><a href="#public-void-sendFinishNode-String-id" class="headerlink" title="public void sendFinishNode (String id)"></a><code>public void sendFinishNode (String id)</code></h2><p>Send a stopnode message that say that the node with the given id has just stopped being executed.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>id</code> — {String} the uuid of the node</li>
+</ul>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>
