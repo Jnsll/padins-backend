@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>e</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Component.html' 
+                 class='active'  >
+                  Component.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='HeartbeatChannel.html' 
+                 >
+                  HeartbeatChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentMessageHandler.html' 
+                 >
+                  ComponentMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JSON.html' 
+                 >
+                  JSON.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='UploadServlet.html' 
+                 >
+                  UploadServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Component"><a href="#public-class-Component" class="headerlink" title="public class Component"></a><code>public class Component</code></h2><p>A component is something close to the notion of Class in object-oriented programming. Its instance is a Node.</p>
+<p>A component is a concept of Flow-Based Programming and its fields are imposed by the FBP.</p>
+<p>There is a library that contains all the components a given workspace can use. This library is in resources/WebUIComponents</p>
+<p>Created by antoine on 29/05/17.</p>
+<h2 id="public-String-getName"><a href="#public-String-getName" class="headerlink" title="public String getName ()"></a><code>public String getName ()</code></h2><p>Gives the name of the component</p>
+<ul>
+<li><strong>Returns:</strong> name as String</li>
+</ul>
+<h2 id="public-String-getDescription"><a href="#public-String-getDescription" class="headerlink" title="public String getDescription()"></a><code>public String getDescription()</code></h2><p>Gives the description of a Component. Usually what it’s made for.</p>
+<ul>
+<li><strong>Returns:</strong> the description as String</li>
+</ul>
+<h2 id="Ports-getInports"><a href="#Ports-getInports" class="headerlink" title="Ports getInports()"></a><code>Ports getInports()</code></h2><p>Gives the list of inports the Component has. The inports are ports to connect to when on the graph.</p>
+<ul>
+<li><strong>Returns:</strong> the list of inports</li>
+</ul>
+<h2 id="Ports-getOutports"><a href="#Ports-getOutports" class="headerlink" title="Ports getOutports()"></a><code>Ports getOutports()</code></h2><p>Gives the list of outports the Component has. The outports are ports to send data to an other node’s inport.</p>
+<ul>
+<li><strong>Returns:</strong> the list of outports</li>
+</ul>
+<h2 id="public-String-getLanguage"><a href="#public-String-getLanguage" class="headerlink" title="public String getLanguage()"></a><code>public String getLanguage()</code></h2><p>Gives the programming language used by the component</p>
+<ul>
+<li><strong>Returns:</strong> the programming language as String</li>
+</ul>
+<h2 id="public-String-getCode"><a href="#public-String-getCode" class="headerlink" title="public String getCode()"></a><code>public String getCode()</code></h2><p>Gives the source code of the component</p>
+<ul>
+<li><strong>Returns:</strong> the source code as String</li>
+</ul>
+<h2 id="public-String-getTests"><a href="#public-String-getTests" class="headerlink" title="public String getTests()"></a><code>public String getTests()</code></h2><p>Gives the tests code of the component</p>
+<ul>
+<li><strong>Returns:</strong> the tests code as String</li>
+</ul>
+<h2 id="public-boolean-isExecutable"><a href="#public-boolean-isExecutable" class="headerlink" title="public boolean isExecutable()"></a><code>public boolean isExecutable()</code></h2><p>Whether the component is executable or not</p>
+<ul>
+<li><strong>Returns:</strong> true if executable</li>
+</ul>
+<h2 id="private-void-buildJson"><a href="#private-void-buildJson" class="headerlink" title="private void buildJson ()"></a><code>private void buildJson ()</code></h2><p>Build the JSON object component with up-to-date information. Usually used right before serializing the message.</p>
+<h2 id="Override-public-String-toString"><a href="#Override-public-String-toString" class="headerlink" title="@Override public String toString ()"></a><code>@Override public String toString ()</code></h2><p>Override the very common toString function that return a String representing the object.</p>
+<ul>
+<li><strong>Returns:</strong> the component serialized</li>
+</ul>
+<h2 id="public-JSONObject-toJson"><a href="#public-JSONObject-toJson" class="headerlink" title="public JSONObject toJson()"></a><code>public JSONObject toJson()</code></h2><p>Give the JSON containing all the information about the component</p>
+<ul>
+<li><strong>Returns:</strong> the JSON as JSONObject</li>
+</ul>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

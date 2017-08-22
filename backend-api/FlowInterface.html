@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>e</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Component.html' 
+                 >
+                  Component.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 class='active'  >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='HeartbeatChannel.html' 
+                 >
+                  HeartbeatChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentMessageHandler.html' 
+                 >
+                  ComponentMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JSON.html' 
+                 >
+                  JSON.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='UploadServlet.html' 
+                 >
+                  UploadServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="interface-FlowInterface"><a href="#interface-FlowInterface" class="headerlink" title="interface FlowInterface"></a><code>interface FlowInterface</code></h2><p>Interface describing the methods a Flow must have.</p>
+<p>Most of the methods corresponds to messages exchanged on the Flow Based Programming Network Protocol.</p>
+<p>Created by antoine on 30/05/17.</p>
+<h2 id="boolean-addNode-String-id-String-component-JSONObject-metadata-String-graph-boolean-executable"><a href="#boolean-addNode-String-id-String-component-JSONObject-metadata-String-graph-boolean-executable" class="headerlink" title="boolean addNode (String id, String component, JSONObject metadata, String graph, boolean executable)"></a><code>boolean addNode (String id, String component, JSONObject metadata, String graph, boolean executable)</code></h2><p>Add a node to the flow</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>id</code> — The id of the node</li>
+<li><code>component</code> — The component of the node</li>
+<li><code>metadata</code> — The metadata object of the node</li>
+<li><code>graph</code> — The graph in which to add the node</li>
+<li><code>executable</code> — Whether the node is executable or not</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if the node has been added</li>
+</ul>
+<h2 id="boolean-removeNode-String-id-String-graph"><a href="#boolean-removeNode-String-id-String-graph" class="headerlink" title="boolean removeNode (String id, String graph)"></a><code>boolean removeNode (String id, String graph)</code></h2><p>Remove a node from the flow</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>id</code> — The id of the node to remove</li>
+<li><code>graph</code> — The graph from which to remove the node</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> </li>
+</ul>
+<h2 id="boolean-renameNode-String-from-String-to-String-graph"><a href="#boolean-renameNode-String-from-String-to-String-graph" class="headerlink" title="boolean renameNode (String from, String to, String graph)"></a><code>boolean renameNode (String from, String to, String graph)</code></h2><p>Change the id of a node</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>from</code> — : the previous id</li>
+<li><code>to</code> — : the new id</li>
+<li><code>graph</code> — : the graph where the node is</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if successfully done</li>
+</ul>
+<h2 id="boolean-changeNode-String-id-JSONObject-metadata-String-graph"><a href="#boolean-changeNode-String-id-JSONObject-metadata-String-graph" class="headerlink" title="boolean changeNode (String id, JSONObject metadata, String graph)"></a><code>boolean changeNode (String id, JSONObject metadata, String graph)</code></h2><p>Update the metadata of a node.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>id</code> — the id of the node</li>
+<li><code>metadata</code> — the new metadata</li>
+<li><code>graph</code> — the graph where the node is</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if successfully done</li>
+</ul>
+<h2 id="boolean-addEdge-String-id-JSONObject-src-JSONObject-tgt-JSONObject-metadata-String-graph"><a href="#boolean-addEdge-String-id-JSONObject-src-JSONObject-tgt-JSONObject-metadata-String-graph" class="headerlink" title="boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph)"></a><code>boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph)</code></h2><p>Add an edge, connecting two nodes on the graph.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>id</code> — the id of the new edge</li>
+<li><code>src</code> — the src node of the edge</li>
+<li><code>tgt</code> — the tgt node of the edge</li>
+<li><code>metadata</code> — the metadata of the edge</li>
+<li><code>graph</code> — the graph where the edge is</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if successfully added and connected.</li>
+</ul>
+<h2 id="boolean-removeEdge-String-id-String-graph-JSONObject-src-JSONObject-tgt"><a href="#boolean-removeEdge-String-id-String-graph-JSONObject-src-JSONObject-tgt" class="headerlink" title="boolean removeEdge (String id, String graph, JSONObject src, JSONObject tgt)"></a><code>boolean removeEdge (String id, String graph, JSONObject src, JSONObject tgt)</code></h2><p>Remove an existing edge from the graph.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>id</code> — the id of the edge</li>
+<li><code>graph</code> — the graph where the edge is</li>
+<li><code>src</code> — the src node of the edge</li>
+<li><code>tgt</code> — the tgt node of the edge</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if successfully removed</li>
+</ul>
+<h2 id="boolean-changeEdge-String-id-String-graph-JSONObject-metadata-JSONObject-src-JSONObject-tgt"><a href="#boolean-changeEdge-String-id-String-graph-JSONObject-metadata-JSONObject-src-JSONObject-tgt" class="headerlink" title="boolean changeEdge (String id, String graph, JSONObject metadata, JSONObject src, JSONObject tgt)"></a><code>boolean changeEdge (String id, String graph, JSONObject metadata, JSONObject src, JSONObject tgt)</code></h2><p>Modify the src, tgt and metadata of an edge</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>id</code> — the unique id of the edge</li>
+<li><code>graph</code> — the graph where the edge is</li>
+<li><code>metadata</code> — the new metadata of the edge</li>
+<li><code>src</code> — the new src object of the edge</li>
+<li><code>tgt</code> — the tgt object of the edge</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if the modification has successfully be done</li>
+</ul>
+<h2 id="boolean-addGroup-String-name-JSONArray-nodes-JSONObject-metadata-String-graph"><a href="#boolean-addGroup-String-name-JSONArray-nodes-JSONObject-metadata-String-graph" class="headerlink" title="boolean addGroup (String name, JSONArray nodes, JSONObject metadata, String graph)"></a><code>boolean addGroup (String name, JSONArray nodes, JSONObject metadata, String graph)</code></h2><p>Create a new group that is a kind of subgraph user can run independently.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>name</code> — the name of the new group</li>
+<li><code>nodes</code> — the nodes in this group</li>
+<li><code>metadata</code> — the metadata of the new group</li>
+<li><code>graph</code> — the graph where the group is (can be another group)</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if successfully created</li>
+</ul>
+<h2 id="boolean-removeGroup-String-name-String-graph"><a href="#boolean-removeGroup-String-name-String-graph" class="headerlink" title="boolean removeGroup (String name, String graph)"></a><code>boolean removeGroup (String name, String graph)</code></h2><p>Remove an existing group</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>name</code> — name of the group to delete</li>
+<li><code>graph</code> — the graph where the group is</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if successfully deleted</li>
+</ul>
+<h2 id="boolean-renameGroup-String-from-String-to-String-graph"><a href="#boolean-renameGroup-String-from-String-to-String-graph" class="headerlink" title="boolean renameGroup (String from, String to, String graph)"></a><code>boolean renameGroup (String from, String to, String graph)</code></h2><p>Rename a group.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>from</code> — the old name</li>
+<li><code>to</code> — the new name</li>
+<li><code>graph</code> — the graph where the group is</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if successfully changed</li>
+</ul>
+<h2 id="boolean-changeGroup-String-name-JSONObject-metadata-String-graph"><a href="#boolean-changeGroup-String-name-JSONObject-metadata-String-graph" class="headerlink" title="boolean changeGroup (String name, JSONObject metadata, String graph)"></a><code>boolean changeGroup (String name, JSONObject metadata, String graph)</code></h2><p>Change the metadata of a group.</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>name</code> — name of the group</li>
+<li><code>metadata</code> — new metadata of the group</li>
+<li><code>graph</code> — the graph where the group is</li>
+</ul>
+</li>
+<li><strong>Returns:</strong> True if successfully changed</li>
+</ul>
+<h2 id="String-serialize"><a href="#String-serialize" class="headerlink" title="String serialize ()"></a><code>String serialize ()</code></h2><p>Serialize the flow as json</p>
+<ul>
+<li><strong>Returns:</strong> the serialized flow</li>
+</ul>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

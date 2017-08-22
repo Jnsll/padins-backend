@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>e</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Component.html' 
+                 >
+                  Component.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 class='active'  >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='HeartbeatChannel.html' 
+                 >
+                  HeartbeatChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentMessageHandler.html' 
+                 >
+                  ComponentMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JSON.html' 
+                 >
+                  JSON.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='UploadServlet.html' 
+                 >
+                  UploadServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Group"><a href="#public-class-Group" class="headerlink" title="public class Group"></a><code>public class Group</code></h2><p>This is a concept of the flow-based programming network protocol, as described here : <a href="https://flowbased.github.io/fbp-protocol/#graph-addgroup" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addgroup</a></p>
+<p>Created by antoine on 29/05/17.</p>
+<h2 id="public-String-getId"><a href="#public-String-getId" class="headerlink" title="public String getId ()"></a><code>public String getId ()</code></h2><p>Get the unique id of the group</p>
+<ul>
+<li><strong>Returns:</strong> {String} the unique id of the group</li>
+</ul>
+<h2 id="public-String-getName"><a href="#public-String-getName" class="headerlink" title="public String getName()"></a><code>public String getName()</code></h2><p>Get the name of the group. The name is user-defined.</p>
+<ul>
+<li><strong>Returns:</strong> {String} the name of the group</li>
+</ul>
+<h2 id="public-JSONObject-getMetadata"><a href="#public-JSONObject-getMetadata" class="headerlink" title="public JSONObject getMetadata()"></a><code>public JSONObject getMetadata()</code></h2><p>Get the metadata of the group</p>
+<ul>
+<li><strong>Returns:</strong> {JSONObject} an object containing all the metadata of the group</li>
+</ul>
+<h2 id="public-String-getGraph"><a href="#public-String-getGraph" class="headerlink" title="public String getGraph()"></a><code>public String getGraph()</code></h2><p>Get the graph (the root flow or another group) into which this group is.</p>
+<ul>
+<li><strong>Returns:</strong> {String} the id of the graph</li>
+</ul>
+<h2 id="public-JSONArray-getNodes"><a href="#public-JSONArray-getNodes" class="headerlink" title="public JSONArray getNodes()"></a><code>public JSONArray getNodes()</code></h2><p>Get the list of nodes that are in this group</p>
+<ul>
+<li><strong>Returns:</strong> {JSONArray} the array containing the ids of the nodes</li>
+</ul>
+<h2 id="public-void-setName-String-name"><a href="#public-void-setName-String-name" class="headerlink" title="public void setName(String name)"></a><code>public void setName(String name)</code></h2><p>Set the name of the group</p>
+<ul>
+<li><strong>Parameters:</strong> <code>name</code> — {string} the new name of the graph</li>
+</ul>
+<h2 id="public-void-setMetadata-JSONObject-metadata"><a href="#public-void-setMetadata-JSONObject-metadata" class="headerlink" title="public void setMetadata(JSONObject metadata)"></a><code>public void setMetadata(JSONObject metadata)</code></h2><p>Update the metadata</p>
+<ul>
+<li><strong>Parameters:</strong> <code>metadata</code> — {JSONObject} a json containing all the metadata</li>
+</ul>
+<h2 id="public-JSONObject-getJson"><a href="#public-JSONObject-getJson" class="headerlink" title="public JSONObject getJson()"></a><code>public JSONObject getJson()</code></h2><p>Get the group as a JSONObject. It will contain : - id {String} - name {String} - metadata {JSONObject} - graph {String} - nodes {Array<string>}</string></p>
+<ul>
+<li><strong>Returns:</strong> {JSONObject} the object containing all the data of the group</li>
+</ul>
+<h2 id="public-Status-getStatus"><a href="#public-Status-getStatus" class="headerlink" title="public Status getStatus()"></a><code>public Status getStatus()</code></h2><p>Get the status of the group : running or not and a few more information. See class Status</p>
+<ul>
+<li><strong>Returns:</strong> {Status} the status of the group.</li>
+</ul>
+<h2 id="private-void-build"><a href="#private-void-build" class="headerlink" title="private void build ()"></a><code>private void build ()</code></h2><p>Build the json object representing the group. The json is used to send all the information of this group to any other service.</p>
+<p>The JSONObject contains : - id {String} - name {String} - metadata {JSONObject} - graph {String} - nodes {Array<string>}</string></p>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

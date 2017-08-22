@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>e</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Component.html' 
+                 >
+                  Component.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='HeartbeatChannel.html' 
+                 >
+                  HeartbeatChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentMessageHandler.html' 
+                 >
+                  ComponentMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JSON.html' 
+                 >
+                  JSON.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='UploadServlet.html' 
+                 >
+                  UploadServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-FlowExecutionHandler"><a href="#public-class-FlowExecutionHandler" class="headerlink" title="public class FlowExecutionHandler"></a><code>public class FlowExecutionHandler</code></h2><p>Handle the execution of one group or flow. A group or flow is composed of several nodes. One node is one block on the UI.</p>
+<p>You have to create one instance of this class per flow you want to run. Then, when you want to run a flow, it works has following : 1 - Search for the first Nodes to execute (the ones with no inputs connected) 2 - Run these first nodes. To do that, we put all the nodes to execute in a Set. Beside that, we have a master that look at each node in the Set and run it if possible. The execution of a node is done in a new thread. After starting the execution of a node, it put the thread into a Running Set. When the execution of a Node in a thread finishes, it adds the nodes following the one that just runned into the toLaunch Set. In order to run a node, the master verify that its dependencies have finished their own execution. If not, it continues going through the Set, looking for nodes that can be launched. When both Set (toLaunch and running) are empty, we stop the master and the execution of the flow is finished.</p>
+<p>Created by antoine on 02/06/17.</p>
+<h2 id="public-void-run"><a href="#public-void-run" class="headerlink" title="public void run ()"></a><code>public void run ()</code></h2><p>Start the execution of the flow given to the constructor</p>
+<h2 id="public-void-stop"><a href="#public-void-stop" class="headerlink" title="public void stop ()"></a><code>public void stop ()</code></h2><p>Stop the flow’s execution</p>
+<h2 id="synchronized-public-void-addToLaunch-Node-n"><a href="#synchronized-public-void-addToLaunch-Node-n" class="headerlink" title="synchronized public void addToLaunch (Node n)"></a><code>synchronized public void addToLaunch (Node n)</code></h2><p>Add a node to the list of nodes that will be started as soon as possible</p>
+<ul>
+<li><strong>Parameters:</strong> <code>n</code> — : the Node to add</li>
+</ul>
+<h2 id="public-void-runningThreadFinished-Thread-t"><a href="#public-void-runningThreadFinished-Thread-t" class="headerlink" title="public void runningThreadFinished (Thread t)"></a><code>public void runningThreadFinished (Thread t)</code></h2><p>Method for the Thread to prevent that it finished. It will remove it from the list of running nodes (1 node &lt;-&gt; 1 thread).</p>
+<ul>
+<li><strong>Parameters:</strong> <code>t</code> — : the Thread that finished.</li>
+</ul>
+<h2 id="public-boolean-isRunning"><a href="#public-boolean-isRunning" class="headerlink" title="public boolean isRunning ()"></a><code>public boolean isRunning ()</code></h2><ul>
+<li><strong>Returns:</strong> a boolean telling whether the Execution of the Flow is running or not</li>
+</ul>
+<h2 id="private-void-runNodes"><a href="#private-void-runNodes" class="headerlink" title="private void runNodes ()"></a><code>private void runNodes ()</code></h2><p>Starts the flow to execute.</p>
+<p>It begins with retrieving the first nodes to execute. Then put them into the toLaunch set and start doing the master job, as described above.</p>
+<h2 id="private-void-stopNodes-ArrayList-lt-Node-gt-nodes"><a href="#private-void-stopNodes-ArrayList-lt-Node-gt-nodes" class="headerlink" title="private void stopNodes (ArrayList&lt;Node&gt; nodes)"></a><code>private void stopNodes (ArrayList&lt;Node&gt; nodes)</code></h2><p>Stop the execution of the given nodes</p>
+<ul>
+<li><strong>Parameters:</strong> <code>nodes</code> — : The List of nodes to stop</li>
+</ul>
+<h2 id="public-void-errorExecutingNode-Node-n"><a href="#public-void-errorExecutingNode-Node-n" class="headerlink" title="public void errorExecutingNode (Node n)"></a><code>public void errorExecutingNode (Node n)</code></h2><p>Handle the execution of the workflow when an error occurs during the execution of the given node.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>n</code> — {Node} the node that thrown an error</li>
+</ul>
+<h2 id="private-void-removeThread-Thread-t"><a href="#private-void-removeThread-Thread-t" class="headerlink" title="private void removeThread (Thread t)"></a><code>private void removeThread (Thread t)</code></h2><p>Remove a given thread from everywhere it is stored in the class.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>t</code> — : the Thread to remove</li>
+</ul>
+<h2 id="private-void-prepareNodesForExecution"><a href="#private-void-prepareNodesForExecution" class="headerlink" title="private void prepareNodesForExecution ()"></a><code>private void prepareNodesForExecution ()</code></h2><p>Prepare the nodes for being executed.</p>
+<h2 id="private-void-runNode-Node-node"><a href="#private-void-runNode-Node-node" class="headerlink" title="private void runNode (Node node)"></a><code>private void runNode (Node node)</code></h2><p>Run a unique node. It starts a new Thread for the node and add it to the Running set.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>node</code> — : the Node to execute</li>
+</ul>
+<h2 id="private-boolean-havePreviousNodesFinish-Node-n"><a href="#private-boolean-havePreviousNodesFinish-Node-n" class="headerlink" title="private boolean havePreviousNodesFinish(Node n)"></a><code>private boolean havePreviousNodesFinish(Node n)</code></h2><p>Tells whether the dependency of a node finished running. This method is usually called in order to know if it is possible de run a node.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>n</code> — : the Node for which you want to know if dependencies finished running.</li>
+<li><strong>Returns:</strong> True if all the dependencies finished</li>
+</ul>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>

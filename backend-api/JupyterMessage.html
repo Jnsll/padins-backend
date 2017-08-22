@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet='utf-8' />
+  <title>Padins Documentation - Backend API</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+  <link href='/css/docs.css' rel='stylesheet'>
+</head>
+<body>
+  <div class='menu'>
+    <div class='logo'>
+      <a href="/">Padins</a>
+    </div>
+    <ul id='nav'>
+      
+      <li> <a href="/guide/index.html" title="Guide">Guide</a> </li>
+      
+      <li> <a href="/backend-api/index.html" title="Backend API">Backend API</a> </li>
+      
+    </ul>
+  </div>
+  <div class='sidebar'>
+    <nav class='sidebar-nav'>
+      
+        <ul class='nav'>
+          <span>Introduction</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='index.html' 
+                 >
+                  Index
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+        <ul class='nav'>
+          <span>e</span>
+          <ul class='nav'>
+            
+              <li>
+                <a href='Kernel.html' 
+                 >
+                  Kernel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Main.html' 
+                 >
+                  Main.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NodeExecutionThread.html' 
+                 >
+                  NodeExecutionThread.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Root.html' 
+                 >
+                  Root.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Workspace.html' 
+                 >
+                  Workspace.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Component.html' 
+                 >
+                  Component.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentsUtils.html' 
+                 >
+                  ComponentsUtils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Edge.html' 
+                 >
+                  Edge.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Flow.html' 
+                 >
+                  Flow.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FlowInterface.html' 
+                 >
+                  FlowInterface.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Group.html' 
+                 >
+                  Group.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Node.html' 
+                 >
+                  Node.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Port.html' 
+                 >
+                  Port.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Ports.html' 
+                 >
+                  Ports.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='HeartbeatChannel.html' 
+                 >
+                  HeartbeatChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubChannel.html' 
+                 >
+                  IOPubChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterChannel.html' 
+                 >
+                  JupyterChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellChannel.html' 
+                 >
+                  ShellChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinChannel.html' 
+                 >
+                  StdinChannel.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='IOPubMessaging.html' 
+                 >
+                  IOPubMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JupyterMessage.html' 
+                 class='active'  >
+                  JupyterMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Manager.html' 
+                 >
+                  Manager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ShellMessaging.html' 
+                 >
+                  ShellMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='StdinMessaging.html' 
+                 >
+                  StdinMessaging.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ComponentMessageHandler.html' 
+                 >
+                  ComponentMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPMessage.html' 
+                 >
+                  FBPMessage.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPNetworkProtocolManager.html' 
+                 >
+                  FBPNetworkProtocolManager.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FBPProtocolHandler.html' 
+                 >
+                  FBPProtocolHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='GraphMessageHandler.html' 
+                 >
+                  GraphMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='NetworkMessageHandler.html' 
+                 >
+                  NetworkMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='RuntimeMessageHandler.html' 
+                 >
+                  RuntimeMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='SendMessageOverFBP.html' 
+                 >
+                  SendMessageOverFBP.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='TraceMessageHandler.html' 
+                 >
+                  TraceMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Status.html' 
+                 >
+                  Status.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='FileExplorerMessageHandler.html' 
+                 >
+                  FileExplorerMessageHandler.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='JSON.html' 
+                 >
+                  JSON.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Unzipper.html' 
+                 >
+                  Unzipper.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Utils.html' 
+                 >
+                  Utils.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='UploadServlet.html' 
+                 >
+                  UploadServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='ServerSocket.html' 
+                 >
+                  ServerSocket.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspaceSocketCreator.html' 
+                 >
+                  WorkspaceSocketCreator.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WebsocketServlet.html' 
+                 >
+                  WebsocketServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='WorkspacesServlet.html' 
+                 >
+                  WorkspacesServlet.java
+                </a>
+              </li>
+            
+              <li>
+                <a href='Webserver.html' 
+                 >
+                  Webserver.java
+                </a>
+              </li>
+            
+          </ul>
+        </ul>
+      
+    </nav>
+    <a class='footer' href='https://github.com/AntoineCheron/padins-backend'>
+      Project on github
+    </a>
+  </div>
+  <div class='page'>
+    <div class='page-content'>
+      <h1>Backend API</h1>
+      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="class-JupyterMessage"><a href="#class-JupyterMessage" class="headerlink" title="class JupyterMessage"></a><code>class JupyterMessage</code></h2><p>Data structure of a Jupyter message. The documentation is available here : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#general-message-format" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#general-message-format</a></p>
+<p>Created by antoine on 10/05/2017.</p>
+<h2 id="public-JupyterMessage-Kernel-kernel-String-msg-type"><a href="#public-JupyterMessage-Kernel-kernel-String-msg-type" class="headerlink" title="public JupyterMessage(Kernel kernel, String msg_type)"></a><code>public JupyterMessage(Kernel kernel, String msg_type)</code></h2><p>Constructor with minimal number of arguments</p>
+<h2 id="public-JupyterMessage-Kernel-kernel-String-msg-type-JSONObject-parent-header-JSONObject-metadata-JSONObject-content"><a href="#public-JupyterMessage-Kernel-kernel-String-msg-type-JSONObject-parent-header-JSONObject-metadata-JSONObject-content" class="headerlink" title="public JupyterMessage(Kernel kernel, String msg_type, JSONObject parent_header, JSONObject metadata, JSONObject content)"></a><code>public JupyterMessage(Kernel kernel, String msg_type, JSONObject parent_header, JSONObject metadata, JSONObject content)</code></h2><p>Complete constructor for message to send</p>
+<ul>
+<li><strong>Parameters:</strong><ul>
+<li><code>kernel</code> — : source kernel</li>
+<li><code>msg_type</code> — : the type of message to send</li>
+<li><code>parent_header</code> — :  dict</li>
+<li><code>metadata</code> — :  dict</li>
+<li><code>content</code> — : dict</li>
+</ul>
+</li>
+</ul>
+<h2 id="public-JupyterMessage-Kernel-kernel-ArrayList-lt-String-gt-incomingMessage"><a href="#public-JupyterMessage-Kernel-kernel-ArrayList-lt-String-gt-incomingMessage" class="headerlink" title="public JupyterMessage(Kernel kernel, ArrayList&lt;String&gt; incomingMessage)"></a><code>public JupyterMessage(Kernel kernel, ArrayList&lt;String&gt; incomingMessage)</code></h2><ul>
+<li><strong>Parameters:</strong> <code>incomingMessage</code> — : Array of String containing the parts of the message</li>
+</ul>
+<h2 id="public-JSONObject-getHeader"><a href="#public-JSONObject-getHeader" class="headerlink" title="public JSONObject getHeader ()"></a><code>public JSONObject getHeader ()</code></h2><p>Get the header of the message as a JSONObject. The header contains : String msg_id, String username, String session, String date, String msg_type, String version=”5.0”</p>
+<ul>
+<li><strong>Returns:</strong> {JSONObject} the header of the message.</li>
+</ul>
+<h2 id="public-void-setParentHeader-JSONObject-parent-header"><a href="#public-void-setParentHeader-JSONObject-parent-header" class="headerlink" title="public void setParentHeader (JSONObject parent_header)"></a><code>public void setParentHeader (JSONObject parent_header)</code></h2><p>Set the parent header of the message.</p>
+<p>Use it when the message you create respond to another message.</p>
+<p>The parent_header must contain : String msg_id, String username, String session, String date, String msg_type, String version=”5.0”</p>
+<ul>
+<li><strong>Parameters:</strong> <code>parent_header</code> — {JSONObject} the parent header</li>
+</ul>
+<h2 id="public-JSONObject-getParentHeader"><a href="#public-JSONObject-getParentHeader" class="headerlink" title="public JSONObject getParentHeader ()"></a><code>public JSONObject getParentHeader ()</code></h2><p>Get the parent header of the message.</p>
+<p>The parent_header must contain : String msg_id, String username, String session, String date, String msg_type, String version=”5.0”</p>
+<ul>
+<li><strong>Returns:</strong> {JSONObject} the parent header</li>
+</ul>
+<h2 id="public-void-setMetadata-JSONObject-metadata"><a href="#public-void-setMetadata-JSONObject-metadata" class="headerlink" title="public void setMetadata (JSONObject metadata)"></a><code>public void setMetadata (JSONObject metadata)</code></h2><p>Set the metadata part of the message. Its content is free.</p>
+<ul>
+<li><strong>Parameters:</strong> <code>metadata</code> — {JSONObject} the metadata</li>
+</ul>
+<h2 id="public-String-getHmac"><a href="#public-String-getHmac" class="headerlink" title="public String getHmac ()"></a><code>public String getHmac ()</code></h2><p>Get the HMAC of the message</p>
+<ul>
+<li><strong>Returns:</strong> {String} the HMAC</li>
+</ul>
+<h2 id="public-JSONObject-getMetadata"><a href="#public-JSONObject-getMetadata" class="headerlink" title="public JSONObject getMetadata ()"></a><code>public JSONObject getMetadata ()</code></h2><p>Get the metadata of the message. Its content is free.</p>
+<ul>
+<li><strong>Returns:</strong> {JSONObject} the metadata</li>
+</ul>
+<h2 id="public-String-getUuid"><a href="#public-String-getUuid" class="headerlink" title="public String getUuid ()"></a><code>public String getUuid ()</code></h2><p>Get the universally unique identifier (UUID) of the message</p>
+<ul>
+<li><strong>Returns:</strong> {String} the UUID of the message</li>
+</ul>
+<h2 id="public-void-setContent-JSONObject-content"><a href="#public-void-setContent-JSONObject-content" class="headerlink" title="public void setContent (JSONObject content)"></a><code>public void setContent (JSONObject content)</code></h2><p>Set the content part of the message. It must be a JSON. Its content depends on the type of message, according to this documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html</a></p>
+<ul>
+<li><strong>Parameters:</strong> <code>content</code> — {JSONObject} the content part.</li>
+</ul>
+<h2 id="public-JSONObject-getContent"><a href="#public-JSONObject-getContent" class="headerlink" title="public JSONObject getContent ()"></a><code>public JSONObject getContent ()</code></h2><p>Get the content part of the message. It must be a JSON. Its content depends on the type of message, according to this documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html</a></p>
+<ul>
+<li><strong>Returns:</strong> {JSONObject} the content of the message.</li>
+</ul>
+<h2 id="public-String-getMessageToSend"><a href="#public-String-getMessageToSend" class="headerlink" title="public String[] getMessageToSend ()"></a><code>public String[] getMessageToSend ()</code></h2><p>Get the message serialized in the proper format in order to send it through the channel, using the ZMQ library.</p>
+<ul>
+<li><strong>Returns:</strong> {String[]} the serialized message</li>
+</ul>
+<h2 id="private-String-generateDate"><a href="#private-String-generateDate" class="headerlink" title="private String generateDate ()"></a><code>private String generateDate ()</code></h2><p>Generate an ISO 8061 compliant timestamp</p>
+<ul>
+<li><strong>Returns:</strong> : String - the timestamp</li>
+</ul>
+<h2 id="private-String-generateHmac"><a href="#private-String-generateHmac" class="headerlink" title="private String generateHmac()"></a><code>private String generateHmac()</code></h2><p>Generate the Jupypter messaging protocol compliant hmac</p>
+<ul>
+<li><strong>Returns:</strong> : a hmac for the message to send</li>
+</ul>
+<h2 id="private-void-buildMessage"><a href="#private-void-buildMessage" class="headerlink" title="private void buildMessage ()"></a><code>private void buildMessage ()</code></h2><p>Build the message in accordance with Jupyter messaging specification</p>
+
+    </div>
+  </div>
+  <div class='switch-page'>
+    
+    
+  </div>
+</body>
+</html>
