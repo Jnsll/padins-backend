@@ -1,10 +1,10 @@
-const JavadocToMarkdown = require('./docs/javadoc-to-markdown.js');
+const JavadocToMarkdown = require('./javadoc-to-markdown.js');
 const FileSystem = fs = require('fs');
 const Path = require('path');
 const JavaDoc2MD = new JavadocToMarkdown();
 
-const PATH_TO_MD_DIRECTORY = './docs/source/backend-api/'; // Must end with a /
-const PATH_TO_YML_DIRECTORY = './docs/source/_data/';
+const PATH_TO_MD_DIRECTORY = './source/backend-api/'; // Must end with a /
+const PATH_TO_YML_DIRECTORY = './source/_data/';
 /**
  * Returns a list of the files included in the given directory.
  *
@@ -87,7 +87,7 @@ function generateWebsiteMenu (javaFiles, srcDir, pathToMDDir, pathToYMLDir) {
     const files = [];
     // Remove the srcDirfrom the name of the file
     javaFiles.forEach(function(file) {
-        files.push(file.substring(srcDir.substring(2, srcDir.length).length, file.length));
+        files.push(file.replace(srcDir, ''));
     });
 
     // Retrieve the list of first order packages and associate each file to its package
@@ -128,13 +128,13 @@ function orderFilesPerPackages (files) {
 
     files.forEach(function(file) {
 
-        const package = file.substring(0, file.indexOf('/'));
+        var package = file.substring(0, file.indexOf('/'));
         if (packages.hasOwnProperty(package)) {
             packages[package].files.push(file.substring(file.lastIndexOf('/') + 1, file.length));
         } else {
             packages[package] = {
                 name: package,
-                files: []
+                files: [file.substring(file.lastIndexOf('/') + 1, file.length)]
             };
         }
     });
@@ -144,4 +144,4 @@ function orderFilesPerPackages (files) {
 
 
 // Run the script
-generateDoc('./src/main/java/fr/irisa/diverse/', PATH_TO_MD_DIRECTORY, PATH_TO_YML_DIRECTORY, 1);
+generateDoc('../src/main/java/fr/irisa/diverse/', PATH_TO_MD_DIRECTORY, PATH_TO_YML_DIRECTORY, 1);

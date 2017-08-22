@@ -10,11 +10,11 @@
 <body>
   <div class='menu'>
     <div class='logo'>
-      <a href="/">Padins</a>
+      <a href="<%= config.root %>">Padins</a>
     </div>
     <ul id='nav'>
       <% for (var i=0; i < site.data.nav.length; i++) { var link = site.data.nav[i]; %>
-      <li> <%- link_to(url_for(link.id + "/index.html"), link.title) %> </li>
+      <li> <a href='<%- url_for(link.id + "/index.html")%>'> <%= link.title %> </a> </li>
       <% } %>
     </ul>
   </div>

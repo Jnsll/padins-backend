@@ -4,6 +4,8 @@
     title: Index
 - title: Core
   items: 
+  - id: FlowExecutionHandler
+    title: FlowExecutionHandler.java
   - id: Kernel
     title: Kernel.java
   - id: Main
@@ -16,6 +18,8 @@
     title: Workspace.java
 - title: Flow
   items: 
+  - id: Component
+    title: Component.java
   - id: ComponentsUtils
     title: ComponentsUtils.java
   - id: Edge
@@ -34,6 +38,8 @@
     title: Ports.java
 - title: Jupyter
   items: 
+  - id: HeartbeatChannel
+    title: HeartbeatChannel.java
   - id: IOPubChannel
     title: IOPubChannel.java
   - id: JupyterChannel
@@ -54,6 +60,8 @@
     title: StdinMessaging.java
 - title: MessageHandlers
   items: 
+  - id: ComponentMessageHandler
+    title: ComponentMessageHandler.java
   - id: FBPMessage
     title: FBPMessage.java
   - id: FBPNetworkProtocolManager
@@ -76,12 +84,16 @@
     title: FileExplorerMessageHandler.java
 - title: Utils
   items: 
+  - id: JSON
+    title: JSON.java
   - id: Unzipper
     title: Unzipper.java
   - id: Utils
     title: Utils.java
 - title: Webserver
   items: 
+  - id: UploadServlet
+    title: UploadServlet.java
   - id: ServerSocket
     title: ServerSocket.java
   - id: WorkspaceSocketCreator
