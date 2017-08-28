@@ -2,3 +2,5 @@
   id: guide
 - title: Backend API
   id: backend-api
+- title: Frontend API
+  id: frontend-api

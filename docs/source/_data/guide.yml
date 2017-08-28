@@ -1,12 +1,24 @@
 - title: Introduction
   items:
-  - id: index
-    title: What is it
+  - id: presentation
+    title: What is it ?
   - id: how-it-works
-    title: How it works
-- title: Usage
+    title: How it works ?
+  - id: use-cases
+    title: Use Cases
+- title: Getting Started
   items:
   - id: installation
     title: Installation
   - id: using
     title: Using It
+- title: What's next ?
+  items:
+  - id: bugs
+    title: Bugs to solve
+  - id: next-features
+    title: What are the next features to add ?
+  - id: bad-things-to-make-better
+    title: What are the implementation things to make better ?
+  - id: research
+    title: What about research ?
