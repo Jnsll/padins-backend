@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,10 +404,10 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Manager"><a href="#public-class-Manager" class="headerlink" title="public class Manager"></a><code>public class Manager</code></h2><p>It is the main class to use in order to handle the messages coming from a Jupyter Kernel.</p>
+      <h2 id="public-class-Manager"><a href="#public-class-Manager" class="headerlink" title="public class Manager"></a>public class Manager</h2><p>It is the main class to use in order to handle the messages coming from a Jupyter Kernel.</p>
 <p>It has a main method that is handleMessage. This method takes the sourceChannel and the incoming message and redirect it to the proper handler.</p>
 <p>Created by antoine on 16/05/2017.</p>
-<h2 id="public-void-handleMessage-String-sourceChannel-ArrayList-lt-String-gt-incomingMessage"><a href="#public-void-handleMessage-String-sourceChannel-ArrayList-lt-String-gt-incomingMessage" class="headerlink" title="public void handleMessage (String sourceChannel, ArrayList&lt;String&gt; incomingMessage)"></a><code>public void handleMessage (String sourceChannel, ArrayList&lt;String&gt; incomingMessage)</code></h2><p>Handles any Jupyter Message coming from a channel.</p>
+<h3 id="public-void-handleMessage-String-sourceChannel-ArrayList-incomingMessage"><a href="#public-void-handleMessage-String-sourceChannel-ArrayList-incomingMessage" class="headerlink" title="public void handleMessage (String sourceChannel, ArrayList incomingMessage)"></a>public void handleMessage (String sourceChannel, ArrayList<string> incomingMessage)</string></h3><p>Handles any Jupyter Message coming from a channel.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>sourceChannel</code> — {String} the name of the channel the message comes from</li>
@@ -413,32 +415,32 @@
 </ul>
 </li>
 </ul>
-<h2 id="public-ShellMessaging-sendMessageOnShell"><a href="#public-ShellMessaging-sendMessageOnShell" class="headerlink" title="public ShellMessaging sendMessageOnShell ()"></a><code>public ShellMessaging sendMessageOnShell ()</code></h2><p>Send a message on the shell channel, using this method’s returned object followed by a call to the method sending the message you want to send.</p>
+<h3 id="public-ShellMessaging-sendMessageOnShell"><a href="#public-ShellMessaging-sendMessageOnShell" class="headerlink" title="public ShellMessaging sendMessageOnShell ()"></a>public ShellMessaging sendMessageOnShell ()</h3><p>Send a message on the shell channel, using this method’s returned object followed by a call to the method sending the message you want to send.</p>
 <ul>
 <li><strong>Returns:</strong> {ShellMessaging} the component that handle sending correctly formatted messages over the shell channel.</li>
 </ul>
-<h2 id="public-StdinMessaging-respondeOnStdin"><a href="#public-StdinMessaging-respondeOnStdin" class="headerlink" title="public StdinMessaging respondeOnStdin ()"></a><code>public StdinMessaging respondeOnStdin ()</code></h2><p>Respond to a prompt request on Stdin, using this method’s returned object followed by a call to the method to answer on the channel.</p>
+<h3 id="public-StdinMessaging-respondeOnStdin"><a href="#public-StdinMessaging-respondeOnStdin" class="headerlink" title="public StdinMessaging respondeOnStdin ()"></a>public StdinMessaging respondeOnStdin ()</h3><p>Respond to a prompt request on Stdin, using this method’s returned object followed by a call to the method to answer on the channel.</p>
 <ul>
 <li><strong>Returns:</strong> {StdinMessaging} the component that handle sending correctly formatted messages over the stdin channel</li>
 </ul>
-<h2 id="public-ShellMessaging-sendMessageOnControl"><a href="#public-ShellMessaging-sendMessageOnControl" class="headerlink" title="public ShellMessaging sendMessageOnControl ()"></a><code>public ShellMessaging sendMessageOnControl ()</code></h2><p>Send a message on the control channel, using this method’s returned object followed by a call to the method sending the message you want to send.</p>
+<h3 id="public-ShellMessaging-sendMessageOnControl"><a href="#public-ShellMessaging-sendMessageOnControl" class="headerlink" title="public ShellMessaging sendMessageOnControl ()"></a>public ShellMessaging sendMessageOnControl ()</h3><p>Send a message on the control channel, using this method’s returned object followed by a call to the method sending the message you want to send.</p>
 <ul>
 <li><strong>Returns:</strong> {ShellMessaging} the component that handle sending correctly formatted messages over the control channel.</li>
 </ul>
-<h2 id="private-boolean-hmacIsCorrect-JupyterMessage-message"><a href="#private-boolean-hmacIsCorrect-JupyterMessage-message" class="headerlink" title="private boolean hmacIsCorrect(JupyterMessage message)"></a><code>private boolean hmacIsCorrect(JupyterMessage message)</code></h2><p>Verify that the HMAC in the given message is correct, according to the Jupyter documentation. <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#the-wire-protocol" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#the-wire-protocol</a></p>
+<h3 id="private-boolean-hmacIsCorrect-JupyterMessage-message"><a href="#private-boolean-hmacIsCorrect-JupyterMessage-message" class="headerlink" title="private boolean hmacIsCorrect(JupyterMessage message)"></a>private boolean hmacIsCorrect(JupyterMessage message)</h3><p>Verify that the HMAC in the given message is correct, according to the Jupyter documentation. <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#the-wire-protocol" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#the-wire-protocol</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the message to test</li>
 <li><strong>Returns:</strong> {boolean} True if correct, false if not</li>
 </ul>
-<h2 id="private-void-handleHeader-JSONObject-header"><a href="#private-void-handleHeader-JSONObject-header" class="headerlink" title="private void handleHeader(JSONObject header)"></a><code>private void handleHeader(JSONObject header)</code></h2><p>Handle the header from the received message. The header contains : String msg_id, String username, String session, String date, String msg_type, String version=”5.0”</p>
+<h3 id="private-void-handleHeader-JSONObject-header"><a href="#private-void-handleHeader-JSONObject-header" class="headerlink" title="private void handleHeader(JSONObject header)"></a>private void handleHeader(JSONObject header)</h3><p>Handle the header from the received message. The header contains : String msg_id, String username, String session, String date, String msg_type, String version=”5.0”</p>
 <ul>
 <li><strong>Parameters:</strong> <code>header</code> — {JSONObject} the header to handle its content</li>
 </ul>
-<h2 id="private-void-handleUUID-String-uuid"><a href="#private-void-handleUUID-String-uuid" class="headerlink" title="private void handleUUID (String uuid)"></a><code>private void handleUUID (String uuid)</code></h2><p>Handle the given uuid by using it as the identity of the kernel.</p>
+<h3 id="private-void-handleUUID-String-uuid"><a href="#private-void-handleUUID-String-uuid" class="headerlink" title="private void handleUUID (String uuid)"></a>private void handleUUID (String uuid)</h3><p>Handle the given uuid by using it as the identity of the kernel.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>uuid</code> — {String} the uuid to handle</li>
 </ul>
-<h2 id="private-void-setKernelsIdentity-String-kernelId"><a href="#private-void-setKernelsIdentity-String-kernelId" class="headerlink" title="private void setKernelsIdentity (String kernelId)"></a><code>private void setKernelsIdentity (String kernelId)</code></h2><p>Set the ZMQ identity, used in messages for the kernel on this server-side. The kernel identity (from docker) is formatted as : kernel.{u-u-i-d}.{message} We retrieve the u-u-i-d and store it as our kernel’s identity</p>
+<h3 id="private-void-setKernelsIdentity-String-kernelId"><a href="#private-void-setKernelsIdentity-String-kernelId" class="headerlink" title="private void setKernelsIdentity (String kernelId)"></a>private void setKernelsIdentity (String kernelId)</h3><p>Set the ZMQ identity, used in messages for the kernel on this server-side. The kernel identity (from docker) is formatted as : kernel.{u-u-i-d}.{message} We retrieve the u-u-i-d and store it as our kernel’s identity</p>
 <ul>
 <li><strong>Parameters:</strong> <code>kernelId</code> — : kernel’s uuid retrieve from the first message coming from the jupyter kernel</li>
 </ul>

@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,48 +404,48 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Component"><a href="#public-class-Component" class="headerlink" title="public class Component"></a><code>public class Component</code></h2><p>A component is something close to the notion of Class in object-oriented programming. Its instance is a Node.</p>
+      <h2 id="public-class-Component"><a href="#public-class-Component" class="headerlink" title="public class Component"></a>public class Component</h2><p>A component is something close to the notion of Class in object-oriented programming. Its instance is a Node.</p>
 <p>A component is a concept of Flow-Based Programming and its fields are imposed by the FBP.</p>
 <p>There is a library that contains all the components a given workspace can use. This library is in resources/WebUIComponents</p>
 <p>Created by antoine on 29/05/17.</p>
-<h2 id="public-String-getName"><a href="#public-String-getName" class="headerlink" title="public String getName ()"></a><code>public String getName ()</code></h2><p>Gives the name of the component</p>
+<h3 id="public-String-getName"><a href="#public-String-getName" class="headerlink" title="public String getName ()"></a>public String getName ()</h3><p>Gives the name of the component</p>
 <ul>
 <li><strong>Returns:</strong> name as String</li>
 </ul>
-<h2 id="public-String-getDescription"><a href="#public-String-getDescription" class="headerlink" title="public String getDescription()"></a><code>public String getDescription()</code></h2><p>Gives the description of a Component. Usually what it’s made for.</p>
+<h3 id="public-String-getDescription"><a href="#public-String-getDescription" class="headerlink" title="public String getDescription()"></a>public String getDescription()</h3><p>Gives the description of a Component. Usually what it’s made for.</p>
 <ul>
 <li><strong>Returns:</strong> the description as String</li>
 </ul>
-<h2 id="Ports-getInports"><a href="#Ports-getInports" class="headerlink" title="Ports getInports()"></a><code>Ports getInports()</code></h2><p>Gives the list of inports the Component has. The inports are ports to connect to when on the graph.</p>
+<h3 id="Ports-getInports"><a href="#Ports-getInports" class="headerlink" title="Ports getInports()"></a>Ports getInports()</h3><p>Gives the list of inports the Component has. The inports are ports to connect to when on the graph.</p>
 <ul>
 <li><strong>Returns:</strong> the list of inports</li>
 </ul>
-<h2 id="Ports-getOutports"><a href="#Ports-getOutports" class="headerlink" title="Ports getOutports()"></a><code>Ports getOutports()</code></h2><p>Gives the list of outports the Component has. The outports are ports to send data to an other node’s inport.</p>
+<h3 id="Ports-getOutports"><a href="#Ports-getOutports" class="headerlink" title="Ports getOutports()"></a>Ports getOutports()</h3><p>Gives the list of outports the Component has. The outports are ports to send data to an other node’s inport.</p>
 <ul>
 <li><strong>Returns:</strong> the list of outports</li>
 </ul>
-<h2 id="public-String-getLanguage"><a href="#public-String-getLanguage" class="headerlink" title="public String getLanguage()"></a><code>public String getLanguage()</code></h2><p>Gives the programming language used by the component</p>
+<h3 id="public-String-getLanguage"><a href="#public-String-getLanguage" class="headerlink" title="public String getLanguage()"></a>public String getLanguage()</h3><p>Gives the programming language used by the component</p>
 <ul>
 <li><strong>Returns:</strong> the programming language as String</li>
 </ul>
-<h2 id="public-String-getCode"><a href="#public-String-getCode" class="headerlink" title="public String getCode()"></a><code>public String getCode()</code></h2><p>Gives the source code of the component</p>
+<h3 id="public-String-getCode"><a href="#public-String-getCode" class="headerlink" title="public String getCode()"></a>public String getCode()</h3><p>Gives the source code of the component</p>
 <ul>
 <li><strong>Returns:</strong> the source code as String</li>
 </ul>
-<h2 id="public-String-getTests"><a href="#public-String-getTests" class="headerlink" title="public String getTests()"></a><code>public String getTests()</code></h2><p>Gives the tests code of the component</p>
+<h3 id="public-String-getTests"><a href="#public-String-getTests" class="headerlink" title="public String getTests()"></a>public String getTests()</h3><p>Gives the tests code of the component</p>
 <ul>
 <li><strong>Returns:</strong> the tests code as String</li>
 </ul>
-<h2 id="public-boolean-isExecutable"><a href="#public-boolean-isExecutable" class="headerlink" title="public boolean isExecutable()"></a><code>public boolean isExecutable()</code></h2><p>Whether the component is executable or not</p>
+<h3 id="public-boolean-isExecutable"><a href="#public-boolean-isExecutable" class="headerlink" title="public boolean isExecutable()"></a>public boolean isExecutable()</h3><p>Whether the component is executable or not</p>
 <ul>
 <li><strong>Returns:</strong> true if executable</li>
 </ul>
-<h2 id="private-void-buildJson"><a href="#private-void-buildJson" class="headerlink" title="private void buildJson ()"></a><code>private void buildJson ()</code></h2><p>Build the JSON object component with up-to-date information. Usually used right before serializing the message.</p>
-<h2 id="Override-public-String-toString"><a href="#Override-public-String-toString" class="headerlink" title="@Override public String toString ()"></a><code>@Override public String toString ()</code></h2><p>Override the very common toString function that return a String representing the object.</p>
+<h3 id="private-void-buildJson"><a href="#private-void-buildJson" class="headerlink" title="private void buildJson ()"></a>private void buildJson ()</h3><p>Build the JSON object component with up-to-date information. Usually used right before serializing the message.</p>
+<h3 id="Override-public-String-toString"><a href="#Override-public-String-toString" class="headerlink" title="@Override public String toString ()"></a>@Override public String toString ()</h3><p>Override the very common toString function that return a String representing the object.</p>
 <ul>
 <li><strong>Returns:</strong> the component serialized</li>
 </ul>
-<h2 id="public-JSONObject-toJson"><a href="#public-JSONObject-toJson" class="headerlink" title="public JSONObject toJson()"></a><code>public JSONObject toJson()</code></h2><p>Give the JSON containing all the information about the component</p>
+<h3 id="public-JSONObject-toJson"><a href="#public-JSONObject-toJson" class="headerlink" title="public JSONObject toJson()"></a>public JSONObject toJson()</h3><p>Give the JSON containing all the information about the component</p>
 <ul>
 <li><strong>Returns:</strong> the JSON as JSONObject</li>
 </ul>

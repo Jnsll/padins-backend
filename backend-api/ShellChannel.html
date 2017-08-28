@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,17 +404,17 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-ShellChannel-extends-JupyterChannel"><a href="#public-class-ShellChannel-extends-JupyterChannel" class="headerlink" title="public class ShellChannel extends JupyterChannel"></a><code>public class ShellChannel extends JupyterChannel</code></h2><p>This class is used to create both the shell and control channels.</p>
+      <h2 id="public-class-ShellChannel-extends-JupyterChannel"><a href="#public-class-ShellChannel-extends-JupyterChannel" class="headerlink" title="public class ShellChannel extends JupyterChannel"></a>public class ShellChannel extends JupyterChannel</h2><p>This class is used to create both the shell and control channels.</p>
 <p>Shell: this single ROUTER socket allows multiple incoming connections from frontends, and this is the socket where requests for code execution, object information, prompts, etc. are made to the kernel by any frontend. The communication on this socket is a sequence of request/reply actions from each frontend and the kernel.</p>
 <p>Control: This channel is identical to Shell, but operates on a separate socket, to allow important messages to avoid queueing behind execution requests (e.g. shutdown or abort).</p>
 <p>Messaging in Jupyter documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html</a> Shell documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-shell-router-dealer-channel" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-shell-router-dealer-channel</a></p>
 <p>EXTENDS JupyterChannel : the abstract class implementing the default behavior of a Jupyter channel.</p>
 <p>Created by antoine on 03/05/17.</p>
-<h2 id="public-void-send-String-message"><a href="#public-void-send-String-message" class="headerlink" title="public void send (String[] message)"></a><code>public void send (String[] message)</code></h2><p>Send a message as bytes, needed by Jupyter</p>
+<h3 id="public-void-send-String-message"><a href="#public-void-send-String-message" class="headerlink" title="public void send (String[] message)"></a>public void send (String[] message)</h3><p>Send a message as bytes, needed by Jupyter</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — : the message to send to the shell</li>
 </ul>
-<h2 id="public-void-sendKernelInfoRequest"><a href="#public-void-sendKernelInfoRequest" class="headerlink" title="public void sendKernelInfoRequest()"></a><code>public void sendKernelInfoRequest()</code></h2><p>Send a KernelInfoRequest message.</p>
+<h3 id="public-void-sendKernelInfoRequest"><a href="#public-void-sendKernelInfoRequest" class="headerlink" title="public void sendKernelInfoRequest()"></a>public void sendKernelInfoRequest()</h3><p>Send a KernelInfoRequest message.</p>
 <p>Here are more information : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-info</a></p>
 
     </div>

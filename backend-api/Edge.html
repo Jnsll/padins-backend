@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,44 +404,44 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Edge"><a href="#public-class-Edge" class="headerlink" title="public class Edge"></a><code>public class Edge</code></h2><p>Visually, an edge is a link between two nodes. An edge is a part of the flow. The notion is described in the Flow-based programming paradigm.</p>
+      <h2 id="public-class-Edge"><a href="#public-class-Edge" class="headerlink" title="public class Edge"></a>public class Edge</h2><p>Visually, an edge is a link between two nodes. An edge is a part of the flow. The notion is described in the Flow-based programming paradigm.</p>
 <p>Created by antoine on 29/05/17.</p>
-<h2 id="public-String-getId"><a href="#public-String-getId" class="headerlink" title="public String getId ()"></a><code>public String getId ()</code></h2><p>Give the unique id of the edge</p>
+<h3 id="public-String-getId"><a href="#public-String-getId" class="headerlink" title="public String getId ()"></a>public String getId ()</h3><p>Give the unique id of the edge</p>
 <ul>
 <li><strong>Returns:</strong> its uuid</li>
 </ul>
-<h2 id="public-JSONObject-getSrc"><a href="#public-JSONObject-getSrc" class="headerlink" title="public JSONObject getSrc ()"></a><code>public JSONObject getSrc ()</code></h2><p>Give the source element of the edge.</p>
+<h3 id="public-JSONObject-getSrc"><a href="#public-JSONObject-getSrc" class="headerlink" title="public JSONObject getSrc ()"></a>public JSONObject getSrc ()</h3><p>Give the source element of the edge.</p>
 <p>As described in the FBP Network Protocol, the source element is composed of : - The node id - The port of the node the edge is connected to</p>
 <ul>
 <li><strong>Returns:</strong> the src el as JSONObject</li>
 </ul>
-<h2 id="public-void-setSrc-JSONObject-src"><a href="#public-void-setSrc-JSONObject-src" class="headerlink" title="public void setSrc (JSONObject src)"></a><code>public void setSrc (JSONObject src)</code></h2><p>Set the source element of the edge.</p>
+<h3 id="public-void-setSrc-JSONObject-src"><a href="#public-void-setSrc-JSONObject-src" class="headerlink" title="public void setSrc (JSONObject src)"></a>public void setSrc (JSONObject src)</h3><p>Set the source element of the edge.</p>
 <p>As described in the FBP Network Protocol, the source element is composed of : - The node id - The port of the node the edge is connected to</p>
 <ul>
 <li><strong>Parameters:</strong> <code>src</code> — the FBP compliant src element</li>
 </ul>
-<h2 id="public-void-setTgt-JSONObject-tgt"><a href="#public-void-setTgt-JSONObject-tgt" class="headerlink" title="public void setTgt (JSONObject tgt)"></a><code>public void setTgt (JSONObject tgt)</code></h2><p>Set the target element of the edge.</p>
+<h3 id="public-void-setTgt-JSONObject-tgt"><a href="#public-void-setTgt-JSONObject-tgt" class="headerlink" title="public void setTgt (JSONObject tgt)"></a>public void setTgt (JSONObject tgt)</h3><p>Set the target element of the edge.</p>
 <p>As described in the FBP Network Protocol, the target element is composed of : - The node id - The port of the node the edge is connected to</p>
 <ul>
 <li><strong>Parameters:</strong> <code>tgt</code> — the FBP compliant tgt element</li>
 </ul>
-<h2 id="public-JSONObject-getMetadata"><a href="#public-JSONObject-getMetadata" class="headerlink" title="public JSONObject getMetadata ()"></a><code>public JSONObject getMetadata ()</code></h2><p>Give the metadata of the edhe</p>
+<h3 id="public-JSONObject-getMetadata"><a href="#public-JSONObject-getMetadata" class="headerlink" title="public JSONObject getMetadata ()"></a>public JSONObject getMetadata ()</h3><p>Give the metadata of the edhe</p>
 <ul>
 <li><strong>Returns:</strong> the metadata as a JSONObject</li>
 </ul>
-<h2 id="public-void-setMetadata-JSONObject-metadata"><a href="#public-void-setMetadata-JSONObject-metadata" class="headerlink" title="public void setMetadata(JSONObject metadata)"></a><code>public void setMetadata(JSONObject metadata)</code></h2><p>Replace the metadata of the edge with the given one</p>
+<h3 id="public-void-setMetadata-JSONObject-metadata"><a href="#public-void-setMetadata-JSONObject-metadata" class="headerlink" title="public void setMetadata(JSONObject metadata)"></a>public void setMetadata(JSONObject metadata)</h3><p>Replace the metadata of the edge with the given one</p>
 <ul>
 <li><strong>Parameters:</strong> <code>metadata</code> — the new metadata</li>
 </ul>
-<h2 id="public-String-getGraph"><a href="#public-String-getGraph" class="headerlink" title="public String getGraph ()"></a><code>public String getGraph ()</code></h2><p>Give the graph id on which the edge is.</p>
+<h3 id="public-String-getGraph"><a href="#public-String-getGraph" class="headerlink" title="public String getGraph ()"></a>public String getGraph ()</h3><p>Give the graph id on which the edge is.</p>
 <ul>
 <li><strong>Returns:</strong> the unique id of the graph.</li>
 </ul>
-<h2 id="public-JSONObject-getJson"><a href="#public-JSONObject-getJson" class="headerlink" title="public JSONObject getJson()"></a><code>public JSONObject getJson()</code></h2><p>Give the JSONObject representing a node. The JSON has the following structure : { ‘id’: string, ‘src’: object, ‘tgt’: object, ‘metadata’: object, ‘graph’: string }</p>
+<h3 id="public-JSONObject-getJson"><a href="#public-JSONObject-getJson" class="headerlink" title="public JSONObject getJson()"></a>public JSONObject getJson()</h3><p>Give the JSONObject representing a node. The JSON has the following structure : { ‘id’: string, ‘src’: object, ‘tgt’: object, ‘metadata’: object, ‘graph’: string }</p>
 <ul>
 <li><strong>Returns:</strong> a JSONObject containing the edge’s data</li>
 </ul>
-<h2 id="private-void-build"><a href="#private-void-build" class="headerlink" title="private void build ()"></a><code>private void build ()</code></h2><p>Build the JSONObject of the edge.</p>
+<h3 id="private-void-build"><a href="#private-void-build" class="headerlink" title="private void build ()"></a>private void build ()</h3><p>Build the JSONObject of the edge.</p>
 <p>The JSON has the following structure : { ‘id’: string, ‘src’: object, ‘tgt’: object, ‘metadata’: object, ‘graph’: string }</p>
 
     </div>

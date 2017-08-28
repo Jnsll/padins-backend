@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,38 +404,38 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Root"><a href="#public-class-Root" class="headerlink" title="public class Root"></a><code>public class Root</code></h2><p>This is the Root singleton of the project that loads the workspaces on startup and is used across the project to manage the workspaces.</p>
+      <h2 id="public-class-Root"><a href="#public-class-Root" class="headerlink" title="public class Root"></a>public class Root</h2><p>This is the Root singleton of the project that loads the workspaces on startup and is used across the project to manage the workspaces.</p>
 <p>Created by antoine on 25/05/2017.</p>
-<h2 id="public-void-createWorkspace-String-name"><a href="#public-void-createWorkspace-String-name" class="headerlink" title="public void createWorkspace (String name)"></a><code>public void createWorkspace (String name)</code></h2><p>Create a new workspace. A workspace approximately corresponds to one project on the IDE.</p>
+<h3 id="public-void-createWorkspace-String-name"><a href="#public-void-createWorkspace-String-name" class="headerlink" title="public void createWorkspace (String name)"></a>public void createWorkspace (String name)</h3><p>Create a new workspace. A workspace approximately corresponds to one project on the IDE.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>name</code> — of the workspace/project</li>
 <li><strong>Returns:</strong> the uuid of the newly create workspace</li>
 </ul>
-<h2 id="public-boolean-deleteWorkspace-String-uuid-String-name"><a href="#public-boolean-deleteWorkspace-String-uuid-String-name" class="headerlink" title="public boolean deleteWorkspace (String uuid, String name)"></a><code>public boolean deleteWorkspace (String uuid, String name)</code></h2><p>Delete a workspace based on its uuid. Be careful with this method ! It will remove all the files in the project, the flow, etc… and it cannot be undone</p>
+<h3 id="public-boolean-deleteWorkspace-String-uuid-String-name"><a href="#public-boolean-deleteWorkspace-String-uuid-String-name" class="headerlink" title="public boolean deleteWorkspace (String uuid, String name)"></a>public boolean deleteWorkspace (String uuid, String name)</h3><p>Delete a workspace based on its uuid. Be careful with this method ! It will remove all the files in the project, the flow, etc… and it cannot be undone</p>
 <ul>
 <li><strong>Parameters:</strong> <code>uuid</code> — : the id of the workspace to delete</li>
 <li><strong>Returns:</strong> True if the workspace has been deleted</li>
 </ul>
-<h2 id="public-boolean-hasWorkspace-String-workspace"><a href="#public-boolean-hasWorkspace-String-workspace" class="headerlink" title="public boolean hasWorkspace (String workspace)"></a><code>public boolean hasWorkspace (String workspace)</code></h2><p>Tell whether the given workspace exist</p>
+<h3 id="public-boolean-hasWorkspace-String-workspace"><a href="#public-boolean-hasWorkspace-String-workspace" class="headerlink" title="public boolean hasWorkspace (String workspace)"></a>public boolean hasWorkspace (String workspace)</h3><p>Tell whether the given workspace exist</p>
 <ul>
 <li><strong>Parameters:</strong> <code>workspace</code> — The ID of the workspace</li>
 <li><strong>Returns:</strong> True if the workspace exists</li>
 </ul>
-<h2 id="public-Workspace-getWorkspace-String-id"><a href="#public-Workspace-getWorkspace-String-id" class="headerlink" title="public Workspace getWorkspace (String id)"></a><code>public Workspace getWorkspace (String id)</code></h2><p>Give the requested workspace</p>
+<h3 id="public-Workspace-getWorkspace-String-id"><a href="#public-Workspace-getWorkspace-String-id" class="headerlink" title="public Workspace getWorkspace (String id)"></a>public Workspace getWorkspace (String id)</h3><p>Give the requested workspace</p>
 <ul>
 <li><strong>Parameters:</strong> <code>id</code> — The ID of the request workspace</li>
 <li><strong>Returns:</strong> The workspace instance</li>
 </ul>
-<h2 id="public-Map-lt-String-Workspace-gt-getWorkspaces"><a href="#public-Map-lt-String-Workspace-gt-getWorkspaces" class="headerlink" title="public Map&lt;String, Workspace&gt; getWorkspaces()"></a><code>public Map&lt;String, Workspace&gt; getWorkspaces()</code></h2><ul>
+<h3 id="public-Map-getWorkspaces"><a href="#public-Map-getWorkspaces" class="headerlink" title="public Map getWorkspaces()"></a>public Map<string, workspace=""> getWorkspaces()</string,></h3><ul>
 <li><strong>Returns:</strong> the Map of Name &lt;-&gt; Workspace instance</li>
 </ul>
-<h2 id="private-void-importWorkspace-String-uuid"><a href="#private-void-importWorkspace-String-uuid" class="headerlink" title="private void importWorkspace (String uuid)"></a><code>private void importWorkspace (String uuid)</code></h2><p>Import a workspace with the given uuid</p>
+<h3 id="private-void-importWorkspace-String-uuid"><a href="#private-void-importWorkspace-String-uuid" class="headerlink" title="private void importWorkspace (String uuid)"></a>private void importWorkspace (String uuid)</h3><p>Import a workspace with the given uuid</p>
 <ul>
 <li><strong>Parameters:</strong> <code>uuid</code> — the unique id of the workspace to import.</li>
 </ul>
-<h2 id="private-void-verifyStorageFolderExists"><a href="#private-void-verifyStorageFolderExists" class="headerlink" title="private void verifyStorageFolderExists ()"></a><code>private void verifyStorageFolderExists ()</code></h2><p>Verify that the folder where we storage all the workspaces’ data exsits. If it doesn’t, we create it.</p>
-<h2 id="private-void-addDefaultContent"><a href="#private-void-addDefaultContent" class="headerlink" title="private void addDefaultContent ()"></a><code>private void addDefaultContent ()</code></h2><p>Add the default content that must contain the project storage folder into it. This default content is in src/main/resources/default_storage_directory_content</p>
-<h2 id="private-void-loadStoredWorkspaces"><a href="#private-void-loadStoredWorkspaces" class="headerlink" title="private void loadStoredWorkspaces ()"></a><code>private void loadStoredWorkspaces ()</code></h2><p>Load all the workspaces stored on the HD and store them in the workspaces attribute of the class.</p>
+<h3 id="private-void-verifyStorageFolderExists"><a href="#private-void-verifyStorageFolderExists" class="headerlink" title="private void verifyStorageFolderExists ()"></a>private void verifyStorageFolderExists ()</h3><p>Verify that the folder where we storage all the workspaces’ data exsits. If it doesn’t, we create it.</p>
+<h3 id="private-void-addDefaultContent"><a href="#private-void-addDefaultContent" class="headerlink" title="private void addDefaultContent ()"></a>private void addDefaultContent ()</h3><p>Add the default content that must contain the project storage folder into it. This default content is in src/main/resources/default_storage_directory_content</p>
+<h3 id="private-void-loadStoredWorkspaces"><a href="#private-void-loadStoredWorkspaces" class="headerlink" title="private void loadStoredWorkspaces ()"></a>private void loadStoredWorkspaces ()</h3><p>Load all the workspaces stored on the HD and store them in the workspaces attribute of the class.</p>
 
     </div>
   </div>

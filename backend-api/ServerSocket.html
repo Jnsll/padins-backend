@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,15 +404,15 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="WebSocket-public-class-ServerSocket"><a href="#WebSocket-public-class-ServerSocket" class="headerlink" title="@WebSocket public class ServerSocket"></a><code>@WebSocket public class ServerSocket</code></h2><p>Several clients can be connected to the same workspace. Each client communicate through a single instance of a websocket (this class).</p>
+      <h2 id="WebSocket-public-class-ServerSocket"><a href="#WebSocket-public-class-ServerSocket" class="headerlink" title="@WebSocket public class ServerSocket"></a>@WebSocket public class ServerSocket</h2><p>Several clients can be connected to the same workspace. Each client communicate through a single instance of a websocket (this class).</p>
 <p>This class implements the behavior of the websocket that will be instantiated each time a new client connects, and used each time a client communicates.</p>
 <p>Created by antoine on 26/05/2017.</p>
-<h2 id="synchronized-public-boolean-send-String-msg"><a href="#synchronized-public-boolean-send-String-msg" class="headerlink" title="synchronized public boolean send (String msg)"></a><code>synchronized public boolean send (String msg)</code></h2><p>Send the given message over the socket.</p>
+<h3 id="synchronized-public-boolean-send-String-msg"><a href="#synchronized-public-boolean-send-String-msg" class="headerlink" title="synchronized public boolean send (String msg)"></a>synchronized public boolean send (String msg)</h3><p>Send the given message over the socket.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>msg</code> — {String} the message to send.</li>
 <li><strong>Returns:</strong> {boolean} sending confirmation.</li>
 </ul>
-<h2 id="private-void-storeSocketOnMessageHandlers"><a href="#private-void-storeSocketOnMessageHandlers" class="headerlink" title="private void storeSocketOnMessageHandlers ()"></a><code>private void storeSocketOnMessageHandlers ()</code></h2><p>Pass its instance to the objects that will need it in order to send messages to the connected client.</p>
+<h3 id="private-void-storeSocketOnMessageHandlers"><a href="#private-void-storeSocketOnMessageHandlers" class="headerlink" title="private void storeSocketOnMessageHandlers ()"></a>private void storeSocketOnMessageHandlers ()</h3><p>Pass its instance to the objects that will need it in order to send messages to the connected client.</p>
 
     </div>
   </div>

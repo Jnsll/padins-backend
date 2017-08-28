@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,36 +404,36 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Status"><a href="#public-class-Status" class="headerlink" title="public class Status"></a><code>public class Status</code></h2><p>The status class stores information about the status of a specific Flow or Group (so one per network)</p>
+      <h2 id="public-class-Status"><a href="#public-class-Status" class="headerlink" title="public class Status"></a>public class Status</h2><p>The status class stores information about the status of a specific Flow or Group (so one per network)</p>
 <p>Created by antoine on 02/06/17.</p>
-<h2 id="public-long-getStartedTime"><a href="#public-long-getStartedTime" class="headerlink" title="public long getStartedTime ()"></a><code>public long getStartedTime ()</code></h2><p>Give the time when the network first started</p>
+<h3 id="public-long-getStartedTime"><a href="#public-long-getStartedTime" class="headerlink" title="public long getStartedTime ()"></a>public long getStartedTime ()</h3><p>Give the time when the network first started</p>
 <ul>
 <li><strong>Returns:</strong> The timestamp of the moment when the network first started</li>
 </ul>
-<h2 id="public-long-getStoppedTime"><a href="#public-long-getStoppedTime" class="headerlink" title="public long getStoppedTime ()"></a><code>public long getStoppedTime ()</code></h2><p>Give the time when the network stopped the last time</p>
+<h3 id="public-long-getStoppedTime"><a href="#public-long-getStoppedTime" class="headerlink" title="public long getStoppedTime ()"></a>public long getStoppedTime ()</h3><p>Give the time when the network stopped the last time</p>
 <ul>
 <li><strong>Returns:</strong> The timestamp of the moment when the network stopped</li>
 </ul>
-<h2 id="public-void-start"><a href="#public-void-start" class="headerlink" title="public void start ()"></a><code>public void start ()</code></h2><p>Tell the Status instance that the network started.</p>
-<h2 id="public-void-stop"><a href="#public-void-stop" class="headerlink" title="public void stop ()"></a><code>public void stop ()</code></h2><p>Tell the Status instance that the network stopped.</p>
-<h2 id="public-long-getUptime"><a href="#public-long-getUptime" class="headerlink" title="public long getUptime ()"></a><code>public long getUptime ()</code></h2><p>Gives the total running duration of the network.</p>
+<h3 id="public-void-start"><a href="#public-void-start" class="headerlink" title="public void start ()"></a>public void start ()</h3><p>Tell the Status instance that the network started.</p>
+<h3 id="public-void-stop"><a href="#public-void-stop" class="headerlink" title="public void stop ()"></a>public void stop ()</h3><p>Tell the Status instance that the network stopped.</p>
+<h3 id="public-long-getUptime"><a href="#public-long-getUptime" class="headerlink" title="public long getUptime ()"></a>public long getUptime ()</h3><p>Gives the total running duration of the network.</p>
 <ul>
 <li><strong>Returns:</strong> The total running duration of the network.</li>
 </ul>
-<h2 id="public-boolean-hasStarted"><a href="#public-boolean-hasStarted" class="headerlink" title="public boolean hasStarted ()"></a><code>public boolean hasStarted ()</code></h2><p>Tell whether the network ever started or not.</p>
+<h3 id="public-boolean-hasStarted"><a href="#public-boolean-hasStarted" class="headerlink" title="public boolean hasStarted ()"></a>public boolean hasStarted ()</h3><p>Tell whether the network ever started or not.</p>
 <ul>
 <li><strong>Returns:</strong> true if the network has ever started.</li>
 </ul>
-<h2 id="public-boolean-isRunning"><a href="#public-boolean-isRunning" class="headerlink" title="public boolean isRunning ()"></a><code>public boolean isRunning ()</code></h2><p>Tell whether the network is currently running.</p>
+<h3 id="public-boolean-isRunning"><a href="#public-boolean-isRunning" class="headerlink" title="public boolean isRunning ()"></a>public boolean isRunning ()</h3><p>Tell whether the network is currently running.</p>
 <ul>
 <li><strong>Returns:</strong> true if running</li>
 </ul>
-<h2 id="public-boolean-isInDebugMode"><a href="#public-boolean-isInDebugMode" class="headerlink" title="public boolean isInDebugMode ()"></a><code>public boolean isInDebugMode ()</code></h2><p>Tell whether the network is in debug mode or not</p>
+<h3 id="public-boolean-isInDebugMode"><a href="#public-boolean-isInDebugMode" class="headerlink" title="public boolean isInDebugMode ()"></a>public boolean isInDebugMode ()</h3><p>Tell whether the network is in debug mode or not</p>
 <ul>
 <li><strong>Returns:</strong> if in debug mode</li>
 </ul>
-<h2 id="public-void-turnDebugOn"><a href="#public-void-turnDebugOn" class="headerlink" title="public void turnDebugOn ()"></a><code>public void turnDebugOn ()</code></h2><p>Turn debug on only for status, don’t do anything on the node or network</p>
-<h2 id="public-void-turnDebugOff"><a href="#public-void-turnDebugOff" class="headerlink" title="public void turnDebugOff ()"></a><code>public void turnDebugOff ()</code></h2><p>Turn debug off only for status, don’t do anything on the node or network</p>
+<h3 id="public-void-turnDebugOn"><a href="#public-void-turnDebugOn" class="headerlink" title="public void turnDebugOn ()"></a>public void turnDebugOn ()</h3><p>Turn debug on only for status, don’t do anything on the node or network</p>
+<h3 id="public-void-turnDebugOff"><a href="#public-void-turnDebugOff" class="headerlink" title="public void turnDebugOff ()"></a>public void turnDebugOff ()</h3><p>Turn debug off only for status, don’t do anything on the node or network</p>
 
     </div>
   </div>

@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,10 +404,10 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-NodeExecutionThread-extends-Thread-implements-Comparable-lt-NodeExecutionThread-gt"><a href="#public-class-NodeExecutionThread-extends-Thread-implements-Comparable-lt-NodeExecutionThread-gt" class="headerlink" title="public class NodeExecutionThread extends Thread implements Comparable&lt;NodeExecutionThread&gt;"></a><code>public class NodeExecutionThread extends Thread implements Comparable&lt;NodeExecutionThread&gt;</code></h2><p>Thread that manage the execution of a node via the Jupyter kernel.</p>
+      <h2 id="public-class-NodeExecutionThread-extends-Thread-implements-Comparable"><a href="#public-class-NodeExecutionThread-extends-Thread-implements-Comparable" class="headerlink" title="public class NodeExecutionThread extends Thread implements Comparable"></a>public class NodeExecutionThread extends Thread implements Comparable<nodeexecutionthread></nodeexecutionthread></h2><p>Thread that manage the execution of a node via the Jupyter kernel.</p>
 <p>Created by antoine on 02/06/2017.</p>
-<h2 id="Override-public-void-run"><a href="#Override-public-void-run" class="headerlink" title="@Override public void run()"></a><code>@Override public void run()</code></h2><p>The run method is the main method of a Thread. It verify that the node should be re-runned, if so launch it. If not, directly go to next step. The next step is adding the following nodes in the toLaunch set and removing this thread from the list of running thread in the FlowExecutionHandler and</p>
-<h2 id="Override-public-int-compareTo-NodeExecutionThread-o"><a href="#Override-public-int-compareTo-NodeExecutionThread-o" class="headerlink" title="@Override public int compareTo(NodeExecutionThread o)"></a><code>@Override public int compareTo(NodeExecutionThread o)</code></h2><p>CompareTo method from Comparable interface. It is used by an ordered Set to determine where to add an instance of this class.</p>
+<h3 id="Override-public-void-run"><a href="#Override-public-void-run" class="headerlink" title="@Override public void run()"></a>@Override public void run()</h3><p>The run method is the main method of a Thread. It verify that the node should be re-runned, if so launch it. If not, directly go to next step. The next step is adding the following nodes in the toLaunch set and removing this thread from the list of running thread in the FlowExecutionHandler and</p>
+<h3 id="Override-public-int-compareTo-NodeExecutionThread-o"><a href="#Override-public-int-compareTo-NodeExecutionThread-o" class="headerlink" title="@Override public int compareTo(NodeExecutionThread o)"></a>@Override public int compareTo(NodeExecutionThread o)</h3><p>CompareTo method from Comparable interface. It is used by an ordered Set to determine where to add an instance of this class.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>o</code> — : the object to compare to</li>
 <li><strong>Returns:</strong> -1 if this is inferior to o, 0 if equal, 1 if greater</li>

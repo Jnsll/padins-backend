@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,10 +404,10 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-StdinChannel-extends-JupyterChannel"><a href="#public-class-StdinChannel-extends-JupyterChannel" class="headerlink" title="public class StdinChannel extends JupyterChannel"></a><code>public class StdinChannel extends JupyterChannel</code></h2><p>stdin: this ROUTER socket is connected to all frontends, and it allows the kernel to request input from the active frontend when raw_input() is called. The frontend that executed the code has a DEALER socket that acts as a ‘virtual keyboard’ for the kernel while this communication is happening (illustrated in the figure by the black outline around the central keyboard). In practice, frontends may display such kernel requests using a special input widget or otherwise indicating that the user is to type input for the kernel instead of normal commands in the frontend.</p>
+      <h2 id="public-class-StdinChannel-extends-JupyterChannel"><a href="#public-class-StdinChannel-extends-JupyterChannel" class="headerlink" title="public class StdinChannel extends JupyterChannel"></a>public class StdinChannel extends JupyterChannel</h2><p>stdin: this ROUTER socket is connected to all frontends, and it allows the kernel to request input from the active frontend when raw_input() is called. The frontend that executed the code has a DEALER socket that acts as a ‘virtual keyboard’ for the kernel while this communication is happening (illustrated in the figure by the black outline around the central keyboard). In practice, frontends may display such kernel requests using a special input widget or otherwise indicating that the user is to type input for the kernel instead of normal commands in the frontend.</p>
 <p>Messaging in Jupyter documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html</a> Stdin documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel</a></p>
 <p>Created by antoine on 03/05/17.</p>
-<h2 id="public-void-send-String-message"><a href="#public-void-send-String-message" class="headerlink" title="public void send (String[] message)"></a><code>public void send (String[] message)</code></h2><p>Send a message as bytes, needed by Jupyter</p>
+<h3 id="public-void-send-String-message"><a href="#public-void-send-String-message" class="headerlink" title="public void send (String[] message)"></a>public void send (String[] message)</h3><p>Send a message as bytes, needed by Jupyter</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — : the message to send to the shell</li>
 </ul>

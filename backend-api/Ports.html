@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,19 +404,19 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Ports-extends-ArrayList-lt-Port-gt"><a href="#public-class-Ports-extends-ArrayList-lt-Port-gt" class="headerlink" title="public class Ports extends ArrayList&lt;Port&gt;"></a><code>public class Ports extends ArrayList&lt;Port&gt;</code></h2><p>A Ports is a List of Port. See fr.irisa.diverse.Flow.Port to know more about it.</p>
+      <h2 id="public-class-Ports-extends-ArrayList"><a href="#public-class-Ports-extends-ArrayList" class="headerlink" title="public class Ports extends ArrayList"></a>public class Ports extends ArrayList<port></port></h2><p>A Ports is a List of Port. See fr.irisa.diverse.Flow.Port to know more about it.</p>
 <p>It is used to make inports and outports manipulation easier on the programming side.</p>
 <p>Created by antoine on 29/05/17.</p>
-<h2 id="public-void-setNode-String-node"><a href="#public-void-setNode-String-node" class="headerlink" title="public void setNode (String node)"></a><code>public void setNode (String node)</code></h2><p>Change the node connected to those Ports</p>
+<h3 id="public-void-setNode-String-node"><a href="#public-void-setNode-String-node" class="headerlink" title="public void setNode (String node)"></a>public void setNode (String node)</h3><p>Change the node connected to those Ports</p>
 <ul>
 <li><strong>Parameters:</strong> <code>node</code> — {String} the id of the node</li>
 </ul>
-<h2 id="public-int-indexOfPort-String-name"><a href="#public-int-indexOfPort-String-name" class="headerlink" title="public int indexOfPort (String name)"></a><code>public int indexOfPort (String name)</code></h2><p>Get the index of a given port in this Ports object</p>
+<h3 id="public-int-indexOfPort-String-name"><a href="#public-int-indexOfPort-String-name" class="headerlink" title="public int indexOfPort (String name)"></a>public int indexOfPort (String name)</h3><p>Get the index of a given port in this Ports object</p>
 <ul>
 <li><strong>Parameters:</strong> <code>name</code> — {String} the name of the port</li>
 <li><strong>Returns:</strong> {int} the index of the port in the List. Returns -1 if not in Ports.</li>
 </ul>
-<h2 id="private-void-build"><a href="#private-void-build" class="headerlink" title="private void build ()"></a><code>private void build ()</code></h2><p>Build the JSONArray that can be serialized and send to other programs easily.</p>
+<h3 id="private-void-build"><a href="#private-void-build" class="headerlink" title="private void build ()"></a>private void build ()</h3><p>Build the JSONArray that can be serialized and send to other programs easily.</p>
 <p>The Ports JSONArray contains the id of each port in this Ports object.</p>
 
     </div>

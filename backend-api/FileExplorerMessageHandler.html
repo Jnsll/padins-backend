@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,23 +404,23 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="SuppressWarnings-quot-unchecked-quot-public-class-FileExplorerMessageHandler-implements-MessageHandler-Whole-lt-FBPMessage-gt"><a href="#SuppressWarnings-quot-unchecked-quot-public-class-FileExplorerMessageHandler-implements-MessageHandler-Whole-lt-FBPMessage-gt" class="headerlink" title="@SuppressWarnings(&quot;unchecked&quot;) public class FileExplorerMessageHandler implements MessageHandler.Whole&lt;FBPMessage&gt;"></a><code>@SuppressWarnings(&quot;unchecked&quot;) public class FileExplorerMessageHandler implements MessageHandler.Whole&lt;FBPMessage&gt;</code></h2><p>The FileExplorerMessageHandler implements a messaging protocol that provides a file-explorer service. Each workspace has its own directory and cannot access other workspaces’ directories.</p>
+      <h2 id="SuppressWarnings-“unchecked”-public-class-FileExplorerMessageHandler-implements-MessageHandler-Whole"><a href="#SuppressWarnings-“unchecked”-public-class-FileExplorerMessageHandler-implements-MessageHandler-Whole" class="headerlink" title="@SuppressWarnings(“unchecked”) public class FileExplorerMessageHandler implements MessageHandler.Whole"></a>@SuppressWarnings(“unchecked”) public class FileExplorerMessageHandler implements MessageHandler.Whole<fbpmessage></fbpmessage></h2><p>The FileExplorerMessageHandler implements a messaging protocol that provides a file-explorer service. Each workspace has its own directory and cannot access other workspaces’ directories.</p>
 <p>The service provide one endpoint : - getnodes : returns the file structure of the workspace’s, from its root directory, as a tree.</p>
 <p>In order to keep consistent the format of messages exchanged between the frontend and the backend, we stuck with using FBP-formatted messages.They are implemented in fr.irisa.diverse.MessageHandlers.FBPNetworkProtocol.FBPMessage</p>
 <p>A file upload service is implemented as a REST full API in fr.irisa.diverse.Webserver.Servlets.UploadServlet</p>
 <p>INTERFACES IMPLEMENTATIONS The class implements MessageHandler.Whole in order to bring formalism. It also makes it usable as the MessageHandler of a socket.</p>
 <p>Created by antoine on 23/06/17.</p>
-<h2 id="public-void-setSocket-ServerSocket-socket"><a href="#public-void-setSocket-ServerSocket-socket" class="headerlink" title="public void setSocket (ServerSocket socket)"></a><code>public void setSocket (ServerSocket socket)</code></h2><p>Set the client’s socket instance.</p>
+<h3 id="public-void-setSocket-ServerSocket-socket"><a href="#public-void-setSocket-ServerSocket-socket" class="headerlink" title="public void setSocket (ServerSocket socket)"></a>public void setSocket (ServerSocket socket)</h3><p>Set the client’s socket instance.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>socket</code> — {ServerSocket} the client socket</li>
 </ul>
-<h2 id="private-void-sendNodes"><a href="#private-void-sendNodes" class="headerlink" title="private void sendNodes()"></a><code>private void sendNodes()</code></h2><p>Send a “nodes” message containing the file structure of the workspace’s root directory as a tree.</p>
-<h2 id="private-JSONArray-rootFolderStructure"><a href="#private-JSONArray-rootFolderStructure" class="headerlink" title="private JSONArray rootFolderStructure ()"></a><code>private JSONArray rootFolderStructure ()</code></h2><p>Returns the root directory’s file structure of a workspace as a tree. It goes through all the files and subdirectories so all files are listed in the tree.</p>
+<h3 id="private-void-sendNodes"><a href="#private-void-sendNodes" class="headerlink" title="private void sendNodes()"></a>private void sendNodes()</h3><p>Send a “nodes” message containing the file structure of the workspace’s root directory as a tree.</p>
+<h3 id="private-JSONArray-rootFolderStructure"><a href="#private-JSONArray-rootFolderStructure" class="headerlink" title="private JSONArray rootFolderStructure ()"></a>private JSONArray rootFolderStructure ()</h3><p>Returns the root directory’s file structure of a workspace as a tree. It goes through all the files and subdirectories so all files are listed in the tree.</p>
 <p>A folder content is structure as follow : Tree : { name: String, id: String, children : Array<tree>, isExpanded: Boolean }</tree></p>
 <ul>
 <li><strong>Returns:</strong> {JSONArray} the file structure as a tree, respecting the format described above.</li>
 </ul>
-<h2 id="private-JSONArray-folderStructure-String-path"><a href="#private-JSONArray-folderStructure-String-path" class="headerlink" title="private JSONArray folderStructure (String path)"></a><code>private JSONArray folderStructure (String path)</code></h2><p>Returns the file structure of the given path as a tree. It includes all its subdirectories structure.</p>
+<h3 id="private-JSONArray-folderStructure-String-path"><a href="#private-JSONArray-folderStructure-String-path" class="headerlink" title="private JSONArray folderStructure (String path)"></a>private JSONArray folderStructure (String path)</h3><p>Returns the file structure of the given path as a tree. It includes all its subdirectories structure.</p>
 <p>A folder content is structure as follow : Tree : { name: String, id: String, children : Array<tree>, isExpanded: Boolean }</tree></p>
 <ul>
 <li><strong>Parameters:</strong> <code>path</code> — {String} absolute path to the directory</li>

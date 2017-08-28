@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,10 +404,10 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="class-IOPubMessaging"><a href="#class-IOPubMessaging" class="headerlink" title="class IOPubMessaging"></a><code>class IOPubMessaging</code></h2><p>IOPub Messaging handle messages on the IOPub channel, according to the documentation of Messaging in Jupyter.</p>
+      <h2 id="class-IOPubMessaging"><a href="#class-IOPubMessaging" class="headerlink" title="class IOPubMessaging"></a>class IOPubMessaging</h2><p>IOPub Messaging handle messages on the IOPub channel, according to the documentation of Messaging in Jupyter.</p>
 <p>Messaging in Jupyter documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html</a> IOPub channel documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-iopub-pub-sub-channel" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-iopub-pub-sub-channel</a></p>
 <p>Created by antoine on 10/05/2017.</p>
-<h2 id="public-void-handleMessage-String-type-JupyterMessage-message"><a href="#public-void-handleMessage-String-type-JupyterMessage-message" class="headerlink" title="public void handleMessage (String type, JupyterMessage message)"></a><code>public void handleMessage (String type, JupyterMessage message)</code></h2><p>Handle the given message, coming from the IOPub Channel</p>
+<h3 id="public-void-handleMessage-String-type-JupyterMessage-message"><a href="#public-void-handleMessage-String-type-JupyterMessage-message" class="headerlink" title="public void handleMessage (String type, JupyterMessage message)"></a>public void handleMessage (String type, JupyterMessage message)</h3><p>Handle the given message, coming from the IOPub Channel</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>type</code> — {String} the type of the message</li>
@@ -413,37 +415,37 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-handleStatusMessage-JupyterMessage-message"><a href="#private-void-handleStatusMessage-JupyterMessage-message" class="headerlink" title="private void handleStatusMessage (JupyterMessage message)"></a><code>private void handleStatusMessage (JupyterMessage message)</code></h2><p>Handle a status message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-status" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-status</a></p>
+<h3 id="private-void-handleStatusMessage-JupyterMessage-message"><a href="#private-void-handleStatusMessage-JupyterMessage-message" class="headerlink" title="private void handleStatusMessage (JupyterMessage message)"></a>private void handleStatusMessage (JupyterMessage message)</h3><p>Handle a status message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-status" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#kernel-status</a></p>
 <p>Our implementation behavior: store the status in the Kernel object.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
 </ul>
-<h2 id="private-void-handleErrorMessage-JupyterMessage-message"><a href="#private-void-handleErrorMessage-JupyterMessage-message" class="headerlink" title="private void handleErrorMessage(JupyterMessage message)"></a><code>private void handleErrorMessage(JupyterMessage message)</code></h2><p>Handle a error message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#execution-errors" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#execution-errors</a></p>
+<h3 id="private-void-handleErrorMessage-JupyterMessage-message"><a href="#private-void-handleErrorMessage-JupyterMessage-message" class="headerlink" title="private void handleErrorMessage(JupyterMessage message)"></a>private void handleErrorMessage(JupyterMessage message)</h3><p>Handle a error message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#execution-errors" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#execution-errors</a></p>
 <p>Our implementation behavior: retrieve the Traceback and transmit it to the connected UIs</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
 </ul>
-<h2 id="private-void-handleExecuteResultMessage-JupyterMessage-message"><a href="#private-void-handleExecuteResultMessage-JupyterMessage-message" class="headerlink" title="private void handleExecuteResultMessage(JupyterMessage message)"></a><code>private void handleExecuteResultMessage(JupyterMessage message)</code></h2><p>Handle an execute_result message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#id6" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#id6</a></p>
+<h3 id="private-void-handleExecuteResultMessage-JupyterMessage-message"><a href="#private-void-handleExecuteResultMessage-JupyterMessage-message" class="headerlink" title="private void handleExecuteResultMessage(JupyterMessage message)"></a>private void handleExecuteResultMessage(JupyterMessage message)</h3><p>Handle an execute_result message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#id6" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#id6</a></p>
 <p>Our implementation behavior: store the execution count and log the result</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
 </ul>
-<h2 id="private-void-handleCodeInputMessage-JupyterMessage-message"><a href="#private-void-handleCodeInputMessage-JupyterMessage-message" class="headerlink" title="private void handleCodeInputMessage(JupyterMessage message)"></a><code>private void handleCodeInputMessage(JupyterMessage message)</code></h2><p>Handle an execute_input message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-inputs" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-inputs</a></p>
+<h3 id="private-void-handleCodeInputMessage-JupyterMessage-message"><a href="#private-void-handleCodeInputMessage-JupyterMessage-message" class="headerlink" title="private void handleCodeInputMessage(JupyterMessage message)"></a>private void handleCodeInputMessage(JupyterMessage message)</h3><p>Handle an execute_input message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-inputs" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#code-inputs</a></p>
 <p>Our implementation behavior: do nothing</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
 </ul>
-<h2 id="private-void-handleDisplayDataMessage-JupyterMessage-message"><a href="#private-void-handleDisplayDataMessage-JupyterMessage-message" class="headerlink" title="private void handleDisplayDataMessage(JupyterMessage message)"></a><code>private void handleDisplayDataMessage(JupyterMessage message)</code></h2><p>Handle a display_data message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#display-data" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#display-data</a></p>
+<h3 id="private-void-handleDisplayDataMessage-JupyterMessage-message"><a href="#private-void-handleDisplayDataMessage-JupyterMessage-message" class="headerlink" title="private void handleDisplayDataMessage(JupyterMessage message)"></a>private void handleDisplayDataMessage(JupyterMessage message)</h3><p>Handle a display_data message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#display-data" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#display-data</a></p>
 <p>Our implementation behavior: log the data. No need to send it to UIs because there is a much more powerful component on the frontend to display data.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
 </ul>
-<h2 id="private-void-handleUpdateDisplayDataMessage-JupyterMessage-message"><a href="#private-void-handleUpdateDisplayDataMessage-JupyterMessage-message" class="headerlink" title="private void handleUpdateDisplayDataMessage(JupyterMessage message)"></a><code>private void handleUpdateDisplayDataMessage(JupyterMessage message)</code></h2><p>Handle an update_display_data message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#update-display-data" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#update-display-data</a></p>
+<h3 id="private-void-handleUpdateDisplayDataMessage-JupyterMessage-message"><a href="#private-void-handleUpdateDisplayDataMessage-JupyterMessage-message" class="headerlink" title="private void handleUpdateDisplayDataMessage(JupyterMessage message)"></a>private void handleUpdateDisplayDataMessage(JupyterMessage message)</h3><p>Handle an update_display_data message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#update-display-data" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#update-display-data</a></p>
 <p>Our implementation behavior: do nothing. No need to send it to UIs because there is a much more powerful component on the frontend to display data.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>
 </ul>
-<h2 id="private-void-handleStreamMessage-JupyterMessage-message"><a href="#private-void-handleStreamMessage-JupyterMessage-message" class="headerlink" title="private void handleStreamMessage(JupyterMessage message)"></a><code>private void handleStreamMessage(JupyterMessage message)</code></h2><p>Handle a stream message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#streams-stdout-stderr-etc" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#streams-stdout-stderr-etc</a></p>
+<h3 id="private-void-handleStreamMessage-JupyterMessage-message"><a href="#private-void-handleStreamMessage-JupyterMessage-message" class="headerlink" title="private void handleStreamMessage(JupyterMessage message)"></a>private void handleStreamMessage(JupyterMessage message)</h3><p>Handle a stream message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#streams-stdout-stderr-etc" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#streams-stdout-stderr-etc</a></p>
 <p>Our implementation behavior: - STDOUT : we use the stdout to retrieve the data to share across nodes. So, we store the lines of the stdout in a variable. Then the kernel handles it by storing the data into the corresponding node.</p>
 <p>-STDERR : we do not handle the stderr for now. The error message sends the traceback use for debugging.</p>
 <ul>

@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,9 +404,9 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-StdinMessaging"><a href="#public-class-StdinMessaging" class="headerlink" title="public class StdinMessaging"></a><code>public class StdinMessaging</code></h2><p><a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel</a></p>
+      <h2 id="public-class-StdinMessaging"><a href="#public-class-StdinMessaging" class="headerlink" title="public class StdinMessaging"></a>public class StdinMessaging</h2><p><a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel</a></p>
 <p>Created by antoine on 10/05/2017.</p>
-<h2 id="public-void-handleMessage-String-type-JupyterMessage-message"><a href="#public-void-handleMessage-String-type-JupyterMessage-message" class="headerlink" title="public void handleMessage (String type, JupyterMessage message)"></a><code>public void handleMessage (String type, JupyterMessage message)</code></h2><p>Handle the given message, coming from the Stdin Channel</p>
+<h3 id="public-void-handleMessage-String-type-JupyterMessage-message"><a href="#public-void-handleMessage-String-type-JupyterMessage-message" class="headerlink" title="public void handleMessage (String type, JupyterMessage message)"></a>public void handleMessage (String type, JupyterMessage message)</h3><p>Handle the given message, coming from the Stdin Channel</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>type</code> — {String} the type of the message</li>
@@ -412,7 +414,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-handleInputRequestMessage-JupyterMessage-message"><a href="#private-void-handleInputRequestMessage-JupyterMessage-message" class="headerlink" title="private void handleInputRequestMessage (JupyterMessage message)"></a><code>private void handleInputRequestMessage (JupyterMessage message)</code></h2><p>Handle an input_request message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel</a></p>
+<h3 id="private-void-handleInputRequestMessage-JupyterMessage-message"><a href="#private-void-handleInputRequestMessage-JupyterMessage-message" class="headerlink" title="private void handleInputRequestMessage (JupyterMessage message)"></a>private void handleInputRequestMessage (JupyterMessage message)</h3><p>Handle an input_request message, according to this doc : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-stdin-router-dealer-channel</a></p>
 <p>Our implementation behavior: depends on the status of the message. 1. Prompts all the UI for the answer 2. Retrieve the answer and build the message 3. Respond to the kernel with a input_reply message</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — {JupyterMessage} the received message</li>

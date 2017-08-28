@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,9 +404,9 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="abstract-class-SendMessageOverFBP"><a href="#abstract-class-SendMessageOverFBP" class="headerlink" title="abstract class SendMessageOverFBP"></a><code>abstract class SendMessageOverFBP</code></h2><p>Abstract class that implements methods related to sending messages from the server to the UIs, over the Flow-Based Programming Network Protocol.</p>
+      <h2 id="abstract-class-SendMessageOverFBP"><a href="#abstract-class-SendMessageOverFBP" class="headerlink" title="abstract class SendMessageOverFBP"></a>abstract class SendMessageOverFBP</h2><p>Abstract class that implements methods related to sending messages from the server to the UIs, over the Flow-Based Programming Network Protocol.</p>
 <p>Created by antoine on 30/05/17.</p>
-<h2 id="void-sendMessage-String-command-JSONObject-payload"><a href="#void-sendMessage-String-command-JSONObject-payload" class="headerlink" title="void sendMessage(String command, JSONObject payload)"></a><code>void sendMessage(String command, JSONObject payload)</code></h2><p>Send a message to only one client on the UI, the same as the one that sent a request.</p>
+<h3 id="void-sendMessage-String-command-JSONObject-payload"><a href="#void-sendMessage-String-command-JSONObject-payload" class="headerlink" title="void sendMessage(String command, JSONObject payload)"></a>void sendMessage(String command, JSONObject payload)</h3><p>Send a message to only one client on the UI, the same as the one that sent a request.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>command</code> — the type of the message to send</li>
@@ -412,7 +414,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="void-sendMessageToAll-String-command-JSONObject-payload"><a href="#void-sendMessageToAll-String-command-JSONObject-payload" class="headerlink" title="void sendMessageToAll(String command, JSONObject payload)"></a><code>void sendMessageToAll(String command, JSONObject payload)</code></h2><p>Send a message to all the clients connected to the workspace/project.</p>
+<h3 id="void-sendMessageToAll-String-command-JSONObject-payload"><a href="#void-sendMessageToAll-String-command-JSONObject-payload" class="headerlink" title="void sendMessageToAll(String command, JSONObject payload)"></a>void sendMessageToAll(String command, JSONObject payload)</h3><p>Send a message to all the clients connected to the workspace/project.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>command</code> — the type of the message to send</li>
@@ -420,11 +422,11 @@
 </ul>
 </li>
 </ul>
-<h2 id="void-sendError-String-message"><a href="#void-sendError-String-message" class="headerlink" title="void sendError (String message)"></a><code>void sendError (String message)</code></h2><p>Send an error message to only one client on the UI, the same as the one that sent a request.</p>
+<h3 id="void-sendError-String-message"><a href="#void-sendError-String-message" class="headerlink" title="void sendError (String message)"></a>void sendError (String message)</h3><p>Send an error message to only one client on the UI, the same as the one that sent a request.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — The text of the error to send</li>
 </ul>
-<h2 id="void-sendErrorToAll-String-message"><a href="#void-sendErrorToAll-String-message" class="headerlink" title="void sendErrorToAll (String message)"></a><code>void sendErrorToAll (String message)</code></h2><p>Send an error message to all the clients connected to the workspace/project.</p>
+<h3 id="void-sendErrorToAll-String-message"><a href="#void-sendErrorToAll-String-message" class="headerlink" title="void sendErrorToAll (String message)"></a>void sendErrorToAll (String message)</h3><p>Send an error message to all the clients connected to the workspace/project.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — The text of the error to send</li>
 </ul>

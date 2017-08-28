@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,29 +404,29 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-abstract-class-JSON"><a href="#public-abstract-class-JSON" class="headerlink" title="public abstract class JSON"></a><code>public abstract class JSON</code></h2><p>Utils class that implements a few useful functions to make JSON manipulation easier.</p>
+      <h2 id="public-abstract-class-JSON"><a href="#public-abstract-class-JSON" class="headerlink" title="public abstract class JSON"></a>public abstract class JSON</h2><p>Utils class that implements a few useful functions to make JSON manipulation easier.</p>
 <p>Created by antoine on 26/05/2017.</p>
-<h2 id="public-static-JSONObject-stringToJsonObject-String-s"><a href="#public-static-JSONObject-stringToJsonObject-String-s" class="headerlink" title="public static JSONObject stringToJsonObject (String s)"></a><code>public static JSONObject stringToJsonObject (String s)</code></h2><p>Parse and return a JSONObject from a String</p>
+<h3 id="public-static-JSONObject-stringToJsonObject-String-s"><a href="#public-static-JSONObject-stringToJsonObject-String-s" class="headerlink" title="public static JSONObject stringToJsonObject (String s)"></a>public static JSONObject stringToJsonObject (String s)</h3><p>Parse and return a JSONObject from a String</p>
 <ul>
 <li><strong>Parameters:</strong> <code>s</code> — : the string to parse</li>
 <li><strong>Returns:</strong> : a JSONObject that can be manipulate</li>
 </ul>
-<h2 id="public-static-String-jsonArrayListToString-ArrayList-list"><a href="#public-static-String-jsonArrayListToString-ArrayList-list" class="headerlink" title="public static String jsonArrayListToString (ArrayList list)"></a><code>public static String jsonArrayListToString (ArrayList list)</code></h2><p>Transform an array list into a JSON formatted String.</p>
+<h3 id="public-static-String-jsonArrayListToString-ArrayList-list"><a href="#public-static-String-jsonArrayListToString-ArrayList-list" class="headerlink" title="public static String jsonArrayListToString (ArrayList list)"></a>public static String jsonArrayListToString (ArrayList list)</h3><p>Transform an array list into a JSON formatted String.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>list</code> — {ArrayList} the list to format</li>
 <li><strong>Returns:</strong> {String} a JSON formatted array</li>
 </ul>
-<h2 id="public-static-String-jsonObjectToStringArray-JSONObject-obj"><a href="#public-static-String-jsonObjectToStringArray-JSONObject-obj" class="headerlink" title="public static String[] jsonObjectToStringArray (JSONObject obj)"></a><code>public static String[] jsonObjectToStringArray (JSONObject obj)</code></h2><p>Transform a JSON object into an array of string.</p>
+<h3 id="public-static-String-jsonObjectToStringArray-JSONObject-obj"><a href="#public-static-String-jsonObjectToStringArray-JSONObject-obj" class="headerlink" title="public static String[] jsonObjectToStringArray (JSONObject obj)"></a>public static String[] jsonObjectToStringArray (JSONObject obj)</h3><p>Transform a JSON object into an array of string.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>obj</code> — {JSONObject} the object to parse</li>
 <li><strong>Returns:</strong> {String[]} an array of string with the given object content</li>
 </ul>
-<h2 id="public-static-ArrayList-lt-String-gt-jsonObjectToArrayList-JSONObject-obj"><a href="#public-static-ArrayList-lt-String-gt-jsonObjectToArrayList-JSONObject-obj" class="headerlink" title="public static ArrayList&lt;String&gt; jsonObjectToArrayList (JSONObject obj)"></a><code>public static ArrayList&lt;String&gt; jsonObjectToArrayList (JSONObject obj)</code></h2><p>Transform a JSONObject into an ArrayList<string></string></p>
+<h3 id="public-static-ArrayList-jsonObjectToArrayList-JSONObject-obj"><a href="#public-static-ArrayList-jsonObjectToArrayList-JSONObject-obj" class="headerlink" title="public static ArrayList jsonObjectToArrayList (JSONObject obj)"></a>public static ArrayList<string> jsonObjectToArrayList (JSONObject obj)</string></h3><p>Transform a JSONObject into an ArrayList<string></string></p>
 <ul>
 <li><strong>Parameters:</strong> <code>obj</code> — {JSONObject} the object to transform</li>
 <li><strong>Returns:</strong> {ArrayList<string>} containing everything from the given object</string></li>
 </ul>
-<h2 id="public-static-JSONArray-jsonArrayFromArrayList-ArrayList-list"><a href="#public-static-JSONArray-jsonArrayFromArrayList-ArrayList-list" class="headerlink" title="public static JSONArray jsonArrayFromArrayList (ArrayList list)"></a><code>public static JSONArray jsonArrayFromArrayList (ArrayList list)</code></h2><p>Transform an ArrayList into a JSONArray.</p>
+<h3 id="public-static-JSONArray-jsonArrayFromArrayList-ArrayList-list"><a href="#public-static-JSONArray-jsonArrayFromArrayList-ArrayList-list" class="headerlink" title="public static JSONArray jsonArrayFromArrayList (ArrayList list)"></a>public static JSONArray jsonArrayFromArrayList (ArrayList list)</h3><p>Transform an ArrayList into a JSONArray.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>list</code> — {ArrayList} the list to parse</li>
 <li><strong>Returns:</strong> {JSONArray} the list formatted as a JSON array</li>

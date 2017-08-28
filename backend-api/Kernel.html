@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,34 +404,34 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Kernel"><a href="#public-class-Kernel" class="headerlink" title="public class Kernel"></a><code>public class Kernel</code></h2><p>The kernel is the element that runs the python code and decide when it is needed to inform every interface of the executed code, the result, that it is busy, idle, etc.</p>
+      <h2 id="public-class-Kernel"><a href="#public-class-Kernel" class="headerlink" title="public class Kernel"></a>public class Kernel</h2><p>The kernel is the element that runs the python code and decide when it is needed to inform every interface of the executed code, the result, that it is busy, idle, etc.</p>
 <p>5 channels are used to communicate with the fr.irisa.diverse.Core.Kernel (see fr.irisa.diverse.Jupyter.JupyterMessaging in Jupyter doc to know more about it).</p>
 <p>The kernel is embedded into a Docker container, which creates a connexion_file that this class will read to know on which ports to connect the sockets.</p>
 <p>IMPORTANT : 1 kernel per node, 1 node per kernel. It is a 1-1 relation.</p>
 <p>Created by antoine on 28/04/17.</p>
-<h2 id="public-void-stop"><a href="#public-void-stop" class="headerlink" title="public void stop ()"></a><code>public void stop ()</code></h2><p>Stop the kernel and its linked Docker container.</p>
-<h2 id="public-void-stopExecution"><a href="#public-void-stopExecution" class="headerlink" title="public void stopExecution ()"></a><code>public void stopExecution ()</code></h2><p>Stop the execution of kernel, not the container</p>
-<h2 id="public-void-verifyChannelsAreOk"><a href="#public-void-verifyChannelsAreOk" class="headerlink" title="public void verifyChannelsAreOk ()"></a><code>public void verifyChannelsAreOk ()</code></h2><p>Verify that we are still connected to the 5 channels. If not restart them. TODO : the restart feature</p>
-<h2 id="public-void-handleExecutionResult-String-result"><a href="#public-void-handleExecutionResult-String-result" class="headerlink" title="public void handleExecutionResult (String[] result)"></a><code>public void handleExecutionResult (String[] result)</code></h2><p>Do what’s needed when receiving the result of the execution of a code. It verify that we were waiting for this response and store the result into the node.</p>
+<h3 id="public-void-stop"><a href="#public-void-stop" class="headerlink" title="public void stop ()"></a>public void stop ()</h3><p>Stop the kernel and its linked Docker container.</p>
+<h3 id="public-void-stopExecution"><a href="#public-void-stopExecution" class="headerlink" title="public void stopExecution ()"></a>public void stopExecution ()</h3><p>Stop the execution of kernel, not the container</p>
+<h3 id="public-void-verifyChannelsAreOk"><a href="#public-void-verifyChannelsAreOk" class="headerlink" title="public void verifyChannelsAreOk ()"></a>public void verifyChannelsAreOk ()</h3><p>Verify that we are still connected to the 5 channels. If not restart them. TODO : the restart feature</p>
+<h3 id="public-void-handleExecutionResult-String-result"><a href="#public-void-handleExecutionResult-String-result" class="headerlink" title="public void handleExecutionResult (String[] result)"></a>public void handleExecutionResult (String[] result)</h3><p>Do what’s needed when receiving the result of the execution of a code. It verify that we were waiting for this response and store the result into the node.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>result</code> — : the result received from the channel’s stdout</li>
 </ul>
-<h2 id="public-void-executeCode-String-code-Node-node"><a href="#public-void-executeCode-String-code-Node-node" class="headerlink" title="public void executeCode (String code, Node node)"></a><code>public void executeCode (String code, Node node)</code></h2><p>Require the kernel to execute a code on the Jupyter Kernel.</p>
+<h3 id="public-void-executeCode-String-code-Node-node"><a href="#public-void-executeCode-String-code-Node-node" class="headerlink" title="public void executeCode (String code, Node node)"></a>public void executeCode (String code, Node node)</h3><p>Require the kernel to execute a code on the Jupyter Kernel.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>code</code> — : the code to execute</li>
 </ul>
-<h2 id="private-void-startContainer-throws-FailedKernelStartException"><a href="#private-void-startContainer-throws-FailedKernelStartException" class="headerlink" title="private void startContainer() throws FailedKernelStartException"></a><code>private void startContainer() throws FailedKernelStartException</code></h2><p>Start the container. Must be called only while creating a new instance of Kernel.</p>
+<h3 id="private-void-startContainer-throws-FailedKernelStartException"><a href="#private-void-startContainer-throws-FailedKernelStartException" class="headerlink" title="private void startContainer() throws FailedKernelStartException"></a>private void startContainer() throws FailedKernelStartException</h3><p>Start the container. Must be called only while creating a new instance of Kernel.</p>
 <ul>
 <li><strong>Exceptions:</strong> <code>FailedKernelStartException</code> — : exception telling that the kernel failed starting.</li>
 </ul>
-<h2 id="private-void-stopContainer"><a href="#private-void-stopContainer" class="headerlink" title="private void stopContainer ()"></a><code>private void stopContainer ()</code></h2><p>Stop the container linked to this kernel. Usually called when stopping the whole server.</p>
-<h2 id="private-void-startChannels"><a href="#private-void-startChannels" class="headerlink" title="private void startChannels ()"></a><code>private void startChannels ()</code></h2><p>Start the 5 ZMQ channels that communicate with the Jupyter kernel that is inside a Docker container.</p>
-<h2 id="private-void-stopChannels"><a href="#private-void-stopChannels" class="headerlink" title="private void stopChannels()"></a><code>private void stopChannels()</code></h2><p>Stop and close the 5 ZMQ channels and their Thread.</p>
-<h2 id="private-void-verifyChannelIsOk-JupyterChannel-channel"><a href="#private-void-verifyChannelIsOk-JupyterChannel-channel" class="headerlink" title="private void verifyChannelIsOk(JupyterChannel channel)"></a><code>private void verifyChannelIsOk(JupyterChannel channel)</code></h2><p>Verify that a channel is running and connected</p>
+<h3 id="private-void-stopContainer"><a href="#private-void-stopContainer" class="headerlink" title="private void stopContainer ()"></a>private void stopContainer ()</h3><p>Stop the container linked to this kernel. Usually called when stopping the whole server.</p>
+<h3 id="private-void-startChannels"><a href="#private-void-startChannels" class="headerlink" title="private void startChannels ()"></a>private void startChannels ()</h3><p>Start the 5 ZMQ channels that communicate with the Jupyter kernel that is inside a Docker container.</p>
+<h3 id="private-void-stopChannels"><a href="#private-void-stopChannels" class="headerlink" title="private void stopChannels()"></a>private void stopChannels()</h3><p>Stop and close the 5 ZMQ channels and their Thread.</p>
+<h3 id="private-void-verifyChannelIsOk-JupyterChannel-channel"><a href="#private-void-verifyChannelIsOk-JupyterChannel-channel" class="headerlink" title="private void verifyChannelIsOk(JupyterChannel channel)"></a>private void verifyChannelIsOk(JupyterChannel channel)</h3><p>Verify that a channel is running and connected</p>
 <ul>
 <li><strong>Parameters:</strong> <code>channel</code> — : the channel to check</li>
 </ul>
-<h2 id="private-void-createChannelsFromConnexionFile-String-path-throws-InterruptedException-FailedRetrievingContainerIPException-ParseException-IOException"><a href="#private-void-createChannelsFromConnexionFile-String-path-throws-InterruptedException-FailedRetrievingContainerIPException-ParseException-IOException" class="headerlink" title="private void createChannelsFromConnexionFile (String path) throws InterruptedException, FailedRetrievingContainerIPException, ParseException, IOException"></a><code>private void createChannelsFromConnexionFile (String path) throws InterruptedException, FailedRetrievingContainerIPException, ParseException, IOException</code></h2><p>Create the ZMQ sockets and configure their properties and endpoints from a connexion_file. This connexion_file is generated by the code of the Jupyter kernel inside the Docker container.</p>
+<h3 id="private-void-createChannelsFromConnexionFile-String-path-throws-InterruptedException-FailedRetrievingContainerIPException-ParseException-IOException"><a href="#private-void-createChannelsFromConnexionFile-String-path-throws-InterruptedException-FailedRetrievingContainerIPException-ParseException-IOException" class="headerlink" title="private void createChannelsFromConnexionFile (String path) throws InterruptedException, FailedRetrievingContainerIPException, ParseException, IOException"></a>private void createChannelsFromConnexionFile (String path) throws InterruptedException, FailedRetrievingContainerIPException, ParseException, IOException</h3><p>Create the ZMQ sockets and configure their properties and endpoints from a connexion_file. This connexion_file is generated by the code of the Jupyter kernel inside the Docker container.</p>
 <p>The name of the connexion_file is .json</p>
 <ul>
 <li><strong>Parameters:</strong> <code>path</code> — : the absolute Path to the connexion_file</li>
@@ -441,69 +443,69 @@
 </ul>
 </li>
 </ul>
-<h2 id="public-String-getContainerId"><a href="#public-String-getContainerId" class="headerlink" title="public String getContainerId ()"></a><code>public String getContainerId ()</code></h2><p>The container id is an ID associated to a running container by the docker daemon</p>
+<h3 id="public-String-getContainerId"><a href="#public-String-getContainerId" class="headerlink" title="public String getContainerId ()"></a>public String getContainerId ()</h3><p>The container id is an ID associated to a running container by the docker daemon</p>
 <ul>
 <li><strong>Returns:</strong> : the id of the running container associated to the instance of kernel.</li>
 </ul>
-<h2 id="public-String-getSession"><a href="#public-String-getSession" class="headerlink" title="public String getSession ()"></a><code>public String getSession ()</code></h2><p>The session is a String only used to communicate on the Jupyter messaging protocol</p>
+<h3 id="public-String-getSession"><a href="#public-String-getSession" class="headerlink" title="public String getSession ()"></a>public String getSession ()</h3><p>The session is a String only used to communicate on the Jupyter messaging protocol</p>
 <ul>
 <li><strong>Returns:</strong> : the String session</li>
 </ul>
-<h2 id="public-void-setSession-String-session"><a href="#public-void-setSession-String-session" class="headerlink" title="public void setSession(String session)"></a><code>public void setSession(String session)</code></h2><p>The session is a String only used to communicate on the Jupyter messaging protocol</p>
+<h3 id="public-void-setSession-String-session"><a href="#public-void-setSession-String-session" class="headerlink" title="public void setSession(String session)"></a>public void setSession(String session)</h3><p>The session is a String only used to communicate on the Jupyter messaging protocol</p>
 <ul>
 <li><strong>Parameters:</strong> <code>session</code> — : the new session string to use</li>
 </ul>
-<h2 id="public-String-getIdentity"><a href="#public-String-getIdentity" class="headerlink" title="public String getIdentity ()"></a><code>public String getIdentity ()</code></h2><p>The identity is a String only used to communicate on the Jupyter messaging protocol</p>
+<h3 id="public-String-getIdentity"><a href="#public-String-getIdentity" class="headerlink" title="public String getIdentity ()"></a>public String getIdentity ()</h3><p>The identity is a String only used to communicate on the Jupyter messaging protocol</p>
 <ul>
 <li><strong>Returns:</strong> : String containing the identity</li>
 </ul>
-<h2 id="public-void-setIdentity-String-identity"><a href="#public-void-setIdentity-String-identity" class="headerlink" title="public void setIdentity (String identity)"></a><code>public void setIdentity (String identity)</code></h2><p>The identity is a String only used to communicate on the Jupyter messaging protocol</p>
+<h3 id="public-void-setIdentity-String-identity"><a href="#public-void-setIdentity-String-identity" class="headerlink" title="public void setIdentity (String identity)"></a>public void setIdentity (String identity)</h3><p>The identity is a String only used to communicate on the Jupyter messaging protocol</p>
 <ul>
 <li><strong>Parameters:</strong> <code>identity</code> — (String) the new identity to use</li>
 </ul>
-<h2 id="public-String-getSignatureScheme"><a href="#public-String-getSignatureScheme" class="headerlink" title="public String getSignatureScheme ()"></a><code>public String getSignatureScheme ()</code></h2><p>The signature scheme is a parameter to build the HMAC used to communicate on the Jupyter message protocol. Google it for more information, it is a very common concept.</p>
+<h3 id="public-String-getSignatureScheme"><a href="#public-String-getSignatureScheme" class="headerlink" title="public String getSignatureScheme ()"></a>public String getSignatureScheme ()</h3><p>The signature scheme is a parameter to build the HMAC used to communicate on the Jupyter message protocol. Google it for more information, it is a very common concept.</p>
 <ul>
 <li><strong>Returns:</strong> (String) containing the signature scheme</li>
 </ul>
-<h2 id="public-String-getKey"><a href="#public-String-getKey" class="headerlink" title="public String getKey ()"></a><code>public String getKey ()</code></h2><p>The key to give to the algorithm creating the HMAC</p>
+<h3 id="public-String-getKey"><a href="#public-String-getKey" class="headerlink" title="public String getKey ()"></a>public String getKey ()</h3><p>The key to give to the algorithm creating the HMAC</p>
 <ul>
 <li><strong>Returns:</strong> (String) the key to use</li>
 </ul>
-<h2 id="public-void-setNbExecutions-Long-nbExecutions"><a href="#public-void-setNbExecutions-Long-nbExecutions" class="headerlink" title="public void setNbExecutions (Long nbExecutions)"></a><code>public void setNbExecutions (Long nbExecutions)</code></h2><p>nbExecutions is the number of executions the kernel did. Called only by the JupyterMessaging.manager to update the nb of execution when receiving an execute_reply msg.</p>
+<h3 id="public-void-setNbExecutions-Long-nbExecutions"><a href="#public-void-setNbExecutions-Long-nbExecutions" class="headerlink" title="public void setNbExecutions (Long nbExecutions)"></a>public void setNbExecutions (Long nbExecutions)</h3><p>nbExecutions is the number of executions the kernel did. Called only by the JupyterMessaging.manager to update the nb of execution when receiving an execute_reply msg.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>nbExecutions</code> — : the new number of execution. Usually nbExecution + 1</li>
 </ul>
-<h2 id="public-Long-getNbExecutions"><a href="#public-Long-getNbExecutions" class="headerlink" title="public Long getNbExecutions ()"></a><code>public Long getNbExecutions ()</code></h2><p>nbExecutions is the number of executions the kernel did.</p>
+<h3 id="public-Long-getNbExecutions"><a href="#public-Long-getNbExecutions" class="headerlink" title="public Long getNbExecutions ()"></a>public Long getNbExecutions ()</h3><p>nbExecutions is the number of executions the kernel did.</p>
 <ul>
 <li><strong>Returns:</strong> (Long) the nb of executions</li>
 </ul>
-<h2 id="public-boolean-isIdle"><a href="#public-boolean-isIdle" class="headerlink" title="public boolean isIdle ()"></a><code>public boolean isIdle ()</code></h2><p>Tells whether the Kernel is idle or running. Idle means the shell is not doing calculations.</p>
+<h3 id="public-boolean-isIdle"><a href="#public-boolean-isIdle" class="headerlink" title="public boolean isIdle ()"></a>public boolean isIdle ()</h3><p>Tells whether the Kernel is idle or running. Idle means the shell is not doing calculations.</p>
 <ul>
 <li><strong>Returns:</strong> : true if idle</li>
 </ul>
-<h2 id="public-boolean-isBusy"><a href="#public-boolean-isBusy" class="headerlink" title="public boolean isBusy ()"></a><code>public boolean isBusy ()</code></h2><p>Tells whether the Kernel is idle or running. Busy means the shell is doing calculations.</p>
+<h3 id="public-boolean-isBusy"><a href="#public-boolean-isBusy" class="headerlink" title="public boolean isBusy ()"></a>public boolean isBusy ()</h3><p>Tells whether the Kernel is idle or running. Busy means the shell is doing calculations.</p>
 <ul>
 <li><strong>Returns:</strong> true is running (= busy)</li>
 </ul>
-<h2 id="public-void-setIdleState-boolean-value"><a href="#public-void-setIdleState-boolean-value" class="headerlink" title="public void setIdleState (boolean value)"></a><code>public void setIdleState (boolean value)</code></h2><p>Set the idle state of the Kernel. Must only be called by the JupyterMessaging.manager when receiving a message on IOPub.</p>
+<h3 id="public-void-setIdleState-boolean-value"><a href="#public-void-setIdleState-boolean-value" class="headerlink" title="public void setIdleState (boolean value)"></a>public void setIdleState (boolean value)</h3><p>Set the idle state of the Kernel. Must only be called by the JupyterMessaging.manager when receiving a message on IOPub.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>value</code> — </li>
 </ul>
-<h2 id="public-Manager-getMessagesManager"><a href="#public-Manager-getMessagesManager" class="headerlink" title="public Manager getMessagesManager ()"></a><code>public Manager getMessagesManager ()</code></h2><p>Get the message manager. It is used to communicate with the Jupyter kernel.</p>
+<h3 id="public-Manager-getMessagesManager"><a href="#public-Manager-getMessagesManager" class="headerlink" title="public Manager getMessagesManager ()"></a>public Manager getMessagesManager ()</h3><p>Get the message manager. It is used to communicate with the Jupyter kernel.</p>
 <ul>
 <li><strong>Returns:</strong> {Manager} the manager used by the kernel.</li>
 </ul>
-<h2 id="private-boolean-isIpAddress-String-text"><a href="#private-boolean-isIpAddress-String-text" class="headerlink" title="private boolean isIpAddress(String text)"></a><code>private boolean isIpAddress(String text)</code></h2><p>Regex to know if the given text is an IP Address or not.</p>
+<h3 id="private-boolean-isIpAddress-String-text"><a href="#private-boolean-isIpAddress-String-text" class="headerlink" title="private boolean isIpAddress(String text)"></a>private boolean isIpAddress(String text)</h3><p>Regex to know if the given text is an IP Address or not.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>text</code> — (String) the text that you want to determine if it is an IP Address</li>
 <li><strong>Returns:</strong> True if the given text is an IP Address</li>
 </ul>
-<h2 id="private-String-retrieveContainerIp-throws-FailedRetrievingContainerIPException"><a href="#private-String-retrieveContainerIp-throws-FailedRetrievingContainerIPException" class="headerlink" title="private String retrieveContainerIp() throws FailedRetrievingContainerIPException"></a><code>private String retrieveContainerIp() throws FailedRetrievingContainerIPException</code></h2><p>Retrieve the IP of the Docker container linked to this Kernel. Use bash commands to do that.</p>
+<h3 id="private-String-retrieveContainerIp-throws-FailedRetrievingContainerIPException"><a href="#private-String-retrieveContainerIp-throws-FailedRetrievingContainerIPException" class="headerlink" title="private String retrieveContainerIp() throws FailedRetrievingContainerIPException"></a>private String retrieveContainerIp() throws FailedRetrievingContainerIPException</h3><p>Retrieve the IP of the Docker container linked to this Kernel. Use bash commands to do that.</p>
 <ul>
 <li><strong>Returns:</strong> (String) the IP address of the container</li>
 <li><strong>Exceptions:</strong> <code>FailedRetrievingContainerIPException</code> — : exception telling that it was unable to retrieve the IP.</li>
 </ul>
-<h2 id="private-void-deleteConnexionFile"><a href="#private-void-deleteConnexionFile" class="headerlink" title="private void deleteConnexionFile ()"></a><code>private void deleteConnexionFile ()</code></h2><p>Delete the connexion file. This method is used when stopping the kernel, to make sur that, in case the container did not, we delete the connexion file.</p>
+<h3 id="private-void-deleteConnexionFile"><a href="#private-void-deleteConnexionFile" class="headerlink" title="private void deleteConnexionFile ()"></a>private void deleteConnexionFile ()</h3><p>Delete the connexion file. This method is used when stopping the kernel, to make sur that, in case the container did not, we delete the connexion file.</p>
 
     </div>
   </div>

@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,33 +404,33 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="SuppressWarnings-quot-unchecked-quot-public-class-FBPMessage"><a href="#SuppressWarnings-quot-unchecked-quot-public-class-FBPMessage" class="headerlink" title="@SuppressWarnings(&quot;unchecked&quot;) public class FBPMessage"></a><code>@SuppressWarnings(&quot;unchecked&quot;) public class FBPMessage</code></h2><p>A very simple class to create and handle FBP Network Protocol compliant messages. The structure of a message is described here : <a href="https://flowbased.github.io/fbp-protocol/#message-structure" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#message-structure</a></p>
+      <h2 id="SuppressWarnings-“unchecked”-public-class-FBPMessage"><a href="#SuppressWarnings-“unchecked”-public-class-FBPMessage" class="headerlink" title="@SuppressWarnings(“unchecked”) public class FBPMessage"></a>@SuppressWarnings(“unchecked”) public class FBPMessage</h2><p>A very simple class to create and handle FBP Network Protocol compliant messages. The structure of a message is described here : <a href="https://flowbased.github.io/fbp-protocol/#message-structure" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#message-structure</a></p>
 <p>Created by antoine on 26/05/2017.</p>
-<h2 id="public-String-getProtocol"><a href="#public-String-getProtocol" class="headerlink" title="public String getProtocol ()"></a><code>public String getProtocol ()</code></h2><p>Returns the protocol field of the message as a String. The protocols are : runtime - graph - component - network - trace</p>
+<h3 id="public-String-getProtocol"><a href="#public-String-getProtocol" class="headerlink" title="public String getProtocol ()"></a>public String getProtocol ()</h3><p>Returns the protocol field of the message as a String. The protocols are : runtime - graph - component - network - trace</p>
 <ul>
 <li><strong>Returns:</strong> {String} the protocol field of the message.</li>
 </ul>
-<h2 id="public-String-getCommand"><a href="#public-String-getCommand" class="headerlink" title="public String getCommand ()"></a><code>public String getCommand ()</code></h2><p>Returns the command field of the message. The command is the name of the action to do. For example removeedge</p>
+<h3 id="public-String-getCommand"><a href="#public-String-getCommand" class="headerlink" title="public String getCommand ()"></a>public String getCommand ()</h3><p>Returns the command field of the message. The command is the name of the action to do. For example removeedge</p>
 <ul>
 <li><strong>Returns:</strong> {String} the command field of the message</li>
 </ul>
-<h2 id="public-JSONObject-getPayload"><a href="#public-JSONObject-getPayload" class="headerlink" title="public JSONObject getPayload()"></a><code>public JSONObject getPayload()</code></h2><p>Returns the payload of the message, as a JSONObject. The payload contains all the interesting information to handle the message. It must be compliant with the documentation. Each command has a different payload.</p>
+<h3 id="public-JSONObject-getPayload"><a href="#public-JSONObject-getPayload" class="headerlink" title="public JSONObject getPayload()"></a>public JSONObject getPayload()</h3><p>Returns the payload of the message, as a JSONObject. The payload contains all the interesting information to handle the message. It must be compliant with the documentation. Each command has a different payload.</p>
 <ul>
 <li><strong>Returns:</strong> {JSONObject} the payload of the message</li>
 </ul>
-<h2 id="public-void-setProtocol-String-protocol"><a href="#public-void-setProtocol-String-protocol" class="headerlink" title="public void setProtocol(String protocol)"></a><code>public void setProtocol(String protocol)</code></h2><p>Set the protocol field of the message.</p>
+<h3 id="public-void-setProtocol-String-protocol"><a href="#public-void-setProtocol-String-protocol" class="headerlink" title="public void setProtocol(String protocol)"></a>public void setProtocol(String protocol)</h3><p>Set the protocol field of the message.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>protocol</code> — {String} the new protocol. Must be : runtime - graph - component - network - trace</li>
 </ul>
-<h2 id="public-void-setCommand-String-command"><a href="#public-void-setCommand-String-command" class="headerlink" title="public void setCommand (String command)"></a><code>public void setCommand (String command)</code></h2><p>Set the command field of the message.</p>
+<h3 id="public-void-setCommand-String-command"><a href="#public-void-setCommand-String-command" class="headerlink" title="public void setCommand (String command)"></a>public void setCommand (String command)</h3><p>Set the command field of the message.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>command</code> — {String} the new command</li>
 </ul>
-<h2 id="public-void-setPayload-String-payload"><a href="#public-void-setPayload-String-payload" class="headerlink" title="public void setPayload (String payload)"></a><code>public void setPayload (String payload)</code></h2><p>Set the payload of the message, from a String.</p>
+<h3 id="public-void-setPayload-String-payload"><a href="#public-void-setPayload-String-payload" class="headerlink" title="public void setPayload (String payload)"></a>public void setPayload (String payload)</h3><p>Set the payload of the message, from a String.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {String} the new payload, as a serialized JSON object</li>
 </ul>
-<h2 id="public-String-toJSONString"><a href="#public-String-toJSONString" class="headerlink" title="public String toJSONString ()"></a><code>public String toJSONString ()</code></h2><p>Serialize the message to a JSON compliant String. Commonly used to send the message through a socket.</p>
+<h3 id="public-String-toJSONString"><a href="#public-String-toJSONString" class="headerlink" title="public String toJSONString ()"></a>public String toJSONString ()</h3><p>Serialize the message to a JSON compliant String. Commonly used to send the message through a socket.</p>
 <ul>
 <li><strong>Returns:</strong> {String} the serialized message</li>
 </ul>

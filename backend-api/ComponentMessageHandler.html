@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,23 +404,23 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-ComponentMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler"><a href="#public-class-ComponentMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler" class="headerlink" title="public class ComponentMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler"></a><code>public class ComponentMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler</code></h2><p>Class managing the Component messages for the Flow-Based Programming Network Protocol To know more about this protocol, take a look at the doc on J.Paul Morisson’s website : <a href="https://flowbased.github.io/fbp-protocol/#sub-protocols" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#sub-protocols</a></p>
+      <h2 id="public-class-ComponentMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler"><a href="#public-class-ComponentMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler" class="headerlink" title="public class ComponentMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler"></a>public class ComponentMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler</h2><p>Class managing the Component messages for the Flow-Based Programming Network Protocol To know more about this protocol, take a look at the doc on J.Paul Morisson’s website : <a href="https://flowbased.github.io/fbp-protocol/#sub-protocols" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#sub-protocols</a></p>
 <p>Created by antoine on 26/05/2017.</p>
-<h2 id="public-void-handleMessage-FBPMessage-message"><a href="#public-void-handleMessage-FBPMessage-message" class="headerlink" title="public void handleMessage (FBPMessage message)"></a><code>public void handleMessage (FBPMessage message)</code></h2><p>Handle a new incoming message on the Component protocol. It will redirect the message to the proper method</p>
+<h3 id="public-void-handleMessage-FBPMessage-message"><a href="#public-void-handleMessage-FBPMessage-message" class="headerlink" title="public void handleMessage (FBPMessage message)"></a>public void handleMessage (FBPMessage message)</h3><p>Handle a new incoming message on the Component protocol. It will redirect the message to the proper method</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — : the message to handle</li>
 </ul>
-<h2 id="private-void-list"><a href="#private-void-list" class="headerlink" title="private void list()"></a><code>private void list()</code></h2><p>Request the list of the currently available components. Will respond with one ‘component’ message per available component</p>
-<h2 id="private-void-getsource-FBPMessage-message"><a href="#private-void-getsource-FBPMessage-message" class="headerlink" title="private void getsource(FBPMessage message)"></a><code>private void getsource(FBPMessage message)</code></h2><p>Request for the source code of a given component. Will be responded with a <code>source</code> message.</p>
+<h3 id="private-void-list"><a href="#private-void-list" class="headerlink" title="private void list()"></a>private void list()</h3><p>Request the list of the currently available components. Will respond with one ‘component’ message per available component</p>
+<h3 id="private-void-getsource-FBPMessage-message"><a href="#private-void-getsource-FBPMessage-message" class="headerlink" title="private void getsource(FBPMessage message)"></a>private void getsource(FBPMessage message)</h3><p>Request for the source code of a given component. Will be responded with a <code>source</code> message.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — : received message</li>
 </ul>
-<h2 id="private-void-sendComponentMessage-Component-component"><a href="#private-void-sendComponentMessage-Component-component" class="headerlink" title="private void sendComponentMessage (Component component)"></a><code>private void sendComponentMessage (Component component)</code></h2><p>Send a component message to the client that made a request</p>
+<h3 id="private-void-sendComponentMessage-Component-component"><a href="#private-void-sendComponentMessage-Component-component" class="headerlink" title="private void sendComponentMessage (Component component)"></a>private void sendComponentMessage (Component component)</h3><p>Send a component message to the client that made a request</p>
 <ul>
 <li><strong>Parameters:</strong> <code>component</code> — : the component object to send</li>
 </ul>
-<h2 id="private-void-sendComponentReadyMessage"><a href="#private-void-sendComponentReadyMessage" class="headerlink" title="private void sendComponentReadyMessage ()"></a><code>private void sendComponentReadyMessage ()</code></h2><p>Send a componentsready message to the client that requested a list of component. This message is used to prevent the UI that all the other components have been sent.</p>
-<h2 id="SuppressWarnings-quot-unchecked-quot-private-void-sendSourceMessage-String-library-String-component"><a href="#SuppressWarnings-quot-unchecked-quot-private-void-sendSourceMessage-String-library-String-component" class="headerlink" title="@SuppressWarnings(&quot;unchecked&quot;) private void sendSourceMessage (String library, String component)"></a><code>@SuppressWarnings(&quot;unchecked&quot;) private void sendSourceMessage (String library, String component)</code></h2><p>Send a source message as described in the doc here : <a href="https://flowbased.github.io/fbp-protocol/#component-source" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#component-source</a></p>
+<h3 id="private-void-sendComponentReadyMessage"><a href="#private-void-sendComponentReadyMessage" class="headerlink" title="private void sendComponentReadyMessage ()"></a>private void sendComponentReadyMessage ()</h3><p>Send a componentsready message to the client that requested a list of component. This message is used to prevent the UI that all the other components have been sent.</p>
+<h3 id="SuppressWarnings-“unchecked”-private-void-sendSourceMessage-String-library-String-component"><a href="#SuppressWarnings-“unchecked”-private-void-sendSourceMessage-String-library-String-component" class="headerlink" title="@SuppressWarnings(“unchecked”) private void sendSourceMessage (String library, String component)"></a>@SuppressWarnings(“unchecked”) private void sendSourceMessage (String library, String component)</h3><p>Send a source message as described in the doc here : <a href="https://flowbased.github.io/fbp-protocol/#component-source" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#component-source</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>library</code> — : the library of components</li>

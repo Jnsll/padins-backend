@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,7 +404,7 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-IOPubChannel-extends-JupyterChannel"><a href="#public-class-IOPubChannel-extends-JupyterChannel" class="headerlink" title="public class IOPubChannel extends JupyterChannel"></a><code>public class IOPubChannel extends JupyterChannel</code></h2><p>IOPub: this socket is the ‘broadcast channel’ where the kernel publishes all side effects (stdout, stderr, etc.) as well as the requests coming from any client over the shell socket and its own requests on the stdin socket. There are a number of actions in Python which generate side effects: print() writes to sys.stdout, errors generate tracebacks, etc. Additionally, in a multi-client scenario, we want all frontends to be able to know what each other has sent to the kernel (this can be useful in collaborative scenarios, for example). This socket allows both side effects and the information about communications taking place with one client over the shell channel to be made available to all clients in a uniform manner.</p>
+      <h2 id="public-class-IOPubChannel-extends-JupyterChannel"><a href="#public-class-IOPubChannel-extends-JupyterChannel" class="headerlink" title="public class IOPubChannel extends JupyterChannel"></a>public class IOPubChannel extends JupyterChannel</h2><p>IOPub: this socket is the ‘broadcast channel’ where the kernel publishes all side effects (stdout, stderr, etc.) as well as the requests coming from any client over the shell socket and its own requests on the stdin socket. There are a number of actions in Python which generate side effects: print() writes to sys.stdout, errors generate tracebacks, etc. Additionally, in a multi-client scenario, we want all frontends to be able to know what each other has sent to the kernel (this can be useful in collaborative scenarios, for example). This socket allows both side effects and the information about communications taking place with one client over the shell channel to be made available to all clients in a uniform manner.</p>
 <p>Messaging in Jupyter documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html</a> IOPub channel documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-iopub-pub-sub-channel" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#messages-on-the-iopub-pub-sub-channel</a></p>
 <p>EXTENDS JupyterChannel : the abstract class implementing the default behavior of a Jupyter channel.</p>
 <p>Created by antoine on 03/05/17.</p>

@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,74 +404,74 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Node-implements-Comparable-lt-Node-gt"><a href="#public-class-Node-implements-Comparable-lt-Node-gt" class="headerlink" title="public class Node implements Comparable&lt;Node&gt;"></a><code>public class Node implements Comparable&lt;Node&gt;</code></h2><p>A node correspond to a block on a flow-based program A node is a part of a flow.</p>
+      <h2 id="public-class-Node-implements-Comparable"><a href="#public-class-Node-implements-Comparable" class="headerlink" title="public class Node implements Comparable"></a>public class Node implements Comparable<node></node></h2><p>A node correspond to a block on a flow-based program A node is a part of a flow.</p>
 <p>To know more about Flow-Based programming : <a href="http://www.jpaulmorrison.com/fbp/concepts.html" target="_blank" rel="external">http://www.jpaulmorrison.com/fbp/concepts.html</a> To see the FBP Network Protocol : <a href="https://flowbased.github.io/fbp-protocol/#graph-addnode" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addnode</a></p>
 <p>Created by antoine on 29/05/17.</p>
-<h2 id="public-String-getId"><a href="#public-String-getId" class="headerlink" title="public String getId ()"></a><code>public String getId ()</code></h2><p>Get the unique id of the node.</p>
+<h3 id="public-String-getId"><a href="#public-String-getId" class="headerlink" title="public String getId ()"></a>public String getId ()</h3><p>Get the unique id of the node.</p>
 <ul>
 <li><strong>Returns:</strong> {String} the uuid of the node</li>
 </ul>
-<h2 id="public-void-setId-String-newId"><a href="#public-void-setId-String-newId" class="headerlink" title="public void setId (String newId)"></a><code>public void setId (String newId)</code></h2><p>Update the id of the node. The ID must be unique !</p>
+<h3 id="public-void-setId-String-newId"><a href="#public-void-setId-String-newId" class="headerlink" title="public void setId (String newId)"></a>public void setId (String newId)</h3><p>Update the id of the node. The ID must be unique !</p>
 <ul>
 <li><strong>Parameters:</strong> <code>newId</code> — {String} the new uuid of the node</li>
 </ul>
-<h2 id="public-Ports-getInports"><a href="#public-Ports-getInports" class="headerlink" title="public Ports getInports()"></a><code>public Ports getInports()</code></h2><p>Get the inports of the node.</p>
+<h3 id="public-Ports-getInports"><a href="#public-Ports-getInports" class="headerlink" title="public Ports getInports()"></a>public Ports getInports()</h3><p>Get the inports of the node.</p>
 <ul>
 <li><strong>Returns:</strong> {Ports} the inports of the node</li>
 </ul>
-<h2 id="public-Ports-getOutports"><a href="#public-Ports-getOutports" class="headerlink" title="public Ports getOutports()"></a><code>public Ports getOutports()</code></h2><p>Get the outports of the node.</p>
+<h3 id="public-Ports-getOutports"><a href="#public-Ports-getOutports" class="headerlink" title="public Ports getOutports()"></a>public Ports getOutports()</h3><p>Get the outports of the node.</p>
 <ul>
 <li><strong>Returns:</strong> {Ports} te outports of the node</li>
 </ul>
-<h2 id="public-JSONObject-getMetadata"><a href="#public-JSONObject-getMetadata" class="headerlink" title="public JSONObject getMetadata()"></a><code>public JSONObject getMetadata()</code></h2><p>Get the metadata of the node.</p>
+<h3 id="public-JSONObject-getMetadata"><a href="#public-JSONObject-getMetadata" class="headerlink" title="public JSONObject getMetadata()"></a>public JSONObject getMetadata()</h3><p>Get the metadata of the node.</p>
 <ul>
 <li><strong>Returns:</strong> {JSONObject} the metadata of the node</li>
 </ul>
-<h2 id="public-void-setMetadata-JSONObject-metadata"><a href="#public-void-setMetadata-JSONObject-metadata" class="headerlink" title="public void setMetadata(JSONObject metadata)"></a><code>public void setMetadata(JSONObject metadata)</code></h2><p>Set the metadata of the node</p>
+<h3 id="public-void-setMetadata-JSONObject-metadata"><a href="#public-void-setMetadata-JSONObject-metadata" class="headerlink" title="public void setMetadata(JSONObject metadata)"></a>public void setMetadata(JSONObject metadata)</h3><p>Set the metadata of the node</p>
 <ul>
 <li><strong>Parameters:</strong> <code>metadata</code> — {JSONObject} the new metadata. Must contain all the metadata, not only the new ones</li>
 </ul>
-<h2 id="public-String-getGraph"><a href="#public-String-getGraph" class="headerlink" title="public String getGraph()"></a><code>public String getGraph()</code></h2><p>Get the id of the graph the node is into. The graph can be the root Flow or a group.</p>
+<h3 id="public-String-getGraph"><a href="#public-String-getGraph" class="headerlink" title="public String getGraph()"></a>public String getGraph()</h3><p>Get the id of the graph the node is into. The graph can be the root Flow or a group.</p>
 <ul>
 <li><strong>Returns:</strong> {String} the id of the graph</li>
 </ul>
-<h2 id="public-String-getComponent"><a href="#public-String-getComponent" class="headerlink" title="public String getComponent()"></a><code>public String getComponent()</code></h2><p>Get the component on which this node is based. The component name is formatted as : /</p>
+<h3 id="public-String-getComponent"><a href="#public-String-getComponent" class="headerlink" title="public String getComponent()"></a>public String getComponent()</h3><p>Get the component on which this node is based. The component name is formatted as : /</p>
 <ul>
 <li><strong>Returns:</strong> {String} the name of the component with its library name</li>
 </ul>
-<h2 id="public-JSONObject-getJson"><a href="#public-JSONObject-getJson" class="headerlink" title="public JSONObject getJson()"></a><code>public JSONObject getJson()</code></h2><p>Get the JSON object containing all the data of the node. Usually used to send the node data to another service.</p>
+<h3 id="public-JSONObject-getJson"><a href="#public-JSONObject-getJson" class="headerlink" title="public JSONObject getJson()"></a>public JSONObject getJson()</h3><p>Get the JSON object containing all the data of the node. Usually used to send the node data to another service.</p>
 <ul>
 <li><strong>Returns:</strong> {JSONObject} the node’s json object</li>
 </ul>
-<h2 id="public-boolean-isExecutable"><a href="#public-boolean-isExecutable" class="headerlink" title="public boolean isExecutable ()"></a><code>public boolean isExecutable ()</code></h2><p>Is the node executable ?</p>
+<h3 id="public-boolean-isExecutable"><a href="#public-boolean-isExecutable" class="headerlink" title="public boolean isExecutable ()"></a>public boolean isExecutable ()</h3><p>Is the node executable ?</p>
 <ul>
 <li><strong>Returns:</strong> {boolean} true if executable, no elsewere</li>
 </ul>
-<h2 id="public-String-getCode"><a href="#public-String-getCode" class="headerlink" title="public String getCode ()"></a><code>public String getCode ()</code></h2><p>Get the python code of the node. Will be null if not executable.</p>
+<h3 id="public-String-getCode"><a href="#public-String-getCode" class="headerlink" title="public String getCode ()"></a>public String getCode ()</h3><p>Get the python code of the node. Will be null if not executable.</p>
 <ul>
 <li><strong>Returns:</strong> {String} the code of the node. Only python support for now.</li>
 </ul>
-<h2 id="public-JSONObject-getResult"><a href="#public-JSONObject-getResult" class="headerlink" title="public JSONObject getResult ()"></a><code>public JSONObject getResult ()</code></h2><p>Get the result of the node’s execution if executable, pickle formatted. Otherwise all the data that it contains. Usually used to inject the data in the beginning of the next nodes for its execution.</p>
+<h3 id="public-JSONObject-getResult"><a href="#public-JSONObject-getResult" class="headerlink" title="public JSONObject getResult ()"></a>public JSONObject getResult ()</h3><p>Get the result of the node’s execution if executable, pickle formatted. Otherwise all the data that it contains. Usually used to inject the data in the beginning of the next nodes for its execution.</p>
 <ul>
 <li><strong>Returns:</strong> {JSONObject} containing all the data with a key: value format</li>
 </ul>
-<h2 id="public-JSONObject-getJsonResult"><a href="#public-JSONObject-getJsonResult" class="headerlink" title="public JSONObject getJsonResult()"></a><code>public JSONObject getJsonResult()</code></h2><p>Get the data of the node as a JSON formatted as key: value pairs.</p>
+<h3 id="public-JSONObject-getJsonResult"><a href="#public-JSONObject-getJsonResult" class="headerlink" title="public JSONObject getJsonResult()"></a>public JSONObject getJsonResult()</h3><p>Get the data of the node as a JSON formatted as key: value pairs.</p>
 <ul>
 <li><strong>Returns:</strong> {JSONObject} containing data as key: value</li>
 </ul>
-<h2 id="public-JSONObject-getPickledResult"><a href="#public-JSONObject-getPickledResult" class="headerlink" title="public JSONObject getPickledResult()"></a><code>public JSONObject getPickledResult()</code></h2><p>Get the data of the node as pairs of key: pickle. A pickle is a string that is the result of the serialization of any variable in python using pickle.dumps. -&gt; See python documentation.</p>
+<h3 id="public-JSONObject-getPickledResult"><a href="#public-JSONObject-getPickledResult" class="headerlink" title="public JSONObject getPickledResult()"></a>public JSONObject getPickledResult()</h3><p>Get the data of the node as pairs of key: pickle. A pickle is a string that is the result of the serialization of any variable in python using pickle.dumps. -&gt; See python documentation.</p>
 <ul>
 <li><strong>Returns:</strong> {JSONObject} key: pickle pairs</li>
 </ul>
-<h2 id="public-void-setPickledResult-JSONObject-result"><a href="#public-void-setPickledResult-JSONObject-result" class="headerlink" title="public void setPickledResult (JSONObject result)"></a><code>public void setPickledResult (JSONObject result)</code></h2><p>Set the pickle result object. A pickle is a string that is the result of the serialization of any variable in python using pickle.dumps. -&gt; See python documentation.</p>
+<h3 id="public-void-setPickledResult-JSONObject-result"><a href="#public-void-setPickledResult-JSONObject-result" class="headerlink" title="public void setPickledResult (JSONObject result)"></a>public void setPickledResult (JSONObject result)</h3><p>Set the pickle result object. A pickle is a string that is the result of the serialization of any variable in python using pickle.dumps. -&gt; See python documentation.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>result</code> — {JSONObject} Must be formatted as key: pickle pairs</li>
 </ul>
-<h2 id="public-void-setJsonResult-JSONObject-result"><a href="#public-void-setJsonResult-JSONObject-result" class="headerlink" title="public void setJsonResult(JSONObject result)"></a><code>public void setJsonResult(JSONObject result)</code></h2><p>Set the result object, containing all the data to transfer to the nodes connected to the outports.</p>
+<h3 id="public-void-setJsonResult-JSONObject-result"><a href="#public-void-setJsonResult-JSONObject-result" class="headerlink" title="public void setJsonResult(JSONObject result)"></a>public void setJsonResult(JSONObject result)</h3><p>Set the result object, containing all the data to transfer to the nodes connected to the outports.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>result</code> — {JSONObject} Must be formatted as key: value pairs with value being a stringify json</li>
 </ul>
-<h2 id="public-void-assignPortToEdge-String-port-String-edge"><a href="#public-void-assignPortToEdge-String-port-String-edge" class="headerlink" title="public void assignPortToEdge (String port, String edge)"></a><code>public void assignPortToEdge (String port, String edge)</code></h2><p>Store the information that an edge has been connected to a port of the node.</p>
+<h3 id="public-void-assignPortToEdge-String-port-String-edge"><a href="#public-void-assignPortToEdge-String-port-String-edge" class="headerlink" title="public void assignPortToEdge (String port, String edge)"></a>public void assignPortToEdge (String port, String edge)</h3><p>Store the information that an edge has been connected to a port of the node.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>port</code> — {String} the name of the port on which the edge has been connected</li>
@@ -477,7 +479,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="public-void-unassignPortToEdge-String-port-String-edge"><a href="#public-void-unassignPortToEdge-String-port-String-edge" class="headerlink" title="public void unassignPortToEdge (String port, String edge)"></a><code>public void unassignPortToEdge (String port, String edge)</code></h2><p>Remove the association between the port of the node and the edge</p>
+<h3 id="public-void-unassignPortToEdge-String-port-String-edge"><a href="#public-void-unassignPortToEdge-String-port-String-edge" class="headerlink" title="public void unassignPortToEdge (String port, String edge)"></a>public void unassignPortToEdge (String port, String edge)</h3><p>Remove the association between the port of the node and the edge</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>port</code> — {String} the name of the port on which the edge has been disconnected</li>
@@ -485,55 +487,55 @@
 </ul>
 </li>
 </ul>
-<h2 id="public-JSONObject-getPreviousNodesData"><a href="#public-JSONObject-getPreviousNodesData" class="headerlink" title="public JSONObject getPreviousNodesData()"></a><code>public JSONObject getPreviousNodesData()</code></h2><p>Retrieve the data of all the ports connected to the inports of this node.</p>
+<h3 id="public-JSONObject-getPreviousNodesData"><a href="#public-JSONObject-getPreviousNodesData" class="headerlink" title="public JSONObject getPreviousNodesData()"></a>public JSONObject getPreviousNodesData()</h3><p>Retrieve the data of all the ports connected to the inports of this node.</p>
 <ul>
 <li><strong>Returns:</strong> {JSONObject} containing the data (variables ) as key:pickle pairs and the key:stringified-json pairs</li>
 </ul>
-<h2 id="public-ArrayList-lt-Node-gt-previousInFlow"><a href="#public-ArrayList-lt-Node-gt-previousInFlow" class="headerlink" title="public ArrayList&lt;Node&gt; previousInFlow ()"></a><code>public ArrayList&lt;Node&gt; previousInFlow ()</code></h2><p>Retrieve the list of nodes connected to the inports.</p>
+<h3 id="public-ArrayList-previousInFlow"><a href="#public-ArrayList-previousInFlow" class="headerlink" title="public ArrayList previousInFlow ()"></a>public ArrayList<node> previousInFlow ()</node></h3><p>Retrieve the list of nodes connected to the inports.</p>
 <ul>
 <li><strong>Returns:</strong> {ArrayList<node>} the list of node connected to the inports</node></li>
 </ul>
-<h2 id="public-ArrayList-lt-Node-gt-nextInFlow"><a href="#public-ArrayList-lt-Node-gt-nextInFlow" class="headerlink" title="public ArrayList&lt;Node&gt; nextInFlow ()"></a><code>public ArrayList&lt;Node&gt; nextInFlow ()</code></h2><p>Retrieve the list of nodes connected to the outports. Usually used in order to know what are the next nodes to execute when running the flow.</p>
+<h3 id="public-ArrayList-nextInFlow"><a href="#public-ArrayList-nextInFlow" class="headerlink" title="public ArrayList nextInFlow ()"></a>public ArrayList<node> nextInFlow ()</node></h3><p>Retrieve the list of nodes connected to the outports. Usually used in order to know what are the next nodes to execute when running the flow.</p>
 <ul>
 <li><strong>Returns:</strong> {ArrayList<node>} the list of node connected to the outports</node></li>
 </ul>
-<h2 id="public-boolean-isRunning"><a href="#public-boolean-isRunning" class="headerlink" title="public boolean isRunning ()"></a><code>public boolean isRunning ()</code></h2><p>Is the node running ?</p>
+<h3 id="public-boolean-isRunning"><a href="#public-boolean-isRunning" class="headerlink" title="public boolean isRunning ()"></a>public boolean isRunning ()</h3><p>Is the node running ?</p>
 <ul>
 <li><strong>Returns:</strong> {boolean} True if running, False if not</li>
 </ul>
-<h2 id="public-boolean-hasFinished"><a href="#public-boolean-hasFinished" class="headerlink" title="public boolean hasFinished ()"></a><code>public boolean hasFinished ()</code></h2><p>Has the node finished running ?</p>
+<h3 id="public-boolean-hasFinished"><a href="#public-boolean-hasFinished" class="headerlink" title="public boolean hasFinished ()"></a>public boolean hasFinished ()</h3><p>Has the node finished running ?</p>
 <ul>
 <li><strong>Returns:</strong> {boolean} True if run finished, False if still running</li>
 </ul>
-<h2 id="public-boolean-shouldBeReRun"><a href="#public-boolean-shouldBeReRun" class="headerlink" title="public boolean shouldBeReRun ()"></a><code>public boolean shouldBeReRun ()</code></h2><p>Should the node be re-run ? If this node and this node’s previous nodes in the flow haven’t been modified since the last run it is not necessary to run it again, the result will be exactly the same.</p>
+<h3 id="public-boolean-shouldBeReRun"><a href="#public-boolean-shouldBeReRun" class="headerlink" title="public boolean shouldBeReRun ()"></a>public boolean shouldBeReRun ()</h3><p>Should the node be re-run ? If this node and this node’s previous nodes in the flow haven’t been modified since the last run it is not necessary to run it again, the result will be exactly the same.</p>
 <p>To make sure this is reliable, it will verify that all nodes connected to the inports of this node haven’t been modified, and their own previous node that will themselves verified that their previous node haven’t been modified and so on, recursively.</p>
 <ul>
 <li><strong>Returns:</strong> </li>
 </ul>
-<h2 id="public-boolean-noKnownError"><a href="#public-boolean-noKnownError" class="headerlink" title="public boolean noKnownError ()"></a><code>public boolean noKnownError ()</code></h2><p>Has this node a know error ? We know that the node as an error if an error has been thrown during this node’s last run. Then we check if the user modified his/her code since the last error. If he/she does, we suppose that he/she corrected the error.</p>
+<h3 id="public-boolean-noKnownError"><a href="#public-boolean-noKnownError" class="headerlink" title="public boolean noKnownError ()"></a>public boolean noKnownError ()</h3><p>Has this node a know error ? We know that the node as an error if an error has been thrown during this node’s last run. Then we check if the user modified his/her code since the last error. If he/she does, we suppose that he/she corrected the error.</p>
 <ul>
 <li><strong>Returns:</strong> {boolean} True if we are sure that there is an error in the code.</li>
 </ul>
-<h2 id="public-boolean-lastRunReturnedError"><a href="#public-boolean-lastRunReturnedError" class="headerlink" title="public boolean lastRunReturnedError ()"></a><code>public boolean lastRunReturnedError ()</code></h2><p>Has the last run returned an error ?</p>
+<h3 id="public-boolean-lastRunReturnedError"><a href="#public-boolean-lastRunReturnedError" class="headerlink" title="public boolean lastRunReturnedError ()"></a>public boolean lastRunReturnedError ()</h3><p>Has the last run returned an error ?</p>
 <ul>
 <li><strong>Returns:</strong> {boolean} True if the last run returned an error, false otherwise</li>
 </ul>
-<h2 id="public-void-prepareForExecution"><a href="#public-void-prepareForExecution" class="headerlink" title="public void prepareForExecution ()"></a><code>public void prepareForExecution ()</code></h2><p>Prepare the node for the execution, stopping it if it is already running.</p>
-<h2 id="public-boolean-receivedResultAfterTime-long-time"><a href="#public-boolean-receivedResultAfterTime-long-time" class="headerlink" title="public boolean receivedResultAfterTime (long time)"></a><code>public boolean receivedResultAfterTime (long time)</code></h2><p>Has the node received a result after the given time ?</p>
+<h3 id="public-void-prepareForExecution"><a href="#public-void-prepareForExecution" class="headerlink" title="public void prepareForExecution ()"></a>public void prepareForExecution ()</h3><p>Prepare the node for the execution, stopping it if it is already running.</p>
+<h3 id="public-boolean-receivedResultAfterTime-long-time"><a href="#public-boolean-receivedResultAfterTime-long-time" class="headerlink" title="public boolean receivedResultAfterTime (long time)"></a>public boolean receivedResultAfterTime (long time)</h3><p>Has the node received a result after the given time ?</p>
 <ul>
 <li><strong>Parameters:</strong> <code>time</code> — {long} the timestamp after which you want to know if the node received a result</li>
 <li><strong>Returns:</strong> {boolean} true if the node received the result of its execution after the given time.</li>
 </ul>
-<h2 id="public-void-errorOccurred"><a href="#public-void-errorOccurred" class="headerlink" title="public void errorOccurred ()"></a><code>public void errorOccurred ()</code></h2><p>Method used to prevent this node that an error occurred during its execution.</p>
-<h2 id="public-void-emptyTraceback"><a href="#public-void-emptyTraceback" class="headerlink" title="public void emptyTraceback ()"></a><code>public void emptyTraceback ()</code></h2><p>Empty the traceback in the metadata</p>
-<h2 id="private-void-build"><a href="#private-void-build" class="headerlink" title="private void build ()"></a><code>private void build ()</code></h2><p>Build the json object representing the node. The json is used to send all the information of this group to any other service.</p>
+<h3 id="public-void-errorOccurred"><a href="#public-void-errorOccurred" class="headerlink" title="public void errorOccurred ()"></a>public void errorOccurred ()</h3><p>Method used to prevent this node that an error occurred during its execution.</p>
+<h3 id="public-void-emptyTraceback"><a href="#public-void-emptyTraceback" class="headerlink" title="public void emptyTraceback ()"></a>public void emptyTraceback ()</h3><p>Empty the traceback in the metadata</p>
+<h3 id="private-void-build"><a href="#private-void-build" class="headerlink" title="private void build ()"></a>private void build ()</h3><p>Build the json object representing the node. The json is used to send all the information of this group to any other service.</p>
 <p>The JSONObject contains : - id {String} - component {String} - metadata {JSONObject} - graph {String} - inports {JSONObject} - outports {JSONObject}</p>
-<h2 id="private-Port-findPort-String-name"><a href="#private-Port-findPort-String-name" class="headerlink" title="private Port findPort (String name)"></a><code>private Port findPort (String name)</code></h2><p>Get a Port from its name</p>
+<h3 id="private-Port-findPort-String-name"><a href="#private-Port-findPort-String-name" class="headerlink" title="private Port findPort (String name)"></a>private Port findPort (String name)</h3><p>Get a Port from its name</p>
 <ul>
 <li><strong>Parameters:</strong> <code>name</code> — {String} the name of the port, no matter if it’s an inport or outport</li>
 <li><strong>Returns:</strong> {Port} the port with the given name, null if not found</li>
 </ul>
-<h2 id="private-Port-findPortInGivenObject-Ports-ports-String-name"><a href="#private-Port-findPortInGivenObject-Ports-ports-String-name" class="headerlink" title="private Port findPortInGivenObject (Ports ports, String name)"></a><code>private Port findPortInGivenObject (Ports ports, String name)</code></h2><p>Get a Port with the given name in the given Ports object</p>
+<h3 id="private-Port-findPortInGivenObject-Ports-ports-String-name"><a href="#private-Port-findPortInGivenObject-Ports-ports-String-name" class="headerlink" title="private Port findPortInGivenObject (Ports ports, String name)"></a>private Port findPortInGivenObject (Ports ports, String name)</h3><p>Get a Port with the given name in the given Ports object</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>ports</code> — {Ports} the given ports where to search for the port with the given name</li>
@@ -542,12 +544,12 @@
 </li>
 <li><strong>Returns:</strong> {Port} the port found, null if not found</li>
 </ul>
-<h2 id="private-ArrayList-lt-Node-gt-nextOrPreviousNodeInFlow-Ports-ports"><a href="#private-ArrayList-lt-Node-gt-nextOrPreviousNodeInFlow-Ports-ports" class="headerlink" title="private ArrayList&lt;Node&gt; nextOrPreviousNodeInFlow (Ports ports)"></a><code>private ArrayList&lt;Node&gt; nextOrPreviousNodeInFlow (Ports ports)</code></h2><p>Give all the nodes connected to the opposite side of the edges connected to the given ports. The given ports must be either the inports of this block or the ouports.</p>
+<h3 id="private-ArrayList-nextOrPreviousNodeInFlow-Ports-ports"><a href="#private-ArrayList-nextOrPreviousNodeInFlow-Ports-ports" class="headerlink" title="private ArrayList nextOrPreviousNodeInFlow (Ports ports)"></a>private ArrayList<node> nextOrPreviousNodeInFlow (Ports ports)</node></h3><p>Give all the nodes connected to the opposite side of the edges connected to the given ports. The given ports must be either the inports of this block or the ouports.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>ports</code> — {Ports} the ports you want to get the nodes connected to the opposite of the edges</li>
 <li><strong>Returns:</strong> {ArrayList<node>} the list of nodes connected to the opposite of the edges connected to the given ports</node></li>
 </ul>
-<h2 id="private-ArrayList-lt-Node-gt-oppositeNodesForPort-Port-p-boolean-previousNode"><a href="#private-ArrayList-lt-Node-gt-oppositeNodesForPort-Port-p-boolean-previousNode" class="headerlink" title="private ArrayList&lt;Node&gt; oppositeNodesForPort(Port p, boolean previousNode)"></a><code>private ArrayList&lt;Node&gt; oppositeNodesForPort(Port p, boolean previousNode)</code></h2><p>Get the nodes connected to the opposite side of the edges connected to the given port. Choose between getting the nodes at the beginning or at the end of the edges.</p>
+<h3 id="private-ArrayList-oppositeNodesForPort-Port-p-boolean-previousNode"><a href="#private-ArrayList-oppositeNodesForPort-Port-p-boolean-previousNode" class="headerlink" title="private ArrayList oppositeNodesForPort(Port p, boolean previousNode)"></a>private ArrayList<node> oppositeNodesForPort(Port p, boolean previousNode)</node></h3><p>Get the nodes connected to the opposite side of the edges connected to the given port. Choose between getting the nodes at the beginning or at the end of the edges.</p>
 <ul>
 <li><p><strong>Parameters:</strong></p>
 <ul>
@@ -559,8 +561,8 @@
 </li>
 <li><strong>Returns:</strong> {ArrayList<node>} the list of nodes on the opposite of the port</node></li>
 </ul>
-<h2 id="private-void-sendUpdateNodeMessage"><a href="#private-void-sendUpdateNodeMessage" class="headerlink" title="private void sendUpdateNodeMessage ()"></a><code>private void sendUpdateNodeMessage ()</code></h2><p>Send an updatenode message to the UIs connected to the workspace this node is on.</p>
-<h2 id="private-void-nodeUpdated"><a href="#private-void-nodeUpdated" class="headerlink" title="private void nodeUpdated ()"></a><code>private void nodeUpdated ()</code></h2><p>React to a nodeUpdated event. The reaction is simply storing the timestamp of the last modification of this node.</p>
+<h3 id="private-void-sendUpdateNodeMessage"><a href="#private-void-sendUpdateNodeMessage" class="headerlink" title="private void sendUpdateNodeMessage ()"></a>private void sendUpdateNodeMessage ()</h3><p>Send an updatenode message to the UIs connected to the workspace this node is on.</p>
+<h3 id="private-void-nodeUpdated"><a href="#private-void-nodeUpdated" class="headerlink" title="private void nodeUpdated ()"></a>private void nodeUpdated ()</h3><p>React to a nodeUpdated event. The reaction is simply storing the timestamp of the last modification of this node.</p>
 
     </div>
   </div>

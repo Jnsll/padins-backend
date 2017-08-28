@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,41 +404,41 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-abstract-class-JupyterChannel-implements-Runnable"><a href="#public-abstract-class-JupyterChannel-implements-Runnable" class="headerlink" title="public abstract class JupyterChannel implements Runnable"></a><code>public abstract class JupyterChannel implements Runnable</code></h2><p>A Kernel uses 5 channels to communicates on both side (client/server). All this is explained here : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#</a></p>
+      <h2 id="public-abstract-class-JupyterChannel-implements-Runnable"><a href="#public-abstract-class-JupyterChannel-implements-Runnable" class="headerlink" title="public abstract class JupyterChannel implements Runnable"></a>public abstract class JupyterChannel implements Runnable</h2><p>A Kernel uses 5 channels to communicates on both side (client/server). All this is explained here : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#</a></p>
 <p>The Jupyter channel is the abstract class that implements the common behavior of all the Jupyter Channels of this program.</p>
 <p>When needed, the child classes (Heartbeat, IOPub, Shell, Control, Stdin) override the necessary methods and attributes.</p>
 <p>Created by antoine on 28/04/17.</p>
-<h2 id="public-void-run"><a href="#public-void-run" class="headerlink" title="public void run()"></a><code>public void run()</code></h2><p>Run method from Runnable interface</p>
-<h2 id="public-void-start"><a href="#public-void-start" class="headerlink" title="public void start()"></a><code>public void start()</code></h2><p>Start the thread that makes the channel working</p>
-<h2 id="public-void-stop-throws-InterruptedException"><a href="#public-void-stop-throws-InterruptedException" class="headerlink" title="public void stop() throws InterruptedException"></a><code>public void stop() throws InterruptedException</code></h2><p>Interrupt the channel by interrupting the thread</p>
-<h2 id="public-void-doLog-boolean-log"><a href="#public-void-doLog-boolean-log" class="headerlink" title="public void doLog (boolean log)"></a><code>public void doLog (boolean log)</code></h2><p>If true, the channel will log every message it receives. Otherwise, doesn’t log anything.</p>
+<h3 id="public-void-run"><a href="#public-void-run" class="headerlink" title="public void run()"></a>public void run()</h3><p>Run method from Runnable interface</p>
+<h3 id="public-void-start"><a href="#public-void-start" class="headerlink" title="public void start()"></a>public void start()</h3><p>Start the thread that makes the channel working</p>
+<h3 id="public-void-stop-throws-InterruptedException"><a href="#public-void-stop-throws-InterruptedException" class="headerlink" title="public void stop() throws InterruptedException"></a>public void stop() throws InterruptedException</h3><p>Interrupt the channel by interrupting the thread</p>
+<h3 id="public-void-doLog-boolean-log"><a href="#public-void-doLog-boolean-log" class="headerlink" title="public void doLog (boolean log)"></a>public void doLog (boolean log)</h3><p>If true, the channel will log every message it receives. Otherwise, doesn’t log anything.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>log</code> — : boolean</li>
 </ul>
-<h2 id="public-boolean-isRunning"><a href="#public-boolean-isRunning" class="headerlink" title="public boolean isRunning()"></a><code>public boolean isRunning()</code></h2><p>Is the Channel running ?</p>
+<h3 id="public-boolean-isRunning"><a href="#public-boolean-isRunning" class="headerlink" title="public boolean isRunning()"></a>public boolean isRunning()</h3><p>Is the Channel running ?</p>
 <ul>
 <li><strong>Returns:</strong> {boolean} true if still alive, false otherwise</li>
 </ul>
-<h2 id="public-void-setIdentity-String-identity"><a href="#public-void-setIdentity-String-identity" class="headerlink" title="public void setIdentity(String identity)"></a><code>public void setIdentity(String identity)</code></h2><p>Set the identity of the ZMQ socket. The identity is sent as a message preceding the other messages sent with socket.sendMore and socket.send</p>
+<h3 id="public-void-setIdentity-String-identity"><a href="#public-void-setIdentity-String-identity" class="headerlink" title="public void setIdentity(String identity)"></a>public void setIdentity(String identity)</h3><p>Set the identity of the ZMQ socket. The identity is sent as a message preceding the other messages sent with socket.sendMore and socket.send</p>
 <ul>
 <li><strong>Parameters:</strong> <code>identity</code> — : a String representing the chosen identity</li>
 </ul>
-<h2 id="public-void-doStoreHistory-boolean-b"><a href="#public-void-doStoreHistory-boolean-b" class="headerlink" title="public void doStoreHistory (boolean b)"></a><code>public void doStoreHistory (boolean b)</code></h2><p>Set the behavior of the channel about storing messages history</p>
+<h3 id="public-void-doStoreHistory-boolean-b"><a href="#public-void-doStoreHistory-boolean-b" class="headerlink" title="public void doStoreHistory (boolean b)"></a>public void doStoreHistory (boolean b)</h3><p>Set the behavior of the channel about storing messages history</p>
 <ul>
 <li><strong>Parameters:</strong> <code>b</code> — : true to store, false not to</li>
 </ul>
-<h2 id="private-void-logMessage-ArrayList-lt-String-gt-incomingMessage"><a href="#private-void-logMessage-ArrayList-lt-String-gt-incomingMessage" class="headerlink" title="private void logMessage (ArrayList&lt;String&gt; incomingMessage)"></a><code>private void logMessage (ArrayList&lt;String&gt; incomingMessage)</code></h2><ul>
+<h3 id="private-void-logMessage-ArrayList-incomingMessage"><a href="#private-void-logMessage-ArrayList-incomingMessage" class="headerlink" title="private void logMessage (ArrayList incomingMessage)"></a>private void logMessage (ArrayList<string> incomingMessage)</string></h3><ul>
 <li><strong>Parameters:</strong> <code>incomingMessage</code> — : complete Jupyter message. Look at the Jupyter doc to know more about it</li>
 </ul>
-<h2 id="private-void-handleMessage-ArrayList-lt-String-gt-incomingMessage"><a href="#private-void-handleMessage-ArrayList-lt-String-gt-incomingMessage" class="headerlink" title="private void handleMessage(ArrayList&lt;String&gt; incomingMessage)"></a><code>private void handleMessage(ArrayList&lt;String&gt; incomingMessage)</code></h2><ul>
+<h3 id="private-void-handleMessage-ArrayList-incomingMessage"><a href="#private-void-handleMessage-ArrayList-incomingMessage" class="headerlink" title="private void handleMessage(ArrayList incomingMessage)"></a>private void handleMessage(ArrayList<string> incomingMessage)</string></h3><ul>
 <li><strong>Parameters:</strong> <code>incomingMessage</code> — : the received message, look at Jupyter doc to know its format</li>
 </ul>
-<h2 id="private-boolean-isUuid-String-message"><a href="#private-boolean-isUuid-String-message" class="headerlink" title="private boolean isUuid (String message)"></a><code>private boolean isUuid (String message)</code></h2><p>Verify whether the given message is a correct UUID (Universally Unique IDentifier)</p>
+<h3 id="private-boolean-isUuid-String-message"><a href="#private-boolean-isUuid-String-message" class="headerlink" title="private boolean isUuid (String message)"></a>private boolean isUuid (String message)</h3><p>Verify whether the given message is a correct UUID (Universally Unique IDentifier)</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — {String} the message to test</li>
 <li><strong>Returns:</strong> {boolean} True if the message is a UUID, false otherwise.</li>
 </ul>
-<h2 id="protected-abstract-void-initializeThread"><a href="#protected-abstract-void-initializeThread" class="headerlink" title="protected abstract void initializeThread()"></a><code>protected abstract void initializeThread()</code></h2><p>Define a initializeThread method that should be overridden by the child classes.</p>
+<h3 id="protected-abstract-void-initializeThread"><a href="#protected-abstract-void-initializeThread" class="headerlink" title="protected abstract void initializeThread()"></a>protected abstract void initializeThread()</h3><p>Define a initializeThread method that should be overridden by the child classes.</p>
 <p>This method is called when the Thread start in order to initialize what needs to be initialized.</p>
 
     </div>

@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,17 +404,17 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="SuppressWarnings-quot-unchecked-quot-public-class-RuntimeMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler"><a href="#SuppressWarnings-quot-unchecked-quot-public-class-RuntimeMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler" class="headerlink" title="@SuppressWarnings(&quot;unchecked&quot;) public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler"></a><code>@SuppressWarnings(&quot;unchecked&quot;) public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler</code></h2><p>Class managing the Runtime Message for the Flow-Based Programming Network Protocol To know more about this protocol, take a look at the doc on J.Paul Morisson’s website : <a href="https://flowbased.github.io/fbp-protocol/#sub-protocols" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#sub-protocols</a></p>
+      <h2 id="SuppressWarnings-“unchecked”-public-class-RuntimeMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler"><a href="#SuppressWarnings-“unchecked”-public-class-RuntimeMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler" class="headerlink" title="@SuppressWarnings(“unchecked”) public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler"></a>@SuppressWarnings(“unchecked”) public class RuntimeMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler</h2><p>Class managing the Runtime Message for the Flow-Based Programming Network Protocol To know more about this protocol, take a look at the doc on J.Paul Morisson’s website : <a href="https://flowbased.github.io/fbp-protocol/#sub-protocols" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#sub-protocols</a></p>
 <p>Created by antoine on 26/05/2017.</p>
-<h2 id="public-void-handleMessage-FBPMessage-message"><a href="#public-void-handleMessage-FBPMessage-message" class="headerlink" title="public void handleMessage (FBPMessage message)"></a><code>public void handleMessage (FBPMessage message)</code></h2><p>Handle a message. It call the corresponding method for each supported type of message.</p>
+<h3 id="public-void-handleMessage-FBPMessage-message"><a href="#public-void-handleMessage-FBPMessage-message" class="headerlink" title="public void handleMessage (FBPMessage message)"></a>public void handleMessage (FBPMessage message)</h3><p>Handle a message. It call the corresponding method for each supported type of message.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — : the message to handle</li>
 </ul>
-<h2 id="private-void-getruntime"><a href="#private-void-getruntime" class="headerlink" title="private void getruntime ()"></a><code>private void getruntime ()</code></h2><p>Handle a “getruntime” message by answering with a “runtime” message.</p>
+<h3 id="private-void-getruntime"><a href="#private-void-getruntime" class="headerlink" title="private void getruntime ()"></a>private void getruntime ()</h3><p>Handle a “getruntime” message by answering with a “runtime” message.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#runtime-getruntime" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-getruntime</a></p>
-<h2 id="private-void-packet"><a href="#private-void-packet" class="headerlink" title="private void packet ()"></a><code>private void packet ()</code></h2><p>Handle a “packet” message.</p>
+<h3 id="private-void-packet"><a href="#private-void-packet" class="headerlink" title="private void packet ()"></a>private void packet ()</h3><p>Handle a “packet” message.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#runtime-packet" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-packet</a></p>
-<h2 id="private-void-sendPacketMessage-String-port-String-event-String-graph-JSONObject-payloadToSend"><a href="#private-void-sendPacketMessage-String-port-String-event-String-graph-JSONObject-payloadToSend" class="headerlink" title="private void sendPacketMessage (String port, String event, String graph, JSONObject payloadToSend)"></a><code>private void sendPacketMessage (String port, String event, String graph, JSONObject payloadToSend)</code></h2><p>Send a packet message.</p>
+<h3 id="private-void-sendPacketMessage-String-port-String-event-String-graph-JSONObject-payloadToSend"><a href="#private-void-sendPacketMessage-String-port-String-event-String-graph-JSONObject-payloadToSend" class="headerlink" title="private void sendPacketMessage (String port, String event, String graph, JSONObject payloadToSend)"></a>private void sendPacketMessage (String port, String event, String graph, JSONObject payloadToSend)</h3><p>Send a packet message.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#runtime-packet" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-packet</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -423,9 +425,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendPortsMessage"><a href="#private-void-sendPortsMessage" class="headerlink" title="private void sendPortsMessage ()"></a><code>private void sendPortsMessage ()</code></h2><p>Send a ports message as a response to packet or each time the available ports change.</p>
+<h3 id="private-void-sendPortsMessage"><a href="#private-void-sendPortsMessage" class="headerlink" title="private void sendPortsMessage ()"></a>private void sendPortsMessage ()</h3><p>Send a ports message as a response to packet or each time the available ports change.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#runtime-ports" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-ports</a></p>
-<h2 id="private-void-sendRuntimeMessage"><a href="#private-void-sendRuntimeMessage" class="headerlink" title="private void sendRuntimeMessage ()"></a><code>private void sendRuntimeMessage ()</code></h2><p>Send a “runtime” message.</p>
+<h3 id="private-void-sendRuntimeMessage"><a href="#private-void-sendRuntimeMessage" class="headerlink" title="private void sendRuntimeMessage ()"></a>private void sendRuntimeMessage ()</h3><p>Send a “runtime” message.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#runtime-runtime" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#runtime-runtime</a></p>
 
     </div>

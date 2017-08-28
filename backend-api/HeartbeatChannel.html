@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,14 +404,14 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-HeartbeatChannel-extends-JupyterChannel"><a href="#public-class-HeartbeatChannel-extends-JupyterChannel" class="headerlink" title="public class HeartbeatChannel extends JupyterChannel"></a><code>public class HeartbeatChannel extends JupyterChannel</code></h2><p>The Heartbeat channel is one of the five channel used to communicate with a Jupyter Kernel.</p>
+      <h2 id="public-class-HeartbeatChannel-extends-JupyterChannel"><a href="#public-class-HeartbeatChannel-extends-JupyterChannel" class="headerlink" title="public class HeartbeatChannel extends JupyterChannel"></a>public class HeartbeatChannel extends JupyterChannel</h2><p>The Heartbeat channel is one of the five channel used to communicate with a Jupyter Kernel.</p>
 <p>A Heartbeat is very common in Socket communication. It sends a short message, every second, for instance “ping”, to the connected server and wait for its answer.</p>
 <p>We use it in order to know if we are still connected to the server.</p>
 <p>TODO : add disconnection monitoring.</p>
 <p>Messaging in Jupyter documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html</a> Heartbeat documentation : <a href="http://jupyter-client.readthedocs.io/en/latest/messaging.html#heartbeat-for-kernels" target="_blank" rel="external">http://jupyter-client.readthedocs.io/en/latest/messaging.html#heartbeat-for-kernels</a></p>
 <p>EXTENDS JupyterChannel : the abstract class implementing the default behavior of a Jupyter channel.</p>
 <p>Created by antoine on 03/05/17.</p>
-<h2 id="Override-public-void-run"><a href="#Override-public-void-run" class="headerlink" title="@Override public void run()"></a><code>@Override public void run()</code></h2><p>Run methods from Runnable interface</p>
+<h3 id="Override-public-void-run"><a href="#Override-public-void-run" class="headerlink" title="@Override public void run()"></a>@Override public void run()</h3><p>Run methods from Runnable interface</p>
 
     </div>
   </div>

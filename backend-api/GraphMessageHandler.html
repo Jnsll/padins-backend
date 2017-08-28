@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,111 +404,111 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="SuppressWarnings-quot-unchecked-quot-public-class-GraphMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler"><a href="#SuppressWarnings-quot-unchecked-quot-public-class-GraphMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler" class="headerlink" title="@SuppressWarnings(&quot;unchecked&quot;) public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler"></a><code>@SuppressWarnings(&quot;unchecked&quot;) public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler</code></h2><p>Class managing the Graph Message for the Flow-Based Programming Network Protocol To know more about this protocol, take a look at the doc on J.Paul Morisson’s website : <a href="https://flowbased.github.io/fbp-protocol/#sub-protocols" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#sub-protocols</a></p>
+      <h2 id="SuppressWarnings-“unchecked”-public-class-GraphMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler"><a href="#SuppressWarnings-“unchecked”-public-class-GraphMessageHandler-extends-SendMessageOverFBP-implements-FBPProtocolHandler" class="headerlink" title="@SuppressWarnings(“unchecked”) public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler"></a>@SuppressWarnings(“unchecked”) public class GraphMessageHandler extends SendMessageOverFBP implements FBPProtocolHandler</h2><p>Class managing the Graph Message for the Flow-Based Programming Network Protocol To know more about this protocol, take a look at the doc on J.Paul Morisson’s website : <a href="https://flowbased.github.io/fbp-protocol/#sub-protocols" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#sub-protocols</a></p>
 <p>Created by antoine on 26/05/2017.</p>
-<h2 id="public-void-handleMessage-FBPMessage-message"><a href="#public-void-handleMessage-FBPMessage-message" class="headerlink" title="public void handleMessage (FBPMessage message)"></a><code>public void handleMessage (FBPMessage message)</code></h2><p>Handle a message. It call the corresponding method for each supported type of message.</p>
+<h3 id="public-void-handleMessage-FBPMessage-message"><a href="#public-void-handleMessage-FBPMessage-message" class="headerlink" title="public void handleMessage (FBPMessage message)"></a>public void handleMessage (FBPMessage message)</h3><p>Handle a message. It call the corresponding method for each supported type of message.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>message</code> — : the message to handle</li>
 </ul>
-<h2 id="private-void-clear"><a href="#private-void-clear" class="headerlink" title="private void clear ()"></a><code>private void clear ()</code></h2><p>Clear the content of the graph. <a href="https://flowbased.github.io/fbp-protocol/#graph-clear" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-clear</a></p>
-<h2 id="private-void-addnode-JSONObject-payload"><a href="#private-void-addnode-JSONObject-payload" class="headerlink" title="private void addnode (JSONObject payload)"></a><code>private void addnode (JSONObject payload)</code></h2><p>Handle a “addnode” message by adding a new Node object into the list of nodes in the Flow object.</p>
+<h3 id="private-void-clear"><a href="#private-void-clear" class="headerlink" title="private void clear ()"></a>private void clear ()</h3><p>Clear the content of the graph. <a href="https://flowbased.github.io/fbp-protocol/#graph-clear" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-clear</a></p>
+<h3 id="private-void-addnode-JSONObject-payload"><a href="#private-void-addnode-JSONObject-payload" class="headerlink" title="private void addnode (JSONObject payload)"></a>private void addnode (JSONObject payload)</h3><p>Handle a “addnode” message by adding a new Node object into the list of nodes in the Flow object.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addnode" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addnode</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-removenode-JSONObject-payload"><a href="#private-void-removenode-JSONObject-payload" class="headerlink" title="private void removenode (JSONObject payload)"></a><code>private void removenode (JSONObject payload)</code></h2><p>Handle a “removenode” message by removing the Node object with the given id, from the Flow object.</p>
+<h3 id="private-void-removenode-JSONObject-payload"><a href="#private-void-removenode-JSONObject-payload" class="headerlink" title="private void removenode (JSONObject payload)"></a>private void removenode (JSONObject payload)</h3><p>Handle a “removenode” message by removing the Node object with the given id, from the Flow object.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removenode" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removenode</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-renamenode-JSONObject-payload"><a href="#private-void-renamenode-JSONObject-payload" class="headerlink" title="private void renamenode (JSONObject payload)"></a><code>private void renamenode (JSONObject payload)</code></h2><p>Handle a “renamenode” message by changing its id.</p>
+<h3 id="private-void-renamenode-JSONObject-payload"><a href="#private-void-renamenode-JSONObject-payload" class="headerlink" title="private void renamenode (JSONObject payload)"></a>private void renamenode (JSONObject payload)</h3><p>Handle a “renamenode” message by changing its id.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-renamenode" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-renamenode</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-changenode-JSONObject-payload"><a href="#private-void-changenode-JSONObject-payload" class="headerlink" title="private void changenode (JSONObject payload)"></a><code>private void changenode (JSONObject payload)</code></h2><p>Handle a “changenode” message by updating the metadata field of the Node object with the given id, from the Flow object.</p>
+<h3 id="private-void-changenode-JSONObject-payload"><a href="#private-void-changenode-JSONObject-payload" class="headerlink" title="private void changenode (JSONObject payload)"></a>private void changenode (JSONObject payload)</h3><p>Handle a “changenode” message by updating the metadata field of the Node object with the given id, from the Flow object.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-changenode" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-changenode</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-addedge-JSONObject-payload"><a href="#private-void-addedge-JSONObject-payload" class="headerlink" title="private void addedge (JSONObject payload)"></a><code>private void addedge (JSONObject payload)</code></h2><p>Handle a “addedge” message by adding a new Edge object into the Flow. The edge is created from the data we retrieve in the given payload object, in accordance to the FBPNP documentation.</p>
+<h3 id="private-void-addedge-JSONObject-payload"><a href="#private-void-addedge-JSONObject-payload" class="headerlink" title="private void addedge (JSONObject payload)"></a>private void addedge (JSONObject payload)</h3><p>Handle a “addedge” message by adding a new Edge object into the Flow. The edge is created from the data we retrieve in the given payload object, in accordance to the FBPNP documentation.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addedge" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addedge</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-removeedge-JSONObject-payload"><a href="#private-void-removeedge-JSONObject-payload" class="headerlink" title="private void removeedge (JSONObject payload)"></a><code>private void removeedge (JSONObject payload)</code></h2><p>Handle a “removeedge” message by removing the Edge object with the given id, from the Flow object.</p>
+<h3 id="private-void-removeedge-JSONObject-payload"><a href="#private-void-removeedge-JSONObject-payload" class="headerlink" title="private void removeedge (JSONObject payload)"></a>private void removeedge (JSONObject payload)</h3><p>Handle a “removeedge” message by removing the Edge object with the given id, from the Flow object.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removeedge" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removeedge</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-changeedge-JSONObject-payload"><a href="#private-void-changeedge-JSONObject-payload" class="headerlink" title="private void changeedge (JSONObject payload)"></a><code>private void changeedge (JSONObject payload)</code></h2><p>Handle a “changeedge” message by updating the metadata field of the Edge object with the given id, from the Flow object.</p>
+<h3 id="private-void-changeedge-JSONObject-payload"><a href="#private-void-changeedge-JSONObject-payload" class="headerlink" title="private void changeedge (JSONObject payload)"></a>private void changeedge (JSONObject payload)</h3><p>Handle a “changeedge” message by updating the metadata field of the Edge object with the given id, from the Flow object.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-changeedge" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-changeedge</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-addinitial-JSONObject-payload"><a href="#private-void-addinitial-JSONObject-payload" class="headerlink" title="private void addinitial (JSONObject payload)"></a><code>private void addinitial (JSONObject payload)</code></h2><p>Handle a “addinitial” message. Don’t do anything for now.</p>
+<h3 id="private-void-addinitial-JSONObject-payload"><a href="#private-void-addinitial-JSONObject-payload" class="headerlink" title="private void addinitial (JSONObject payload)"></a>private void addinitial (JSONObject payload)</h3><p>Handle a “addinitial” message. Don’t do anything for now.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addinitial" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addinitial</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-removeinitial-JSONObject-payload"><a href="#private-void-removeinitial-JSONObject-payload" class="headerlink" title="private void removeinitial (JSONObject payload)"></a><code>private void removeinitial (JSONObject payload)</code></h2><p>Handle a “removeinitial” message. Don’t do anything for now.</p>
+<h3 id="private-void-removeinitial-JSONObject-payload"><a href="#private-void-removeinitial-JSONObject-payload" class="headerlink" title="private void removeinitial (JSONObject payload)"></a>private void removeinitial (JSONObject payload)</h3><p>Handle a “removeinitial” message. Don’t do anything for now.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removeinitial" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removeinitial</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-addinport-JSONObject-payload"><a href="#private-void-addinport-JSONObject-payload" class="headerlink" title="private void addinport (JSONObject payload)"></a><code>private void addinport (JSONObject payload)</code></h2><p>Handle a “addinport” message. Don’t do anything for now.</p>
+<h3 id="private-void-addinport-JSONObject-payload"><a href="#private-void-addinport-JSONObject-payload" class="headerlink" title="private void addinport (JSONObject payload)"></a>private void addinport (JSONObject payload)</h3><p>Handle a “addinport” message. Don’t do anything for now.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addinport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addinport</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-removeinport-JSONObject-payload"><a href="#private-void-removeinport-JSONObject-payload" class="headerlink" title="private void removeinport (JSONObject payload)"></a><code>private void removeinport (JSONObject payload)</code></h2><p>Handle a “removeinport” message. Don’t do anything for now.</p>
+<h3 id="private-void-removeinport-JSONObject-payload"><a href="#private-void-removeinport-JSONObject-payload" class="headerlink" title="private void removeinport (JSONObject payload)"></a>private void removeinport (JSONObject payload)</h3><p>Handle a “removeinport” message. Don’t do anything for now.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removeinport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removeinport</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-renameinport-JSONObject-payload"><a href="#private-void-renameinport-JSONObject-payload" class="headerlink" title="private void renameinport (JSONObject payload)"></a><code>private void renameinport (JSONObject payload)</code></h2><p>Handle a “renameinport” message. Don’t do anything for now.</p>
+<h3 id="private-void-renameinport-JSONObject-payload"><a href="#private-void-renameinport-JSONObject-payload" class="headerlink" title="private void renameinport (JSONObject payload)"></a>private void renameinport (JSONObject payload)</h3><p>Handle a “renameinport” message. Don’t do anything for now.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-renameinport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-renameinport</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-addoutport-JSONObject-payload"><a href="#private-void-addoutport-JSONObject-payload" class="headerlink" title="private void addoutport (JSONObject payload)"></a><code>private void addoutport (JSONObject payload)</code></h2><p>Handle a “addoutport” message. Don’t do anything for now.</p>
+<h3 id="private-void-addoutport-JSONObject-payload"><a href="#private-void-addoutport-JSONObject-payload" class="headerlink" title="private void addoutport (JSONObject payload)"></a>private void addoutport (JSONObject payload)</h3><p>Handle a “addoutport” message. Don’t do anything for now.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addoutport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addoutport</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-removeoutport-JSONObject-payload"><a href="#private-void-removeoutport-JSONObject-payload" class="headerlink" title="private void removeoutport (JSONObject payload)"></a><code>private void removeoutport (JSONObject payload)</code></h2><p>Handle a “removeoutport” message. Don’t do anything for now.</p>
+<h3 id="private-void-removeoutport-JSONObject-payload"><a href="#private-void-removeoutport-JSONObject-payload" class="headerlink" title="private void removeoutport (JSONObject payload)"></a>private void removeoutport (JSONObject payload)</h3><p>Handle a “removeoutport” message. Don’t do anything for now.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removeoutport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removeoutport</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-renameoutport-JSONObject-payload"><a href="#private-void-renameoutport-JSONObject-payload" class="headerlink" title="private void renameoutport (JSONObject payload)"></a><code>private void renameoutport (JSONObject payload)</code></h2><p>Handle a “renameoutport” message. Don’t do anything for now.</p>
+<h3 id="private-void-renameoutport-JSONObject-payload"><a href="#private-void-renameoutport-JSONObject-payload" class="headerlink" title="private void renameoutport (JSONObject payload)"></a>private void renameoutport (JSONObject payload)</h3><p>Handle a “renameoutport” message. Don’t do anything for now.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-renameoutport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-renameoutport</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-addgroup-JSONObject-payload"><a href="#private-void-addgroup-JSONObject-payload" class="headerlink" title="private void addgroup (JSONObject payload)"></a><code>private void addgroup (JSONObject payload)</code></h2><p>Handle a “addgroup” message by adding a group to the graph.</p>
+<h3 id="private-void-addgroup-JSONObject-payload"><a href="#private-void-addgroup-JSONObject-payload" class="headerlink" title="private void addgroup (JSONObject payload)"></a>private void addgroup (JSONObject payload)</h3><p>Handle a “addgroup” message by adding a group to the graph.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addgroup" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addgroup</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-removegroup-JSONObject-payload"><a href="#private-void-removegroup-JSONObject-payload" class="headerlink" title="private void removegroup (JSONObject payload)"></a><code>private void removegroup (JSONObject payload)</code></h2><p>Handle a “removegroup” message by removing a group from the graph.</p>
+<h3 id="private-void-removegroup-JSONObject-payload"><a href="#private-void-removegroup-JSONObject-payload" class="headerlink" title="private void removegroup (JSONObject payload)"></a>private void removegroup (JSONObject payload)</h3><p>Handle a “removegroup” message by removing a group from the graph.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removegroup" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removegroup</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-renamegroup-JSONObject-payload"><a href="#private-void-renamegroup-JSONObject-payload" class="headerlink" title="private void renamegroup (JSONObject payload)"></a><code>private void renamegroup (JSONObject payload)</code></h2><p>Handle a “renamegroup” message by renaming an existing group from the graph.</p>
+<h3 id="private-void-renamegroup-JSONObject-payload"><a href="#private-void-renamegroup-JSONObject-payload" class="headerlink" title="private void renamegroup (JSONObject payload)"></a>private void renamegroup (JSONObject payload)</h3><p>Handle a “renamegroup” message by renaming an existing group from the graph.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-renamegroup" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-renamegroup</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-changegroup-JSONObject-payload"><a href="#private-void-changegroup-JSONObject-payload" class="headerlink" title="private void changegroup (JSONObject payload)"></a><code>private void changegroup (JSONObject payload)</code></h2><p>Handle a “changegroup” message by updating its metadata.</p>
+<h3 id="private-void-changegroup-JSONObject-payload"><a href="#private-void-changegroup-JSONObject-payload" class="headerlink" title="private void changegroup (JSONObject payload)"></a>private void changegroup (JSONObject payload)</h3><p>Handle a “changegroup” message by updating its metadata.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-changegroup" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-changegroup</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>payload</code> — {JSONObject} the payload from the received message</li>
 </ul>
-<h2 id="private-void-sendClearMessage"><a href="#private-void-sendClearMessage" class="headerlink" title="private void sendClearMessage ()"></a><code>private void sendClearMessage ()</code></h2><p>Send a “clear” message on the graph protocol</p>
+<h3 id="private-void-sendClearMessage"><a href="#private-void-sendClearMessage" class="headerlink" title="private void sendClearMessage ()"></a>private void sendClearMessage ()</h3><p>Send a “clear” message on the graph protocol</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-clear" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-clear</a></p>
-<h2 id="private-void-sendAddNodeMessage-String-id-String-graph"><a href="#private-void-sendAddNodeMessage-String-id-String-graph" class="headerlink" title="private void sendAddNodeMessage (String id, String graph)"></a><code>private void sendAddNodeMessage (String id, String graph)</code></h2><p>Send a “addnode” message for the Node with the given id in the given graph.</p>
+<h3 id="private-void-sendAddNodeMessage-String-id-String-graph"><a href="#private-void-sendAddNodeMessage-String-id-String-graph" class="headerlink" title="private void sendAddNodeMessage (String id, String graph)"></a>private void sendAddNodeMessage (String id, String graph)</h3><p>Send a “addnode” message for the Node with the given id in the given graph.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addnode" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addnode</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -515,7 +517,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendRemoveNodeMessage-String-id-String-graph"><a href="#private-void-sendRemoveNodeMessage-String-id-String-graph" class="headerlink" title="private void sendRemoveNodeMessage (String id, String graph)"></a><code>private void sendRemoveNodeMessage (String id, String graph)</code></h2><p>Send a “removenode” message in order to remove the node with the given id from the graph.</p>
+<h3 id="private-void-sendRemoveNodeMessage-String-id-String-graph"><a href="#private-void-sendRemoveNodeMessage-String-id-String-graph" class="headerlink" title="private void sendRemoveNodeMessage (String id, String graph)"></a>private void sendRemoveNodeMessage (String id, String graph)</h3><p>Send a “removenode” message in order to remove the node with the given id from the graph.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removenode" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removenode</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -524,7 +526,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendRenameNodeMessage-String-from-String-to-String-graph"><a href="#private-void-sendRenameNodeMessage-String-from-String-to-String-graph" class="headerlink" title="private void sendRenameNodeMessage (String from, String to, String graph)"></a><code>private void sendRenameNodeMessage (String from, String to, String graph)</code></h2><p>Send a “renamenode” message in order to replace the node with the new given id.</p>
+<h3 id="private-void-sendRenameNodeMessage-String-from-String-to-String-graph"><a href="#private-void-sendRenameNodeMessage-String-from-String-to-String-graph" class="headerlink" title="private void sendRenameNodeMessage (String from, String to, String graph)"></a>private void sendRenameNodeMessage (String from, String to, String graph)</h3><p>Send a “renamenode” message in order to replace the node with the new given id.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-renamenode" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-renamenode</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -534,7 +536,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendChangeNodeMessage-String-id-String-graph"><a href="#private-void-sendChangeNodeMessage-String-id-String-graph" class="headerlink" title="private void sendChangeNodeMessage (String id, String graph)"></a><code>private void sendChangeNodeMessage (String id, String graph)</code></h2><p>Send a “changenode” message in order to update its metadata.</p>
+<h3 id="private-void-sendChangeNodeMessage-String-id-String-graph"><a href="#private-void-sendChangeNodeMessage-String-id-String-graph" class="headerlink" title="private void sendChangeNodeMessage (String id, String graph)"></a>private void sendChangeNodeMessage (String id, String graph)</h3><p>Send a “changenode” message in order to update its metadata.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-changenode" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-changenode</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -543,7 +545,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendAddEdgeMessage-JSONObject-src-JSONObject-tgt-String-graph"><a href="#private-void-sendAddEdgeMessage-JSONObject-src-JSONObject-tgt-String-graph" class="headerlink" title="private void sendAddEdgeMessage (JSONObject src, JSONObject tgt, String graph)"></a><code>private void sendAddEdgeMessage (JSONObject src, JSONObject tgt, String graph)</code></h2><p>Send a “addedge” message in order to create a new edge that connects two existing nodes.</p>
+<h3 id="private-void-sendAddEdgeMessage-JSONObject-src-JSONObject-tgt-String-graph"><a href="#private-void-sendAddEdgeMessage-JSONObject-src-JSONObject-tgt-String-graph" class="headerlink" title="private void sendAddEdgeMessage (JSONObject src, JSONObject tgt, String graph)"></a>private void sendAddEdgeMessage (JSONObject src, JSONObject tgt, String graph)</h3><p>Send a “addedge” message in order to create a new edge that connects two existing nodes.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addedge" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addedge</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -553,7 +555,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendRemoveEdgeMessage-String-id-String-graph-JSONObject-src-JSONObject-tgt"><a href="#private-void-sendRemoveEdgeMessage-String-id-String-graph-JSONObject-src-JSONObject-tgt" class="headerlink" title="private void sendRemoveEdgeMessage (String id, String graph, JSONObject src, JSONObject tgt)"></a><code>private void sendRemoveEdgeMessage (String id, String graph, JSONObject src, JSONObject tgt)</code></h2><p>Send a “removeedge” message in order to remove the edge from the graph.</p>
+<h3 id="private-void-sendRemoveEdgeMessage-String-id-String-graph-JSONObject-src-JSONObject-tgt"><a href="#private-void-sendRemoveEdgeMessage-String-id-String-graph-JSONObject-src-JSONObject-tgt" class="headerlink" title="private void sendRemoveEdgeMessage (String id, String graph, JSONObject src, JSONObject tgt)"></a>private void sendRemoveEdgeMessage (String id, String graph, JSONObject src, JSONObject tgt)</h3><p>Send a “removeedge” message in order to remove the edge from the graph.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removeedge" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removeedge</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -564,7 +566,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendChangeEdgeMessage-String-graph-JSONObject-src-JSONObject-tgt"><a href="#private-void-sendChangeEdgeMessage-String-graph-JSONObject-src-JSONObject-tgt" class="headerlink" title="private void sendChangeEdgeMessage (String graph, JSONObject src, JSONObject tgt)"></a><code>private void sendChangeEdgeMessage (String graph, JSONObject src, JSONObject tgt)</code></h2><p>Send a “changeedge” message in order to connect an edge update its metadata.</p>
+<h3 id="private-void-sendChangeEdgeMessage-String-graph-JSONObject-src-JSONObject-tgt"><a href="#private-void-sendChangeEdgeMessage-String-graph-JSONObject-src-JSONObject-tgt" class="headerlink" title="private void sendChangeEdgeMessage (String graph, JSONObject src, JSONObject tgt)"></a>private void sendChangeEdgeMessage (String graph, JSONObject src, JSONObject tgt)</h3><p>Send a “changeedge” message in order to connect an edge update its metadata.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-changeedge" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-changeedge</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -574,17 +576,17 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendAddInitialMessage-JSONObject-msg"><a href="#private-void-sendAddInitialMessage-JSONObject-msg" class="headerlink" title="private void sendAddInitialMessage (JSONObject msg)"></a><code>private void sendAddInitialMessage (JSONObject msg)</code></h2><p>Send a “addinitial” message. Behavior and interest to find …</p>
+<h3 id="private-void-sendAddInitialMessage-JSONObject-msg"><a href="#private-void-sendAddInitialMessage-JSONObject-msg" class="headerlink" title="private void sendAddInitialMessage (JSONObject msg)"></a>private void sendAddInitialMessage (JSONObject msg)</h3><p>Send a “addinitial” message. Behavior and interest to find …</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addinitial" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addinitial</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>msg</code> — {JSONObject} the msg to send</li>
 </ul>
-<h2 id="private-void-sendRemoveInitialMessage-JSONObject-msg"><a href="#private-void-sendRemoveInitialMessage-JSONObject-msg" class="headerlink" title="private void sendRemoveInitialMessage (JSONObject msg)"></a><code>private void sendRemoveInitialMessage (JSONObject msg)</code></h2><p>Send a “removeinitial” message. Behavior and interest to find …</p>
+<h3 id="private-void-sendRemoveInitialMessage-JSONObject-msg"><a href="#private-void-sendRemoveInitialMessage-JSONObject-msg" class="headerlink" title="private void sendRemoveInitialMessage (JSONObject msg)"></a>private void sendRemoveInitialMessage (JSONObject msg)</h3><p>Send a “removeinitial” message. Behavior and interest to find …</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removeinitial" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removeinitial</a></p>
 <ul>
 <li><strong>Parameters:</strong> <code>msg</code> — {JSONObject} the msg to send</li>
 </ul>
-<h2 id="private-void-sendAddInportMessage-Port-port-String-node-String-graph"><a href="#private-void-sendAddInportMessage-Port-port-String-node-String-graph" class="headerlink" title="private void sendAddInportMessage (Port port, String node, String graph)"></a><code>private void sendAddInportMessage (Port port, String node, String graph)</code></h2><p>Send a “addinport” message.</p>
+<h3 id="private-void-sendAddInportMessage-Port-port-String-node-String-graph"><a href="#private-void-sendAddInportMessage-Port-port-String-node-String-graph" class="headerlink" title="private void sendAddInportMessage (Port port, String node, String graph)"></a>private void sendAddInportMessage (Port port, String node, String graph)</h3><p>Send a “addinport” message.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addinport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addinport</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -594,7 +596,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendRemoveInportMessage-String-name-String-graph"><a href="#private-void-sendRemoveInportMessage-String-name-String-graph" class="headerlink" title="private void sendRemoveInportMessage (String name, String graph)"></a><code>private void sendRemoveInportMessage (String name, String graph)</code></h2><p>Send a “removeinport” message.</p>
+<h3 id="private-void-sendRemoveInportMessage-String-name-String-graph"><a href="#private-void-sendRemoveInportMessage-String-name-String-graph" class="headerlink" title="private void sendRemoveInportMessage (String name, String graph)"></a>private void sendRemoveInportMessage (String name, String graph)</h3><p>Send a “removeinport” message.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removeinport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removeinport</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -603,7 +605,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendRenameInportMessage-String-from-String-to-String-graph"><a href="#private-void-sendRenameInportMessage-String-from-String-to-String-graph" class="headerlink" title="private void sendRenameInportMessage (String from, String to, String graph)"></a><code>private void sendRenameInportMessage (String from, String to, String graph)</code></h2><p>Send a “renameinport” message.</p>
+<h3 id="private-void-sendRenameInportMessage-String-from-String-to-String-graph"><a href="#private-void-sendRenameInportMessage-String-from-String-to-String-graph" class="headerlink" title="private void sendRenameInportMessage (String from, String to, String graph)"></a>private void sendRenameInportMessage (String from, String to, String graph)</h3><p>Send a “renameinport” message.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-renameinport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-renameinport</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -613,7 +615,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendAddOutportMessage-Port-port-String-node-String-graph"><a href="#private-void-sendAddOutportMessage-Port-port-String-node-String-graph" class="headerlink" title="private void sendAddOutportMessage (Port port, String node, String graph)"></a><code>private void sendAddOutportMessage (Port port, String node, String graph)</code></h2><p>Send a “addoutport” message.</p>
+<h3 id="private-void-sendAddOutportMessage-Port-port-String-node-String-graph"><a href="#private-void-sendAddOutportMessage-Port-port-String-node-String-graph" class="headerlink" title="private void sendAddOutportMessage (Port port, String node, String graph)"></a>private void sendAddOutportMessage (Port port, String node, String graph)</h3><p>Send a “addoutport” message.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addoutport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addoutport</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -623,7 +625,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendRemoveOutportMessage-String-name-String-graph"><a href="#private-void-sendRemoveOutportMessage-String-name-String-graph" class="headerlink" title="private void sendRemoveOutportMessage (String name, String graph)"></a><code>private void sendRemoveOutportMessage (String name, String graph)</code></h2><p>Send a “removeoutport” message. Remove an exported port in the graph.</p>
+<h3 id="private-void-sendRemoveOutportMessage-String-name-String-graph"><a href="#private-void-sendRemoveOutportMessage-String-name-String-graph" class="headerlink" title="private void sendRemoveOutportMessage (String name, String graph)"></a>private void sendRemoveOutportMessage (String name, String graph)</h3><p>Send a “removeoutport” message. Remove an exported port in the graph.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removeoutport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removeoutport</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -632,7 +634,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendRenameOutportMessage-String-from-String-to-String-graph"><a href="#private-void-sendRenameOutportMessage-String-from-String-to-String-graph" class="headerlink" title="private void sendRenameOutportMessage (String from, String to, String graph)"></a><code>private void sendRenameOutportMessage (String from, String to, String graph)</code></h2><p>Send a “renameoutport” message. Rename an exported port in the graph.</p>
+<h3 id="private-void-sendRenameOutportMessage-String-from-String-to-String-graph"><a href="#private-void-sendRenameOutportMessage-String-from-String-to-String-graph" class="headerlink" title="private void sendRenameOutportMessage (String from, String to, String graph)"></a>private void sendRenameOutportMessage (String from, String to, String graph)</h3><p>Send a “renameoutport” message. Rename an exported port in the graph.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-renameoutport" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-renameoutport</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -642,7 +644,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendAddGroupMessage-String-name-String-graph"><a href="#private-void-sendAddGroupMessage-String-name-String-graph" class="headerlink" title="private void sendAddGroupMessage (String name, String graph)"></a><code>private void sendAddGroupMessage (String name, String graph)</code></h2><p>Send a “addgroup” message. Add a group to the graph</p>
+<h3 id="private-void-sendAddGroupMessage-String-name-String-graph"><a href="#private-void-sendAddGroupMessage-String-name-String-graph" class="headerlink" title="private void sendAddGroupMessage (String name, String graph)"></a>private void sendAddGroupMessage (String name, String graph)</h3><p>Send a “addgroup” message. Add a group to the graph</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-addgroup" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-addgroup</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -651,7 +653,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendRemoveGroupMessage-String-name-String-graph"><a href="#private-void-sendRemoveGroupMessage-String-name-String-graph" class="headerlink" title="private void sendRemoveGroupMessage (String name, String graph)"></a><code>private void sendRemoveGroupMessage (String name, String graph)</code></h2><p>Send a “removegroup” message. Remove a group from the graph</p>
+<h3 id="private-void-sendRemoveGroupMessage-String-name-String-graph"><a href="#private-void-sendRemoveGroupMessage-String-name-String-graph" class="headerlink" title="private void sendRemoveGroupMessage (String name, String graph)"></a>private void sendRemoveGroupMessage (String name, String graph)</h3><p>Send a “removegroup” message. Remove a group from the graph</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-removegroup" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-removegroup</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -660,7 +662,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendRenameGroupMessage-String-from-String-to-String-graph"><a href="#private-void-sendRenameGroupMessage-String-from-String-to-String-graph" class="headerlink" title="private void sendRenameGroupMessage (String from, String to, String graph)"></a><code>private void sendRenameGroupMessage (String from, String to, String graph)</code></h2><p>Send a “removegroup” message. Rename a group in the graph</p>
+<h3 id="private-void-sendRenameGroupMessage-String-from-String-to-String-graph"><a href="#private-void-sendRenameGroupMessage-String-from-String-to-String-graph" class="headerlink" title="private void sendRenameGroupMessage (String from, String to, String graph)"></a>private void sendRenameGroupMessage (String from, String to, String graph)</h3><p>Send a “removegroup” message. Rename a group in the graph</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-renamegroup" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-renamegroup</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -670,7 +672,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendChangeGroupMessage-String-name-String-graph"><a href="#private-void-sendChangeGroupMessage-String-name-String-graph" class="headerlink" title="private void sendChangeGroupMessage (String name, String graph)"></a><code>private void sendChangeGroupMessage (String name, String graph)</code></h2><p>Send a “changegroup” message. Change a group’s metadata.</p>
+<h3 id="private-void-sendChangeGroupMessage-String-name-String-graph"><a href="#private-void-sendChangeGroupMessage-String-name-String-graph" class="headerlink" title="private void sendChangeGroupMessage (String name, String graph)"></a>private void sendChangeGroupMessage (String name, String graph)</h3><p>Send a “changegroup” message. Change a group’s metadata.</p>
 <p><a href="https://flowbased.github.io/fbp-protocol/#graph-changegroup" target="_blank" rel="external">https://flowbased.github.io/fbp-protocol/#graph-changegroup</a></p>
 <ul>
 <li><strong>Parameters:</strong><ul>
@@ -679,7 +681,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="private-void-sendAddInportAndOutportForNode-Node-node-String-graph"><a href="#private-void-sendAddInportAndOutportForNode-Node-node-String-graph" class="headerlink" title="private void sendAddInportAndOutportForNode (Node node, String graph)"></a><code>private void sendAddInportAndOutportForNode (Node node, String graph)</code></h2><p>Send addinport and addoutport message for the given node.</p>
+<h3 id="private-void-sendAddInportAndOutportForNode-Node-node-String-graph"><a href="#private-void-sendAddInportAndOutportForNode-Node-node-String-graph" class="headerlink" title="private void sendAddInportAndOutportForNode (Node node, String graph)"></a>private void sendAddInportAndOutportForNode (Node node, String graph)</h3><p>Send addinport and addoutport message for the given node.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>node</code> — {Node}</li>

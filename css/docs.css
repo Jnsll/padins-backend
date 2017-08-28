@@ -4,7 +4,8 @@
   width: 100%;
   height: 40px;
   padding: 10px 60px;
-  border-bottom: 1px solid #efefef; }
+  border-bottom: 1px solid #efefef;
+  background-color: white; }
   .menu > .logo > a {
     text-align: left;
     font-size: 24px;
@@ -155,14 +156,24 @@ h1 {
   line-height: 50px;
   font-size: 34px;
   font-weight: 800;
-  color: #333333; }
+  color: #34495e; }
 
 h2 {
-  font-size: 20px;
-  font-weight: 600;
-  color: #333333;
+  font-size: 22px;
+  font-weight: bold;
+  color: #34495e;
   margin-bottom: 20px;
   margin-top: 30px; }
+
+h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #34495e;
+  margin-bottom: 20px;
+  margin-top: 90px; }
+  h3::before {
+    content: "# ";
+    color: #10CF93; }
 
 p, ul li {
   color: #444444;

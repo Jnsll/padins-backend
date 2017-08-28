@@ -18,6 +18,8 @@
       
       <li> <a href='/padins-backend/backend-api/index.html'> Backend API </a> </li>
       
+      <li> <a href='/padins-backend/frontend-api/index.html'> Frontend API </a> </li>
+      
     </ul>
   </div>
   <div class='sidebar'>
@@ -402,23 +404,23 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Backend API</h1>
-      <h1 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h1><h2 id="public-class-Flow-implements-FlowInterface"><a href="#public-class-Flow-implements-FlowInterface" class="headerlink" title="public class Flow implements FlowInterface"></a><code>public class Flow implements FlowInterface</code></h2><p>The Flow is the main data structure of the project.</p>
+      <h2 id="public-class-Flow-implements-FlowInterface"><a href="#public-class-Flow-implements-FlowInterface" class="headerlink" title="public class Flow implements FlowInterface"></a>public class Flow implements FlowInterface</h2><p>The Flow is the main data structure of the project.</p>
 <p>It contains the graph, that is the ensemble of elements that describe the process that the user wants to execute/simulate. This process is composed of nodes, connected with edges.</p>
 <p>The flow also contains groups, that are some subgraph of the graph. They are used to let the user simulate some part of the graph instead of everything.</p>
 <p>Beside that, the flow contains the library of components available.</p>
 <p>We represent and store the flow as a JSON file. The web interface uses it, and only it, to create the view.</p>
 <p>Created by antoine on 26/05/2017.</p>
-<h2 id="public-Flow-JSONObject-source-Workspace-workspace"><a href="#public-Flow-JSONObject-source-Workspace-workspace" class="headerlink" title="public Flow (JSONObject source, Workspace workspace)"></a><code>public Flow (JSONObject source, Workspace workspace)</code></h2><p>Use case : after server restart, re-create workspaces’ flows from the saved JSON files.</p>
+<h3 id="public-Flow-JSONObject-source-Workspace-workspace"><a href="#public-Flow-JSONObject-source-Workspace-workspace" class="headerlink" title="public Flow (JSONObject source, Workspace workspace)"></a>public Flow (JSONObject source, Workspace workspace)</h3><p>Use case : after server restart, re-create workspaces’ flows from the saved JSON files.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>source</code> — : the parsed file</li>
 </ul>
-<h2 id="public-String-serialize"><a href="#public-String-serialize" class="headerlink" title="public String serialize ()"></a><code>public String serialize ()</code></h2><p>Serialize the Flow as a JSON and return it</p>
+<h3 id="public-String-serialize"><a href="#public-String-serialize" class="headerlink" title="public String serialize ()"></a>public String serialize ()</h3><p>Serialize the Flow as a JSON and return it</p>
 <ul>
 <li><strong>Returns:</strong> a JSON representation of the flow</li>
 </ul>
-<h2 id="private-void-buildObject"><a href="#private-void-buildObject" class="headerlink" title="private void buildObject()"></a><code>private void buildObject()</code></h2><p>Build the Json object with the following structure</p>
+<h3 id="private-void-buildObject"><a href="#private-void-buildObject" class="headerlink" title="private void buildObject()"></a>private void buildObject()</h3><p>Build the Json object with the following structure</p>
 <p>{ ‘id’: string, ‘name’: string, ‘library’: string, ‘description’: string, ‘edges’: Edge[], ‘nodes’: Node[], ‘groups’: Group[] }</p>
-<h2 id="public-boolean-addNode-String-id-String-component-JSONObject-metadata-String-graph-boolean-executable"><a href="#public-boolean-addNode-String-id-String-component-JSONObject-metadata-String-graph-boolean-executable" class="headerlink" title="public boolean addNode(String id, String component, JSONObject metadata, String graph, boolean executable)"></a><code>public boolean addNode(String id, String component, JSONObject metadata, String graph, boolean executable)</code></h2><p>Add a new node onto the graph</p>
+<h3 id="public-boolean-addNode-String-id-String-component-JSONObject-metadata-String-graph-boolean-executable"><a href="#public-boolean-addNode-String-id-String-component-JSONObject-metadata-String-graph-boolean-executable" class="headerlink" title="public boolean addNode(String id, String component, JSONObject metadata, String graph, boolean executable)"></a>public boolean addNode(String id, String component, JSONObject metadata, String graph, boolean executable)</h3><p>Add a new node onto the graph</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>id</code> — The id of the node</li>
@@ -430,7 +432,7 @@
 </li>
 <li><strong>Returns:</strong> True if added</li>
 </ul>
-<h2 id="public-boolean-removeNode-String-id-String-graph"><a href="#public-boolean-removeNode-String-id-String-graph" class="headerlink" title="public boolean removeNode(String id, String graph)"></a><code>public boolean removeNode(String id, String graph)</code></h2><p>Remove an existing node from the graph.</p>
+<h3 id="public-boolean-removeNode-String-id-String-graph"><a href="#public-boolean-removeNode-String-id-String-graph" class="headerlink" title="public boolean removeNode(String id, String graph)"></a>public boolean removeNode(String id, String graph)</h3><p>Remove an existing node from the graph.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>id</code> — The id of the node to remove</li>
@@ -439,7 +441,7 @@
 </li>
 <li><strong>Returns:</strong> True if removed</li>
 </ul>
-<h2 id="public-boolean-renameNode-String-from-String-to-String-graph"><a href="#public-boolean-renameNode-String-from-String-to-String-graph" class="headerlink" title="public boolean renameNode(String from, String to, String graph)"></a><code>public boolean renameNode(String from, String to, String graph)</code></h2><p>Change the id of a node</p>
+<h3 id="public-boolean-renameNode-String-from-String-to-String-graph"><a href="#public-boolean-renameNode-String-from-String-to-String-graph" class="headerlink" title="public boolean renameNode(String from, String to, String graph)"></a>public boolean renameNode(String from, String to, String graph)</h3><p>Change the id of a node</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>from</code> — : the previous id</li>
@@ -449,7 +451,7 @@
 </li>
 <li><strong>Returns:</strong> True if successfully done</li>
 </ul>
-<h2 id="public-boolean-changeNode-String-id-JSONObject-metadata-String-graph"><a href="#public-boolean-changeNode-String-id-JSONObject-metadata-String-graph" class="headerlink" title="public boolean changeNode(String id, JSONObject metadata, String graph)"></a><code>public boolean changeNode(String id, JSONObject metadata, String graph)</code></h2><p>Update the metadata of a node.</p>
+<h3 id="public-boolean-changeNode-String-id-JSONObject-metadata-String-graph"><a href="#public-boolean-changeNode-String-id-JSONObject-metadata-String-graph" class="headerlink" title="public boolean changeNode(String id, JSONObject metadata, String graph)"></a>public boolean changeNode(String id, JSONObject metadata, String graph)</h3><p>Update the metadata of a node.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>id</code> — the id of the node</li>
@@ -459,7 +461,7 @@
 </li>
 <li><strong>Returns:</strong> True if successfully done</li>
 </ul>
-<h2 id="public-boolean-addEdge-String-id-JSONObject-src-JSONObject-tgt-JSONObject-metadata-String-graph"><a href="#public-boolean-addEdge-String-id-JSONObject-src-JSONObject-tgt-JSONObject-metadata-String-graph" class="headerlink" title="public boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph)"></a><code>public boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph)</code></h2><p>Add an edge, connecting two nodes on the graph.</p>
+<h3 id="public-boolean-addEdge-String-id-JSONObject-src-JSONObject-tgt-JSONObject-metadata-String-graph"><a href="#public-boolean-addEdge-String-id-JSONObject-src-JSONObject-tgt-JSONObject-metadata-String-graph" class="headerlink" title="public boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph)"></a>public boolean addEdge (String id, JSONObject src, JSONObject tgt, JSONObject metadata, String graph)</h3><p>Add an edge, connecting two nodes on the graph.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>id</code> — the id of the new edge</li>
@@ -471,7 +473,7 @@
 </li>
 <li><strong>Returns:</strong> True if added</li>
 </ul>
-<h2 id="public-boolean-removeEdge-String-id-String-graph-JSONObject-src-JSONObject-tgt"><a href="#public-boolean-removeEdge-String-id-String-graph-JSONObject-src-JSONObject-tgt" class="headerlink" title="public boolean removeEdge(String id, String graph, JSONObject src, JSONObject tgt)"></a><code>public boolean removeEdge(String id, String graph, JSONObject src, JSONObject tgt)</code></h2><p>Remove an existing edge from the graph.</p>
+<h3 id="public-boolean-removeEdge-String-id-String-graph-JSONObject-src-JSONObject-tgt"><a href="#public-boolean-removeEdge-String-id-String-graph-JSONObject-src-JSONObject-tgt" class="headerlink" title="public boolean removeEdge(String id, String graph, JSONObject src, JSONObject tgt)"></a>public boolean removeEdge(String id, String graph, JSONObject src, JSONObject tgt)</h3><p>Remove an existing edge from the graph.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>id</code> — the id of the edge</li>
@@ -482,7 +484,7 @@
 </li>
 <li><strong>Returns:</strong> True if removed</li>
 </ul>
-<h2 id="public-boolean-changeEdge-String-id-String-graph-JSONObject-metadata-JSONObject-src-JSONObject-tgt"><a href="#public-boolean-changeEdge-String-id-String-graph-JSONObject-metadata-JSONObject-src-JSONObject-tgt" class="headerlink" title="public boolean changeEdge(String id, String graph, JSONObject metadata, JSONObject src, JSONObject tgt)"></a><code>public boolean changeEdge(String id, String graph, JSONObject metadata, JSONObject src, JSONObject tgt)</code></h2><p>Modify the src, tgt and metadata of an edge</p>
+<h3 id="public-boolean-changeEdge-String-id-String-graph-JSONObject-metadata-JSONObject-src-JSONObject-tgt"><a href="#public-boolean-changeEdge-String-id-String-graph-JSONObject-metadata-JSONObject-src-JSONObject-tgt" class="headerlink" title="public boolean changeEdge(String id, String graph, JSONObject metadata, JSONObject src, JSONObject tgt)"></a>public boolean changeEdge(String id, String graph, JSONObject metadata, JSONObject src, JSONObject tgt)</h3><p>Modify the src, tgt and metadata of an edge</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>id</code> — the unique id of the edge</li>
@@ -494,7 +496,7 @@
 </li>
 <li><strong>Returns:</strong> True if changed</li>
 </ul>
-<h2 id="public-boolean-addGroup-String-name-JSONArray-nodes-JSONObject-metadata-String-graph"><a href="#public-boolean-addGroup-String-name-JSONArray-nodes-JSONObject-metadata-String-graph" class="headerlink" title="public boolean addGroup(String name, JSONArray nodes, JSONObject metadata, String graph)"></a><code>public boolean addGroup(String name, JSONArray nodes, JSONObject metadata, String graph)</code></h2><p>Create a new group that is a kind of subgraph user can run independently.</p>
+<h3 id="public-boolean-addGroup-String-name-JSONArray-nodes-JSONObject-metadata-String-graph"><a href="#public-boolean-addGroup-String-name-JSONArray-nodes-JSONObject-metadata-String-graph" class="headerlink" title="public boolean addGroup(String name, JSONArray nodes, JSONObject metadata, String graph)"></a>public boolean addGroup(String name, JSONArray nodes, JSONObject metadata, String graph)</h3><p>Create a new group that is a kind of subgraph user can run independently.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>name</code> — the name of the new group</li>
@@ -505,7 +507,7 @@
 </li>
 <li><strong>Returns:</strong> </li>
 </ul>
-<h2 id="public-boolean-removeGroup-String-name-String-graph"><a href="#public-boolean-removeGroup-String-name-String-graph" class="headerlink" title="public boolean removeGroup(String name, String graph)"></a><code>public boolean removeGroup(String name, String graph)</code></h2><p>Remove an existing group</p>
+<h3 id="public-boolean-removeGroup-String-name-String-graph"><a href="#public-boolean-removeGroup-String-name-String-graph" class="headerlink" title="public boolean removeGroup(String name, String graph)"></a>public boolean removeGroup(String name, String graph)</h3><p>Remove an existing group</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>name</code> — name of the group to delete</li>
@@ -514,7 +516,7 @@
 </li>
 <li><strong>Returns:</strong> </li>
 </ul>
-<h2 id="public-boolean-renameGroup-String-from-String-to-String-graph"><a href="#public-boolean-renameGroup-String-from-String-to-String-graph" class="headerlink" title="public boolean renameGroup(String from, String to, String graph)"></a><code>public boolean renameGroup(String from, String to, String graph)</code></h2><p>Rename a group.</p>
+<h3 id="public-boolean-renameGroup-String-from-String-to-String-graph"><a href="#public-boolean-renameGroup-String-from-String-to-String-graph" class="headerlink" title="public boolean renameGroup(String from, String to, String graph)"></a>public boolean renameGroup(String from, String to, String graph)</h3><p>Rename a group.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>from</code> — the old name</li>
@@ -524,7 +526,7 @@
 </li>
 <li><strong>Returns:</strong> </li>
 </ul>
-<h2 id="public-boolean-changeGroup-String-name-JSONObject-metadata-String-graph"><a href="#public-boolean-changeGroup-String-name-JSONObject-metadata-String-graph" class="headerlink" title="public boolean changeGroup(String name, JSONObject metadata, String graph)"></a><code>public boolean changeGroup(String name, JSONObject metadata, String graph)</code></h2><p>Change the metadata of a group.</p>
+<h3 id="public-boolean-changeGroup-String-name-JSONObject-metadata-String-graph"><a href="#public-boolean-changeGroup-String-name-JSONObject-metadata-String-graph" class="headerlink" title="public boolean changeGroup(String name, JSONObject metadata, String graph)"></a>public boolean changeGroup(String name, JSONObject metadata, String graph)</h3><p>Change the metadata of a group.</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>name</code> — name of the group</li>
@@ -534,23 +536,23 @@
 </li>
 <li><strong>Returns:</strong> </li>
 </ul>
-<h2 id="public-ArrayList-lt-Node-gt-findFirstNodesOfFlow-ArrayList-lt-Node-gt-nodes"><a href="#public-ArrayList-lt-Node-gt-findFirstNodesOfFlow-ArrayList-lt-Node-gt-nodes" class="headerlink" title="public ArrayList&lt;Node&gt; findFirstNodesOfFlow (ArrayList&lt;Node&gt; nodes)"></a><code>public ArrayList&lt;Node&gt; findFirstNodesOfFlow (ArrayList&lt;Node&gt; nodes)</code></h2><p>Determine which nodes are the first one on the flow and give the list of them.</p>
+<h3 id="public-ArrayList-findFirstNodesOfFlow-ArrayList-nodes"><a href="#public-ArrayList-findFirstNodesOfFlow-ArrayList-nodes" class="headerlink" title="public ArrayList findFirstNodesOfFlow (ArrayList nodes)"></a>public ArrayList<node> findFirstNodesOfFlow (ArrayList<node> nodes)</node></node></h3><p>Determine which nodes are the first one on the flow and give the list of them.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>nodes</code> — The nodes composing the flow</li>
 <li><strong>Returns:</strong> The list of first nodes to execute in order to run the flow.</li>
 </ul>
-<h2 id="public-String-getComponentsLibrary"><a href="#public-String-getComponentsLibrary" class="headerlink" title="public String getComponentsLibrary()"></a><code>public String getComponentsLibrary()</code></h2><p>The components library is the library that contains all the components the user will be able to use in order to build his flow.</p>
+<h3 id="public-String-getComponentsLibrary"><a href="#public-String-getComponentsLibrary" class="headerlink" title="public String getComponentsLibrary()"></a>public String getComponentsLibrary()</h3><p>The components library is the library that contains all the components the user will be able to use in order to build his flow.</p>
 <ul>
 <li><strong>Returns:</strong> The name of the library</li>
 </ul>
-<h2 id="public-String-getId"><a href="#public-String-getId" class="headerlink" title="public String getId()"></a><code>public String getId()</code></h2><p>The unique id of the Flow</p>
+<h3 id="public-String-getId"><a href="#public-String-getId" class="headerlink" title="public String getId()"></a>public String getId()</h3><p>The unique id of the Flow</p>
 <ul>
 <li><strong>Returns:</strong> The unique id of the Flow as String</li>
 </ul>
-<h2 id="public-JSONObject-getFlowObject"><a href="#public-JSONObject-getFlowObject" class="headerlink" title="public JSONObject getFlowObject ()"></a><code>public JSONObject getFlowObject ()</code></h2><ul>
+<h3 id="public-JSONObject-getFlowObject"><a href="#public-JSONObject-getFlowObject" class="headerlink" title="public JSONObject getFlowObject ()"></a>public JSONObject getFlowObject ()</h3><ul>
 <li><strong>Returns:</strong> the flow as JSONObject</li>
 </ul>
-<h2 id="public-Edge-getEdge-JSONObject-src-JSONObject-tgt-String-graph"><a href="#public-Edge-getEdge-JSONObject-src-JSONObject-tgt-String-graph" class="headerlink" title="public Edge getEdge (JSONObject src, JSONObject tgt, String graph)"></a><code>public Edge getEdge (JSONObject src, JSONObject tgt, String graph)</code></h2><p>Get an edge from its source and target nodes</p>
+<h3 id="public-Edge-getEdge-JSONObject-src-JSONObject-tgt-String-graph"><a href="#public-Edge-getEdge-JSONObject-src-JSONObject-tgt-String-graph" class="headerlink" title="public Edge getEdge (JSONObject src, JSONObject tgt, String graph)"></a>public Edge getEdge (JSONObject src, JSONObject tgt, String graph)</h3><p>Get an edge from its source and target nodes</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>src</code> — the source node of the edge. Src format is : {node: string(id), port: string}</li>
@@ -560,20 +562,20 @@
 </li>
 <li><strong>Returns:</strong> the Edge if found, null if not</li>
 </ul>
-<h2 id="public-Edge-getEdge-String-id"><a href="#public-Edge-getEdge-String-id" class="headerlink" title="public Edge getEdge (String id)"></a><code>public Edge getEdge (String id)</code></h2><p>Get an edge from its id</p>
+<h3 id="public-Edge-getEdge-String-id"><a href="#public-Edge-getEdge-String-id" class="headerlink" title="public Edge getEdge (String id)"></a>public Edge getEdge (String id)</h3><p>Get an edge from its id</p>
 <ul>
 <li><strong>Parameters:</strong> <code>id</code> — the id of the edge</li>
 <li><strong>Returns:</strong> the Edge if found, null if not</li>
 </ul>
-<h2 id="public-ArrayList-lt-Node-gt-getNodes"><a href="#public-ArrayList-lt-Node-gt-getNodes" class="headerlink" title="public ArrayList&lt;Node&gt; getNodes()"></a><code>public ArrayList&lt;Node&gt; getNodes()</code></h2><ul>
+<h3 id="public-ArrayList-getNodes"><a href="#public-ArrayList-getNodes" class="headerlink" title="public ArrayList getNodes()"></a>public ArrayList<node> getNodes()</node></h3><ul>
 <li><strong>Returns:</strong> the list of nodes</li>
 </ul>
-<h2 id="public-ArrayList-lt-Node-gt-getNodes-Group-g"><a href="#public-ArrayList-lt-Node-gt-getNodes-Group-g" class="headerlink" title="public ArrayList&lt;Node&gt; getNodes (Group g)"></a><code>public ArrayList&lt;Node&gt; getNodes (Group g)</code></h2><p>Get the list of nodes of a given group.</p>
+<h3 id="public-ArrayList-getNodes-Group-g"><a href="#public-ArrayList-getNodes-Group-g" class="headerlink" title="public ArrayList getNodes (Group g)"></a>public ArrayList<node> getNodes (Group g)</node></h3><p>Get the list of nodes of a given group.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>g</code> — the group</li>
 <li><strong>Returns:</strong> the list of nodes that are in the given group</li>
 </ul>
-<h2 id="public-Node-getNode-String-id-String-graph"><a href="#public-Node-getNode-String-id-String-graph" class="headerlink" title="public Node getNode (String id, String graph)"></a><code>public Node getNode (String id, String graph)</code></h2><p>Get a node</p>
+<h3 id="public-Node-getNode-String-id-String-graph"><a href="#public-Node-getNode-String-id-String-graph" class="headerlink" title="public Node getNode (String id, String graph)"></a>public Node getNode (String id, String graph)</h3><p>Get a node</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>id</code> — the id of the node</li>
@@ -582,7 +584,7 @@
 </li>
 <li><strong>Returns:</strong> the Node if found, null if not</li>
 </ul>
-<h2 id="public-Group-getGroup-String-name-String-graph"><a href="#public-Group-getGroup-String-name-String-graph" class="headerlink" title="public Group getGroup (String name, String graph)"></a><code>public Group getGroup (String name, String graph)</code></h2><p>Get a group</p>
+<h3 id="public-Group-getGroup-String-name-String-graph"><a href="#public-Group-getGroup-String-name-String-graph" class="headerlink" title="public Group getGroup (String name, String graph)"></a>public Group getGroup (String name, String graph)</h3><p>Get a group</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>name</code> — the name of the group</li>
@@ -591,25 +593,25 @@
 </li>
 <li><strong>Returns:</strong> the Group if found, null if not</li>
 </ul>
-<h2 id="public-Object-getGraph-String-graph"><a href="#public-Object-getGraph-String-graph" class="headerlink" title="public Object getGraph (String graph)"></a><code>public Object getGraph (String graph)</code></h2><p>Get a graph</p>
+<h3 id="public-Object-getGraph-String-graph"><a href="#public-Object-getGraph-String-graph" class="headerlink" title="public Object getGraph (String graph)"></a>public Object getGraph (String graph)</h3><p>Get a graph</p>
 <ul>
 <li><strong>Parameters:</strong> <code>graph</code> — the id of the graph</li>
 <li><strong>Returns:</strong> the graph as an object that can be Flow or Group</li>
 </ul>
-<h2 id="public-void-setDescription-String-description"><a href="#public-void-setDescription-String-description" class="headerlink" title="public void setDescription(String description)"></a><code>public void setDescription(String description)</code></h2><p>Set the description of the flow/project.</p>
+<h3 id="public-void-setDescription-String-description"><a href="#public-void-setDescription-String-description" class="headerlink" title="public void setDescription(String description)"></a>public void setDescription(String description)</h3><p>Set the description of the flow/project.</p>
 <ul>
 <li><strong>Parameters:</strong> <code>description</code> — the new description</li>
 </ul>
-<h2 id="public-Status-getStatus"><a href="#public-Status-getStatus" class="headerlink" title="public Status getStatus()"></a><code>public Status getStatus()</code></h2><p>Get the status of the Flow</p>
+<h3 id="public-Status-getStatus"><a href="#public-Status-getStatus" class="headerlink" title="public Status getStatus()"></a>public Status getStatus()</h3><p>Get the status of the Flow</p>
 <ul>
 <li><strong>Returns:</strong> the Status instance</li>
 </ul>
-<h2 id="private-boolean-nodeExist-String-id"><a href="#private-boolean-nodeExist-String-id" class="headerlink" title="private boolean nodeExist (String id)"></a><code>private boolean nodeExist (String id)</code></h2><p>Test whether a node exists or not</p>
+<h3 id="private-boolean-nodeExist-String-id"><a href="#private-boolean-nodeExist-String-id" class="headerlink" title="private boolean nodeExist (String id)"></a>private boolean nodeExist (String id)</h3><p>Test whether a node exists or not</p>
 <ul>
 <li><strong>Parameters:</strong> <code>id</code> — the id of the node</li>
 <li><strong>Returns:</strong> True if the node exists</li>
 </ul>
-<h2 id="private-boolean-edgeExist-JSONObject-src-JSONObject-tgt"><a href="#private-boolean-edgeExist-JSONObject-src-JSONObject-tgt" class="headerlink" title="private boolean edgeExist (JSONObject src, JSONObject tgt)"></a><code>private boolean edgeExist (JSONObject src, JSONObject tgt)</code></h2><p>Test whether an edge exists or not</p>
+<h3 id="private-boolean-edgeExist-JSONObject-src-JSONObject-tgt"><a href="#private-boolean-edgeExist-JSONObject-src-JSONObject-tgt" class="headerlink" title="private boolean edgeExist (JSONObject src, JSONObject tgt)"></a>private boolean edgeExist (JSONObject src, JSONObject tgt)</h3><p>Test whether an edge exists or not</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>src</code> — the source node of the edge. Src format is : {node: string(id), port: string}</li>
@@ -618,22 +620,22 @@
 </li>
 <li><strong>Returns:</strong> True if exists</li>
 </ul>
-<h2 id="private-boolean-edgeExist-String-id"><a href="#private-boolean-edgeExist-String-id" class="headerlink" title="private boolean edgeExist(String id)"></a><code>private boolean edgeExist(String id)</code></h2><p>Test whether an edge exists or not</p>
+<h3 id="private-boolean-edgeExist-String-id"><a href="#private-boolean-edgeExist-String-id" class="headerlink" title="private boolean edgeExist(String id)"></a>private boolean edgeExist(String id)</h3><p>Test whether an edge exists or not</p>
 <ul>
 <li><strong>Parameters:</strong> <code>id</code> — the id of the edge</li>
 <li><strong>Returns:</strong> True if exists</li>
 </ul>
-<h2 id="private-boolean-graphExist-String-id"><a href="#private-boolean-graphExist-String-id" class="headerlink" title="private boolean graphExist (String id)"></a><code>private boolean graphExist (String id)</code></h2><p>Test whether a graph exists or not</p>
+<h3 id="private-boolean-graphExist-String-id"><a href="#private-boolean-graphExist-String-id" class="headerlink" title="private boolean graphExist (String id)"></a>private boolean graphExist (String id)</h3><p>Test whether a graph exists or not</p>
 <ul>
 <li><strong>Parameters:</strong> <code>id</code> — the id of the graph</li>
 <li><strong>Returns:</strong> True if exists</li>
 </ul>
-<h2 id="private-boolean-groupExist-String-name"><a href="#private-boolean-groupExist-String-name" class="headerlink" title="private boolean groupExist (String name)"></a><code>private boolean groupExist (String name)</code></h2><p>Test whether a group exists or not</p>
+<h3 id="private-boolean-groupExist-String-name"><a href="#private-boolean-groupExist-String-name" class="headerlink" title="private boolean groupExist (String name)"></a>private boolean groupExist (String name)</h3><p>Test whether a group exists or not</p>
 <ul>
 <li><strong>Parameters:</strong> <code>name</code> — the name of the group</li>
 <li><strong>Returns:</strong> True if exists</li>
 </ul>
-<h2 id="private-int-indexOfEdge-JSONObject-src-JSONObject-tgt"><a href="#private-int-indexOfEdge-JSONObject-src-JSONObject-tgt" class="headerlink" title="private int indexOfEdge (JSONObject src, JSONObject tgt)"></a><code>private int indexOfEdge (JSONObject src, JSONObject tgt)</code></h2><p>Get the index of an edge in the edges array</p>
+<h3 id="private-int-indexOfEdge-JSONObject-src-JSONObject-tgt"><a href="#private-int-indexOfEdge-JSONObject-src-JSONObject-tgt" class="headerlink" title="private int indexOfEdge (JSONObject src, JSONObject tgt)"></a>private int indexOfEdge (JSONObject src, JSONObject tgt)</h3><p>Get the index of an edge in the edges array</p>
 <ul>
 <li><strong>Parameters:</strong><ul>
 <li><code>src</code> — the source node of the edge. Src format is : {node: string(id), port: string}</li>
@@ -642,17 +644,17 @@
 </li>
 <li><strong>Returns:</strong> the index of the edge, -1 if not in edges</li>
 </ul>
-<h2 id="private-int-indexOfEdge-String-id"><a href="#private-int-indexOfEdge-String-id" class="headerlink" title="private int indexOfEdge (String id)"></a><code>private int indexOfEdge (String id)</code></h2><p>Get the index of an edge in the edges array</p>
+<h3 id="private-int-indexOfEdge-String-id"><a href="#private-int-indexOfEdge-String-id" class="headerlink" title="private int indexOfEdge (String id)"></a>private int indexOfEdge (String id)</h3><p>Get the index of an edge in the edges array</p>
 <ul>
 <li><strong>Parameters:</strong> <code>id</code> — the id of the edge</li>
 <li><strong>Returns:</strong> the index of the edge, -1 if not in edges</li>
 </ul>
-<h2 id="private-int-indexOfNode-String-id"><a href="#private-int-indexOfNode-String-id" class="headerlink" title="private int indexOfNode (String id)"></a><code>private int indexOfNode (String id)</code></h2><p>Get the index of a node in the nodes array</p>
+<h3 id="private-int-indexOfNode-String-id"><a href="#private-int-indexOfNode-String-id" class="headerlink" title="private int indexOfNode (String id)"></a>private int indexOfNode (String id)</h3><p>Get the index of a node in the nodes array</p>
 <ul>
 <li><strong>Parameters:</strong> <code>id</code> — the id of the node</li>
 <li><strong>Returns:</strong> the index of the node, -1 if not in nodes</li>
 </ul>
-<h2 id="private-int-indexOfGroup-String-name"><a href="#private-int-indexOfGroup-String-name" class="headerlink" title="private int indexOfGroup (String name)"></a><code>private int indexOfGroup (String name)</code></h2><p>Get the index of a group in the groups array</p>
+<h3 id="private-int-indexOfGroup-String-name"><a href="#private-int-indexOfGroup-String-name" class="headerlink" title="private int indexOfGroup (String name)"></a>private int indexOfGroup (String name)</h3><p>Get the index of a group in the groups array</p>
 <ul>
 <li><strong>Parameters:</strong> <code>name</code> — the name of the group</li>
 <li><strong>Returns:</strong> the index of the group, -1 if not in groups</li>
