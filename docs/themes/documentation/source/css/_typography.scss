@@ -1,4 +1,4 @@
-$highlightColor: #333333;
+$highlightColor: #34495e;
 $subColor: #444444;
 
 h1 {
@@ -11,11 +11,16 @@ h1 {
 }
 
 h2 {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: bold;
   color: $highlightColor;
   margin-bottom: 20px;
-  margin-top: 30px;
+  margin-top: 80px;
+
+  &::before {
+    content: "# ";
+    color: $primary;
+  }
 }
 
 p, ul li {

@@ -3,8 +3,15 @@ const FileSystem = fs = require('fs');
 const Path = require('path');
 const JavaDoc2MD = new JavadocToMarkdown();
 
-const PATH_TO_MD_DIRECTORY = './source/backend-api/'; // Must end with a /
+// Const for backend files
+const PATH_TO_BACKEND_MD_DIRECTORY = './source/backend-api/'; // Must end with a /
+
+// Const for frontend files
+const PATH_TO_FRONTEND_MD_DIRECTORY = './source/frontend-api/'; // Must end with a /
+
+// Const for any file
 const PATH_TO_YML_DIRECTORY = './source/_data/';
+
 /**
  * Returns a list of the files included in the given directory.
  *
@@ -25,34 +32,57 @@ function readDirR(dir) {
  * @param pathToMDDir {String} path where to store md files. Can be absolute or relative
  * @param pathToYMLDir {String} path where to store the yml file. Can be absolute or relative
  */
-function generateDoc(dir, pathToMDDir, pathToYMLDir, headingsLevel) {
-    // Use the readDirR function in order to retrieve the list of files that are in src/main/java
-    const javaSources = readDirR(dir);
+function generateDoc(type, title, parent, dir, pathToMDDir, pathToYMLDir, headingsLevel) {
+    // Use the readDirR function in order to retrieve the list of files that are in the given folder
+    const sources = filterTypeFile(type, readDirR(dir));
 
-    // Convert the javadoc to markdown and write a .md file for each code file
-    createAndStoreJavaDocToMDFiles(javaSources, pathToMDDir, headingsLevel);
+    // Convert the doc in source files to markdown and write a .md file for each code file
+    createAndStoreDocToMDFiles(type, sources, pathToMDDir, headingsLevel, title, parent);
 
     // Generate the menu file for the website's sidebar
-    generateWebsiteMenu(javaSources, dir, pathToMDDir, pathToYMLDir);
+    generateWebsiteMenu(sources, dir, pathToMDDir, pathToYMLDir);
 
     console.log('[SUCCESS] Mardown documentation successfully created !');
 }
 
 /**
+ * Returns an array containing the files with the given extension from the given files
+ */
+function filterTypeFile(extension, files) {
+    const filtered = [];
+
+    files.forEach( function(file) {
+        if (file.substring(file.length - extension.length) === extension) {
+            filtered.push(file);
+        }
+    });
+
+    return filtered;
+}
+
+/**
  * Convert JavaDoc into Markdown files and store them in the given destination directory.
- * @param javaFiles {Array} the list of java files' path
+ * @param files {Array} the list of files' path
  * @param destination {String} the destination dir
  * @param headingsLevel {number} the headings level to use as the base (1-6)
+ * @param title {string} the title of the section for the sidebar yml file
+ * @param parent {string} the parent category on doc's website
  */
-function createAndStoreJavaDocToMDFiles (javaFiles, destination, headingsLevel) {
-    javaFiles.forEach( function(file) {
+function createAndStoreDocToMDFiles (type, files, destination, headingsLevel, title, parent) {
+    files.forEach( function(file) {
         // Read the file
         var code = fs.readFileSync(file, 'utf-8');
         // Convert it to markdown
-        var doc = JavaDoc2MD.fromJavadoc(code, headingsLevel);
+        var doc;
+        if (type === 'java'){
+            doc = JavaDoc2MD.fromJavadoc(code, headingsLevel);
+        } else if (type === 'ts' || type === 'js') {
+            doc = JavaDoc2MD.fromJSDoc(code, headingsLevel);
+        }
+        
         // Write the markdown file
         var filename = file.substring(file.lastIndexOf('/') + 1, file.lastIndexOf('.')) + '.md';
-        var fileContent = generateMDFileHeader(filename) + doc;
+        var fileContent = generateMDFileHeader(filename, title, parent) + doc;
         fs.writeFile(destination + filename, fileContent, 'utf-8', function (err) {
             if(err) throw err;
         });
@@ -66,8 +96,8 @@ function createAndStoreJavaDocToMDFiles (javaFiles, destination, headingsLevel) 
  * @param filename
  * @returns {string}
  */
-function generateMDFileHeader (filename) {
-    return '---\nlayout: default\nid: ' + filename.replace(/.md/g, '') + '\ntitle: Backend API\nparent: backend-api\n---\n';
+function generateMDFileHeader (filename, title, parent) {
+    return '---\nlayout: default\nid: ' + filename.replace(/.md/g, '') + '\ntitle: ' + title + '\nparent: ' + parent + '\n---\n';
 }
 
 /**
@@ -144,4 +174,5 @@ function orderFilesPerPackages (files) {
 
 
 // Run the script
-generateDoc('../src/main/java/fr/irisa/diverse/', PATH_TO_MD_DIRECTORY, PATH_TO_YML_DIRECTORY, 1);
+generateDoc('java', 'Backend API', 'backend-api', '../src/main/java/fr/irisa/diverse/', PATH_TO_BACKEND_MD_DIRECTORY, PATH_TO_YML_DIRECTORY, 1);
+generateDoc('ts', 'Frontend API', 'frontend-api', '../src/main/webapp/src/', PATH_TO_FRONTEND_MD_DIRECTORY, PATH_TO_YML_DIRECTORY, 1);
