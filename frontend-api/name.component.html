@@ -376,7 +376,7 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Frontend API</h1>
-      <h2 id="import"><a href="#import" class="headerlink" title="import"></a>import</h2><p>Name component to change the name of a node. To use on every node’s detail view. It contains only one form field : a name input to change the name of the linked node.</p>
+      <h2 id="export-class-NameComponent"><a href="#export-class-NameComponent" class="headerlink" title="export class NameComponent"></a>export class NameComponent</h2><p>Name component to change the name of a node. To use on every node’s detail view. It contains only one form field : a name input to change the name of the linked node.</p>
 <p>When the user type a new name in the field, as soon as she hit enter or click outside the field, it post a ‘blockNameChanged’ on the eventhub. Then the components that use this data will use it to update their view. It also send a ‘graph:changenode’ message to the server to synchronize it.</p>
 <p>Created by antoine on 10/07/17.</p>
 <h3 id="onChange-value-string-void"><a href="#onChange-value-string-void" class="headerlink" title="onChange (value: string): void"></a>onChange (value: string): void</h3><p>On change method bind called when the input field triggers an onchange event. It create a timeout that wait 200ms before sending the name update.</p>

@@ -376,7 +376,11 @@
   <div class='page'>
     <div class='page-content'>
       <h1>Frontend API</h1>
-      <h2 id="public-static-createHtmlElement"><a href="#public-static-createHtmlElement" class="headerlink" title="public static createHtmlElement ()"></a>public static createHtmlElement ()</h2><p>Configure the HTML Element that JointJS must use while creating new blocks.</p>
+      <h2 id="export-class-HtmlElement"><a href="#export-class-HtmlElement" class="headerlink" title="export class HtmlElement"></a>export class HtmlElement</h2><p>The custom HTML template for the shape of the blocks on the graph.</p>
+<p>It looks like a very simple rectangle with border radius and the border is colored depending on the kind of component it is. This color is defined in ./colors.ts</p>
+<p>The class contains only a static method because it only configure a global element, without the need for extra methods.</p>
+<p>Created by antoine on 10/07/17.</p>
+<h3 id="public-static-createHtmlElement"><a href="#public-static-createHtmlElement" class="headerlink" title="public static createHtmlElement ()"></a>public static createHtmlElement ()</h3><p>Configure the HTML Element that JointJS must use while creating new blocks.</p>
 <ul>
 <li><strong>Returns:</strong> <code>any</code> — </li>
 </ul>
