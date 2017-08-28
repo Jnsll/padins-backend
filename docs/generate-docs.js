@@ -40,9 +40,9 @@ function generateDoc(type, title, parent, dir, pathToMDDir, pathToYMLDir, headin
     createAndStoreDocToMDFiles(type, sources, pathToMDDir, headingsLevel, title, parent);
 
     // Generate the menu file for the website's sidebar
-    generateWebsiteMenu(sources, dir, pathToMDDir, pathToYMLDir);
+    generateWebsiteMenu(sources, dir, pathToMDDir, pathToYMLDir, type);
 
-    console.log('[SUCCESS] Mardown documentation successfully created !');
+    console.log('[SUCCESS] Mardown documentation successfully created for .' + type + ' files !');
 }
 
 /**
@@ -61,7 +61,8 @@ function filterTypeFile(extension, files) {
 }
 
 /**
- * Convert JavaDoc into Markdown files and store them in the given destination directory.
+ * Convert JavaDoc or JsDoc or PhpDoc into Markdown files and store them in the given destination directory.
+ * @param type {String} the source files' type
  * @param files {Array} the list of files' path
  * @param destination {String} the destination dir
  * @param headingsLevel {number} the headings level to use as the base (1-6)
@@ -93,7 +94,9 @@ function createAndStoreDocToMDFiles (type, files, destination, headingsLevel, ti
  * Generate the markdown file header with a few variables that are used by the website to choose the proper template
  * and sidebar.
  *
- * @param filename
+ * @param filename {string} the name of the file that will be generated
+ * @param title {string} the title of the article
+ * @param parent {string} the section where the doc will go
  * @returns {string}
  */
 function generateMDFileHeader (filename, title, parent) {
@@ -103,12 +106,13 @@ function generateMDFileHeader (filename, title, parent) {
 /**
  * Generate the yml file read to generate the sidebar links on the doc website, and store it.
  *
- * @param javaFiles {Array} the list of java files' path
+ * @param srcFiles {Array} the list of source files' path
  * @param srcDir {String} the path to the java sources. Can be absolute or relative
  * @param pathToMDDir {String} path where to store md files. Can be absolute or relative
  * @param pathToYMLDir {String} path where to store the yml file. Can be absolute or relative
+ * @param type {String} the src file's type
  */
-function generateWebsiteMenu (javaFiles, srcDir, pathToMDDir, pathToYMLDir) {
+function generateWebsiteMenu (srcFiles, srcDir, pathToMDDir, pathToYMLDir, type) {
     const menu = {
         name: pathToMDDir.substring(pathToMDDir.substring(0, pathToMDDir.length - 1).lastIndexOf('/') +1, pathToMDDir.length - 1) + '.yml',
         content: ''
@@ -116,7 +120,7 @@ function generateWebsiteMenu (javaFiles, srcDir, pathToMDDir, pathToYMLDir) {
 
     const files = [];
     // Remove the srcDirfrom the name of the file
-    javaFiles.forEach(function(file) {
+    srcFiles.forEach(function(file) {
         files.push(file.replace(srcDir, ''));
     });
 
@@ -139,7 +143,7 @@ function generateWebsiteMenu (javaFiles, srcDir, pathToMDDir, pathToYMLDir) {
         menu.content += '  items: \n';
         pack.files.forEach(function(file) {
             // Add the id formatted in snake_case
-            menu.content += '  - id: ' + file.replace(/.java/g, '') + '\n';
+            menu.content += '  - id: ' + file.replace('.' + type, '') + '\n';
             menu.content += '    title: ' + file + '\n';
         });
     }
@@ -174,5 +178,5 @@ function orderFilesPerPackages (files) {
 
 
 // Run the script
-generateDoc('java', 'Backend API', 'backend-api', '../src/main/java/fr/irisa/diverse/', PATH_TO_BACKEND_MD_DIRECTORY, PATH_TO_YML_DIRECTORY, 1);
-generateDoc('ts', 'Frontend API', 'frontend-api', '../src/main/webapp/src/', PATH_TO_FRONTEND_MD_DIRECTORY, PATH_TO_YML_DIRECTORY, 1);
+generateDoc('java', 'Backend API', 'backend-api', '../src/main/java/fr/irisa/diverse/', PATH_TO_BACKEND_MD_DIRECTORY, PATH_TO_YML_DIRECTORY, 2);
+generateDoc('ts', 'Frontend API', 'frontend-api', '../src/main/webapp/src/', PATH_TO_FRONTEND_MD_DIRECTORY, PATH_TO_YML_DIRECTORY, 2);

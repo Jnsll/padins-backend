@@ -32,9 +32,11 @@ module.exports = JavadocToMarkdown = function () {
         // initialize a string buffer
         out = [];
 
-        out.push("#".repeat(headingsLevel)+" Documentation");
+        if (sections.length > 0) {
+            out.push(fromSection(sections[0], headingsLevel - 1, fnAddTagsMarkdown));
+        }
 
-        for (i = 0; i < sections.length; i++) {
+        for (i = 1; i < sections.length; i++) {
             out.push(fromSection(sections[i], headingsLevel, fnAddTagsMarkdown));
         }
 
@@ -245,7 +247,7 @@ module.exports = JavadocToMarkdown = function () {
         }
 
         out.push("\n\n");
-        out.push("#".repeat(headingsLevel+1)+" `"+field+"`");
+        out.push("#".repeat(headingsLevel+1)+" "+field);
 
         // split the doc comment into main description and tag section
         var docCommentParts = section.doc.split(/^(?:\t| )*?\*(?:\t| )*?(?=@)/m);
