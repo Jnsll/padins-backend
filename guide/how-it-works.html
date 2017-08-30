@@ -30,7 +30,7 @@
           <ul class='nav'>
             
               <li>
-                <a href='presentation.html' 
+                <a href='index.html' 
                  >
                   What is it ?
                 </a>
@@ -117,7 +117,47 @@
   <div class='page'>
     <div class='page-content'>
       <h1>How it works ?</h1>
-      <p>It works pretty easily ! You’ll know more about it later.</p>
+      <blockquote>
+<p><strong>Warning</strong> : this section <strong>targets developers</strong>. If you want to know how to install and use Padins, please go to the <a href="/padins-backend/guide/installation.html">gettting started</a> section.</p>
+</blockquote>
+<h2><a href="#technologies-used" id="technologies-used">Technologies used</a></h2>
+
+<p>Padins is built with the following technologies. Knowing that will help you understand the following explanations. If you don’t know them, please refer to their websites in order to discover how they are built and work when they are mentionned. </p>
+<ul>
+<li>Frontend : <a href="https://angular.io" target="_blank" rel="external">Angular 4</a></li>
+<li>Backend : <a href="http://www.eclipse.org/jetty/" target="_blank" rel="external">Eclipse Jetty</a> Webserver</li>
+<li>Backend’s API : Embedded Jetty Technologies with <a href="https://tomcat.apache.org/tomcat-5.5-doc/servletapi/javax/servlet/http/HttpServlet.html" target="_blank" rel="external">Javax Http Servlets</a></li>
+<li>Websocket, server-side : <a href="http://www.eclipse.org/jetty/documentation/9.4.x/jetty-websocket-server-api.html" target="_blank" rel="external">Jetty Websockets</a></li>
+<li>Websocket, client-side : <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API" target="_blank" rel="external">Javascript’s Websocket</a></li>
+<li>Python Execution Environment : <a href="http://jupyter.readthedocs.io/en/latest/projects/kernels.html" target="_blank" rel="external">Jupyter Kernel</a></li>
+<li><a href="https://docker.com" target="_blank" rel="external">Docker</a></li>
+</ul>
+<h2><a href="#selecting-a-project" id="selecting-a-project">Selecting a project</a></h2>
+
+<p>In Padins, users can create several projects. Each project has its own workspace, containing the workflow’s information and all the files the user uploaded. Exactly as in a popular Integrated Development Environment (IDE) such as IntelliJ or Eclipse. All the data are stored on the server. When a user connects to the app, the app request the server for the list of available worspaces and display them.</p>
+<p>Then, when the user selects a Workspace, the app redirect to the Workspace view. Here, the app connects a websocket to the server in order to access the workspace’s data and communicate about workflow’s changes in real-time. Several users can be connected on the same workspace at the same moment. </p>
+<p>A word about the websocket connexion itself. Padins uses a unique endpoint that is <code>ws://{server-ip-address}:8080/ws</code>. The subprotocol field is used to connect to the right workspace, with the workspace’s unique id. The webserver only verifies that the workspace exists. If so, it accepts the connexion request. </p>
+<blockquote>
+<p>For the moment, the user authentication is not implemented at all. So, anyone can access to all the workspaces.</p>
+</blockquote>
+<p><em>The user can also create a new project.</em></p>
+<h2><a href="#how-workflows-are-designed" id="how-workflows-are-designed">How workflows are designed ?</a></h2>
+
+<p>The core of Padins is the workflow itself. Each workspace has only one workflow that is represented as a <code>flow.json</code> file at the root of the workspace’s folder <em>(moving it into an hidden folder might be a good idea)</em>. To design the workflow, the user can use some predefined components that are downloaded when opening the workspace. </p>
+<p>Those components are organised in libraries. You can find these libraries in <code>padins-backend/src/main/resources/default_storage_directory_content.zip/WebUIComponents/</code>. The library used by default is <code>hydro-geology.json</code>. You can see an example of a components library file <a href="/padins-backend/examples/component-library-file.html">here</a>.</p>
+<p>After the user clicks a component in the list of available components (on the left on the below screenshot), a new node is created from the component and added into the workflow. Then, when the user double-clicks on a node, its detailed-view appears. Still on the below screenshot, the window you can see with the code editor belongs to the ‘processing’ node, and the window with the chart belongs to the ‘visualization’ node. </p>
+<p>A user can add as many nodes in the workflow as she wants to. Then, she can links components together. A component can have as many dependencies as the user wants, and be the dependence of as many components as the user wants. The only condition is that the graph must stay directed and acyclic, which means that it can’t contain any loop. </p>
+<p><img src="../images/padins-ui.png" alt=""></p>
+<p>Components are customizable in their own way. Let’s take a look at all the components already implemented : <em>Raw Data</em>, <em>Processing</em>, <em>Simulation</em>, <em>Visualization</em>. </p>
+<h4 id="Raw-Data"><a href="#Raw-Data" class="headerlink" title="Raw Data"></a>Raw Data</h4><p>It allows a user to import data from as many JSON files as she wants and rename the data she needs to. This component has only an outport, its not possible to input data in it in another way than uploading files. All the imported data will be automatically available to all the nodes connected to it. </p>
+<h4 id="Processing-and-Simulation"><a href="#Processing-and-Simulation" class="headerlink" title="Processing and Simulation"></a>Processing and Simulation</h4><p>For the moment those nodes behave exactly in the same way. The original idea is that the processing component is made to add pre-processing and post-processing of the simulation’s data when needed. Theses processings are assumed pretty short to compute, so they are supposed to be runned as soon as they are modified, in order to run the simulation faster. </p>
+<p>This components offers a Python code editor. The user has nothing to change in her developments habits, the code is stricly the same as in any other Python IDE. The only difference is that in order to send data to the next nodes, all the data to transfer must be passed as parameters of a function name <code>sendTheseDataToTheNextNodes()</code> at the end of the file. </p>
+<h4 id="Visualization"><a href="#Visualization" class="headerlink" title="Visualization"></a>Visualization</h4><p>This component makes available all its input data for displaying on a chart. It also has the ability to display a matrice as a video, very useful to see the temporal behavior of a physical system. </p>
+<h4 id="Combining-components"><a href="#Combining-components" class="headerlink" title="Combining components"></a>Combining components</h4><p>Combining these basic components, it is possible to build Python program very easily and quickly with the benefits coming from combining a textual programming language and a graphical programming language. </p>
+<h4 id="How-to-develop-new-components"><a href="#How-to-develop-new-components" class="headerlink" title="How to develop new components ?"></a>How to develop new components ?</h4><p><strong>TODO in another section</strong></p>
+<h2><a href="#how-workflows-are-executed" id="how-workflows-are-executed">How workflows are executed ?</a></h2> 
+
+<p>Here we dive into the most interesting part of what Padins does. </p>
 
     </div>
   </div>
