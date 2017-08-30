@@ -1,5 +1,6 @@
 $highlightColor: #34495e;
 $subColor: #444444;
+$light-grey: #CBCBCB;
 
 h1 {
   border-bottom: 1px solid $bordersColor;
@@ -16,6 +17,27 @@ h2 {
   color: $highlightColor;
   margin-bottom: 20px;
   margin-top: 30px;
+
+  a {
+    color: $highlightColor;
+
+    &::before {
+      content: "# ";
+      color: $light-grey;
+    }
+
+    &:hover {
+      color: $highlightColor;
+
+      &::before {
+        color: $primary;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 h3 {
@@ -32,13 +54,18 @@ h3 {
 }
 
 p, ul li {
-  color: $subColor;
+  color: $highlightColor;
   font-size: 15px;
-  line-height: 23px;
+  line-height: 1.8;
+}
+
+p {
+  margin-bottom: 2em;
 }
 
 a {
   color: $primary;
+  text-decoration: none;
 
   &:hover {
     color: darken($primary, 10%);

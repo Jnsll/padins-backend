@@ -6,6 +6,12 @@ python-core-comm-test.iml
 src/main/webapp/
 src/main/java/fr/irisa/diverse/Demos
 .DS_Store
-docs/public/
-docs/node_modules/
-docs/.deploy_git/
+
+!docs
+docs/.deploy_git
+docs/node_modules
+docs/public
+docs/source/backend-api/*
+!docs/source/backend-api/index.md
+docs/source/frontend-api/*
+!docs/source/frontend-api/index.md

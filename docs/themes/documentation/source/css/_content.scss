@@ -4,14 +4,24 @@
 }
 
 .page-content {
-  padding: 20px 40px 80px 40px;
+  padding: 20px 110px 80px 110px;
   margin: 0 auto;
-  width: 885px;
   max-width: 100%;
 }
 
 img {
   max-width: 100%;
+}
+
+blockquote {
+  background-color: #fafbfc;
+  margin: 0;
+  padding: 20px 20px 20px 40px;
+  border-left: solid 4px $primary;
+
+  p {
+    margin: 0;
+  }
 }
 
 .switch-page {
